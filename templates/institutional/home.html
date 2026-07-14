@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.metadata.title }}{% endblock %}
+
+{% block meta_description %}{{ page.metadata.description }}{% endblock %}
+
+{% block canonical %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ page.metadata.canonical_path }}">
+{% endblock %}
+
+{% block content %}
+<section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+        <p class="eyebrow">Engenharia e tecnologia</p>
+
+        <h1 id="hero-title">{{ page.heading }}</h1>
+
+        <p>{{ page.introduction }}</p>
+
+        <a class="button" href="#solucoes">
+            Conheça nossas soluções
+        </a>
+    </div>
+</section>
+
+<section id="solucoes" class="solutions" aria-labelledby="solutions-title">
+    <div class="container">
+        <h2 id="solutions-title">Soluções Smart Control Brasil</h2>
+
+        <div class="solution-grid">
+            <article>
+                <h3>Automação industrial</h3>
+                <p>Integração, modernização e controle de processos industriais.</p>
+            </article>
+
+            <article>
+                <h3>Robótica de serviços</h3>
+                <p>Robôs para limpeza, atendimento, segurança e apoio operacional.</p>
+            </article>
+
+            <article>
+                <h3>Sistemas inteligentes</h3>
+                <p>Plataformas web desenvolvidas para necessidades reais de negócio.</p>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}
