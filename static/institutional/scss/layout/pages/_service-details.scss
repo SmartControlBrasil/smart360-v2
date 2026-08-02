@@ -1,0 +1,158 @@
+@use "../../utils" as *;
+
+//Service Details
+.service-details{
+    &__wrapper{
+        .blog__details-bottom{
+            padding-top: 0;
+            margin-top: 53px;
+            .blog__details-bottom-tags_wapper{
+                display: block;
+                span{
+                    font-family: var(--rr-ff-heading);
+                    font-weight: var(--rr-fw-bold);
+                    color: var(--rr-heading-primary);
+                    font-style: normal;
+                    font-size: 22px;
+                    line-height: 28px;
+                    letter-spacing: -0.03em;
+                    text-transform: capitalize;
+                    margin-bottom: 22px;
+                }
+                .blog__details-bottom-tags{
+                    margin-top: 15px;
+                    a{
+                        background: transparent;
+                        font-family: var(--rr-ff-body);
+                        font-weight: var(--rr-fw-medium);
+                        font-style: normal;
+                        font-size: 14px;
+                        line-height: 22px;
+                        color: rgb(5 5 19 / 70%);
+                        border: 1px solid rgba(4, 6, 24, 0.1);
+                        transition: all 0.3s ease-in-out;
+                        border-radius: 0;
+                        &:hover{
+                            background: var(--rr-theme-primary);
+                            color: var(--rr-heading-primary);
+                            border: 1px solid var(--rr-theme-primary);
+                        }
+                        
+                    }
+                }
+            }
+            .share-social-media_wrapper{
+                display: block;
+                span{
+                    font-family: var(--rr-ff-heading);
+                    font-weight: var(--rr-fw-bold);
+                    color: var(--rr-heading-primary);
+                    font-style: normal;
+                    font-size: 22px;
+                    line-height: 28px;
+                    letter-spacing: -0.03em;
+                    text-transform: capitalize;
+                }
+                .share-social-media{
+                    margin-top: 6px;
+                }
+            }
+        }
+    }
+    &__thumb{
+        position: relative;
+        &-video{
+            background: var(--rr-theme-primary);
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate(-50%, -50%);
+            @media #{$xs} {
+                width: 80px;
+                height: 80px;
+            }
+            i{
+                color: var(--rr-heading-primary);
+                font-size: 22px;
+            }
+        }
+        &::before{
+            background: var(--rr-common-white);
+            position: absolute;
+            width: 210px;
+            height: 56px;
+            content: "";
+            top: -1px;
+            right: -1px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%);
+            @media #{$xs} {
+                width: 120px;
+                height: 35px;
+            }
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__content{
+        margin-top: 18px;
+        margin-bottom: 51px;
+    }
+    &__title{
+        font-family: var(--rr-ff-heading);
+        color: var(--rr-heading-primary);
+        font-weight: var(--rr-fw-bold);
+        font-size: var(--rr-fs-h2);
+        line-height: var(--rr-lh-h2);
+        letter-spacing: -0.04em;
+        text-transform: inherit;
+        font-style: normal;
+        margin-bottom: 19px;
+        @media #{$xs} {
+            font-size: 29px;
+            line-height: 40px;
+        }
+    }
+    &__dec{
+        font-family: var(--rr-ff-body);
+        font-weight: var(--rr-fw-medium);
+        font-size: 15px;
+        line-height: 26px;
+        color: rgb(4 6 24 / 60%);
+        font-style: normal;
+        @media #{$lg, $md, $sm, $xs} {
+            br{
+                display: none;
+            }
+        }
+    }
+    &__media{
+        &-thumb{
+            position: relative;
+            &::before{
+                background: var(--rr-common-white);
+                position: absolute;
+                width: 210px;
+                height: 56px;
+                content: "";
+                top: -1px;
+                right: -1px;
+                z-index: 1;
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%);
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

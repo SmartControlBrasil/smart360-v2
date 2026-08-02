@@ -1,0 +1,28 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.3 header-10
+/*----------------------------------------*/
+.header-10{
+    background: var(--rr-common-white);
+    position: relative !important;
+    &__btn{
+        .rr-btn{
+            background: var(--rr-theme-primary10);
+            border-radius: 6px;
+            font-size: 15px;
+            padding: 16px 31px;
+        }
+    }
+    &__action{
+        .header__hamburger{
+            .sidebar__toggle{
+                .bar-icon{
+                    span{
+                        background: var(--rr-theme-primary10);
+                    }
+                }
+            }
+        }
+    }
+}

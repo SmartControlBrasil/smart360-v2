@@ -1,0 +1,79 @@
+{% load static %}
+<footer class="footer-before">
+    <section class="footer__area footer-1 pt-90 heading-bg overflow-hidden position-relative z-1">
+        <div class="container">
+            <div class="row mb-minus-30 footer__wrap align-items-center">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <div class="footer__item">
+                            <div class="footer__item-icon"><img src="{% static 'institutional/imgs/logo/favicon.png' %}" alt="Smart Control Brasil"></div>
+                            <div class="footer__item-text">
+                                <span>Smart Control Brasil</span>
+                                <h5 class="title"><a href="https://smartcontrolbrasil.com.br">smartcontrolbrasil.com.br</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-6">
+                    <div class="footer__widget footer__left-item-1">
+                        <div class="footer__item">
+                            <div class="footer__item-icon"><img src="{% static 'institutional/imgs/icon/footer-icon-1.png' %}" alt="Contato"></div>
+                            <div class="footer__item-text">
+                                <span>Telefone:</span>
+                                <h5 class="title"><a href="tel:+551151968525">(11) 5196-8525</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__widget footer__left-item-2">
+                        <div class="footer__social">
+                            <a href="{% url 'institutional:home' %}" aria-label="Início"><i class="fa-regular fa-house"></i></a>
+                            <a href="{% url 'institutional:contact' %}" aria-label="Contato"><i class="fa-regular fa-envelope"></i></a>
+                            <a href="https://smartcontrolbrasil.com.br" aria-label="Site"><i class="fa-regular fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__seken-wrapper">
+                <div class="footer__seken-wrapper-seken">
+                    <h4 class="footer-big-text end">SMART</h4>
+                </div>
+                <div class="footer__seken-wrapper-media">
+                    <img src="{% static 'institutional/imgs/shapes/footer-shape-1.png' %}" alt="Elemento visual">
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom-wrapper">
+            <div class="container">
+                <div class="footer__bottom">
+                    <div class="footer__copyright">
+                        <p>© {% now "Y" %} Smart Control Brasil. Todos os direitos reservados.</p>
+                    </div>
+                    {% comment %} <div class="footer__copyright-menu">
+                        <span>Institucional</span>
+                        <ul>
+                            <li><a href="{% url 'institutional:home' %}">Início</a></li>
+                            <li><a href="{% url 'institutional:about' %}">A Empresa</a></li>
+                            <li><a href="{% url 'institutional:projects' %}">Projetos</a></li>
+                            <li><a href="{% url 'institutional:blog' %}">Blog</a></li>
+                            <li><a href="{% url 'institutional:contact' %}">Contato</a></li>
+                        </ul>
+                        <span>Soluções</span>
+                        <ul>
+                            <li><a href="{% url 'institutional:services' %}">Robótica</a></li>
+                            <li><a href="{% url 'institutional:services' %}">Automação Industrial</a></li>
+                            <li><a href="{% url 'institutional:service_details' %}">Engenharia Embarcada</a></li>
+                            <li><a href="{% url 'institutional:service_details' %}">Manutenção Técnica</a></li>
+                            <li><a href="{% url 'institutional:services' %}">Sistemas Web</a></li>
+                        </ul>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+
+</footer>
+
+

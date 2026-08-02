@@ -1,0 +1,191 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1 banner Style 1
+/*----------------------------------------*/
+.banner3{
+	&__area{
+		padding-top: 275px;
+		padding-bottom: 235px;
+		@media #{$lg} {
+			padding-top: 250px;
+			padding-bottom: 120px;
+		}
+		@media #{$md} {
+			padding-top: 180px;
+			padding-bottom: 100px;
+		}
+		@media #{$sm, $xs} {
+			padding-top: 160px;
+			padding-bottom: 80px;
+		}
+	}
+	&__shapes{
+		&-shape-1{
+			position: absolute;
+			width: 916px;
+			height: 696px;
+			left: -366px;
+			top: 0px;
+			background: #09565B;
+			filter: blur(315px);
+			border-radius: 50%;
+			z-index: -1;
+		}
+		&-shape-2{
+			position: absolute;
+			width: 916px;
+			height: 696px;
+			left: -307px;
+			bottom: -222px;
+			background: #09345B; 
+			filter: blur(315px);
+			z-index: 1;
+			border-radius: 50%;
+		}
+		&-shape-3{
+			position: absolute;
+			width: 916px;
+			height: 696px;
+			right: 136px;
+			top: 95px;
+			background: #1398A0;
+			filter: blur(315px);
+			// z-index: -1;
+			border-radius: 50%;
+		}
+		&-shape-4{
+			position: absolute;
+			width: 608px;
+			height: 462px;
+			right: 102px;
+			top: 249px;
+			background: #0E4B73;
+			filter: blur(315px);
+			z-index: -1;
+			border-radius: 50%;
+		}
+		&-shape-5{
+			position: absolute;
+			width: 608px;
+			height: 462px;
+			right: -231px;
+			top: -74px;
+			background: #C325DD;
+			filter: blur(315px);
+			// z-index: -1;
+			border-radius: 50%;
+		}
+		&-shape-7{
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -4;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		&-shape-8{
+			position: absolute;
+			left: 108px;
+			top: 157px;
+			// z-index: -1;
+		}
+		&-shape-9{
+			position: absolute;
+			top: 40px;
+			left: 0;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+	}
+	&__from-wrapper-box{
+		position: relative;
+		margin-top: 64px;
+		.rr-subscribe-form{
+			max-width: 620px;
+			width: 100%;
+			@media #{$sm, $xs} {
+				max-width: 100%;
+			}
+			.form-control{
+				background: rgba(255, 255, 255, 0.06);
+				color: rgb(255 255 255 / 70%);
+				border: 1px solid rgba(255, 255, 255, 0.24);
+				backdrop-filter: blur(7px);
+				padding: 10px 150px 8px 20px;
+				outline: none;
+				box-shadow: none;
+				border-radius: 0;
+				height: 60px;
+				@include rs-placeholder{
+					color: rgb(255 255 255 / 70%);
+				}
+			}
+		}
+		.rr-btn{
+			padding: 11px 16px;
+			font-size: 14px;
+			gap: 7px;
+			position: absolute;
+			top: 10px;
+			right: 96px;
+			@media #{$sm, $xs} {
+				right: 10px;
+			}
+			i{
+				font-size: 12px;
+			}
+		}
+	}
+	&__content{
+		position: relative;
+		max-width: 705px;
+		z-index: 3;
+		.banner-heading__wrapper{
+			.subtitle{
+				background: rgba(255, 255, 255, 0.06);
+				border: 1px solid rgba(255, 255, 255, 0.24);
+				backdrop-filter: blur(7px);
+				font-family: var(--rr-ff-body);
+				font-weight: var(--rr-fw-medium);
+				color: var(--rr-common-white);
+				font-style: normal;
+				font-size: 14px;
+				line-height: 17px;
+				text-transform: uppercase;
+				display: inline;
+				padding: 5px 21px;
+			}
+			.banner-heading__wrapper-title{
+				margin-bottom: 20px;
+				margin-top: 22px;
+				@media #{$xl} {
+					font-size: 60px;
+					line-height: 70px;
+				}
+				@media #{$lg} {
+					font-size: 53px;
+					line-height: 63px;
+				}
+			}
+		}
+	}
+	&__thumb{
+		margin-right: -74px;
+		position: relative;
+		z-index: 3;
+		@media #{$xl, $lg, $md, $sm, $xs} {
+			margin-right: 0;
+		}
+		@media #{$md, $sm, $xs} {
+			margin: 40px auto 0 auto;
+			max-width: 600px;
+		}
+	}
+}

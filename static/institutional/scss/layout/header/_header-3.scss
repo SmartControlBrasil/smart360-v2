@@ -1,0 +1,106 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.3 header-3
+/*----------------------------------------*/
+.rs-sticky{
+    .header-3__top-bar{
+        display: none;
+    }
+}
+.header-3{
+    border-bottom: none;
+    padding: 0;
+    &__top-bar{
+        background: var(--rr-background-body-2-bg);
+        padding: 9px 0;
+        @media #{$md, $sm, $xs} {
+			display: none;
+		}
+    }
+    &__main{
+        @media #{$lg, $md, $sm, $xs} {
+			margin-top: 20px;
+		}
+    }
+    &__top-inner{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        row-gap: 15px;
+        column-gap: 10px;
+        .discount{
+            font-family:var(--rr-ff-body);
+            font-weight: var(--rr-fw-medium);
+            color: var(--rr-common-white);
+            font-style: normal;
+            font-size: 14px;
+            line-height: 10px;
+            span{
+                text-transform: capitalize;
+                color: var(--rr-theme-primary);
+            }
+            a{
+                font-weight: var(--rr-fw-sbold);
+                text-decoration: underline;
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    color: var(--rr-theme-primary);
+                }
+            }
+        }
+        &-social{
+            ul{
+                display: flex;
+                align-items: center;
+                gap: 21px;
+                
+                li{
+                    list-style: none;
+                    position: relative;
+                    // border-right: 1px solid rgb(255 255 255 / 20%);
+                    // padding-right: 10px;
+                    
+                    &::before{
+                        background: rgba(255, 255, 255, 0.2);
+                        position: absolute;
+                        width: 1px;
+                        height: 16px;
+                        top: 24%;
+                        left: 207%;
+                        content: ""; 
+                    }
+                    a{
+                        color: var(--rr-common-white);
+                        transition: all 0.3s ease-in-out;
+                        font-size: 12px;
+                        &:hover{
+                            color: var(--rr-theme-primary);
+                        }
+                    }
+                }
+                .last{
+                    &::before{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    // &__middle{
+
+    // }
+    // &__right{
+
+    // }
+    &__btn{
+        .rr-btn{
+            background-color: var(--rr-theme-primary);
+            color: var(--rr-heading-primary);
+            &:hover{
+                color: var(--rr-common-white);
+            }
+        }
+    }
+}

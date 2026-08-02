@@ -1,0 +1,229 @@
+@use "../utils" as *;
+
+/*----------------------------------------*/
+/*  2.6 sectiontitle
+/*----------------------------------------*/
+// Section subtitle 1
+
+.section{
+    &__title-wrapper{
+        z-index: 1;
+        &-title{
+            font-family: var(--rr-ff-heading);
+            color: var(--rr-heading-primary);
+            font-weight: var(--rr-fw-bold);
+            font-style: normal;
+            font-size: var(--rr-fs-h2);
+            line-height: var(--rr-lh-h2);
+            letter-spacing: -0.04em;
+            margin-bottom: 0;
+
+            @media #{$md} {
+                font-size: 40px;
+                line-height: 50px;
+            }
+            @media #{$sm} {
+                font-size: 35px;
+                line-height: 45px;
+            }
+            @media #{$xs} {
+                font-size: 28px;
+                line-height: 38px;
+            }
+            @media #{$lg, $md, $sm, $xs} {
+                br {
+                    display: none;
+                }
+            }
+            &-2{
+                font-family: var(--rr-ff-heading);
+                color: var(--rr-common-white);
+                font-weight: var(--rr-fw-bold);
+                font-style: normal;
+                font-size: var(--rr-fs-h2);
+                line-height: var(--rr-lh-h2);
+                letter-spacing: -0.04em;
+                margin-bottom: 0;
+    
+                @media #{$lg, $md} {
+                    font-size: 40px;
+                    line-height: 50px;
+                    br {
+                        display: none;
+                    }
+                }
+                @media #{$sm} {
+                    font-size: 35px;
+                    line-height: 45px;
+                    br {
+                        display: none;
+                    }
+                }
+                @media #{$xs} {
+                    font-size: 28px;
+                    line-height: 38px;
+                    br {
+                        display: none;
+                    }
+                }
+            }
+        }
+        &-dec{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-medium);
+            font-style: normal;
+            font-size: var(--rr-fs-h6);
+            line-height: 25px;
+            color: rgb(5 5 19 / 60%);
+            @media #{$xl, $lg, $md, $sm, $xs} {
+                br{
+                    display: none;
+                }
+            }
+            &-2{
+                font-family: var(--rr-ff-body);
+                font-weight: var(--rr-fw-regular);
+                font-style: normal;
+                font-size: var(--rr-fs-h6);
+                line-height: 22px;
+                color: rgb(255 255 255 / 70%);
+                @media #{$xl, $lg, $md, $sm, $xs} {
+                    br{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+.banner-heading{
+    &__wrapper{
+        &-title{
+            font-family: var(--rr-ff-heading);
+            font-weight: var(--rr-fw-bold);
+            color: var(--rr-common-white);
+            font-size: var(--rr-fs-h1);
+            line-height: var(--rr-lh-h1);
+            font-style: normal;
+            letter-spacing: -0.03em;
+            text-transform: inherit;
+            margin-bottom: 40px;
+            @media #{$lg} {
+                font-size: 60px;
+                line-height: 70px;
+            }
+            @media #{$md} {
+                font-size: 60px;
+                line-height: 70px;
+                br{
+                    display: none;
+                }
+            }
+            @media #{$sm} {
+                font-size: 47px;
+                line-height: 58px;
+                margin-bottom: 20px;
+                br{
+                    display: none;
+                }
+            }
+            @media #{$xs} {
+                font-size: 37px;
+                line-height: 48px;
+                margin-bottom: 20px;
+                br{
+                    display: none;
+                }
+            }
+            &-2{
+                font-family: var(--rr-ff-heading);
+                font-weight: var(--rr-fw-bold);
+                color: var(--rr-common-white);
+                font-size: var(--rr-fs-h1);
+                line-height: var(--rr-lh-h1);
+                font-style: normal;
+                letter-spacing: -0.03em;
+                text-transform: inherit;
+                margin-bottom: 20px;
+                @media #{$lg} {
+                    font-size: 60px;
+                    line-height: 70px;
+                }
+                @media #{$md} {
+                    font-size: 60px;
+                    line-height: 70px;
+                    br{
+                        display: none;
+                    }
+                }
+                @media #{$sm} {
+                    font-size: 47px;
+                    line-height: 58px;
+                    margin-bottom: 20px;
+                    br{
+                        display: none;
+                    }
+                }
+                @media #{$lg, $md, $sm, $xs} {
+                    font-size: 37px;
+                    line-height: 48px;
+                    margin-bottom: 20px;
+                    br{
+                        display: none;
+                    }
+                }
+            }
+        }
+        &-dec{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-regular);
+            font-size: var(--rr-fs-body);
+            line-height: var(--rr-lh-body);
+            font-style: normal;
+            color: rgb(255 255 255 / 70%);
+            @media #{$xl, $lg, $md, $sm, $xs} {
+                br{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+.space-between{
+    &__wrapper{
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        column-gap: 15px;
+        row-gap: 15px;
+        &-title{
+            font-family: var(--rr-ff-heading);
+            color: var(--rr-heading-primary);
+            font-weight: var(--rr-fw-bold);
+            font-style: normal;
+            font-size: var(--rr-fs-h2);
+            line-height: var(--rr-lh-h2);
+            letter-spacing: -0.04em;
+            margin-bottom: 0;
+
+            @media #{$md} {
+                font-size: 40px;
+                line-height: 50px;
+            }
+            @media #{$sm} {
+                font-size: 35px;
+                line-height: 45px;
+            }
+            @media #{$xs} {
+                font-size: 28px;
+                line-height: 38px;
+            }
+            @media #{$lg, $md, $sm, $xs} {
+                br {
+                    display: none;
+                }
+            }
+        }
+    }
+}

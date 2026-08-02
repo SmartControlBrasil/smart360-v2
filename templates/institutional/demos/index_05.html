@@ -1,0 +1,741 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Banner area start -->
+            <section class="banner-5__area heading-bg p-relative overflow-hidden z-1">
+                <div class="banner-5__shapes">
+                    <div class="banner-5__shapes-shape-1" data-background="{% static 'institutional/imgs/bg-img/hero-5-bg-img.png' %}"></div>
+                    <div class="banner-5__shapes-shape-2"></div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <div class="banner-5__title-wrapper text-center hero">
+                                <h1 class="banner-5__title _split_text">Manutenção Industrial de Campo</h1>
+                                <p class="banner-5__dec rr_title_anim">Manutenção preventiva, corretiva e comissionamento em equipamentos, refrigeração, painéis elétricos e automação industrial.</p>
+                                <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar visita técnica <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner-5__media-wrapper">
+                        <div class="banner-5__thumb banner-5__thumb-1 return">
+                            <img src="{% static 'institutional/imgs/images/painel-eletrico-camara-camara-climatica-walkin.webp' %}" alt="img not found">
+                        </div>
+                        <div class="banner-5__thumb banner-5__thumb-2 return">
+                            <img src="{% static 'institutional/imgs/images/retrofite-painel-eletronico.webp' %}" alt="img not found">
+                        </div>
+                        <div class="banner-5__thumb banner-5__thumb-3 return">
+                            <img src="{% static 'institutional/imgs/images/reparo-sistema-refrigeracao.webp' %}" alt="img not found">
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+        
+            <!--fast content-->
+            <div class="rrseken__fast-content-area section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="rrseken__fast-content-wrapper hero">
+                                <h2 class="title _split_text">Manutenção que Sustenta a Operação</h2>
+                                <div class="slider">
+                                    <div class="rr-btn rrseken-swiper-button-prev"><i class="fa-solid fa-angle-left"></i></div>
+                                    <div class="rr-btn rrseken-swiper-button-next"><i class="fa-solid fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <div class="swiper rrseken__fast-content">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="rrseken__fast-content-item">
+                                            <div class="rrseken__fast-content-img rrseken__fast-content-img-1">
+                                                <img src="{% static 'institutional/imgs/icon/fast-content-1.png' %}" alt="fast-content-img">
+                                            </div>
+                                            <div class="rrseken__fast-content-text">
+                                                <h5>Preventiva e Corretiva</h5>
+                                                <p>Atendimento técnico em máquinas, linhas, utilidades e ativos industriais.</p>
+                                            </div>
+                                            <div class="rrseken__fast-content mt-40">
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="rrseken__fast-content-item">
+                                            <div class="rrseken__fast-content-img rrseken__fast-content-img-2">
+                                                <img src="{% static 'institutional/imgs/icon/fast-content-2.png' %}" alt="fast-content-img">
+                                            </div>
+                                            <div class="rrseken__fast-content-text">
+                                                <h5>Diagnóstico e Comissionamento</h5>
+                                                <p>Identificação de falhas, testes funcionais, ajustes e retorno à operação.</p>
+                                            </div>
+                                            <div class="rrseken__fast-content mt-40">
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="rrseken__fast-content-item">
+                                            <div class="rrseken__fast-content-img rrseken__fast-content-img-3">
+                                                <img src="{% static 'institutional/imgs/icon/fast-content-3.png' %}" alt="fast-content-img">
+                                            </div>
+                                            <div class="rrseken__fast-content-text">
+                                                <h5>Retrofit Industrial</h5>
+                                                <p>Modernização de refrigeração, painéis, controles e sistemas de automação.</p>
+                                            </div>
+                                            <div class="rrseken__fast-content mt-40">
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Solicitar avaliação <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="rrseken__fast-content-item">
+                                            <div class="rrseken__fast-content-img rrseken__fast-content-img-4">
+                                                <img src="{% static 'institutional/imgs/icon/fast-content-4.png' %}" alt="fast-content-img">
+                                            </div>
+                                            <div class="rrseken__fast-content-text">
+                                                <h5>TPM e Confiabilidade</h5>
+                                                <p>Planos, checklists, indicadores e histórico para uma operação previsível.</p>
+                                            </div>
+                                            <div class="rrseken__fast-content mt-40">
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Falar com a equipe <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- project-tab-start -->
+            <section class="rr-project-tab overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section__title-wrapper text-center hero mb-45">
+                                <h2 class="section__title-wrapper-title _split_text">Suporte Técnico para Ativos <br> e Ambientes Críticos</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="rr-project-tab__nav-tabs d-flex text-center align-items-center justify-content-center">
+                                <nav class="nav" id="nav-tab" role="tablist">
+                                    <button class="nav-link" id="morning-tab" data-bs-toggle="tab" data-bs-target="#morning-food" type="button" role="tab" aria-controls="morning-food" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-1.png' %}" alt="tab-1"> Refrigeração</button>
+        
+                                    <button class="nav-link active" id="nav-lunch-tab" data-bs-toggle="tab" data-bs-target="#nav-lunch" type="button" role="tab" aria-controls="nav-lunch" aria-selected="true"><img src="{% static 'institutional/imgs/icon/tab-2.png' %}" alt="tab-2"> Equipamentos</button>
+        
+                                    <button class="nav-link" id="nav-dinner-tab" data-bs-toggle="tab" data-bs-target="#nav-dinner" type="button" role="tab" aria-controls="nav-dinner" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-4.png' %}" alt="tab-3"> Painéis Elétricos</button>
+        
+                                    <button class="nav-link" id="nav-fast-food-tab" data-bs-toggle="tab" data-bs-target="#nav-fast-food" type="button" role="tab" aria-controls="nav-fast-food" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-3.png' %}" alt="tab-4"> Automação</button>
+        
+                                    <button class="nav-link" id="nav-beverage-tab" data-bs-toggle="tab" data-bs-target="#nav-beverage" type="button" role="tab" aria-controls="nav-beverage" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-5.png' %}" alt="tab-5"> Confiabilidade</button>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content mt-40 pastel-blue-bg" id="nav-tabContent">
+                                <div class="tab-pane fade " id="morning-food" role="tabpanel" aria-labelledby="morning-tab">
+                                    <div class="row rr-project-tab__wrapper">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="rr-project-tab__left-content hero">
+                                                <h3 class="_split_text">Manutenção industrial <br> com diagnóstico e confiabilidade</h3>
+                                                <div class="rr-project-tab__icon-list mt-30">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-check"></i> Inspeção e diagnóstico técnico</li>
+                                                        <li><i class="fa-solid fa-check"></i> Manutenção preventiva e corretiva</li>
+                                                        <li><i class="fa-solid fa-check"></i> Testes, ajustes e comissionamento</li>
+                                                        <li><i class="fa-solid fa-check"></i> Registro das intervenções</li>
+                                                        <li><i class="fa-solid fa-check"></i> Análise de falhas e melhorias</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rr-project-tab__btn mt-50">
+                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="rr-project-tab__right">
+                                                <div class="rr-project-tab__item">
+                                                    <div class="rr-project-tab__item-media">
+                                                        <img src="{% static 'institutional/imgs/images/refrigeration-system.webp' %}" class="img-fluid" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade active show" id="nav-lunch" role="tabpanel" aria-labelledby="nav-lunch-tab">
+                                    <div class="row rr-project-tab__wrapper">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="rr-project-tab__left-content hero">
+                                                <h3 class="_split_text">Manutenção industrial <br> com diagnóstico e confiabilidade</h3>
+                                                <div class="rr-project-tab__icon-list mt-30">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-check"></i> Inspeção e diagnóstico técnico</li>
+                                                        <li><i class="fa-solid fa-check"></i> Manutenção preventiva e corretiva</li>
+                                                        <li><i class="fa-solid fa-check"></i> Testes, ajustes e comissionamento</li>
+                                                        <li><i class="fa-solid fa-check"></i> Registro das intervenções</li>
+                                                        <li><i class="fa-solid fa-check"></i> Análise de falhas e melhorias</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rr-project-tab__btn mt-50">
+                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="rr-project-tab__right">
+                                                <div class="rr-project-tab__item fade-top">
+                                                    <div class="rr-project-tab__item-media">
+                                                        <img src="{% static 'institutional/imgs/images/equipamento-refrigerado.webp' %}" class="img-fluid" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-dinner" role="tabpanel" aria-labelledby="nav-dinner-tab">
+                                    <div class="row rr-project-tab__wrapper">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="rr-project-tab__left-content hero">
+                                                <h3 >Manutenção industrial <br> com diagnóstico e confiabilidade</h3>
+                                                <div class="rr-project-tab__icon-list mt-30">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-check"></i> Inspeção e diagnóstico técnico</li>
+                                                        <li><i class="fa-solid fa-check"></i> Manutenção preventiva e corretiva</li>
+                                                        <li><i class="fa-solid fa-check"></i> Testes, ajustes e comissionamento</li>
+                                                        <li><i class="fa-solid fa-check"></i> Registro das intervenções</li>
+                                                        <li><i class="fa-solid fa-check"></i> Análise de falhas e melhorias</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rr-project-tab__btn mt-50">
+                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="rr-project-tab__right">
+                                                <div class="rr-project-tab__item fade-top">
+                                                    <div class="rr-project-tab__item-media">
+                                                        <img src="{% static 'institutional/imgs/images/painel-eletrico.webp' %}" class="img-fluid" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-fast-food" role="tabpanel" aria-labelledby="nav-fast-food-tab">
+                                    <div class="row rr-project-tab__wrapper">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="rr-project-tab__left-content hero">
+                                                <h3 >Manutenção industrial <br> com diagnóstico e confiabilidade</h3>
+                                                <div class="rr-project-tab__icon-list mt-30">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-check"></i> Inspeção e diagnóstico técnico</li>
+                                                        <li><i class="fa-solid fa-check"></i> Manutenção preventiva e corretiva</li>
+                                                        <li><i class="fa-solid fa-check"></i> Testes, ajustes e comissionamento</li>
+                                                        <li><i class="fa-solid fa-check"></i> Registro das intervenções</li>
+                                                        <li><i class="fa-solid fa-check"></i> Análise de falhas e melhorias</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rr-project-tab__btn mt-50">
+                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="rr-project-tab__right">
+                                                <div class="rr-project-tab__item fade-top">
+                                                    <div class="rr-project-tab__item-media">
+                                                        <img src="{% static 'institutional/imgs/images/automation-system.webp' %}" class="img-fluid" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-beverage" role="tabpanel" aria-labelledby="nav-beverage-tab">
+                                    <div class="row rr-project-tab__wrapper">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="rr-project-tab__left-content hero">
+                                                <h3>Manutenção industrial <br> com diagnóstico e confiabilidade</h3>
+                                                <div class="rr-project-tab__icon-list mt-30">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-check"></i> Inspeção e diagnóstico técnico</li>
+                                                        <li><i class="fa-solid fa-check"></i> Manutenção preventiva e corretiva</li>
+                                                        <li><i class="fa-solid fa-check"></i> Testes, ajustes e comissionamento</li>
+                                                        <li><i class="fa-solid fa-check"></i> Registro das intervenções</li>
+                                                        <li><i class="fa-solid fa-check"></i> Análise de falhas e melhorias</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rr-project-tab__btn mt-50">
+                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar atendimento <i class="fa-solid fa-angle-right"></i></a>
+                                                </div>
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="rr-project-tab__right">
+                                                <div class="rr-project-tab__item fade-top">
+                                                    <div class="rr-project-tab__item-media">
+                                                        <img src="{% static 'institutional/imgs/images/dashboard-smart-system.webp' %}" class="img-fluid" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+             <!--testimonial area start-->
+            <section class="testimonial-5__area section-space overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section__title-wrapper text-center hero mb-50">
+                                <h2 class="section__title-wrapper-title _split_text">TPM, Confiabilidade e Melhoria Contínua</h2>
+                                <p class="section__title-wrapper-dec mt-15 rr_title_anim">Disciplina operacional, conhecimento técnico e dados confiáveis para reduzir o modo reativo <br> e construir uma manutenção mais organizada e previsível.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-bg pastel-blue-bg">
+                        <div class="row testimonial-5__border-2">
+                            <div class="col-lg-3 col-md-5 col-sm-6">
+                                <div class="testimonial-5__border text-center">
+                                    <div class="testimonial-5__rating">
+                                        <div class="testimonial-5__lrating-text hero">
+                                            <h4 >Indicadores Técnicos</h4>
+                                            <span>TPM</span>
+                                        </div>
+                                        <div class="testimonial-5__rating-img">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                            <p>Manutenção e <br>
+                                                Ratings</p>
+                                        </div>
+                                    </div>
+                                    <div class="testimonial-5__btn">
+                                        <div class="rr-btn rrseken-swiper-button-prev"><i class="fa-solid fa-angle-left"></i></div>
+                                        <div class="rr-btn rrseken-swiper-button-next"><i class="fa-solid fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-7 col-sm-6">
+                                <div class="swiper testimonial-5__slide">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-5__item">
+                                                <div class="testimonial-5__icon">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                    </ul>
+                                                    <p>“MTTR, MTBF e disponibilidade ajudam a entender <br> o comportamento dos ativos, o tempo de recuperação <br> e as oportunidades para melhorar a confiabilidade <br> da operação industrial.”</p>
+                                                </div>
+                                                <div class="testimonial-5__wrapper mt-30">
+                                                    <div class="testimonial-5__author">
+                                                        <div class="testimonial-5__author-img">
+                                                            <img src="{% static 'institutional/imgs/icon/testimonial-icon-8.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="testimonial-5__author-text">
+                                                            <h6>Indicadores de Manutenção</h6>
+                                                            <span>MTTR, MTBF e disponibilidade</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-5__quite-img">
+                                                        <img src="{% static 'institutional/imgs/icon/quote.png' %}" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-5__item">
+                                                <div class="testimonial-5__icon">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                    </ul>
+                                                    <p>“Planos preventivos, inspeções e checklists tornam <br> as responsabilidades mais claras e ajudam a reduzir <br> falhas inesperadas, retrabalho e intervenções <br> emergenciais na planta.”</p>
+                                                </div>
+                                                <div class="testimonial-5__wrapper mt-30 mb-50">
+                                                    <div class="testimonial-5__author">
+                                                        <div class="testimonial-5__author-img">
+                                                            <img src="{% static 'institutional/imgs/icon/testimonial-icon-9.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="testimonial-5__author-text">
+                                                            <h6>Manutenção Planejada</h6>
+                                                            <span>Preventivas, inspeções e checklists</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-5__quite-img">
+                                                        <img src="{% static 'institutional/imgs/icon/quote.png' %}" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-5__item">
+                                                <div class="testimonial-5__icon">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                    </ul>
+                                                    <p>“O histórico técnico registra falhas, intervenções, <br> evidências e decisões por ativo, criando uma base <br> confiável para análise de recorrência, priorização <br> e melhoria contínua.”</p>
+                                                </div>
+                                                <div class="testimonial-5__wrapper mt-30">
+                                                    <div class="testimonial-5__author">
+                                                        <div class="testimonial-5__author-img">
+                                                            <img src="{% static 'institutional/imgs/icon/testimonial-icon-10.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="testimonial-5__author-text">
+                                                            <h6>Histórico e Confiabilidade</h6>
+                                                            <span>Dados para decisões técnicas</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-5__quite-img">
+                                                        <img src="{% static 'institutional/imgs/icon/quote.png' %}" alt="not found">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- pricing-area-start -->
+            <section class="rrseken__pricing-area pastel-blue-bg section-space fade-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section__title-wrapper text-center hero mb-45">
+                                <h2 class="section__title-wrapper-title _split_text">Modalidades de Atendimento Técnico</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center mb-minus-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="rrseken__pricing fade-top">
+                            <div class="rrseken__pricing-item mb-30">
+                                <div class="rrseken__pricing-item-title">
+                                    <h4>Manutenção de Campo</h4>
+                                    <h2>Atendimento<span> técnico</span></h2>
+                                    <span>Escopo definido após avaliação</span>
+                                </div>
+                                <div class="rrseken__pricing-list">
+                                    <ul>
+                                        <li>Diagnóstico em campo</li>
+                                        <li>Manutenção corretiva</li>
+                                        <li>Testes e ajustes</li>
+                                        <li class="color-trans">Registro da intervenção</li>
+                                        <li class="color-trans">Recomendações técnicas</li>
+                                    </ul>
+                                </div>
+                                <div class="rrseken__pricing__btn">
+                                    <a class="rr-btn gray-bg" href="{% url 'institutional:contact' %}">Solicitar atendimento</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="rrseken__pricing fade-top">
+                            <div class="rrseken__pricing-item mb-30">
+                                <div class="rrseken__pricing-item-title">
+                                    <h4>Plano Preventivo</h4>
+                                    <h2>Rotina<span> planejada</span></h2>
+                                    <span>Plano conforme os ativos</span>
+                                </div>
+                                <div class="rrseken__pricing-list">
+                                    <ul>
+                                        <li>Levantamento dos ativos</li>
+                                        <li>Planos e frequências</li>
+                                        <li>Checklists técnicos</li>
+                                        <li>Organização dos registros</li>
+                                        <li class="color-trans">Acompanhamento dos resultados</li>
+                                    </ul>
+                                </div>
+                                <div class="rrseken__pricing__btn">
+                                    <a class="rr-btn gray-bg" href="{% url 'institutional:contact' %}">Solicitar proposta</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="rrseken__pricing fade-top">
+                            <div class="rrseken__pricing-item mb-30">
+                                <div class="rrseken__pricing-item-title">
+                                    <h4>TPM e Confiabilidade</h4>
+                                    <h2>Evolução<span> operacional</span></h2>
+                                    <span>Estruturação sob medida</span>
+                                </div>
+                                <div class="rrseken__pricing-list">
+                                    <ul>
+                                        <li>Criticidade dos ativos</li>
+                                        <li>Análise de falhas</li>
+                                        <li>MTTR, MTBF e disponibilidade</li>
+                                        <li>Dashboards e histórico técnico</li>
+                                        <li>Melhoria contínua</li>
+                                    </ul>
+                                </div>
+                                <div class="rrseken__pricing__btn">
+                                    <a class="rr-btn gray-bg" href="{% url 'institutional:contact' %}">Falar com a equipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--faq-5-->
+            <section class="faq-5__area section-space-top ask-question-5 p-relative overflow-hidden">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="faq-5__thumb">
+                                <div class="faq-5__thumb-media faq-5__thumb-media-1 return">
+                                    <img src="{% static 'institutional/imgs/images/faq-projeto-autocad.webp' %}" alt="img not found">
+                                </div>
+                                <div class="faq-5__thumb-media faq-5__thumb-media-2 return">
+                                    <img src="{% static 'institutional/imgs/images/faq-projeto-eletronico.webp' %}" alt="img not found">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="ask-question-5__faq-5">
+                                <div class="section__title-wrapper hero mb-40">
+                                    <h2 class="section__title-wrapper-title _split_text">Dúvidas Sobre Manutenção <br> Industrial</h2>
+                                </div>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item ask-question-5__faq-5-item faq-5__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Vocês fazem manutenção de robôs Xyron?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Não executamos manutenção de campo dos robôs Xyron Robotics. <br> Atuamos na comercialização e integração; o suporte e a manutenção <br> oficial permanecem com a Xyron e sua rede autorizada.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item ask-question-5__faq-5-item faq-5__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                Minha empresa precisa de TPM mesmo sendo pequena?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Sim, desde que aplicado com bom senso. A empresa pode começar <br> organizando ativos, rotinas, inspeções, responsabilidades e as <br> principais perdas, sem criar uma estrutura excessivamente complexa.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item ask-question-5__faq-5-item faq-5__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                Qual a diferença entre preventiva e confiabilidade?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>A preventiva estabelece rotinas planejadas para reduzir falhas. <br> A confiabilidade analisa o comportamento dos ativos, recorrências, <br> histórico e indicadores para melhorar as decisões técnicas.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item ask-question-5__faq-5-item faq-5__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingFour">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                Vocês ajudam a estruturar indicadores técnicos?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Sim. Podemos apoiar na organização de MTTR, MTBF, disponibilidade, <br> backlog, preventivas, corretivas e recorrência de falhas, conforme <br> a maturidade e a necessidade da operação.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="marketing-5__area populer__area section-space overflow-hidden">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <div class="marketing-5__content">
+                                <div class="section__title-wrapper hero">
+                                    <h2 class="section__title-wrapper-title _split_text">Processo Técnico Claro, <br> Organizado e Medido</h2>
+                                    <p class="section__title-wrapper-dec rr_title_anim">Antes de digitalizar ou automatizar, entendemos os ativos, as rotinas, as falhas e os gargalos. <br> A tecnologia entrega valor quando o processo técnico está organizado e acompanhado <br> por informações confiáveis.</p>
+                                </div>
+                                <div class="marketing-5__counter">
+                                    <div class="marketing-5__counter-box">
+                                        <h3 class="marketing-5__counter-count"><span class="odometer" data-count="6">0</span></h3>
+                                        <p class="marketing-5__counter-box-dec">Indicadores para <br> acompanhar</p>
+                                    </div>
+                                    <div class="marketing-5__counter-box">
+                                        <h3 class="marketing-5__counter-count"><span class="odometer" data-count="3">0</span></h3>
+                                        <p class="marketing-5__counter-box-dec">Etapas para <br> começar</p>
+                                    </div>
+                                </div>
+                                <a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar diagnóstico</a>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="populer__item">
+                                <div class="circles_wrap">
+                                    <div class="circle circle1">
+                                        <div class="coin_wrap">
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-1.png' %}" alt="image not found">
+                                            </div>
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-3.png' %}" alt="image not found">
+                                            </div>
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-6.png' %}" alt="image not found">
+                                            </div>
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-8.png' %}" alt="image not found">
+                                            </div>
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-9.png' %}" alt="image not found">
+                                            </div>
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-10.png' %}" alt="image not found">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="circle circle2">
+                                        <div class="coin_wrap">
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-2.png' %}" alt="image not found">
+                                            </div>
+                                            
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-4.png' %}" alt="image not found">
+                                            </div>
+        
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-5.png' %}" alt="image not found">
+                                            </div>
+        
+                                            <div class="dot"></div>
+        
+                                            <div class="coin">
+                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-7.png' %}" alt="image not found">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="circle_center">
+                                        <img src="{% static 'institutional/imgs/icon/marketing-icon-logo.png' %}" alt="image not found">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+             <!-- blog-area-start -->
+            <section class="blog-5__area section-space pastel-blue-bg overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="rrseken__fast-content-wrapper hero">
+                                <h2 class="title _split_text">Benefícios para sua Operação</h2>
+                                <div class="slider">
+                                    <div class="rr-btn blog-5-prev"><i class="fa-solid fa-angle-left"></i></div>
+                                    <div class="rr-btn blog-5-next"><i class="fa-solid fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="swiper blog-5__slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="blog-5__item">
+                                            <div class="blog-5__img">
+                                                <img src="{% static 'institutional/imgs/blog/blog-parada-programada.webp' %}" alt="latest-blog-img">
+                                            </div>
+                                            <div class="blog-5__text">
+                                                <span class="cta"><i class="fa-sharp fa-light fa-screwdriver-wrench"></i> Manutenção planejada</span>
+                                                <h5 class="title"><a href="{% url 'institutional:contact' %}">Redução de paradas inesperadas e melhor planejamento técnico</a></h5>
+                                                <div class="blog-5__btn">
+                                                    <a href="{% url 'institutional:contact' %}" class="learn-btn">Saiba mais <span><i class="fa-solid fa-angle-right"></i></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="blog-5__item">
+                                            <div class="blog-5__img">
+                                                <img src="{% static 'institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp' %}" alt="latest-blog-img">
+                                            </div>
+                                            <div class="blog-5__text">
+                                                <span class="cta"><i class="fa-sharp fa-light fa-chart-line"></i> Confiabilidade</span>
+                                                <h5 class="title"><a href="{% url 'institutional:contact' %}">Histórico organizado e indicadores para decisões mais consistentes</a></h5>
+                                                <div class="blog-5__btn">
+                                                    <a href="{% url 'institutional:contact' %}" class="learn-btn">Saiba mais <span><i class="fa-solid fa-angle-right"></i></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="blog-5__item">
+                                            <div class="blog-5__img">
+                                                <img src="{% static 'institutional/imgs/blog/blog-sem-retrabalho.webp' %}" alt="latest-blog-img">
+                                            </div>
+                                            <div class="blog-5__text">
+                                                <span class="cta"><i class="fa-sharp fa-light fa-gears"></i> Melhoria contínua</span>
+                                                <h5 class="title"><a href="{% url 'institutional:contact' %}">Menos retrabalho, mais rastreabilidade e base para retrofit</a></h5>
+                                                <div class="blog-5__btn">
+                                                    <a href="{% url 'institutional:contact' %}" class="learn-btn">Solicitar visita <span><i class="fa-solid fa-angle-right"></i></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

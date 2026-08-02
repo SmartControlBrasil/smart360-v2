@@ -1,0 +1,55 @@
+@use "../utils" as *;
+
+/*----------------------------------------*/
+/*  2.2 background
+/*----------------------------------------*/
+
+.white-bg {
+  background-color: var(--rr-common-white);
+}
+.black-bg {
+  background-color: var(--rr-common-black);
+}
+.heading-bg {
+  background-color: var(--rr-heading-primary);
+}
+.blue-gray {
+  background-color: #132739;
+}
+.pastel-blue-bg{
+  background-color: var(--rr-background-pastel-blue);
+}
+// Gradient color
+.bg-gradient {
+  background: linear-gradient(90deg, #674AD9 0%, #FB5141 50.52%, #089EFF 100%);
+}
+.body-2-bg{
+  background: var(--rr-background-body-2-bg);
+}
+.soft-light-blue{
+  background-color: #EDF2F7;
+}
+.light-blue{
+  background-color: #EDF0F7;
+}
+.green-gray{
+  background-color: #E9EEE2;
+}
+.hero-bg-dark{
+  background-color: #222225;
+}
+.footer-2-bg{
+  background-color: #100F0F;
+}
+.op-bg{
+  background-color: #0F0F1C;
+}
+.alice-blue-bg{
+  background-color: #EEF5FD;
+}
+.raisin-black{
+  background-color: #191927;
+}
+.home-7-bg-black{
+  background-color: #0B1926;
+}

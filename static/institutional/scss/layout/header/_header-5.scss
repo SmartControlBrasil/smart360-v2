@@ -1,0 +1,50 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.3 header-5
+/*----------------------------------------*/
+
+.header-5{
+    padding-top: 20px;
+    position: absolute !important;
+    
+    &__main{
+        background: var(--rr-common-white);
+        padding: 17px 30px;
+    }
+    &__btn{
+        .rr-btn{
+            background-color: var(--rr-theme-primary2);
+            color: var(--rr-common-white);
+            padding: 11px 21px;
+        }
+    }
+    &__action{
+        .header__hamburger{
+            .sidebar__toggle{
+                .bar-icon{
+                    span{
+                        background: var(--rr-theme-primary2);
+                    }
+                }
+            }
+        }
+    }
+    &__contact{
+        a{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-sbold);
+            color: var(--rr-heading-primary);
+            font-style: normal;
+            font-size: 14px;
+            line-height: 17px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease-in-out;
+            &:hover{
+                color: var(--rr-theme-primary2);
+            }
+        }
+    }
+}

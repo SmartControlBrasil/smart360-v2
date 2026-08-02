@@ -1,0 +1,216 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+            <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Cart</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span>cart</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cart-area section-space">
+                <div class="container container-small">
+                    <div class="row">
+                       <div class="col-12">
+                          <div class="table-content">
+                             <table class="table">
+                                <thead>
+                                   <tr>
+                                      <th class="product-remove"></th>
+                                      <th class="cart-product-name">Product</th>
+                                      <th class="product-price"> Price</th>
+                                      <th class="product-quantity">Quantity</th>
+                                      <th class="product-subtotal">Total</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr>
+                                    <td class="product-remove"><a href="#"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L1 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 1L9 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a></td>
+                                      <td class="product-thumbnail">
+                                            <a href="{% url 'institutional:shop_details' %}">
+                                                <img src="{% static 'institutional/imgs/images/shop-img-1.png' %}" alt="img">
+                                            </a>
+                                            <div class="product-thumbnail__wrapper">
+                                                <div class="product-name">Data & analytics</div>
+                                                <span class="product-size">Color Burly</span>
+                                            </div>
+                                        </td>
+        
+                                     <td class="product-price"><span class="amount amount-2">$220.50</span></td>
+                                      
+                                      <td class="product-quantity text-center">
+                                           <div class="count-wrap">
+                                               <span class="quantity-control minus"><i class="far fa-minus"></i></span>
+                                               <input type="number" class="input-text qty text" name="quantity" value="1" min="1" max="100" step="1" autocomplete="off">
+                                               <span class="quantity-control plus"><i class="far fa-plus"></i></span>
+                                           </div>
+                                      </td>
+                                      <td class="product-subtotal"><span class="amount">$220.50</span></td>
+                                   </tr>
+                                   <tr>
+                                    <td class="product-remove"><a href="#"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L1 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 1L9 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a></td>
+                                      <td class="product-thumbnail">
+                                            <a href="{% url 'institutional:shop_details' %}">
+                                                <img src="{% static 'institutional/imgs/images/shop-img-2.png' %}" alt="img">
+                                            </a>
+                                            <div class="product-thumbnail__wrapper">
+                                                <div class="product-name">IT Services</div>
+                                                <span class="product-size">Color Burly</span>
+                                            </div>
+                                        </td>
+        
+                                     <td class="product-price"><span class="amount amount-2">$230.50</span></td>
+                                      
+                                      <td class="product-quantity text-center">
+                                           <div class="count-wrap">
+                                               <span class="quantity-control minus"><i class="far fa-minus"></i></span>
+                                               <input type="number" class="input-text qty text" name="quantity" value="1" min="1" max="100" step="1"  autocomplete="off">
+                                               <span class="quantity-control plus"><i class="far fa-plus"></i></span>
+                                           </div>
+                                      </td>
+                                      <td class="product-subtotal"><span class="amount">$230.50</span></td>
+                                   </tr>
+                                   <tr>
+                                    <td class="product-remove"><a href="#"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L1 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 1L9 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a></td>
+                                      <td class="product-thumbnail">
+                                            <a href="{% url 'institutional:shop_details' %}">
+                                                <img src="{% static 'institutional/imgs/images/shop-img-3.png' %}" alt="img">
+                                            </a>
+                                            <div class="product-thumbnail__wrapper">
+                                                <div class="product-name">Product Design</div>
+                                                <span class="product-size">Color Burly</span>
+                                            </div>
+                                        </td>
+        
+                                     <td class="product-price"><span class="amount amount-2">$240.50</span></td>
+                                      
+                                      <td class="product-quantity text-center">
+                                           <div class="count-wrap">
+                                               <span class="quantity-control minus"><i class="far fa-minus"></i></span>
+                                               <input type="number" class="input-text qty text" name="quantity" value="1" min="1" max="100" step="1"  autocomplete="off">
+                                               <span class="quantity-control plus"><i class="far fa-plus"></i></span>
+                                           </div>
+                                      </td>
+                                      <td class="product-subtotal"><span class="amount">$240.50</span></td>
+                                   </tr>
+                                   <tr>
+                                    <td class="product-remove"><a href="#"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 1L1 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 1L9 9" stroke="#001D08" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </a></td>
+                                      <td class="product-thumbnail">
+                                            <a href="{% url 'institutional:shop_details' %}">
+                                                <img src="{% static 'institutional/imgs/images/shop-img-4.png' %}" alt="img">
+                                            </a>
+                                            <div class="product-thumbnail__wrapper">
+                                                <div class="product-name">Cyber Security</div>
+                                                <span class="product-size">Color Burly</span>
+                                            </div>
+                                        </td>
+        
+                                     <td class="product-price"><span class="amount amount-2">$240.50</span></td>
+                                      
+                                      <td class="product-quantity text-center">
+                                           <div class="count-wrap">
+                                               <span class="quantity-control minus"><i class="far fa-minus"></i></span>
+                                               <input type="number" class="input-text qty text" name="quantity" value="1" min="1" max="100" step="1"  autocomplete="off">
+                                               <span class="quantity-control plus"><i class="far fa-plus"></i></span>
+                                           </div>
+                                      </td>
+                                      <td class="product-subtotal"><span class="amount">$240.50</span></td>
+                                   </tr>
+                                </tbody>
+                             </table>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-7 col-lg-6 col-md-6">
+                                <div class="text mt-30">
+                                    <div class="form_input d-flex mb-sm-30 mb-xs-30">
+                                        <input name="name" id="name" type="text" placeholder="Enter Coupon Code">
+                                        <a href="{% url 'institutional:cart' %}" class="rr-btn">Submit</a>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-xl-5 col-lg-6 col-md-6">
+                                <div class="box">
+                                    <h4 class="title mb-20">Order Summary</h4>
+                                    <div class="box-wrapper">
+                                        <div class="middel-box d-flex justify-content-between ">
+                                            <span>Subtotal</span>
+                                            <h6>$461.00</h6>
+                                        </div>
+                                        <div class="middel-box d-flex justify-content-between">
+                                            <span>Shipping</span>
+                                            <h6>Free</h6>
+                                        </div>
+                                    </div>
+        
+                                    <div class="bottom-title d-flex justify-content-between mb-40 mt-20">
+                                        <h5>Total</h5>
+                                        <h5>$461.00</h5>
+                                    </div>
+                                    <div class="bottom-btn d-flex">
+                                        <a class="rr-btn" href="{% url 'institutional:shop' %}">Keep Shopping</a>
+                                        <a class="rr-btn" href="{% url 'institutional:checkout' %}">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+            </section>
+{% endblock %}

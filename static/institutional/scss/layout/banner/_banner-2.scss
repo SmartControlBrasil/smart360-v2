@@ -1,0 +1,237 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1 banner Style 1
+/*----------------------------------------*/
+.banner2{
+	&__area{
+		padding-top: 231px;
+		padding-bottom: 189px;
+		@media #{$xl, $lg, $md, $sm, $xs} {
+			margin: 0;
+		}
+		@media #{$lg, $md} {
+			padding-top: 180px;
+		}
+		@media #{$sm} {
+			padding-top: 140px;
+		}
+		@media #{$xs} {
+			padding-top: 120px;
+		}
+		@media #{$md} {
+			padding-bottom: 100px;
+		}
+		@media #{$xs} {
+			padding-bottom: 90px;
+		}
+	}
+	&__shapes{
+		&-shape-1{
+			position: absolute;
+			width: 594px;
+			height: 594px;
+			background: #7544F9;
+			filter: blur(140px);
+			top: -311px;
+			left: -200px;
+			border-radius: 50%;
+		}
+		&-shape-2{
+			position: absolute;
+			width: 568px;
+			height: 568px;
+			background: #A30564;
+			filter: blur(140px);
+			z-index: -1;
+			top: -311px;
+			right: -270px;
+			border-radius: 50%;
+		}
+		&-shape-3{
+			position: absolute;
+			width: 608px;
+			height: 462px;
+			background: #11AE21;
+			filter: blur(315px);
+			z-index: -1;
+			bottom: 62px;
+			right: -206px;
+			border-radius: 50%;
+		}
+		&-shape-4{
+			position: absolute;
+			width: 462px;
+			height: 462px;
+			background: #102A2C;
+			filter: blur(315px);
+			z-index: -1;
+			left: 771px;
+			bottom: 176px;
+			border-radius: 50%;
+		}
+		&-shape-5{
+			position: absolute;
+			width: 594px;
+			height: 594px;
+			background: #00F3FE;
+			filter: blur(140px);
+			z-index: -1;
+			top: -18px;
+			left: -395px;
+			border-radius: 50%;
+		}
+		&-shape-6{
+			position: absolute;
+			right: -405px;
+			bottom: -395px;
+			z-index: -1;
+			@media #{$sm, $xs} {
+				display: none;
+			}
+		}
+		&-shape-7{
+			position: absolute;
+			top: 149px;
+			left: 125px;
+			z-index: -1;
+			@media #{$xs} {
+				display: none;
+			}
+		}
+		&-shape-8{
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+	}
+	&__content{
+		.banner-heading__wrapper{
+			.banner-heading__wrapper-title-2{
+				font-weight: var(--rr-fw-medium);
+			}
+			.banner-heading__wrapper-dec{
+				font-size: 16px;
+			}
+		}
+		&-message{
+			display: flex;
+			align-items: center;
+			gap: 17px;
+			flex-wrap: wrap;
+			margin-top: 101px;
+			.icon{
+				img{
+					width: 56px;
+					height: 53px;
+					object-fit: cover;
+				}
+			}
+			.star-list{
+				.star{
+					ul{
+						display: flex;
+						align-items: center;
+						gap: 4px;
+						margin-bottom: 2px;
+						li{
+							list-style: none;
+							color: #F59E0B;
+						}
+					}
+					.dec{
+						font-family: var(--rr-ff-body);
+						font-weight: var(--rr-fw-medium);
+						color: var(--rr-common-white);
+						font-style: normal;
+						font-size: var(--rr-fs-h6);
+						line-height: 25px;
+					}
+				}
+			}
+		}
+	}
+	&__btn-wrapper{
+		margin-top: 50px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-wrap: wrap;
+		.rr-btn{
+			color: var(--rr-common-white);
+			border-width: 1px;
+			border-style: solid;
+			padding: 14px 28px;
+			border-image: linear-gradient(90deg, rgba(132,88,212,1) 0%, rgba(44,35,221,1) 100%) 1;
+			i{
+				font-size: 14px;
+			}
+			&::before{
+				background: linear-gradient(90deg, #2B22E0 0%, #46429E 100%);
+			}
+			&:hover{
+				color: var(--rr-common-white);
+				border: 1px solid rgba(255, 255, 255, 0.4);
+			}
+		}
+	}
+	&__thumb{
+		@media #{$md, $sm, $xs} {
+			margin: 30px auto 0 auto;
+			max-width: 470px;
+		}
+		&-btn{
+			.text-btn{
+				font-family: var(--rr-ff-body);
+				font-weight: var(--ff-fw-sbold);
+				color: var(--rr-common-white);
+				font-style: normal;
+				font-size: 14px;
+				line-height: 17px;
+				background: #222225;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				padding: 11px 24px;
+				margin-left: 50px;
+				@media #{$md, $sm, $xs} {
+					margin-left: 0;
+				}
+			}
+		}
+		&-text{
+			background: rgba(255, 255, 255, 0.06);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			padding: 46px 54px 46px 54px;
+			max-width: 360px;
+			margin: 0px auto -18px auto;
+			p{
+				font-family: var(--rr-ff-body);
+				font-weight: var(--ff-fw-sbold);
+				color: var(--rr-common-white);
+				font-size: var(--rr-fs-body);
+				line-height: var(--rr-lh-body);
+				text-align: center;
+				font-style: normal;
+				@media #{$xs} {
+					br{
+						display: none;
+					}
+				}
+			}
+		}
+		&-media{
+			width: 380px;
+			position: relative;
+			margin-left: auto;
+			@media #{$xl, $lg} {
+				width: 100%;
+			}
+			@media #{$md, $sm} {
+				margin: 0 auto;
+			}
+			@media #{$xs} {
+				width: 100%;
+				margin: 0 auto;
+			}
+		}
+	}
+}

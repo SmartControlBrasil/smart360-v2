@@ -1,0 +1,307 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+             <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Sobre a Empresa</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Início</a></span></li>
+                                                <li class="active"><span> Sobre</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+
+            <section class="about__area section-space-top section-space-bottom-2">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="section__title-wrapper hero">
+                                <h2 class="section__title-wrapper-title _split_text">Automação, Robótica e <br> Tecnologia Aplicada</h2>
+                                <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil atua com equipamentos, softwares, robótica, IoT, dados <br> e dashboards para empresas que querem inovar, automatizar processos e <br> transformar tecnologia em resultado prático.</p>
+                                <p class="section__title-wrapper-dec rr_title_anim pt-25">Engenharia embarcada, microcontroladores PIC e retrofit eletrônico complementam <br> projetos que exigem controle dedicado, integração e confiabilidade.</p>
+                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Atuação <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="about__img-wrapper">
+                                <div class="about__media">
+                                    <div class="img-1 return">
+                                        <img src="{% static 'institutional/imgs/about/intelitencia-artificial-placa-eletronica.webp' %}" alt="img not found">
+                                    </div>
+                                    <div class="img-2 return">
+                                        <img src="{% static 'institutional/imgs/about/aperto-de-mao-homem-robo.webp' %}" alt="img not found">
+                                    </div>
+                                </div>
+                                <div class="about__thumb-2">
+                                    <div class="about__thumb return">
+                                        <img src="{% static 'institutional/imgs/about/mulher-inteligencia-artificial.webp' %}" alt="img not found">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about__searching-box">
+                            <div class="text">
+                                <img src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="Equipamentos, softwares, robótica e automação com visão de engenharia.">
+                                <p>Equipamentos, softwares, robótica e automação com visão de engenharia.</p>
+                            </div>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Sobre sua Solução <i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="choose-us__area section-space-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="choose-us__media-wrapper">
+                                <div class="choose-us__thumb">
+                                    <div class="choose-us__thumb-img return">
+                                        <img src="{% static 'institutional/imgs/images/camaras-climaticas.webp' %}" alt="img not fount">
+                                    </div>
+                                    <div class="choose-us__thumb-img-2">
+                                        <img src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="choose-us__thumb-img-3">
+                                        <img src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="img not found">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="choose-us__content-wrap">
+                                <div class="section__title-wrapper hero">
+                                    <h2 class="section__title-wrapper-title _split_text">Tecnologia com Base <br> Real de Engenharia</h2>
+                                    <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil nasceu da experiência prática em automação, controle, <br> máquinas e sistemas técnicos. Essa base evoluiu para uma empresa focada em <br> soluções tecnológicas, integração e aplicação correta.</p>
+                                    <div class="choose-us__list-item">
+                                        <ul>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="img not found">Automação e Equipamentos</li>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="img not found">Robótica e Inovação</li>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="img not found">Softwares, IoT e Dados</li>
+                                        </ul>
+                                    </div>
+                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa História <i class="fa-solid fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--further-2-->
+            <section class="further-2__area overflow-hidden z-1 p-relative">
+                <div class="further-2__wrapper heading-bg section-space-2 p-relative overflow-hidden">
+                    <div class="further-2__shapes">
+                        <div class="further-2__shapes-shape-1"></div>
+                        <div class="further-2__shapes-shape-2"></div>
+                        <div class="further-2__shapes-shape-3"></div>
+                        <div class="further-2__shapes-shape-4"></div>
+                        <div class="further-2__shapes-shape-5">
+                            <img src="{% static 'institutional/imgs/shapes/further-2-shape-1.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="further-2__content">
+                                    <div class="section__title-wrapper hero">
+                                        <h2 class="section__title-wrapper-title-2 _split_text mt-10">Automação, Robótica e Sistemas <br> para Empresas que Querem Crescer</h2>
+                                        <p class="section__title-wrapper-dec-2 rr_title_anim mt-10">Nossa missão é aproximar empresas, escolas e operações das tecnologias certas: <br> equipamentos, robôs, sensores, softwares, dados e soluções embarcadas.</p>
+                                    </div>
+                                    <div class="further-2__content-btn-wrap">
+                                        <div class="button">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/further-icon-1.png' %}" alt="">
+                                            </div>
+                                            <div class="text">
+                                                <span>Conheça nossas</span>
+                                                <h6><a href="#">Soluções</a></h6>
+                                            </div>
+                                        </div>
+                                        <div class="button button-2">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/further-icon-2.png' %}" alt="">
+                                            </div>
+                                            <div class="text">
+                                                <span>Fale com nossa</span>
+                                                <h6><a href="#">Equipe</a></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="further-2__thumb leftRight">
+                                    <img src="{% static 'institutional/imgs/images/braco-robotico-branco.webp' %}" alt="img not found">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+
+            <!--marketing-team start-->
+            <section class="rr__marketing-4__area section-space fade-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section__title-wrapper text-center hero">
+                                <h2 class="section__title-wrapper-title-2 _split_text">Inteligência Artificial a Serviço da <span>Engenharia</span></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row marketing justify-content-center align-items-center text-center"> 
+                        <div class="rr__marketing-4-item fade-top  mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-1.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-2.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top rr__marketing-4-padding mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-3.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-4.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top rr__marketing-4-item-2 mt-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-5.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-6.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-7.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-8.png" alt="img not found"></a>
+                        </div> 
+                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
+                            <a href="#"><img src="./assets/imgs/images/marketing-icon-9.png" alt="img not found"></a>
+                        </div> 
+                    </div>
+                </div>
+            </section>
+
+            <section class="blog__area section-space pastel-blue-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="space-between__wrapper hero mb-60">
+                                <h2 class="space-between__wrapper-title _split_text">Mais Inovação. <br> Mais Produtividade.</h2>
+                                <a class="rr-btn" href="{% url 'institutional:blog_details' %}">Conheça as Soluções <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-minus-30">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="blog__right-border">
+                                <div class="blog__item mb-30">
+                                    <div class="blog__item-details">
+                                        <div class="blog__item-details-cta">
+                                            <div class="man-img">
+                                                <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                            </div>
+                                            <div class="text">
+                                                <h6 class="title"><a href="#">Smart Control Brasil</a></h6>
+                                                <span class="position">Tecnologia Aplicada</span>
+                                            </div>
+                                        </div>
+                                        <div class="date"><i class="fa-solid fa-calendar-days"></i> Soluções Tecnológicas</div>
+                                    </div>
+                                    <div class="blog__item-thumb-2">
+                                        <div class="blog__item-thumb return">
+                                            <img src="{% static 'institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp' %}" alt="img not found">
+                                        </div>
+                                    </div>
+                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Equipamentos e Sistemas <br> para Evoluir</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="blog__right-border">
+                                <div class="blog__item mb-30">
+                                    <div class="blog__item-details">
+                                        <div class="blog__item-details-cta">
+                                            <div class="man-img">
+                                                <img src="{% static 'institutional/imgs/icon/blog-man-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <div class="text">
+                                                <h6 class="title"><a href="#">Smart Control Brasil</a></h6>
+                                                <span class="position">Robótica e Inovação</span>
+                                            </div>
+                                        </div>
+                                        <div class="date"><i class="fa-solid fa-calendar-days"></i> Robótica Aplicada</div>
+                                    </div>
+                                    <div class="blog__item-thumb-2">
+                                        <div class="blog__item-thumb return">
+                                            <img src="{% static 'institutional/imgs/blog/inovacao-que-aparece.webp' %}" alt="img not found">
+                                        </div>
+                                    </div>
+                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Inovação que Aparece <br> e Gera Valor</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="blog__item mb-30">
+                                <div class="blog__item-details">
+                                    <div class="blog__item-details-cta">
+                                        <div class="man-img">
+                                            <img src="{% static 'institutional/imgs/icon/blog-man-icon-3.png' %}" alt="img not found">
+                                        </div>
+                                        <div class="text">
+                                            <h6 class="title"><a href="#">Smart Control Brasil</a></h6>
+                                            <span class="position">Automação e Dados</span>
+                                        </div>
+                                    </div>
+                                    <div class="date"><i class="fa-solid fa-calendar-days"></i> Integração Inteligente</div>
+                                </div>
+                                <div class="blog__item-thumb-2">
+                                    <div class="blog__item-thumb return">
+                                        <img src="{% static 'institutional/imgs/blog/informacao-precisa.webp' %}" alt="img not found">
+                                    </div>
+                                </div>
+                                <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Informação Mais Precisa <br> para Agir Melhor</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

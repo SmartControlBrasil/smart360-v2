@@ -1,0 +1,109 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.3 header-8
+/*----------------------------------------*/
+
+.header-8 {
+    border-bottom: 1px solid rgb(5 5 19 / 10%);
+
+    &.header {
+        padding: 0;
+    }
+
+    & .main-menu-8 {
+        background: rgb(5 5 19 / 50%);
+        border-radius: 6px;
+        padding: 7px;
+        margin: 18px 0;
+        margin-right: 50px;
+
+        ul {
+            >li {
+                margin-inline-end: 0px;
+
+                >a {
+                    color: var(--rr-common-white);
+                    padding: 10px 25.3px;
+                    border-radius: 4px;
+                    font-size: 15px;
+                }
+
+                &.active>a {
+                    color: var(--rr-common-white) !important;
+                    background: rgb(255 255 255 / 12%);
+
+                    &::after {
+                        color: var(--rr-common-white);
+                    }
+                }
+
+                &.has-dropdown>a {
+                    padding-right: 25.3px !important;
+
+                    &::after {
+                        top: 33%;
+                        right: 12px;
+                    }
+                }
+
+                &.submenu {
+                    li {
+                        &:hover>a {
+                            color: var(--rr-theme-primary2) !important;
+                        }
+                    }
+                }
+
+                &:hover {
+                    >a {
+                        color: var(--rr-common-white);
+                        background: rgb(255 255 255 / 12%);
+
+                        &::after {
+                            color: var(--rr-common-white);
+                        }
+                    }
+
+                    >.submenu {
+                        top: 184%;
+                    }
+                }
+
+            }
+        }
+    }
+
+    & .header-8 {
+        &__right {
+            .header {
+                &__action {
+                    .contact a {
+                        color: #030611 !important;
+                        font-size: 16px !important;
+
+                        &:hover {
+                            color: var(--rr-theme-primary8) !important;
+                        }
+                    }
+                }
+            }
+
+            .header-8 {
+                &__btn {
+                    & .rr-btn {
+                        background: var(--rr-theme-primary8);
+                        padding: 12.5px 28.1px;
+                        color: #fff;
+                        font-size: 16px;
+                        border-radius: 6px;
+                    }
+                }
+            }
+        }
+    }
+
+    .bar-icon span {
+        background: var(--rr-theme-primary8);
+    }
+}

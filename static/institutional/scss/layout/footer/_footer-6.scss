@@ -1,0 +1,170 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  6.3 footer-6
+/*----------------------------------------*/
+.footer-6{
+    &__widget-2th-left{
+        padding-left: 96px;
+        @media #{$lg, $md, $sm, $xs} {
+            padding-left: 0;
+        }
+    }
+    &__widget-3th-left{
+        padding-left: 95px;
+        @media #{$lg, $md, $sm, $xs} {
+            padding-left: 0;
+        }
+    }
+    &__widget-4th-left{
+        padding-left: 66px;
+        @media #{$xl, $lg, $md, $sm, $xs} {
+            padding-left: 0;
+        }
+    }
+    &__wrap{
+        padding-top: 120px;
+        padding-bottom: 88px;
+        @media #{$md} {
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        @media #{$sm,$xs} {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+    }
+    &__content{
+        .dec{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-medium);
+            font-style: normal;
+            font-size: 15px;
+            line-height: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            @media #{$lg, $md, $sm, $xs} {
+                br{
+                    display: none;
+                }
+            }
+        }
+        .link{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-medium);
+            font-style: normal;
+            font-size: 15px;
+            line-height: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 16px;
+            a{
+                font-family: var(--rr-ff-body);
+                font-weight: var(--rr-fw-regular);
+                color: var(--rr-common-white);
+                font-style: normal;
+                font-size: 20px;
+                line-height: 24px;
+                transition: all 0.3s ease-in-out;
+                position: relative;
+                &::before{
+                    background: var(--rr-common-white);
+                    position: absolute;
+                    width: 100%;
+                    height: 1px;
+                    content: '';
+                    bottom: 0;
+                    left: 0;
+                }
+                &:hover{
+                    color: var(--rr-theme-primary6);
+                }
+            }
+        }
+    }
+    &__link{
+        ul{
+            li{
+                a{
+                    color: rgba(255, 255, 255, 0.7);
+                    font-weight: var(--rr-fw-medium);
+                    &:hover{
+                        color: var(--rr-theme-primary6);
+                    }
+                }
+            }
+        }
+    }
+    &__contact{
+        &-item{
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            .icon{
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(5, 5, 19, 0.1);
+                min-width: 46px;
+                height: 46px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transition: all 0.3s ease-in-out;
+                svg{
+                    transition: all 0.3s ease-in-out;
+                }
+                &:hover{
+                    background: var(--rr-theme-primary6);
+                    svg{
+                        path{
+                            stroke: var(--rr-heading-primary);
+                        }
+                    }
+                }
+            }
+        }
+        &-link{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-medium);
+            font-style: normal;
+            font-size: 15px;
+            line-height: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            a{
+                font-family: var(--rr-ff-body);
+                font-weight: var(--rr-fw-medium);
+                font-style: normal;
+                font-size: 15px;
+                line-height: 25px;
+                color: rgba(255, 255, 255, 0.7);
+                transition: all 0.3s ease-in-out;
+                display: inline-block;
+                &:hover{
+                    color: var(--rr-theme-primary6);
+                }
+            }
+        }
+    }
+    &__copyright{
+        p{
+            a{
+                &:hover{
+                    color: var(--rr-theme-primary6);
+                }
+            }
+        }
+    }
+    &__menu{
+        ul{
+            li{
+                a{
+                    &:hover{
+                        color: var(--rr-theme-primary6);
+                    }
+                }
+            }
+        }
+    }
+}

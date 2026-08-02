@@ -1,0 +1,194 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1 banner Style 7
+/*----------------------------------------*/
+
+
+.banner-7 {
+    padding: 236px 0 312px 0;
+
+    @media #{$lg} {
+        padding: 180px 0 312px 0;
+    }
+
+    @media #{$md} {
+        padding: 140px 0 270px 0;
+    }
+
+    @media #{$sm,$xs} {
+        padding: 130px 0 260px 0;
+    }
+
+    .banner4 {
+        &__title-wrapper {
+            &-title {
+                color: var(--rr-common-white);
+                font-size: 90px;
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+                margin-bottom: 0;
+
+                @media #{$md} {
+                    font-size: 65px;
+                }
+
+                @media #{$sm} {
+                    font-size: 52px;
+                }
+
+                @media #{$xs} {
+                    font-size: 30px;
+                }
+
+                span {
+                    color: var(--rr-theme-primary7);
+                }
+            }
+
+            &-dec {
+                color: rgba(255, 255, 255, 0.6);
+                margin-top: 20px;
+                margin-bottom: 45px;
+            }
+        }
+
+    }
+
+    &__title-wrapper {
+        .rr-btn {
+            background: linear-gradient(0deg, #F95F40 0%, #C81BD7 100%);
+            box-shadow: 0px 4px 30px rgba(221, 61, 29, 0.6);
+            color: var(--rr-common-white);
+            padding: 15.5px 35.4px;
+            transition: .3s;
+
+            &:hover {
+                color: var(--rr-common-white);
+                background: linear-gradient(0deg, #F95F40 0%, #C81BD7 100%);
+            }
+        }
+    }
+
+    &__shapes-shape {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border-radius: 500px;
+
+        img {
+            width: min-content;
+        }
+
+        &-1 {
+            left: calc(50% - 800px/2 - 618px);
+            top: -672px;
+            background: rgba(0, 230, 255, 0.7);
+            filter: blur(250px);
+        }
+
+        &-2 {
+            left: calc(50% - 800px/2 - 823px);
+            bottom: -668px;
+            background: rgba(255, 140, 177, 0.8);
+            filter: blur(300px);
+        }
+
+        &-3 {
+            left: calc(50% - 800px/2 + 855px);
+            bottom: -661px;
+            background: rgba(140, 156, 255, 0.8);
+            filter: blur(300px);
+        }
+
+        &-4 {
+            left: calc(50% - 800px/2 + 570px);
+            top: -674px;
+            background: rgba(255, 140, 142, 0.8);
+            filter: blur(300px);
+        }
+
+        &-5 {
+            width: 410px;
+            height: 1600px;
+            background: rgba(255, 255, 255, 0.07);
+            transform: rotate(40deg);
+            right: 255px;
+            top: -200px;
+        }
+    }
+
+    .shape {
+        position: absolute;
+
+        img {
+            width: min-content;
+        }
+
+        &.banner-7 {
+            &__shapes-shape {
+                &-6 {
+                    bottom: 100px;
+                    left: 75px;
+                }
+
+                &-7 {
+                    left: 179px;
+                    top: 159px;
+                    animation: rotate-360 3s linear infinite;
+
+                    @media #{$xxl} {
+                        left: 50px;
+                    }
+
+                    @media #{$xl} {
+                        left: 0px;
+                    }
+                }
+
+                &-8 {
+                    left: 405px;
+                    bottom: 273px;
+                    animation: rotate360 3s linear infinite;
+
+                    @media #{$xl,$lg} {
+                        left: 200px;
+                        bottom: 200px;
+                    }
+
+                    @media #{$md} {
+                        left: 80px;
+                    }
+                }
+
+                &-9 {
+                    top: 190px;
+                    right: 140px;
+                    animation: rotate360 3s linear infinite;
+
+                    @media #{$xxl} {
+                        right: 50px;
+                    }
+
+                    @media #{$xl} {
+                        right: 0px;
+                    }
+                }
+
+                &-10 {
+                    right: 344px;
+                    bottom: 269px;
+                    animation: rotate-360 3s linear infinite;
+
+                    @media #{$xl,$lg} {
+                        right: 200px;
+                        bottom: 200px;
+                    }
+
+                    @media #{$md} {
+                        right: 80px;
+                    }
+                }
+            }
+        }
+    }
+}

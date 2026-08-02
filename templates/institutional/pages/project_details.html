@@ -1,0 +1,135 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+            <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Project Details</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span>project details</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="seken-project-area section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="seken-project">
+                                <div class="seken-project-main-img">
+                                    <img src="{% static 'institutional/imgs/project/project-details-img.png' %}" alt="image not found">
+                                </div>
+                                <div class="seken-project-content mt-30">
+                                    <h3>Looking for details on this project.</h3>
+                                    <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus neque magna, dignissim sit amet magna ac, ultrices malesuada ante. Curabitur ante lectus, consectetur quis risus nec  iaculis est. Etiam molestie nisl felis nulla sollicitudin lectus maximus.Nulla pretium diam congue quam  sed porta ligula mattis. Fusce convallis sapien lectus tincidunt odio mollis nec.</p>
+                                </div>
+                                <div class="seken-project-list">
+                                    <ul>
+                                        <li><i class="fa-regular fa-arrow-right"></i> Nullam a urna sem. Nam a metus dapibus</li>
+                                        <li><i class="fa-regular fa-arrow-right"></i> imperdiet lectus ac, accumsan mauris</li>
+                                        <li><i class="fa-regular fa-arrow-right"></i> Vivamus tortor tortor, volutpat eget dolor</li>
+                                    </ul>
+                                    <ul>
+                                        <li><i class="fa-regular fa-arrow-right"></i> tempor dictum dolor. Fusce massa lectus</li>
+                                        <li><i class="fa-regular fa-arrow-right"></i> dapibus eget lectus non, convallis leo</li>
+                                        <li><i class="fa-regular fa-arrow-right"></i> Sed lacus lectus, faucibus nec velit eget</li>
+                                    </ul>
+                                </div>
+                                <div class="seken-project-image">
+                                    <img src="{% static 'institutional/imgs/project/project-details-img-2.png' %}" alt="image not found">
+                                    <img src="{% static 'institutional/imgs/project/project-details-img-3.png' %}" alt="image not found">
+                                </div>
+                                <div class="seken-project-image-2">
+                                    <img src="{% static 'institutional/imgs/project/project-details-img-4.png' %}" alt="image not found">
+                                </div>
+                                <div class="seken-project-image-2-text mt-30">
+                                    <h3>Exploring Shapes & Colors This Season</h3>
+                                    <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus neque magna, dignissim sit amet magna ac, ultrices malesuada ante. Curabitur ante lectus, consectetur quis risus nec  iaculis est. Etiam molestie nisl felis nulla sollicitudin lectus maximus.Nulla pretium diam congue quam  sed porta ligula mattis. Fusce convallis sapien lectus tincidunt odio mollis nec.</p>
+                                </div>
+                                <div class="seken-project-box">
+                                    <a href="{% url 'institutional:projects' %}"> <i class="fa-light fa-arrow-left"></i>Prev Project</a>
+                                    <a href="{% url 'institutional:projects' %}">Next Project <i class="fa-light fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="seken-project-sitebar blog__details-bottom">
+                                <h3 class="title">Project Details:</h3>
+                                <div class="seken-project-sitebar-box">
+                                    <ul>
+                                        <li>Client:<span class="first">Neural Networks</span></li>
+                                        <li>Date:<span class="second">March, 2024</span></li>
+                                        <li>Author:<span class="third">Parsley Montana</span></li>
+                                    </ul>
+                                </div>
+                                <div class="share-social-media_wrapper">
+                                    <span>Share:</span>
+    
+                                    <div class="share-social-media">
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 10 17" fill="none">
+                                                <path d="M9.35 0H6.8C5.67283 0 4.59183 0.447767 3.7948 1.2448C2.99777 2.04183 2.55 3.12283 2.55 4.25V6.8H0V10.2H2.55V17H5.95V10.2H8.5L9.35 6.8H5.95V4.25C5.95 4.02457 6.03955 3.80837 6.19896 3.64896C6.35837 3.48955 6.57457 3.4 6.8 3.4H9.35V0Z" fill="white"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="13" viewBox="0 0 17 13" fill="none">
+                                                <path d="M16.8235 0.00728525C16.0912 0.496661 15.2804 0.870955 14.4224 1.11575C13.9618 0.614052 13.3497 0.25846 12.6689 0.0970684C11.9881 -0.064323 11.2714 -0.023726 10.6157 0.213369C9.96004 0.450463 9.39704 0.872616 9.00287 1.42273C8.60869 1.97285 8.40236 2.62438 8.41177 3.28922V4.01371C7.0679 4.04672 5.73627 3.76435 4.53548 3.19174C3.33469 2.61913 2.30201 1.77405 1.52941 0.731774C1.52941 0.731774 -1.52941 7.25217 5.35294 10.1501C3.77805 11.1629 1.90194 11.6708 0 11.5991C6.88235 15.2216 15.2941 11.5991 15.2941 3.26749C15.2934 3.06568 15.2729 2.86438 15.2329 2.66616C16.0134 1.93696 16.5642 1.01629 16.8235 0.00728525Z" fill="white"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="#">
+                                            <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.0513 4.73682C12.3075 4.73682 13.5124 5.23587 14.4007 6.1242C15.289 7.01252 15.7881 8.21735 15.7881 9.47363V14.9999H12.6302V9.47363C12.6302 9.05487 12.4638 8.65326 12.1677 8.35715C11.8716 8.06104 11.47 7.89469 11.0513 7.89469C10.6325 7.89469 10.2309 8.06104 9.93479 8.35715C9.63868 8.65326 9.47233 9.05487 9.47233 9.47363V14.9999H6.31445V9.47363C6.31445 8.21735 6.81351 7.01252 7.70183 6.1242C8.59016 5.23587 9.79498 4.73682 11.0513 4.73682Z" fill="white"></path>
+                                                <path d="M3.15787 5.52612H0V14.9997H3.15787V5.52612Z" fill="white"></path>
+                                                <path d="M1.57894 3.15787C2.45096 3.15787 3.15787 2.45096 3.15787 1.57894C3.15787 0.706914 2.45096 0 1.57894 0C0.706914 0 0 0.706914 0 1.57894C0 2.45096 0.706914 3.15787 1.57894 3.15787Z" fill="white"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                                <path d="M9.00757 0C4.03279 0 0 4.02609 0 8.99262C0 12.8043 2.37242 16.0608 5.7231 17.3707C5.64105 16.6605 5.57519 15.5647 5.75232 14.7878C5.91537 14.0843 6.80489 10.317 6.80489 10.317C6.80489 10.317 6.53832 9.77695 6.53832 8.98488C6.53832 7.73402 7.2648 6.80168 8.16911 6.80168C8.93996 6.80168 9.31112 7.3793 9.31112 8.06766C9.31112 8.83723 8.82199 9.99211 8.56211 11.0654C8.3473 11.9609 9.01426 12.6935 9.89639 12.6935C11.498 12.6935 12.7287 11.006 12.7287 8.57812C12.7287 6.4241 11.1796 4.92188 8.96285 4.92188C6.39816 4.92188 4.89273 6.83895 4.89273 8.82246C4.89273 9.59203 5.18959 10.4214 5.5597 10.8731C5.63471 10.961 5.64245 11.0426 5.61992 11.1312C5.55301 11.4124 5.39771 12.0266 5.36743 12.1528C5.33045 12.3156 5.23361 12.3521 5.06317 12.2713C3.9363 11.7457 3.23165 10.1099 3.23165 8.7852C3.23165 5.9502 5.29242 3.34547 9.1847 3.34547C12.3061 3.34547 14.737 5.56629 14.737 8.54156C14.737 11.5168 12.7801 14.1374 10.0665 14.1374C9.15442 14.1374 8.29412 13.6635 8.00571 13.101C8.00571 13.101 7.55356 14.8177 7.44228 15.2399C7.24261 16.0242 6.69326 17.0016 6.3228 17.601C7.16866 17.859 8.05889 18 8.99278 18C13.9676 18 18.0004 13.9739 18.0004 9.00738C18.0148 4.02609 13.9824 0 9.00757 0Z" fill="white"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </section>
+{% endblock %}

@@ -1,0 +1,44 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.3 header-9
+/*----------------------------------------*/
+.header-9{
+    &__action{
+        .search-form{
+            .rr-search-form{
+                .search-control{
+                    background: rgba(255, 255, 255, 0.06);
+                    @include rs-placeholder {
+                        color: rgb(255 255 255 / 70%);
+                    }
+                }
+                .icon{
+                    i{
+                        color: var(--rr-common-white);
+                    }
+                }
+            }
+        }
+        .contact{
+            a{
+                border: 1.5px solid rgba(255, 255, 255, 0.14);
+                i{
+                    color: var(--rr-common-white);
+                }
+            }
+            .top{
+                background: #EC25C8;
+            }
+        }
+        .header__hamburger{
+            .sidebar__toggle{
+                .bar-icon{
+                    span{
+                        background: var(--rr-theme-primary6);
+                    }
+                }
+            }
+        }
+    }
+}

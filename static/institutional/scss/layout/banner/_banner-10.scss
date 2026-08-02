@@ -1,0 +1,156 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1 banner Style 4
+/*----------------------------------------*/
+.banner10{
+    &__area{
+        padding: 212px 0 416px 0;
+        @media #{$xl, $lg} {
+            padding: 150px 0 250px 0;
+        }
+        @media #{$md, $sm, $xs} {
+            padding: 80px 0 200px 0;
+        }
+    }
+    &__shapes{
+        &-shape-1{
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            left: -162px;
+            top: -240px;
+            background: #9AF064;
+            filter: blur(300px);
+        }
+        &-shape-2{
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            left: -121px;
+            top: 477px;
+            background: rgba(105, 100, 240, 0.2);
+            filter: blur(300px);
+        }
+        &-shape-3{
+            position: absolute;
+            width: 690px;
+            height: 690px;
+            left: -96px;
+            bottom: -337px;
+            background: #57E0FF;
+            filter: blur(200px);
+        }
+        &-shape-4{
+            position: absolute;
+            width: 1398px;
+            height: 1398px;
+            left: 223px;
+            top: -283px;
+            background: #B794FF;
+            filter: blur(200px);
+            z-index: -1;
+        }
+        &-shape-5{
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            right: -202px;
+            top: -222px;
+            background: rgba(234, 57, 231, 0.5);
+            filter: blur(300px);
+        }
+        &-shape-6{
+            position: absolute;
+            width: 690px;
+            height: 690px;
+            right: -214px;
+            bottom: -265px;
+            background: #FFC557;
+            filter: blur(200px);
+        }
+        &-shape-7{
+            position: absolute;
+            left: 9%;
+            top: -150px;
+            @media #{$md, $sm, $xs} {
+                display: none;
+            }
+        }
+    }
+    &__title-wrapper{
+        &-title{
+            font-family: var(--rr-ff-heading);
+            color: var(--rr-heading-primary);
+            font-size: var(--rr-fs-h1);
+            line-height: var(--rr-lh-h1);
+            font-weight: var(--rr-fw-bold);
+            font-style: normal;
+            letter-spacing: -0.03em;
+            text-transform: inherit;
+            margin-bottom: 25px;
+            span{
+                color: var(--rr-theme-primary2);
+            }
+            @media #{$sm} {
+                font-size: 50px;
+                line-height: 65px;
+            }
+            @media #{$xs} {
+                font-size: 35px;
+                line-height: 45px;
+            }
+            @media #{$md, $sm, $xs} {
+                br{
+                    display: none;
+                }
+            }
+        }
+        &-dec{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-medium);
+            font-style: normal;
+            font-size:  var(--rr-fs-body);
+            line-height: var(--rr-lh-body);
+            color: rgb(5 5 19 / 70%);
+            margin-bottom: 47px;
+            position: relative;
+            z-index: 1;
+            @media #{$sm, $xs} {
+                br{
+                    display: none;
+                }
+            }
+        }
+        .rr-btn{
+            gap: 16px;
+            background: #FFFFFF;
+            box-shadow: 0px 4px 4px rgba(5, 5, 19, 0.14);
+            border-radius: 6px;
+            padding: 5px 5px 5px 30px;
+            &:hover{
+                span{
+                    background: var(--rr-theme-primary10);
+                    i{
+                        color: var(--rr-heading-primary);
+                        transform: rotate(0);
+                    }
+                }
+            }
+            span{
+                background: var(--rr-heading-primary);
+                width: 50px;
+                height: 40px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                i{
+                    color: var(--rr-common-white);
+                    font-size: 18px;
+                    transform: rotate(-45deg);
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+        }
+    }
+}

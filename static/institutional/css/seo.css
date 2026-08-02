@@ -1,0 +1,38 @@
+
+/* Container que junta a imagem e o balão */
+.container-balao-robo {
+  position: relative;
+  display: inline-block;
+  margin-top: 50px; /* Margem extra no topo para o balão ter espaço */
+}
+
+/* O Balão de Fala (Agora acima da imagem) */
+.balao-fala-robo {
+  position: absolute;
+  bottom: 105%;        /* Posiciona o balão ACIMA da imagem */
+  left: 50%;           /* Centraliza o início do balão */
+  transform: translateX(-50%); /* Alinha o centro do balão com o centro da imagem */
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 12px;
+  width: 220px;
+  font-family: sans-serif;
+  font-size: 14px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  text-align: center;
+}
+
+/* O "Biquinho" do balão apontando para baixo */
+.balao-fala-robo::after {
+  content: "";
+  position: absolute;
+  top: 100%;           /* Coloca o triângulo colado na borda inferior do balão */
+  left: 80%;
+  transform: translateX(-50%);
+  border-width: 11px;
+  border-style: solid;
+  /* Cria a seta apontando para baixo */
+  border-color: #007bff transparent transparent transparent;
+}

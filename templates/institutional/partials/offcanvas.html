@@ -1,0 +1,33 @@
+{% load static %}
+<div class="fix">
+    <div class="offcanvas__area">
+        <div class="offcanvas__wrapper">
+            <div class="offcanvas__content">
+                <div class="offcanvas__top d-flex justify-content-between align-items-center">
+                    <div class="offcanvas__logo">
+                        <a href="{% url 'institutional:home' %}">
+                            <img src="{% static 'institutional/imgs/logo/offcanvas-logo.png' %}" alt="Smart Control Brasil">
+                        </a>
+                    </div>
+                    <div class="offcanvas__close">
+                        <button class="offcanvas-close-icon animation--flip" aria-label="Fechar menu">
+                            <span class="offcanvas-m-lines">
+                                <span class="offcanvas-m-line line--1"></span><span class="offcanvas-m-line line--2"></span><span class="offcanvas-m-line line--3"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mobile-menu fix"></div>
+                <div class="offcanvas__social">
+                    <h3 class="offcanvas__title mb-20">Smart Control Brasil</h3>
+                    <ul>
+                        <li><a href="https://smartcontrolbrasil.com.br" aria-label="Site Smart Control Brasil"><i class="fa-regular fa-globe"></i></a></li>
+                        <li><a href="tel:+551151968525" aria-label="Telefone Smart Control Brasil"><i class="fa-regular fa-phone"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas__overlay"></div>
+<div class="offcanvas__overlay-white"></div>

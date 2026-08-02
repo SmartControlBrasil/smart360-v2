@@ -1,0 +1,80 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  6.3 footer-5
+/*----------------------------------------*/
+.footer-5{
+    &::before{
+        background: rgba(255, 255, 255, 0.14);
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        top: 0;
+        left: 159px;
+        content: '';
+        @media #{$xxl, $xl, $lg, $md, $sm, $xs}{
+            display: none;
+        }
+    }
+    &::after{
+        background: rgba(255, 255, 255, 0.14);
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        top: 0;
+        right: 145px;
+        content: '';
+        @media #{$xxl, $xl, $lg, $md, $sm, $xs}{
+            display: none;
+        }
+    }
+    &__border-1{
+        border-right: 1px solid  rgba(255, 255, 255, 0.14);
+    }
+    &__widget-2th-left{
+        padding-left: 47px;
+        @media #{$lg, $md, $sm, $xs}{
+            padding-left: 0;
+        }
+    }
+    &__widget-3th-left{
+        padding-left: 71px;
+        @media #{$lg, $md, $sm, $xs}{
+            padding-left: 0;
+        }
+    }
+    &__widget-4th-left{
+        padding-left: 48px;
+        @media #{$lg, $md, $sm, $xs}{
+            padding-left: 0;
+        }
+    }
+    &__wrap{
+        padding-bottom: 86px;
+        padding-top: 95px;
+        &::before{
+            background: rgba(255, 255, 255, 0.14);
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            top: 0;
+            left: 409px;
+            content: '';
+            @media #{$lg}{
+                left: 490px;
+            }
+            @media #{$md, $sm, $xs}{
+                display: none;
+            }
+        }
+        &::after{
+            background: rgba(255, 255, 255, 0.14);
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            top: 0;
+            left: 0;
+            content: '';
+        }
+    }
+}

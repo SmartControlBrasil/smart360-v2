@@ -1,0 +1,917 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Banner area start -->
+            <section class="banner2__area hero-bg-dark p-relative overflow-hidden z-1">
+                <div class="banner2__shapes">
+                    <div class="banner2__shapes-shape-1"></div>
+                    <div class="banner2__shapes-shape-2"></div>
+                    <div class="banner2__shapes-shape-3"></div>
+                    <div class="banner2__shapes-shape-4"></div>
+                    <div class="banner2__shapes-shape-5"></div>
+                    <div class="banner2__shapes-shape-6">
+                        <img src="{% static 'institutional/imgs/shapes/hero-1-shape-3.png' %}" alt="img not found">
+                    </div>
+                    <div class="banner2__shapes-shape-7 upDown">
+                        <img src="{% static 'institutional/imgs/shapes/hero-2-bg-shape.png' %}" alt="img not found">
+                    </div>
+                    <div class="banner2__shapes-shape-8">
+                        <img src="{% static 'institutional/imgs/shapes/hero-2-bg-shape-2.png' %}" alt="img not found">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="banner2__content p-relative">
+                                <div class="banner-heading__wrapper hero">
+                                    <h1 class="banner-heading__wrapper-title-2 _split_text">Sistemas e Websites <br> Inteligentes em Python.</h1>
+                                    <p class="banner-heading__wrapper-dec rr_title_anim">Desenvolvemos plataformas web, portais e sistemas personalizados com banco de dados, <br> automações, integrações e inteligência artificial aplicada ao seu negócio.</p>
+                                </div>
+                                <div class="banner2__btn-wrapper">
+                                    <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".4s" href="{% url 'institutional:contact' %}">Solicitar orçamento</a>
+                                    <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".6s" href="{% url 'institutional:contact' %}">Falar com a equipe <i class="fa-solid fa-angle-right"></i></a>
+                                </div>
+                                <div class="banner2__content-message">
+                                    <div class="icon">
+                                        <img src="{% static 'institutional/imgs/icon/hero-icon-1.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="star-list">
+                                        <div class="star">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                            <p class="dec">Software desenvolvido para transformar processos reais.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="banner2__thumb">
+                                <div class="banner2__thumb-btn hero">
+                                    <a class="text-btn _split_text" href="{% url 'institutional:contact' %}">Python, dados e IA</a>
+                                </div>
+                                <div class="banner2__thumb-text hero">
+                                    <p class="_split_text">Tecnologia sob medida <br> para sua empresa crescer</p>
+                                </div>
+                                <div class="banner2__thumb-media" data-tilt>
+                                    <img src="{% static 'institutional/imgs/images/sites-inteligentes.webp' %}" alt="img not found">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> 
+        
+            <section class="brand__area mb-2 body-2-bg pt-60 pb-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="brand__wrapper hero">
+                            <h5 class="title _split_text">Tecnologias modernas para sistemas seguros, escaláveis e fáceis de evoluir.</h5>
+                            <div class="brand__wrapper-thumb">
+                                <div class="brand__wrapper-thumb-icon">
+                                    <img src="{% static 'institutional/imgs/icon/slider-icon-1.png' %}" alt="img not found">
+                                </div>
+                                <div class="brand__wrapper-thumb-icon">
+                                    <img src="{% static 'institutional/imgs/icon/slider-icon-2.png' %}" alt="img not found">
+                                </div>
+                                <div class="brand__wrapper-thumb-icon">
+                                    <img src="{% static 'institutional/imgs/icon/slider-icon-3.png' %}" alt="img not found">
+                                </div>
+                                <div class="brand__wrapper-thumb-icon">
+                                    <img src="{% static 'institutional/imgs/icon/slider-icon-4.png' %}" alt="img not found">
+                                </div>
+                                <div class="brand__wrapper-thumb-icon">
+                                    <img src="{% static 'institutional/imgs/icon/slider-icon-5.png' %}" alt="img not found">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--aifunction-->
+            <section class="aifunction__area overflow-hidden section-space body-2-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="aifunction__title-wrap hero">
+                            <h3 class="title _split_text">O que desenvolvemos</h3>
+                            <div class="slider-button-wrap">
+                                <button class="aifunction-slide-button-prev slide-button">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </button>
+                                <button class="aifunction-slide-button-next slide-button">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="swiper aifunction-slide">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="aifunction__item aifunction__item-1">
+                                            <div class="aifunction__item-icon aifunction__item-icon-1">
+                                                <img src="{% static 'institutional/imgs/images/sistemas-web.webp' %}" alt="img not found">
+                                            </div>
+                                            <div class="aifunction__item-content">
+                                                <div class="aifunction__item-content-text">
+                                                    <h4 class="title"><a href="{% url 'institutional:contact' %}">Sistemas Web</a></h4>
+                                                    <p class="dec">Plataformas personalizadas para gestão e operação</p>
+                                                </div>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="aifunction__item aifunction__item-1">
+                                            <div class="aifunction__item-icon aifunction__item-icon-2">
+                                                <img src="{% static 'institutional/imgs/images/sistema-adm.webp' %}" alt="img not found">
+                                            </div>
+                                            <div class="aifunction__item-content">
+                                                <div class="aifunction__item-content-text">
+                                                    <h4 class="title"><a href="{% url 'institutional:contact' %}">Websites Inteligentes</a></h4>
+                                                    <p class="dec">Sites rápidos, profissionais e integrados ao negócio</p>
+                                                </div>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="aifunction__item aifunction__item-1">
+                                            <div class="aifunction__item-icon aifunction__item-icon-3">
+                                                <img src="{% static 'institutional/imgs/images/banco-de-dados.webp' %}" alt="img not found">
+                                            </div>
+                                            <div class="aifunction__item-content">
+                                                <div class="aifunction__item-content-text">
+                                                    <h4 class="title"><a href="{% url 'institutional:contact' %}">Bancos de Dados</a></h4>
+                                                    <p class="dec">Dados organizados, protegidos e disponíveis</p>
+                                                </div>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="aifunction__item aifunction__item-1">
+                                            <div class="aifunction__item-icon aifunction__item-icon-4">
+                                                <img src="{% static 'institutional/imgs/images/livia-atendendo.webp' %}" alt="img not found">
+                                            </div>
+                                            <div class="aifunction__item-content">
+                                                <div class="aifunction__item-content-text">
+                                                    <h4 class="title"><a href="{% url 'institutional:contact' %}">Inteligência Artificial</a></h4>
+                                                    <p class="dec">IA integrada aos processos e sistemas da empresa</p>
+                                                </div>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="services-provided section-space-bottom-5 body-2-bg overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="section__title-wrapper text-center hero mb-50">
+                            <h2 class="section__title-wrapper-title-2 _split_text">Soluções Digitais Construídas para sua Empresa</h2>
+                            <p class="section__title-wrapper-dec-2 rr_title_anim">Do planejamento à implantação, criamos tecnologia alinhada aos seus processos.</p>
+                        </div>
+                    </div>
+                    <div class="row services-provided__reverse">
+                        <div class="col-lg-10">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="uiux-design" role="tabpanel" aria-labelledby="uiux-design-tab">
+                                    <div class="services-provided__tab-content">
+                                        <div class="services-provided__tab-content-media">
+                                            <img src="{% static 'institutional/imgs/images/portal-web.webp' %}" alt="img not found">
+                                            <div class="services-provided__tab-content-media-content">
+                                                <h4>Portais Web</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="data-analytics" role="tabpanel" aria-labelledby="data-analytics-tab">
+                                    <div class="services-provided__tab-content">
+                                        <div class="services-provided__tab-content-media">
+                                            <img src="{% static 'institutional/imgs/images/dashboard-smart.webp' %}" alt="img not found">
+                                            <div class="services-provided__tab-content-media-content">
+                                                <h4>Dashboards</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="it-services" role="tabpanel" aria-labelledby="it-services-tab">
+                                    <div class="services-provided__tab-content">
+                                        <div class="services-provided__tab-content-media">
+                                            <img src="{% static 'institutional/imgs/images/livia-em-acao.webp' %}" alt="img not found">
+                                            <div class="services-provided__tab-content-media-content">
+                                                <h4>Automação</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="product" role="tabpanel" aria-labelledby="product-tab">
+                                    <div class="services-provided__tab-content">
+                                        <div class="services-provided__tab-content-media">
+                                            <img src="{% static 'institutional/imgs/images/ia-aplicada.webp' %}" alt="img not found">
+                                            <div class="services-provided__tab-content-media-content">
+                                                <h4>IA Aplicada</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="rr-btn mt-30" href="{% url 'institutional:contact' %}">Apresente seu projeto <img src="{% static 'institutional/imgs/icon/tab-icon-1.png' %}" alt="Ícone"></a>
+                        </div>
+                        <div class="col-lg-2">
+                            <ul class="nav nav-tabs services-provided__tab" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="uiux-design-tab" data-bs-toggle="tab" data-bs-target="#uiux-design" type="button" role="tab" aria-controls="uiux-design" aria-selected="true">
+                                        <span class="img-1">
+                                            <img src="{% static 'institutional/imgs/images/tab-sm-img-1.png' %}" alt="img not found">
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="data-analytics-tab" data-bs-toggle="tab" data-bs-target="#data-analytics" type="button" role="tab" aria-controls="data-analytics" aria-selected="false">
+                                        <span class="img-2">
+                                            <img src="{% static 'institutional/imgs/images/tab-sm-img-2.png' %}" alt="img not found">
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="it-services-tab" data-bs-toggle="tab" data-bs-target="#it-services" type="button" role="tab" aria-controls="it-services" aria-selected="false">
+                                       <span class="img-3">
+                                        <img src="{% static 'institutional/imgs/images/tab-sm-img-3.png' %}" alt="img not found">
+                                       </span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link last-item" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">
+                                        <span class="img-4">
+                                            <img src="{% static 'institutional/imgs/images/tab-sm-img-4.png' %}" alt="img not found">
+                                        </span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+             <!--aigenerator-->
+             <section class="aigenerator__area footer-2-bg section-space-3 overflow-hidden z-1 p-relative">
+                <div class="aigenerator__shapes">
+                    <div class="aigenerator__shapes-shape-1"></div>
+                    <div class="aigenerator__shapes-shape-2"></div>
+                    <div class="aigenerator__shapes-shape-3"></div>
+                    <div class="aigenerator__shapes-shape-4"></div>
+                </div>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="aigenerator__thumb" data-tilt>
+                                <img src="{% static 'institutional/imgs/images/desenvolvimento-python.webp' %}" alt="img not found">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="aigenerator__content">
+                                <div class="section__title-wrapper hero">
+                                    <h6 class="aigenerator__content-subtitle _split_text">Desenvolvimento-inteligente</h6>
+                                    <h2 class="section__title-wrapper-title-2 mt-10 rr_title_anim">Python, Banco de Dados <br> e Inteligência Artificial</h2>
+                                    <p class="section__title-wrapper-dec-2 mt-10 rr_title_anim">Criamos aplicações web completas para centralizar informações, automatizar tarefas <br>
+                                        integrar dados e apoiar decisões com inteligência artificial.</p>
+                                </div>
+                                <div class="aigenerator__content-revive-box hero">
+                                    <p class="text _split_text">Sistemas personalizados, integrações, dados e IA</p>
+                                    <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar projeto</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--different-->
+            <section class="different__area section-space-top pb-60 body-2-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="section__title-wrapper text-center hero mb-50">
+                            <h2 class="section__title-wrapper-title-2 _split_text">Recursos para Transformar sua Operação</h2>
+                        </div>
+                    </div>
+                    <div class="row mb-minus-30">
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-1.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Sistemas rápidos e responsivos</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-1">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-2.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Automação de processos</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-2">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-3.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Controle de acesso e segurança</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-3">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-4.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Relatórios e notificações</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-3">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-5.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Integração com APIs e serviços</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-3">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-6.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Inteligência artificial aplicada</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-3">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-7.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Bancos de dados estruturados</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="different__item hero mb-30">
+                                <div class="different__item-icon different__item-icon-4">
+                                    <img src="{% static 'institutional/imgs/icon/different-icon-8.png' %}" alt="img not found">
+                                </div>
+                                <h5 class="title _split_text">Arquitetura preparada para evoluir</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--things-->
+            <section class="things__area body-2-bg overflow-hidden z-1 p-relative">
+                <div class="container overflow-hidden p-relative">
+                    <div class="row p-relative overflow-hidden m-0">
+                        <div class="col-12">
+                            <div class="things__shapes">
+                                <div class="things__shapes-shape-1"></div>
+                                <div class="things__shapes-shape-2"></div>
+                                <div class="things__shapes-shape-3"></div>
+                                <div class="things__shapes-shape-4"></div>
+                            </div>
+                            <div class="things__wrapper">
+                                <div class="things__message">
+                                    <div class="things__message-icon">
+                                         <img src="{% static 'institutional/imgs/icon/things-icon-1.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="things__message-text hero">
+                                        <h3 class="title _split_text">Vamos tirar sua ideia do papel</h3>
+                                        <p class="dec rr_title_anim">Tecnologia sob medida para necessidades reais.</p>
+                                    </div>
+                                </div>
+                                <a class="rr-btn" href="{% url 'institutional:contact' %}">Falar com a equipe <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--dedicated-->
+            <section class="dedicated__area section-space-top section-space-bottom-5 body-2-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="section__title-wrapper text-center hero mb-50">
+                            <h2 class="section__title-wrapper-title-2 _split_text">Tecnologias que Formam uma Solução Completa</h2>
+                        </div>
+                    </div>
+                    <div class="row mb-minus-30 ">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="dedicated__item mb-30">
+                                <div class="dedicated__item-icon dedicated__item-icon-1 return">
+                                    <img src="{% static 'institutional/imgs/images/dedicated-img-1.png' %}" alt="img not found">
+                                </div>
+                                <div class="dedicated__item-content">
+                                    <a class="text" href="{% url 'institutional:contact' %}">Inteligência Artificial</a>
+                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="dedicated__item mb-30">
+                                <div class="dedicated__item-icon dedicated__item-icon-2 return">
+                                    <img src="{% static 'institutional/imgs/images/dedicated-img-2.png' %}" alt="img not found">
+                                </div>
+                                <div class="dedicated__item-content">
+                                    <a class="text" href="{% url 'institutional:contact' %}">PostgreSQL</a>
+                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="dedicated__item mb-30">
+                                <div class="dedicated__item-icon dedicated__item-icon-3 return">
+                                    <img src="{% static 'institutional/imgs/images/dedicated-img-3.png' %}" alt="img not found">
+                                </div>
+                                <div class="dedicated__item-content">
+                                    <a class="text" href="{% url 'institutional:contact' %}">APIs e Integrações</a>
+                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="dedicated__item mb-30">
+                                <div class="dedicated__item-icon dedicated__item-icon-4 return">
+                                    <img src="{% static 'institutional/imgs/images/dedicated-img-4.png' %}" alt="img not found">
+                                </div>
+                                <div class="dedicated__item-content">
+                                    <a class="text" href="{% url 'institutional:contact' %}">Python e Django</a>
+                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="dedicated__item mb-30">
+                                <div class="dedicated__item-icon dedicated__item-icon-5 return">
+                                    <img src="{% static 'institutional/imgs/images/dedicated-img-5.png' %}" alt="img not found">
+                                </div>
+                                <div class="dedicated__item-content">
+                                    <a class="text" href="{% url 'institutional:contact' %}">Dashboards</a>
+                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="dedicated__item mb-30">
+                                <div class="dedicated__item-icon dedicated__item-icon-6 return">
+                                    <img src="{% static 'institutional/imgs/images/dedicated-img-6.png' %}" alt="img not found">
+                                </div>
+                                <div class="dedicated__item-content">
+                                    <a class="text" href="{% url 'institutional:contact' %}">Automação</a>
+                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--further-->
+            <section class="further__area section-space-2 body-2-bg overflow-hidden z-1 p-relative">
+                <div class="further__shapes">
+                    <div class="further__shapes-shape-1"></div>
+                    <div class="further__shapes-shape-2"></div>
+                    <div class="further__shapes-shape-3"></div>
+                    <div class="further__shapes-shape-4"></div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="further__content">
+                                <div class="section__title-wrapper hero">
+                                    <h2 class="section__title-wrapper-title-2 _split_text mt-10">Seu Sistema Disponível <br> Onde Você Precisar</h2>
+                                    <p class="section__title-wrapper-dec-2 rr_title_anim mt-10">Aplicações responsivas para computadores, tablets e celulares, com acesso seguro <br> às informações e ferramentas importantes para sua operação.</p>
+                                </div>
+                                <div class="further__content-btn-wrap">
+                                    <div class="button">
+                                        <div class="icon">
+                                            <img src="{% static 'institutional/imgs/icon/further-icon-1.png' %}" alt="">
+                                        </div>
+                                        <div class="text">
+                                            <span>Acesse pelo</span>
+                                            <h6><a href="{% url 'institutional:contact' %}">Computador</a></h6>
+                                        </div>
+                                    </div>
+                                    <div class="button button-2">
+                                        <div class="icon">
+                                            <img src="{% static 'institutional/imgs/icon/further-icon-2.png' %}" alt="">
+                                        </div>
+                                        <div class="text">
+                                            <span>Acesse pelo</span>
+                                            <h6><a href="{% url 'institutional:contact' %}">Celular</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="further__thumb leftRight">
+                                <img src="{% static 'institutional/imgs/images/site-institucional.webp' %}" alt="img not found">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- Testimonial section start -->
+            <section class="testimonial-2__area section-space-top body-2-bg p-relative">
+                <div class="container">
+                    <div class="row">
+                        <div class="section__title-wrapper text-center hero mb-50">
+                            <h2 class="section__title-wrapper-title-2 _split_text">Por que Desenvolver com a Smart Control Brasil</h2>
+                        </div>
+                    </div>
+                    <div class="testimonial-2__inner">
+                        <div class="testimonial-2__list-wrapper">
+                            <div class="testimonial-2__list mb-minus-30">
+                                <div class="testimonial-2__item mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item content mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item content mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item content mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item content mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item content mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-2__item content mb-30">
+                                    <div class="testimonial-2__item-shape">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="img not found">
+                                    </div>
+                                    <div class="testimonial-2__item-text">
+                                        <div class="testimonial-2__item-icon">
+                                            <ul>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li><i class="fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                    </div>
+                                    <div class="testimonial-2__item-content">
+                                        <div class="testimonial-2__item-author">
+                                            <div class="icon">
+                                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="img not found">
+                                            </div>
+                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-2-btn text-center">
+                                <a class="rr-btn loadmore" href="{% url 'institutional:contact' %}">Falar sobre meu projeto <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!--faq-2-->
+            <section class="faq-2__area section-space-top-5 ask-question-2 body-2-bg p-relative overflow-hidden">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="faq-2__thumb">
+                                <div class="section__title-wrapper hero mb-20">
+                                    <h2 class="section__title-wrapper-title-2 _split_text">Perguntas<br>frequentes.</h2>
+                                </div>
+                                <span class="faq-2__thumb-support rr_title_anim">Quer transformar uma ideia em sistema? <br><a href="{% url 'institutional:contact' %}">Fale com nossa equipe</a></span>
+                                <div class="faq-2__thumb-media">
+                                    <img src="{% static 'institutional/imgs/images/faq-softwares.webp' %}" alt="img not found">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="ask-question-2__faq-2">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item ask-question-2__faq-2-item faq-2__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Vocês desenvolvem sistemas totalmente personalizados?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Sim. Analisamos os processos, usuários, dados e objetivos da empresa para desenvolver <br> um sistema alinhado à operação, sem limitar o projeto a uma solução genérica.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item ask-question-2__faq-2-item faq-2__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                Quais tecnologias podem ser utilizadas no projeto?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Trabalhamos com Python, Django, bancos de dados relacionais, APIs, interfaces web <br> responsivas e serviços de inteligência artificial conforme a necessidade da aplicação.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item ask-question-2__faq-2-item faq-2__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                É possível integrar inteligência artificial ao sistema?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Sim. A IA pode apoiar atendimento, busca de informações, classificação, geração de <br> conteúdo, análise de dados e automação, desde que faça sentido para o processo.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item ask-question-2__faq-2-item faq-2__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                        <h5 class="accordion-header" id="headingFour">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                O sistema pode se integrar a outras plataformas?
+                                            </button>
+                                        </h5>
+                                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>Sim. Podemos criar integrações por API com serviços externos, sistemas internos, <br> ferramentas de comunicação, meios de pagamento e outras fontes de dados.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!--blog-2-->
+            <section class="blog-2__area body-2-bg section-space-top section-space-bottom-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="section__title-wrapper hero text-center mb-50">
+                            <h2 class="section__title-wrapper-title-2 _split_text">Soluções para Diferentes Necessidades</h2>
+                        </div>
+                    </div>
+                    <div class="row mb-minus-30">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="blog-2__item mb-30">
+                                 <div class="blog-2__item-thumb">
+                                    <img src="{% static 'institutional/imgs/blog/blog-sistemas-personalizados.webp' %}" data-tilt alt="img not found">
+                                    <div class="top-icon">
+                                        <h5>Sistemas Web</h5>
+                                    </div>
+                                 </div>
+                                 <div class="blog-2__item-content">
+                                    <div class="blog-2__item-content-cta-wrap">
+                                        <span class="date"><i class="fa-sharp fa-solid fa-code"></i>Python</span>
+                                        <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-database"></i>Banco de dados</a>
+                                    </div>
+                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">Sistemas personalizados para <br> organizar sua operação</a></h3>
+                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="blog-2__item mb-30">
+                                 <div class="blog-2__item-thumb">
+                                    <img src="{% static 'institutional/imgs/blog/web-sites-inteligentes.webp' %}" data-tilt alt="img not found">
+                                    <div class="top-icon">
+                                        <h5>Websites</h5>
+                                    </div>
+                                 </div>
+                                 <div class="blog-2__item-content">
+                                    <div class="blog-2__item-content-cta-wrap">
+                                        <span class="date"><i class="fa-sharp fa-solid fa-display"></i>Responsivo</span>
+                                        <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-gears"></i>Integrado</a>
+                                    </div>
+                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">Websites inteligentes conectados <br> aos objetivos da empresa</a></h3>
+                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="blog-2__item mb-30">
+                                 <div class="blog-2__item-thumb">
+                                    <img src="{% static 'institutional/imgs/blog/web-sites-inteligencia-artificial.webp' %}" data-tilt alt="img not found">
+                                    <div class="top-icon">
+                                        <h5>Inteligência Artificial</h5>
+                                    </div>
+                                 </div>
+                                 <div class="blog-2__item-content">
+                                    <div class="blog-2__item-content-cta-wrap">
+                                        <span class="date"><i class="fa-sharp fa-solid fa-brain"></i>IA aplicada</span>
+                                        <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-chart-line"></i>Automação</a>
+                                    </div>
+                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">Inteligência artificial integrada <br> aos seus sistemas e dados</a></h3>
+                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

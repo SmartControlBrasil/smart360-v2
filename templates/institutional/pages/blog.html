@@ -1,0 +1,86 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+             <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Blog</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span>Blog</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+            
+
+            <section class="blog__area section-space">
+                <div class="container">
+                    <div class="row mb-minus-30">
+                        {% for post in blog_posts %}
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                <div class="blog__right-border">
+                                    <div class="blog__item mb-30">
+                                        <div class="blog__item-details">
+                                            <div class="blog__item-details-cta">
+                                                <div class="man-img">
+                                                    <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="Equipe Smart Control Brasil">
+                                                </div>
+                                                <div class="text">
+                                                    <h6 class="title"><a href="{% url 'institutional:blog_detail' post.slug %}">Equipe Smart Control Brasil</a></h6>
+                                                    <span class="position">Artigo Técnico</span>
+                                                </div>
+                                            </div>
+                                            <div class="date"><i class="fa-solid fa-calendar-days"></i> <a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.category }}</a></div>
+                                        </div>
+                                        <div class="blog__item-thumb-2 blog__item-thumb-1">
+                                            <div class="blog__item-thumb return">
+                                                <a href="{% url 'institutional:blog_detail' post.slug %}">
+                                                    <img src="{% static post.image %}" alt="{{ post.alt }}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.title }}</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+{% endblock %}

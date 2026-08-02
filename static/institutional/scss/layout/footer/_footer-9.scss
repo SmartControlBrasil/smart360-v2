@@ -1,0 +1,71 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  6.3 footer-9
+/*----------------------------------------*/
+.footer-9{
+    &__top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        @media #{$xs} {
+            justify-content: center;
+        }
+        &-item{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            position: relative;
+            padding: 48px 131px;
+            @media #{$xxl} {
+                padding: 35px 82px;
+            }
+            @media #{$xl} {
+                padding: 35px 63px;
+            }
+            @media #{$lg} {
+                padding: 35px 40px;
+            }
+            @media #{$md} {
+                padding: 35px 20px;
+            }
+            @media #{$sm, $xs} {
+                padding: 35px 80px; 
+            }
+            &::before{
+                background: rgba(255, 255, 255, 0.14);
+                position: absolute;
+                height: 100%;
+                width: 1px;
+                top: 0;
+                right: 0;
+                content: '';
+                @media #{$sm, $xs} {
+                    display: none;
+                }
+            }
+            &-icon{
+                a{
+                    i{
+                        color: var(--rr-common-white);
+                    }
+                }
+            }
+            &-text{
+                h6{
+                    a{
+                        font-family: var(--rr-ff-body);
+                        font-weight: var(--rr-fw-sbold);
+                        font-style: normal;
+                        font-size: 20px;
+                        line-height: 24px;
+                        color: rgb(255 255 255 / 60%);
+                    }
+                }
+            }
+        }
+    }
+}

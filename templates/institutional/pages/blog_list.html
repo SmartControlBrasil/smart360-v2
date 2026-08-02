@@ -1,0 +1,325 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+             <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden p-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Blog-list</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span>Blog-list</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+            
+            <section class="blog-list__area service-details section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="blog__details-content hero">
+                                <div class="blog__details-thumb-2">
+                                    <div class="blog__details-thumb">
+                                        <img src="{% static 'institutional/imgs/blog/blog-details-img-1.png' %}" alt="image not found" class="img-fluid">
+                                   </div>
+                                </div>
+                                <ul class="blog__details-meta">
+                                    <li><a href="#"><svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1.39844 6.67212H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        June 15, 2024</a></li>
+                                    <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.1746 12.8635L14.4866 15.3913C14.5666 16.0553 13.8546 16.5193 13.2866 16.1753L9.93477 14.1834C9.56678 14.1834 9.20681 14.1594 8.85482 14.1114C9.4468 13.4154 9.79877 12.5354 9.79877 11.5835C9.79877 9.3116 7.83087 7.47172 5.39898 7.47172C4.47102 7.47172 3.61507 7.73569 2.9031 8.19967C2.8791 7.99967 2.87109 7.79968 2.87109 7.59169C2.87109 3.95185 6.03095 1 9.93477 1C13.8386 1 16.9984 3.95185 16.9984 7.59169C16.9984 9.75159 15.8865 11.6635 14.1746 12.8635Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9.79959 11.5837C9.79959 12.5357 9.44761 13.4156 8.85564 14.1116C8.06368 15.0716 6.80773 15.6875 5.3998 15.6875L3.31189 16.9274C2.95991 17.1434 2.51193 16.8475 2.55993 16.4395L2.75992 14.8636C1.68797 14.1196 1 12.9276 1 11.5837C1 10.1758 1.75197 8.93583 2.90392 8.19987C3.61588 7.73589 4.47184 7.47192 5.3998 7.47192C7.83168 7.47192 9.79959 9.3118 9.79959 11.5837Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        2 Comments</li>
+                                    <li><a href="#"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.87109 9C10.0802 9 11.8711 7.20914 11.8711 5C11.8711 2.79086 10.0802 1 7.87109 1C5.66195 1 3.87109 2.79086 3.87109 5C3.87109 7.20914 5.66195 9 7.87109 9Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.744 16.9998C14.744 13.9038 11.664 11.3998 7.872 11.3998C4.08 11.3998 1 13.9038 1 16.9998" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Scott Chegg</a></li>
+                                </ul>
+                                <h3 class="title"><a href="{% url 'institutional:blog_details' %}">Indispensable for Managing a Prosperous <br> ECommerce Venture</a></h3>
+                                <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitur. Vivamus sit amet lectus porttito fermentum urna sit amet, auctor ex. Suspendisse ut condimentum libero.</p>
+                                <a href="{% url 'institutional:blog_details' %}" class="rr-btn mt-20">Read more</a>
+                            </div>
+                            <div class="blog__details-content mt-70 hero">
+                                <div class="swiper blog-list__slider">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="blog__details-thumb-2">
+                                                <div class="blog__details-thumb">
+                                                    <img src="{% static 'institutional/imgs/blog/blog-details-img-1.png' %}" alt="image not found" class="img-fluid">
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testimonial-4__slider-arrow">
+                                        <button class="testimonial-4__slider-arrow-prev testimonial-4__slider-arrow-prev-1 rr-btn">
+                                            <i class="fa-solid fa-angle-left"></i>                           
+                                        </button>
+                                        <button class="testimonial-4__slider-arrow-next testimonial-4__slider-arrow-next-1 rr-btn">
+                                            <i class="fa-solid fa-angle-right"></i>                            
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="blog__details-meta">
+                                    <li><a href="#"><svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1.39844 6.67212H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        June 15, 2024</a></li>
+                                    <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.1746 12.8635L14.4866 15.3913C14.5666 16.0553 13.8546 16.5193 13.2866 16.1753L9.93477 14.1834C9.56678 14.1834 9.20681 14.1594 8.85482 14.1114C9.4468 13.4154 9.79877 12.5354 9.79877 11.5835C9.79877 9.3116 7.83087 7.47172 5.39898 7.47172C4.47102 7.47172 3.61507 7.73569 2.9031 8.19967C2.8791 7.99967 2.87109 7.79968 2.87109 7.59169C2.87109 3.95185 6.03095 1 9.93477 1C13.8386 1 16.9984 3.95185 16.9984 7.59169C16.9984 9.75159 15.8865 11.6635 14.1746 12.8635Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9.79959 11.5837C9.79959 12.5357 9.44761 13.4156 8.85564 14.1116C8.06368 15.0716 6.80773 15.6875 5.3998 15.6875L3.31189 16.9274C2.95991 17.1434 2.51193 16.8475 2.55993 16.4395L2.75992 14.8636C1.68797 14.1196 1 12.9276 1 11.5837C1 10.1758 1.75197 8.93583 2.90392 8.19987C3.61588 7.73589 4.47184 7.47192 5.3998 7.47192C7.83168 7.47192 9.79959 9.3118 9.79959 11.5837Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        2 Comments</li>
+                                    <li><a href="#"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.87109 9C10.0802 9 11.8711 7.20914 11.8711 5C11.8711 2.79086 10.0802 1 7.87109 1C5.66195 1 3.87109 2.79086 3.87109 5C3.87109 7.20914 5.66195 9 7.87109 9Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.744 16.9998C14.744 13.9038 11.664 11.3998 7.872 11.3998C4.08 11.3998 1 13.9038 1 16.9998" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Scott Chegg</a></li>
+                                </ul>
+                                <h3 class="title"><a href="{% url 'institutional:blog_details' %}">Boosting Your Online Store's Sales Proven Strategies.</a></h3>
+                                <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitur. Vivamus sit amet lectus porttito fermentum urna sit amet, auctor ex. Suspendisse ut condimentum libero.</p>
+                                <a href="{% url 'institutional:blog_details' %}" class="rr-btn mt-20">Read more</a>
+                            </div>
+                            <div class="blog__details-content mt-70 hero">
+                                <div class="blog__details-thumb service-details__thumb">
+                                     <img src="{% static 'institutional/imgs/blog/blog-details-img-1.png' %}" alt="image not found" class="img-fluid">
+                                     <a href="https://www.youtube.com/watch?v=DZLlw5BNQ3g" class="popup-video service-details__thumb-video" data-effect="mfp-move-from-top vertical-middle">
+                                        <i class="fa-sharp-duotone fa-solid fa-play"></i>
+                                    </a>
+                                </div>
+                                <ul class="blog__details-meta">
+                                    <li><a href="#"><svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1.39844 6.67212H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        June 15, 2024</a></li>
+                                    <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.1746 12.8635L14.4866 15.3913C14.5666 16.0553 13.8546 16.5193 13.2866 16.1753L9.93477 14.1834C9.56678 14.1834 9.20681 14.1594 8.85482 14.1114C9.4468 13.4154 9.79877 12.5354 9.79877 11.5835C9.79877 9.3116 7.83087 7.47172 5.39898 7.47172C4.47102 7.47172 3.61507 7.73569 2.9031 8.19967C2.8791 7.99967 2.87109 7.79968 2.87109 7.59169C2.87109 3.95185 6.03095 1 9.93477 1C13.8386 1 16.9984 3.95185 16.9984 7.59169C16.9984 9.75159 15.8865 11.6635 14.1746 12.8635Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9.79959 11.5837C9.79959 12.5357 9.44761 13.4156 8.85564 14.1116C8.06368 15.0716 6.80773 15.6875 5.3998 15.6875L3.31189 16.9274C2.95991 17.1434 2.51193 16.8475 2.55993 16.4395L2.75992 14.8636C1.68797 14.1196 1 12.9276 1 11.5837C1 10.1758 1.75197 8.93583 2.90392 8.19987C3.61588 7.73589 4.47184 7.47192 5.3998 7.47192C7.83168 7.47192 9.79959 9.3118 9.79959 11.5837Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        2 Comments</li>
+                                    <li><a href="#"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.87109 9C10.0802 9 11.8711 7.20914 11.8711 5C11.8711 2.79086 10.0802 1 7.87109 1C5.66195 1 3.87109 2.79086 3.87109 5C3.87109 7.20914 5.66195 9 7.87109 9Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.744 16.9998C14.744 13.9038 11.664 11.3998 7.872 11.3998C4.08 11.3998 1 13.9038 1 16.9998" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Scott Chegg</a></li>
+                                </ul>
+                                <h3 class="title"><a href="{% url 'institutional:blog_details' %}">Exploring Shapes & Colors This Season</a></h3>
+                                <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitur. Vivamus sit amet lectus porttito fermentum urna sit amet, auctor ex. Suspendisse ut condimentum libero.</p>
+                                <a href="{% url 'institutional:blog_details' %}" class="rr-btn mt-20">Read more</a>
+                            </div>
+                            <div class="pagination-social">
+                                <ul>
+                                    <li><a href="#"><i class="fa-sharp fa-light fa-arrow-left"></i></a></li>
+                                    <li><a href="#" class="active">01</a></li>
+                                    <li><a href="#">02</a></li>
+                                    <li><a href="#">03</a></li>
+                                    <li><a href="#"><i class="fa-sharp fa-light fa-arrow-right"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="sidebar">
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title">Search Here</h5>
+        
+                                    <div class="sidebar__widget-search">
+                                        <div class="search__bar">
+                                            <input type="text" id="search" placeholder="Search">
+                                            <div class="search__bar-icon">
+                                                <i class="fa-sharp fa-regular fa-magnifying-glass"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title sidebar__widget-title-2">Recent Post</h5>
+        
+                                    <div class="sidebar-post__wrapper">
+                                        <div class="sidebar-post">
+                                            <a href="{% url 'institutional:blog_details' %}" class="sidebar-post_thumb">
+                                                <img src="{% static 'institutional/imgs/blog/blog-details-sidebar-img-1.png' %}" alt="post">
+                                            </a>
+        
+                                            <div class="sidebar-post_content">
+                                                <ul class="post-meta">
+                                                    <li>
+                                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M1.39844 6.67206H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+
+                                                June 25, 2024
+                                                    </li>
+                                                </ul>
+        
+                                                <a href="{% url 'institutional:blog_details' %}"><h3 class="title rr-fw-medium">Courses designed build advanced AI skills</h3></a>
+                                            </div>
+                                        </div>
+        
+                                        <div class="sidebar-post">
+                                            <a href="{% url 'institutional:blog_details' %}" class="sidebar-post_thumb">
+                                                <img src="{% static 'institutional/imgs/blog/blog-details-sidebar-img-2.png' %}" alt="post">
+                                            </a>
+        
+                                            <div class="sidebar-post_content">
+                                                <ul class="post-meta">
+                                                    <li>
+                                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M1.39844 6.67206H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+
+                                                July 22, 2024
+                                                    </li>
+                                                </ul>
+        
+                                                <a href="{% url 'institutional:blog_details' %}"><h3 class="title rr-fw-medium">Developing understanding of AI model usage</h3></a>
+                                            </div>
+                                        </div>
+        
+                                        <div class="sidebar-post">
+                                            <a href="{% url 'institutional:blog_details' %}" class="sidebar-post_thumb">
+                                                <img src="{% static 'institutional/imgs/blog/blog-details-sidebar-img-3.png' %}" alt="post">
+                                            </a>
+        
+                                            <div class="sidebar-post_content">
+                                                <ul class="post-meta">
+                                                    <li>
+                                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M1.39844 6.67206H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+
+                                                August 25, 2024
+                                                    </li>
+                                                </ul>
+        
+                                                <a href="{% url 'institutional:blog_details' %}"><h3 class="title rr-fw-medium">Groundbreaking AI Applications in Marketing</h3></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title sidebar__widget-title__have-bar">Catagory</h5>
+        
+                                    <div class="sidebar__widget-category">
+                                        <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>AI Generation</span> <span>(4)</span></a>
+                                        <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Featured</span> <span>(6)</span></a>
+                                        <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Technology</span> <span>(14)</span></a>
+                                        <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Business</span> <span>(5)</span></a>
+                                        <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Tips & Tricks</span> <span>(27)</span></a>
+                                    </div>
+                                </div>
+        
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title">Popular Tags</h5>
+        
+                                    <div class="sidebar__widget-tags">
+                                        <div class="tags">
+                                            <a href="{% url 'institutional:blog_details' %}">AI</a>
+                                            <a href="{% url 'institutional:blog_details' %}">Chatbot</a>
+                                            <a href="{% url 'institutional:blog_details' %}">Artist</a>
+                                            <a href="{% url 'institutional:blog_details' %}">Business</a>
+                                            <a href="{% url 'institutional:blog_details' %}">App</a>
+                                            <a href="{% url 'institutional:blog_details' %}">Creative</a>
+                                            <a href="{% url 'institutional:blog_details' %}">Design</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

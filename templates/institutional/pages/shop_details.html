@@ -1,0 +1,449 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+            <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Shop Details</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span>Shop Details</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="shop-section single section-space">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7 product-details-wrap">
+                            <div class="product-slider-wrap">
+                                <div class="swiper product-gallary-thumb">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-1.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-2.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-3.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-4.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="thumb-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-5.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper product-gallary">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div class="gallary-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="gallary-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-img-2.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="gallary-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-img-3.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="gallary-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-img-4.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="gallary-item">
+                                                <img src="{% static 'institutional/imgs/images/project-details-img-5.png' %}" alt="shop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-nav-next"><i class="las la-arrow-right"></i></div>
+                                    <div class="swiper-nav-prev"><i class="las la-arrow-left"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="product-details">
+                                <div class="product-info">
+                                    <div class="product-inner hero">
+                                        <h3 class="title _split_text">Futuristic generated glowing
+                                            human face.</h3>
+                                        <div class="rating-wrap">
+                                            <ul class="rating">
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                            </ul>
+                                            <span>(3 Customer Reviews)</span>
+                                        </div>
+                                        <p class="dec">Energistically grow multimedia based collaboration and idea-sharing
+                                            Completely restore quality without applications.</p>
+                                        <h4 class="price">$128.00 <span>$187.00</span></h4>
+                                    </div>
+                                    <div class="product-btn">
+                                        <form class="count-wrap">
+                                            <input type="number" class="input-text qty text" name="quantity" value="1" min="1" max="100" step="1" autocomplete="off">
+                                            <div class="control">
+                                                <span class="plus"><i class="fa-light fa-angle-up"></i></span>
+                                                <span class="minus"><i class="fa-light fa-angle-down"></i></span>
+                                            </div>
+                                        </form>
+                                        <div><a href="#" class="rr-btn">Add To Cart</a></div>
+                                    </div>
+                                    <ul class="product-inner-list">
+                                        <li><span>SKU:</span>WPD1254463</li>
+                                        <li><span>Categories:</span><a href="{% url 'institutional:blog_details' %}">Technology</a></li>
+                                        <li><span>Tag:</span><a href="{% url 'institutional:blog_details' %}">Wireless</a>, <a href="{% url 'institutional:blog_details' %}">Watch</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Shop Section-->
+    
+            <section class="product-description review pb-100">
+                <div class="container">
+                    <ul class="nav tab-navigation" id="product-tab-navigation" role="tablist">
+                        <li role="presentation">
+                            <button class="active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                                role="tab" aria-controls="home" aria-selected="true">Explanation</button>
+                        </li>
+                        <li role="presentation">
+                            <button id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab"
+                                aria-controls="profile" aria-selected="false">Additional information</button>
+                        </li>
+                        <li role="presentation">
+                            <button id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab"
+                                aria-controls="contact" aria-selected="false">Reviews (3)</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content extra" id="product-tab-content">
+                        <div class="tab-pane gap fade show active description" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="desc-wrap">
+                                <div class="left-content">
+                                    <p class="mb-25 rr_title_anim">Donec non congue justo, vitae congue mi. Nullam pretium posuere arcu vel sagittis. Duis tellus augue, dapibus a consequat vitae, cursus ac ante. Donec vitae accumsan turpis. Donec imperdiet aliquam tincidunt. Sed quis leo pharetra, consequat orci eget, volutpat orci. Phasellus dignissim, eros ac convallis efficitur, ante mi vehicula diam, nec euismod orci orci non ex. Phasellus feugiat venenatis nunc, non rhoncus elit euismod eu. Quisque ut nisi a libero scelerisque maximus quis ac nulla.</p>
+                                    <p class="mb-0 rr_title_anim">Nam auctor, risus a euismod placerat, quam ante porttitor risus, non dictum ex mauris vel mi aliquam id ex egestas, rutrum scelerisque risus. Duis porta lacus Nam posuere pellentesque quam, non semper libero. In maximus ullamcorper arcu sed tincidunt.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <table class="table product-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Size</th>
+                                        <th scope="col">Bust</th>
+                                        <th scope="col">Waist</th>
+                                        <th scope="col">Hip</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>S</td>
+                                        <td>34 -36</td>
+                                        <td>28-30</td>
+                                        <td>38-40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>M</td>
+                                        <td>36 -38</td>
+                                        <td>30-32.5</td>
+                                        <td>40-43</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L</td>
+                                        <td>38-40</td>
+                                        <td>32-34.5</td>
+                                        <td>42-45.5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>XL</td>
+                                        <td>40-42</td>
+                                        <td>35-37</td>
+                                        <td>46-38</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane gap-2 fade review" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="row product-review gy-lg-0 gy-4">
+                                <div class="col-lg-5 col-md-12">
+                                    <div class="reviewr-wrap">
+                                        <div class="review-list">
+                                            <div class="review-item">
+                                                <div class="review-thumb">
+                                                    <img src="{% static 'institutional/imgs/images/review-list-1.jpg' %}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <div class="content-top">
+                                                        <h4 class="name">Eleanor Fant <span>06 March, 2023</span></h4>
+                                                        <ul class="review">
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <p>Designed very similarly to the nearly double priced Galaxy tab S6, with the only removal being.</p>
+                                                </div>
+                                            </div>
+                                            <div class="review-item">
+                                                <div class="review-thumb">
+                                                    <img src="{% static 'institutional/imgs/images/review-list-2.jpg' %}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <div class="content-top">
+                                                        <h4 class="name">Haliey White <span>06 March, 2023</span></h4>
+                                                        <ul class="review">
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <p>Designed very similarly to the nearly double priced Galaxy tab S6, with the only removal being.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-12">
+                                    <div class="review-form-wrap">
+                                        <h4 class="title">Review this product</h4>
+                                        <span class="publish">Your email address will not be published. Required fields are marked *</span>
+                                        <div class="review-box">
+                                            <span>Your ratings :</span>
+                                            <ul class="review">
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                                <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="blog-contact-form form-2 review-form">
+                                            <div class="request-form">
+                                                <form action="contact.php" method="post" id="ajax_contact" class="form-horizontal">
+                                                    <div class="form-group row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-item">
+                                                                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Your Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-item">
+                                                                <input type="text" id="email" name="email" class="form-control" placeholder="Your Email">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-item message-item">
+                                                                <textarea id="message" name="message" cols="30" rows="5" class="form-control address" placeholder="Comment"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="checkbox-wrap">
+                                                        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                                    <label for="vehicle3">Save my name, email, and website in this browser for the next time I comment.</label><br>
+                                                    </div>
+                                                    <div class="submit-btn">
+                                                        <button id="submit" class="rr-primary-btn rr-btn" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="products__area section-space-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section__title-wrapper hero mb-45">
+                                <h2 class="section__title-wrapper-title _split_text">Related products</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-minus-30">
+                        <div class="col-12">
+                            <div class="swiper related-products">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="product-4__item fade-top mb-30">
+                                            <div class="product-4__item-thumb">
+                                                <img src="{% static 'institutional/imgs/project/product-img-1.png' %}" alt="img not found">
+                                            </div>
+                                            <div class="product-4__content">
+                                                <div class="product-4__content-wrap">
+                                                    <div class="product-4__content-wrap-icon">
+                                                        <ul>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <h5>(5.0)</h5>
+                                                </div>
+                                                <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Opulent Citadel</a></h3>
+                                                <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                            </div>
+                                            <div class="product-4__item-cart">
+                                                <h5 class="product-4__item-cart-text">$20.00</h5>
+                                                <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="product-4__item fade-top mb-30">
+                                            <div class="product-4__item-thumb">
+                                                <img src="{% static 'institutional/imgs/project/product-img-3.png' %}" alt="img not found">
+                                            </div>
+                                            <div class="product-4__content">
+                                                <div class="product-4__content-wrap">
+                                                    <div class="product-4__content-wrap-icon">
+                                                        <ul>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <h5>(5.0)</h5>
+                                                </div>
+                                                <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Below the Surface</a></h3>
+                                                <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                            </div>
+                                            <div class="product-4__item-cart">
+                                                <h5 class="product-4__item-cart-text">$26.00</h5>
+                                                <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="product-4__item fade-top mb-30">
+                                            <div class="product-4__item-thumb">
+                                                <img src="{% static 'institutional/imgs/project/product-img-4.png' %}" alt="img not found">
+                                            </div>
+                                            <div class="product-4__content">
+                                                <div class="product-4__content-wrap">
+                                                    <div class="product-4__content-wrap-icon">
+                                                        <ul>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <h5>(5.0)</h5>
+                                                </div>
+                                                <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Under the Exterior</a></h3>
+                                                <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                            </div>
+                                            <div class="product-4__item-cart">
+                                                <h5 class="product-4__item-cart-text">$54.00</h5>
+                                                <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="product-4__item fade-top mb-30">
+                                            <div class="product-4__item-thumb">
+                                                <img src="{% static 'institutional/imgs/project/product-img-5.png' %}" alt="img not found">
+                                            </div>
+                                            <div class="product-4__content">
+                                                <div class="product-4__content-wrap">
+                                                    <div class="product-4__content-wrap-icon">
+                                                        <ul>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <h5>(5.0)</h5>
+                                                </div>
+                                                <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Trickster Toadstool</a></h3>
+                                                <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                            </div>
+                                            <div class="product-4__item-cart">
+                                                <h5 class="product-4__item-cart-text">$16.00</h5>
+                                                <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

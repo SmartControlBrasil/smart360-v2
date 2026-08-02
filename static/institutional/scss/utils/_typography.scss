@@ -1,0 +1,52 @@
+
+// font url
+$font-url: '@import url(https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Langar&family=Space+Grotesk:wght@300..700&display=swap)';
+// font family
+$font-family: (
+    ff: (
+        "heading": "'Space Grotesk', sans-serif",
+        "body": "'Inter', sans-serif",
+        "fontawesome": '"Font Awesome 6 Pro"',
+    )
+);
+// font weight
+$font-scale: (
+    fw: (
+        "normal": normal,
+        "thin": 100,
+        "elight": 200,
+        "light": 300,
+        "regular": 400,
+        "medium": 500,
+        "sbold": 600,
+        "bold": 700,
+        "ebold": 800,
+        "black": 900,
+    )
+);
+
+// font size
+$font-size: (
+    fs: (
+        "body": 18px,
+        "body2": 18px,
+        "p": 15px,
+        "h1": 70px,
+        "h2": 44px,
+        "h3": 30px,
+        "h4": 24px,
+        "h5": 20px,
+        "h6": 15px,
+    ),
+    lh: (
+    "body": 28px,
+    "body2": 28px,
+    "p": 24px,
+    "h1": 72px,
+    "h2": 56px,
+    "h3": 30px,
+    "h4": 28px,
+    "h5": 32px,
+    "h6": 30px,
+    )
+);

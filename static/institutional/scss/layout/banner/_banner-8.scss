@@ -1,0 +1,242 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1 banner Style 4
+/*----------------------------------------*/
+
+
+.banner8 {
+    &__area {
+        padding: 256px 0 244px 0;
+        position: relative;
+        background: linear-gradient(180deg, #EDF0F7 0%, #FFFFFF 100%);
+
+        @media #{$lg} {
+            padding: 200px 0 120px 0;
+        }
+
+        @media #{$md} {
+            padding: 200px 0 80px 0;
+        }
+
+        @media #{$sm,$xs} {
+            padding: 140px 0 70px 0;
+        }
+    }
+
+    &__title-wrapper-title {
+        font-size: 90px;
+        font-weight: 700;
+        color: #050513;
+        line-height: 94px;
+        letter-spacing: -0.03em;
+
+        @media #{$xl,$lg,$md} {
+            font-size: 80px;
+            line-height: 80px;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            br {
+                display: none
+            }
+        }
+
+        @media #{$sm} {
+            font-size: 60px;
+            line-height: 70px;
+        }
+
+        @media #{$xs} {
+            font-size: 33px;
+            line-height: 45px;
+        }
+    }
+
+    &__title-wrapper-dec {
+        font-size: 18px;
+        color: rgb(5 5 19 / 60%);
+        font-weight: 500;
+        line-height: 28px;
+        margin-top: 22px;
+        margin-bottom: 41px;
+        font-family: var(--rr-ff-body);
+
+        @media #{$lg,$md,$sm,$xs} {
+            br {
+                display: none
+            }
+        }
+    }
+
+    &__btn {
+        .rr-btn {
+            background-color: var(--rr-theme-primary8);
+            color: var(--rr-common-white);
+            border-radius: 6px;
+            padding: 15.5px 27.3px;
+
+            i {
+                font-size: 18px;
+                transform: translateY(2px);
+            }
+        }
+    }
+
+    &__shapes-shape-1 {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        left: calc(50% - 800px/2 - 300px);
+        top: -290px;
+        background: rgba(234, 57, 231, 0.44);
+        filter: blur(300px);
+        z-index: -1;
+    }
+
+    &__shapes-shape-2 {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        left: calc(50% - 800px/2 + 300px);
+        top: -290px;
+        background: rgba(255, 197, 87, 0.6);
+        filter: blur(200px);
+        z-index: -1;
+    }
+
+    &__shapes-shape {
+        position: absolute;
+
+        &-3 {
+            left: 90px;
+            bottom: 275px;
+            animation: rotate360 3s linear infinite;
+        }
+
+        &-5 {
+            top: 194px;
+            left: 72px;
+        }
+
+        &-4 {
+            bottom: 150px;
+            right: 130px;
+        }
+
+        &-6 {
+            top: 82px;
+            left: 444px;
+
+            @media #{$xxl,$xl} {
+                left: 100px;
+            }
+
+            @media #{$lg} {
+                left: 100px;
+            }
+
+            @media #{$md,$sm,$xs} {
+                top: 80px;
+                left: 0px;
+            }
+
+            img {
+                width: inherit;
+            }
+        }
+    }
+
+    &__thumb {
+        position: absolute;
+        bottom: 178px;
+        right: 15.7%;
+
+        @media #{$xxxl} {
+            right: 10%;
+        }
+
+        @media #{$xxl} {
+            right: 4.7%;
+        }
+
+        @media #{$xl} {
+            right: 3%;
+        }
+
+        @media #{$lg,$md,$sm,$xs} {
+            position: inherit;
+        }
+
+        img {
+            width: inherit;
+
+            @media #{$md,$sm,$xs} {
+                width: 100%;
+            }
+        }
+    }
+
+    &__border {
+        &__box {
+            top: 82px;
+            z-index: -1;
+            position: absolute;
+
+            &-1 {
+                left: 428px;
+
+                @media #{$xl,$lg,$md,$sm} {
+                    left: 100px;
+                }
+
+                @media #{$xs} {
+                    left: 20px;
+                }
+
+            }
+
+            &-2 {
+                left: 50%;
+                transform: translateX(-93%);
+            }
+
+            &-3 {
+                right: 470px;
+
+                @media #{$xl,$lg,$md,$sm} {
+                    right: 100px;
+                }
+
+                @media #{$xs} {
+                    right: 20px;
+                }
+            }
+        }
+
+        &__shape {
+            width: 50px;
+            height: 870px;
+            border-right: 1px solid rgba(5, 5, 19, 0.1);
+            position: relative;
+
+            &::before {
+                content: "";
+                width: 3px;
+                height: 70px;
+                opacity: .5;
+                left: 48px;
+                position: absolute;
+                animation: topToBottom 5s ease-in-out infinite;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(5, 5, 19, 1) 100%);
+
+            }
+
+            &-2 {
+                &::before {
+                    animation: bottomToTop 5s ease-in-out infinite;
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+}

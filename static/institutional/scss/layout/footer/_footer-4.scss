@@ -1,0 +1,50 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  6.3 footer-4
+/*----------------------------------------*/
+.footer-4{
+    &__widget-2th-left{
+        padding-left: 47px;
+        @media #{$md, $sm, $xs} {
+            padding-left: 0;
+        }
+    }
+    &__widget-3th-left{
+        padding-left: 42px;
+        @media #{$md, $sm, $xs} {
+            padding-left: 0;
+        }
+    }
+    &__widget-4th-left{
+        padding-left: 10px;
+        @media #{$xl, $lg, $md, $sm, $xs} {
+            padding-left: 0;
+        }
+    }
+    &__contact{
+        &-link{
+            margin-bottom: 4px;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            i{
+                color: #C3DB31;
+                margin-right: 11px;
+                font-size: var(--rr-fs-h5);
+            }
+            a{
+                font-family: var(--rr-ff-body);
+                font-weight: var(--rr-fw-medium);
+                font-style: normal;
+                font-size: var(--rr-fs-h6);
+                line-height: 36px;
+                color: rgba(255, 255, 255, 0.7);
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    color: var(--rr-theme-primary2);
+                }
+            }
+        }
+    }
+}

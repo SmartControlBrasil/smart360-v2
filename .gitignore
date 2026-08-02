@@ -42,3 +42,6 @@ logs/
 build/
 dist/
 *.egg-info/
+
+# Template original baixado - somente referência local
+smart360v2_baixado/

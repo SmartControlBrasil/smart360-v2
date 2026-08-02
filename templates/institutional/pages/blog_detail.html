@@ -1,0 +1,154 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} | Smart Control Brasil{% endblock %}
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+             <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">{{ post.category }}</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li><span><a href="{% url 'institutional:blog' %}">Blog</a></span></li>
+                                                <li class="active"><span>{{ post.category }}</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+
+            <section class="section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="blog__details-content hero">
+                                <div class="blog__details-thumb-2">
+                                    <div class="blog__details-thumb">
+                                        <img src="{% static post.image %}" alt="{{ post.alt }}" class="img-fluid">
+                                   </div>
+                                </div>
+                                <ul class="blog__details-meta">
+                                    <li>
+                                        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M1.39844 6.67212H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Artigo técnico
+                                    </li>
+                                    <li>
+                                        <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.87109 9C10.0802 9 11.8711 7.20914 11.8711 5C11.8711 2.79086 10.0802 1 7.87109 1C5.66195 1 3.87109 2.79086 3.87109 5C3.87109 7.20914 5.66195 9 7.87109 9Z" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M14.744 16.9998C14.744 13.9038 11.664 11.3998 7.872 11.3998C4.08 11.3998 1 13.9038 1 16.9998" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Equipe Smart Control Brasil
+                                    </li>
+                                    <li><a href="{% url 'institutional:blog' %}">{{ post.category }}</a></li>
+                                </ul>
+
+                                <h2 class="title">{{ post.title }}</h2>
+                                <p class="dec-2">{{ post.intro }}</p>
+
+                                {% for section in post.sections %}
+                                    <h3 class="title mt-50">{{ section.heading }}</h3>
+                                    {% for paragraph in section.paragraphs %}
+                                        <p class="dec-3">{{ paragraph }}</p>
+                                    {% endfor %}
+                                {% endfor %}
+
+                                <div class="blog__details-content-quite">
+                                    <p class="dec">A melhor decisão técnica nasce do entendimento da aplicação, dos riscos e dos objetivos de operação. A Smart Control Brasil apoia esse diagnóstico com visão de engenharia, automação, manutenção e integração.</p>
+                                    <div class="icon">
+                                        <img src="{% static 'institutional/imgs/icon/blog-details-icon-1.png' %}" alt="img not found">
+                                    </div>
+                                </div>
+
+                                <div class="blog__details-bottom d-flex flex-column flex-md-row justify-content-md-between">
+                                    <div class="blog__details-bottom-tags_wapper d-flex align-items-center mb-sm-30 mb-xs-30">
+                                        <span>Categoria:</span>
+                                        <div class="blog__details-bottom-tags">
+                                            <a href="{% url 'institutional:blog' %}">{{ post.category }}</a>
+                                        </div>
+                                    </div>
+
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn">{{ post.cta_text }}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="sidebar">
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title sidebar__widget-title-2">Veja também outros artigos técnicos</h5>
+
+                                    <div class="sidebar-post__wrapper">
+                                        {% for related_post in related_posts %}
+                                            <div class="sidebar-post">
+                                                <a href="{% url 'institutional:blog_detail' related_post.slug %}" class="sidebar-post_thumb">
+                                                    <img src="{% static related_post.image %}" alt="{{ related_post.alt }}">
+                                                </a>
+
+                                                <div class="sidebar-post_content">
+                                                    <ul class="post-meta">
+                                                        <li>{{ related_post.category }}</li>
+                                                    </ul>
+
+                                                    <a href="{% url 'institutional:blog_detail' related_post.slug %}">
+                                                        <h3 class="title rr-fw-medium">{{ related_post.title }}</h3>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title sidebar__widget-title__have-bar">Blog</h5>
+
+                                    <div class="sidebar__widget-category">
+                                        <a href="{% url 'institutional:blog' %}"><span><i class="fa-regular fa-arrow-right"></i>Voltar para o blog</span> <span></span></a>
+                                        <a href="{% url 'institutional:contact' %}"><span><i class="fa-regular fa-arrow-right"></i>Solicitar avaliação técnica</span> <span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

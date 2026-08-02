@@ -1,0 +1,143 @@
+{% load static %}
+{% with current=request.resolver_match.url_name %}
+<header>
+    <div id="header-sticky" class="header header-1">
+        <div class="container">
+            <div class="mega__menu-wrapper p-relative">
+                <div class="header__main">
+                    <div class="header__left">
+                        <div class="header__logo">
+                            <a href="{% url 'institutional:home' %}">
+                                <div class="logo">
+                                    <img src="{% static 'institutional/imgs/images/header/logo-cores-03.webp' %}" alt="Smart Control Brasil">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header__middle header-1__middle">
+                        <div class="mean__menu-wrapper d-none d-xl-block">
+                            <div class="main-menu">
+                                <nav id="mobile-menu" aria-label="Menu principal">
+                                    <ul>
+                                        <li class="{% if current == 'about' %}active{% endif %}">
+                                            <a href="{% url 'institutional:home' %}">Inicio</a>
+                                        </li>
+                                        <li class="{% if current == 'about' %}active{% endif %}">
+                                            <a href="{% url 'institutional:about' %}">Sobre</a>
+                                        </li>
+                                        <li class="has-dropdown {% if current in 'home home_02 home_03 home_04 home_05 home_06 home_07 home_08 home_09 home_10 engenharia_serralheria_industrial' %}active{% endif %}">
+                                            <a href="#" onclick="return false;"
+                                            aria-haspopup="true">Soluções</a>
+                                            <ul class="submenu">
+                                                <li class="{% if current == 'home_04' %}active{% endif %}"><a href="{% url 'institutional:home_04' %}">Câmaras Climáticas</a></li>
+                                                
+                                                <li class="{% if current == 'home_03' %}active{% endif %}"><a href="{% url 'institutional:home_03' %}">Chatbot Lívia</a></li>
+                                                <li class="{% if current == 'home_05' %}active{% endif %}"><a href="{% url 'institutional:home_05' %}">Manuteção Industrial</a></li>
+                                                <li class="{% if current == 'engenharia_serralheria_industrial' %}active{% endif %}"><a href="{% url 'institutional:engenharia_serralheria_industrial' %}">Serralheria Industrial</a></li>
+                                                <li class="{% if current == 'home_10' %}active{% endif %}"><a href="{% url 'institutional:home_10' %}">Mitsubishi Automação</a></li>
+                                                <li class="{% if current == 'home_02' %}active{% endif %}"><a href="{% url 'institutional:home_02' %}">Sistemas e Websites</a></li>
+                                                <li class="{% if current == 'home_07' %}active{% endif %}"><a href="{% url 'institutional:home_07' %}">Xyron Robótica</a></li>
+                                                
+                                                
+                                                
+                                                {% comment %} <li class="{% if current == 'home_06' %}active{% endif %}"><a href="{% url 'institutional:home_06' %}">Texto para Vídeo</a></li> {% endcomment %}
+                                                
+                                                {% comment %} <li class="{% if current == 'home_08' %}active{% endif %}"><a href="{% url 'institutional:home_08' %}">SaaS com IA</a></li> {% endcomment %}
+                                                {% comment %} <li class="{% if current == 'home_09' %}active{% endif %}"><a href="{% url 'institutional:home_09' %}">DALL-E com IA</a></li> {% endcomment %}
+                                                
+                                            </ul>
+                                        </li>
+                                        <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">blog</a></li>
+                                        
+                                        {% comment %} <li class="has-dropdown {% if current in 'services service_details' %}active{% endif %}">
+                                            <a href="{% url 'institutional:services' %}">Serviços</a>
+                                            <ul class="submenu">
+                                                <li class="{% if current == 'services' %}active{% endif %}"><a href="{% url 'institutional:services' %}">Serviços</a></li>
+                                                <li class="{% if current == 'service_details' %}active{% endif %}"><a href="{% url 'institutional:service_details' %}">Detalhes do serviço</a></li>
+                                            </ul>
+                                        </li> {% endcomment %}
+                                        {% comment %} <li class="has-dropdown {% if current in 'blog blog_list blog_details' %}active{% endif %}">
+                                            <a href="{% url 'institutional:blog' %}">Blog</a>
+                                            <ul class="submenu">
+                                                <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">Grade do blog</a></li>
+                                                <li class="{% if current == 'blog_list' %}active{% endif %}"><a href="{% url 'institutional:blog_list' %}">Lista do blog</a></li>
+                                                <li class="{% if current == 'blog_details' %}active{% endif %}"><a href="{% url 'institutional:blog_details' %}">Detalhes do blog</a></li>
+                                            </ul>
+                                        </li> {% endcomment %}
+                                        <li class="has-dropdown {% if current in 'team team_details projects project_details testimonials pricing cart wishlist checkout shop shop_details faq error_404_preview' %}active{% endif %}">
+                                            <a href="javascript:void(0)">Páginas</a>
+                                            <ul class="submenu">
+                                                <li class="{% if current == 'team' %}active{% endif %}"><a href="{% url 'institutional:team' %}">Equipe</a></li>
+                                                <li class="{% if current == 'team_details' %}active{% endif %}"><a href="{% url 'institutional:team_details' %}">Detalhes da equipe</a></li>
+                                                <li class="{% if current == 'projects' %}active{% endif %}"><a href="{% url 'institutional:projects' %}">Projetos</a></li>
+                                                <li class="{% if current == 'project_details' %}active{% endif %}"><a href="{% url 'institutional:project_details' %}">Detalhes do projeto</a></li>
+                                                <li class="{% if current == 'testimonials' %}active{% endif %}"><a href="{% url 'institutional:testimonials' %}">Depoimentos</a></li>
+                                                <li class="{% if current == 'pricing' %}active{% endif %}"><a href="{% url 'institutional:pricing' %}">Planos</a></li>
+                                                <li class="{% if current == 'cart' %}active{% endif %}"><a href="{% url 'institutional:cart' %}">Carrinho</a></li>
+                                                <li class="{% if current == 'wishlist' %}active{% endif %}"><a href="{% url 'institutional:wishlist' %}">Lista de desejos</a></li>
+                                                <li class="{% if current == 'checkout' %}active{% endif %}"><a href="{% url 'institutional:checkout' %}">Checkout</a></li>
+                                                <li class="{% if current == 'shop' %}active{% endif %}"><a href="{% url 'institutional:shop' %}">Loja</a></li>
+                                                <li class="{% if current == 'shop_details' %}active{% endif %}"><a href="{% url 'institutional:shop_details' %}">Detalhes do produto</a></li>
+                                                <li class="{% if current == 'faq' %}active{% endif %}"><a href="{% url 'institutional:faq' %}">FAQ</a></li>
+                                                <li class="{% if current == 'error_404_preview' %}active{% endif %}"><a href="{% url 'institutional:error_404_preview' %}">Página 404</a></li>
+                                            </ul>
+                                            
+                                        </li>
+                                        <li class="{% if current == 'contact' %}active{% endif %}">
+                                            <a href="{% url 'institutional:contact' %}">Contato</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header__right">
+                        <div class="header__action d-flex align-items-center">
+                            <div class="contact d-none d-md-inline-flex">
+                                <a href="{% url 'institutional:contact' %}">
+                                    <svg
+                                        width="14"
+                                        height="16"
+                                        viewBox="0 0 14 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M7.01172 8C8.94472 8 10.5117 6.433 10.5117 4.5C10.5117 2.567 8.94472 1 7.01172 1C5.07872 1 3.51172 2.567 3.51172 4.5C3.51172 6.433 5.07872 8 7.01172 8Z"
+                                            stroke="white"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M13.026 15C13.026 12.291 10.331 10.1 7.013 10.1C3.695 10.1 1 12.291 1 15"
+                                            stroke="white"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                    Entrar
+                                </a>
+                            </div>
+                            <div class="header__btn-wrap d-none d-sm-inline-flex">
+                                <a href="{% url 'institutional:contact' %}" class="rr-btn rr-btn-bold">Junte-se à IA</a>
+                            </div>
+                            <div class="header__hamburger ml-20 d-xl-none">
+                                <div class="sidebar__toggle">
+                                    <button class="bar-icon" aria-label="Abrir menu">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endwith %}

@@ -1,0 +1,166 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  8.12 home1
+/*----------------------------------------*/
+.choose-us{
+    &__media-wrapper{
+        max-width: 630px;
+        width: 100%;
+        @media #{$md, $sm, $xs} {
+            margin: 0 auto;
+        }
+    }
+    &__thumb{
+        position: relative;
+        padding-left: 80px;
+        &-1{
+            &::before{
+                display: none;
+            }
+        }
+        &-2{
+            
+        }
+        &-img{
+            max-width: 440px;
+            width: 100%;
+            height: 570px;
+            &-1{
+                height: 100%;
+                max-width: 520px !important;
+                img{
+                    max-width: 520px !important;
+                }
+            }
+        }
+        @media #{$xs} {
+            padding-left: 0;
+        }
+        &::before{
+            background: var(--rr-common-white);
+            position: absolute;
+            width: 140px;
+            height: 54px;
+            content: "";
+            left: 80px;
+            bottom: -1px;
+            z-index: 1;
+            clip-path: polygon(0 0, 79% 0, 100% 100%, 0% 100%); 
+            @media #{$xs} {
+                left: 0;
+            }
+        }
+        img{
+            max-width: 440px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            @media #{$xs} {
+                max-width: 100%;
+            }
+        }
+        &-img-2{
+            position: absolute;
+            top: 40px;
+            left: -50px;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &-img-3{
+            position: absolute;
+            top: 267px;
+            right: -50px;
+            @media #{$sm, $xs} {
+                display: none;
+            }
+            &-1{
+                right: -131px;
+                @media #{$xl, $lg} {
+                    display: none;
+                }
+                @media #{$md, $sm, $xs} {
+                    right: -55px;
+                }
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &-img-4{
+            position: absolute;
+            top: 145px;
+            right: 75px;
+            z-index: -1;
+            @media #{$sm, $xs} {
+                display: none;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    &__content-wrap{
+        padding-left: 30px;
+        @media #{$xl, $lg, $md, $sm, $xs} {
+            padding-left: 0;
+        }
+        @media #{$md, $sm, $xs} {
+            margin-top: 30px;
+        }
+    }
+    &__list-item{
+        margin-top: 30px;
+        ul{
+            li{
+                img{
+                    width: 19.17px;
+                    height: 16.01px;
+                }
+                font-family: var(--rr-ff-body);
+                font-weight: var(--rr-fw-medium);
+                list-style: none;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-style: normal;
+                font-size: var(--rr-fs-h6);
+                line-height: 25px;
+                color: rgb(5 5 19 / 70%);
+                &:not(:last-of-type){
+                    margin-bottom: 10px;
+                }
+            }
+        }
+        &-2{
+            max-width: 431px;
+            ul{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+                li{
+                    &:not(:last-of-type){
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    &-2{
+        &__wrap{
+            padding-left: 0;
+        }
+    }
+}

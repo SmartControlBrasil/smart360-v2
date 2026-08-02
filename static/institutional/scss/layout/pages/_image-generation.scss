@@ -1,0 +1,193 @@
+@use "../../utils" as *;
+
+.image-generation{
+    &-sidebar{
+        background: var(--rr-background-pastel-blue);
+        padding: 28px 40px 45px 30px;
+        position: relative;
+        &::before{
+            background: var(--rr-common-white);
+            position: absolute;
+            width: 129px;
+            height: 34px;
+            content: "";
+            top: -1px;
+            right: -1px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 19% 100%);
+        }
+        .title{
+            font-family: var(--rr-ff-heading);
+            font-weight: var(--rr-fw-bold);
+            color: var(--rr-heading-primary);
+            font-style: normal;
+            font-size: 22px;
+            line-height: 28px;
+            letter-spacing: -0.03em;
+            text-transform: capitalize;
+        }
+        &-box{
+            margin-top: 23px;
+            .item{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border: 1px solid rgba(5, 5, 19, 0.1);
+                padding: 8px 24px;
+                transition: all 0.3s ease-in-out;
+                margin-bottom: 14px;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+                &:hover{
+                    background: var(--rr-theme-primary);
+                    .name{
+                        color: var(--rr-heading-primary);
+                    }
+                    .icon{
+                        transform: rotate(0);
+                    }
+                }
+                .name{
+                    font-family: var(--rr-ff-body);
+                    font-weight: var(--rr-fw-medium);
+                    color: rgb(5 5 19 / 70%);
+                    font-style: normal;
+                    font-size: 14px;
+                    line-height: 26px;
+                    transition: all 0.3s ease-in-out;
+                }
+                .icon{
+                    color: var(--rr-heading-primary);
+                    transform: rotate(-45deg);
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+        }
+    }
+    &-content{
+        @media #{$md} {
+            margin-top: 40px;
+        }
+        &-video{
+            video{
+                width: 850px;
+                height: 470px;
+                @media #{$xl} {
+                    width: 770px;
+                }
+                @media #{$lg} {
+                    width: 630px;
+                }
+                @media #{$md, $sm, $xs} {
+                    width: 100%;
+                }
+                @media #{$xs} {
+                    height: 200px;
+                }
+            }
+        }
+        .wrapper{
+            margin-top: 23px;
+            .title{
+                font-family: var(--rr-ff-heading);
+                font-weight: var(--rr-fw-bold);
+                color: var(--rr-heading-primary);
+                font-style: normal;
+                font-size: 34px;
+                line-height: 44px;
+                letter-spacing: -0.03em;
+                margin-bottom: 10px;
+                @media #{$xs} {
+                    font-size: 30px;
+                }
+           }
+           .dec{
+                font-family: var(--rr-ff-body);
+                font-weight: var(--rr-fw-regular);
+                color: rgb(5 5 19 / 70%);
+                font-style: normal;
+                font-size: 16px;
+                line-height: 26px;
+           } 
+           .dark-bg{
+                background: var(--rr-background-pastel-blue);
+                padding: 30px 40px;
+                margin-top: 32px;
+                position: relative;
+                margin-bottom: 32px;
+                @media #{$xs} {
+                    padding: 30px 20px;
+                }
+                &::before{
+                    background: var(--rr-common-white);
+                    position: absolute;
+                    width: 129px;
+                    height: 34px;
+                    content: "";
+                    top: -1px;
+                    right: -1px;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+                }
+                .text{
+                    font-family: var(--rr-ff-body);
+                    font-weight: var(--rr-fw-medium);
+                    color: var(--rr-heading-primary);
+                    font-style: normal;
+                    font-size: 16px;
+                    line-height: 26px;
+                    @media #{$md, $sm, $xs} {
+                        br{
+                            display: none;
+                        }
+                    }
+                }
+           }
+           .cards{
+            margin-top: 40px;
+            margin-bottom: 70px;
+                .service__item{
+                    background: var(--rr-background-pastel-blue);
+                    &:hover{
+                        background: var(--rr-theme-primary);
+                    }
+                    &::before{
+                        background: var(--rr-common-white);
+                    }
+                    .service__item-content{
+                        .title{
+                            font-size: 33px;
+                            @media #{$xs} {
+                                font-size: 24px;
+                            }
+                        }
+                        .dec{
+                            font-size: 15px;
+                        }
+                    }
+                }
+           }
+        }
+        .media{
+            margin-top: 42px;
+            margin-bottom: 72px;
+            .thumb{
+                position: relative;
+                &::before{
+                    background: var(--rr-common-white);
+                    position: absolute;
+                    width: 180px;
+                    height: 54px;
+                    content: "";
+                    top: -1px;
+                    right: -1px;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 24% 100%);
+                }
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}

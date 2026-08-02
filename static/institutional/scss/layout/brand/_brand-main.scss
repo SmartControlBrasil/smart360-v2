@@ -1,0 +1,52 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  8.1 brand
+/*----------------------------------------*/
+.brands-image {
+	// margin-right: 20px;
+	display: inline-block;
+	& img {
+		width: 100%;
+	}
+}
+.sub-titles {
+	margin-bottom: 30px;
+	display: block;
+	font-family: 'Space Grotesk';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 23px;
+	color: #050513;
+}
+.brands-10-active {
+	position: relative;
+	&::before {
+		content: '';
+		left: 0;
+		background: #fff;
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		z-index: 2;
+		opacity: 0.9;
+
+	}
+	&::after {
+		content: '';
+		top: 0;
+		right: 0;
+		background: #fff;
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		z-index: 2;
+		opacity: 0.9;
+
+	}
+}
+.swiper-slide {
+	position: relative;
+	z-index: 1;
+}

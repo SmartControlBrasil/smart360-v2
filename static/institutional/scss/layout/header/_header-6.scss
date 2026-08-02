@@ -1,0 +1,46 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.3 header-6
+/*----------------------------------------*/
+.header-6{
+    &__main{
+        @media #{$lg, $md, $sm, $xs} {
+            padding: 15px 0;
+        }
+    }
+    &__top-bar{
+        margin: 0 110px;
+        @media #{$xxl, $xl, $lg, $md, $sm, $xs} {
+			margin: 0;
+		}
+    }
+    &__right{
+        .header__action{
+            .contact{
+                a{
+                    color: rgb(5 5 19 / 70%) !important;
+                    &:hover{
+                        color: var(--rr-theme-primary2) !important;
+                    }
+                }
+            }
+        }
+        .header__hamburger{
+            .sidebar__toggle{
+                .bar-icon{
+                    span{
+                        background: var(--rr-heading-primary);
+                    }
+                }
+            }
+        }
+    }
+    &__btn{
+        .rr-btn{
+            background: var(--rr-theme-primary6);
+            padding: 13px 31px;
+            font-size: 14px;
+        }
+    }
+}

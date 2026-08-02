@@ -1,0 +1,616 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+            <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Shop</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span>Shop</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="prodact-area product-bg">
+                <div class="rr-fea-product__area sub-inner-area p-relative fix grey-bg-2 pb-120 pt-115 rr-pro-tab1 rr-el-section">
+                    <div class="container custom-container-3">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="rr-fea-product__tab mb-30">
+                                    <nav>
+                                        <div class="nav nav-tab nav-inner align-items-center justify-content-between right-text" id="nav-tab" role="tablist">
+                                            <div class="text">
+                                                <h6>Showing 1-12 of 84 results</h6>
+                                            </div>
+                                            <div class="all-button d-flex">
+                                                <div class="nice-select-select sorting-type">
+                                                    <select id="lan-1" class="lan-5">
+                                                        <option>Sort: Default Sorting</option>
+                                                        <option>Sort: Most popular</option>
+                                                        <option>Sort: Date</option>
+                                                        <option>Sort: Trending</option>
+                                                        <option>Sort: Featured</option>
+                                                        <option>Sort: Discounted</option>
+                                                    </select> 
+                                                </div>
+                                                <div class="nice-select-select sorting-type">
+                                                    <select id="lan" class="lan-6">
+                                                        <option>Show: 9</option>
+                                                        <option>Show: 8</option>
+                                                        <option>Show: 7</option>
+                                                        <option>Show: 6</option>
+                                                        <option>Show: 5</option>
+                                                        <option>Show: 4</option>
+                                                    </select> 
+                                                </div>
+                                                <button class="nav-link rr-el-rep-filterBtn " id="nav-1-tab" data-bs-toggle="tab" data-bs-target="#nav-1"           type="button" role="tab" aria-controls="nav-1" aria-selected="false"><svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="2.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="2.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="9.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="16.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="9.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="9.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="16.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="16.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    </svg>
+                                                </button>
+                                                    <button class="nav-link rr-el-rep-filterBtn active" id="nav-2-tab" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="nav-2" aria-selected="false"><svg width="26" height="19" viewBox="0 0 26 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="2.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="2.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="2.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="9.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="16.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="23.5" cy="2.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="9.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="9.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="16.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="23.5" cy="9.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="16.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    <circle cx="23.5" cy="16.5" r="2.5" fill="#001D08" fill-opacity="0.1"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade active show" id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab" tabindex="0">
+                                        <div class="rr-fea-product__wrapper">
+                                            <div class="row mb-minus-30">
+                                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="product-4__item mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-1.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Verdant Creature</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$34.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-2.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Opulent Citadel</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$20.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-3.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Magical Container</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$27.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-4.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Under the Exterior</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$47.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-5.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Below the Surface</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$35.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-6.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Trickster Toadstool</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$42.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pagination-social">
+                                                <ul>
+                                                    <li><a href="#"><i class="fa-sharp fa-light fa-arrow-left"></i></a></li>
+                                                    <li><a href="#" class="active">01</a></li>
+                                                    <li><a href="#">02</a></li>
+                                                    <li><a href="#">03</a></li>
+                                                    <li><a href="#"><i class="fa-sharp fa-light fa-arrow-right"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab" tabindex="0">
+                                        <div class="rr-fea-product__wrapper">
+                                            <div class="row mb-minus-30">
+                                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-1.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Verdant Creature</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$34.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-2.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Opulent Citadel</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$20.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-3.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Magical Container</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$27.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-4.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Under the Exterior</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$47.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-5.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Below the Surface</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$35.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                                    <div class="product-4__item   mb-30">
+                                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                                            <img src="{% static 'institutional/imgs/images/shop-img-6.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="product-4__content">
+                                                            <div class="product-4__content-wrap">
+                                                                <div class="product-4__content-wrap-icon">
+                                                                    <ul>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <h5>(5.0)</h5>
+                                                            </div>
+                                                            <h3 class="product-4__content-title"><a href="{% url 'institutional:projects' %}">Trickster Toadstool</a></h3>
+                                                            <p class="product-4__content-dec">Morbi rutrum metus libero posuere pulvinar Phasellus.</p>
+                                                        </div>
+                                                        <div class="product-4__item-cart">
+                                                            <h5 class="product-4__item-cart-text">$42.00</h5>
+                                                            <a href="{% url 'institutional:shop' %}" class="rr-btn"><i class="fa-regular fa-cart-shopping"></i>Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pagination-social">
+                                                <ul>
+                                                    <li><a href="#"><i class="fa-sharp fa-light fa-arrow-left"></i></a></li>
+                                                    <li><a href="#" class="active">01</a></li>
+                                                    <li><a href="#">02</a></li>
+                                                    <li><a href="#">03</a></li>
+                                                    <li><a href="#"><i class="fa-sharp fa-light fa-arrow-right"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="sidebar sidebar-responsive">
+                                    <div class="sidebar__widget">
+                                        <h5 class="sidebar__widget-title">Search Here</h5>
+            
+                                        <div class="sidebar__widget-search">
+                                            <div class="search__bar">
+                                                <input type="text" id="search" placeholder="Search">
+                                                <div class="search__bar-icon">
+                                                    <i class="fa-sharp fa-regular fa-magnifying-glass"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <div class="sidebar__widget">
+                                        <h5 class="sidebar__widget-title sidebar__widget-title-2">Recent Post</h5>
+            
+                                        <div class="sidebar-post__wrapper">
+                                            <div class="sidebar-post">
+                                                <a href="{% url 'institutional:blog_details' %}" class="sidebar-post_thumb">
+                                                    <img src="{% static 'institutional/imgs/blog/blog-details-sidebar-img-1.png' %}" alt="post">
+                                                </a>
+            
+                                                <div class="sidebar-post_content">
+                                                    <ul class="post-meta">
+                                                        <li>
+                                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M1.39844 6.67206H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+    
+                                                    June 25, 2024
+                                                        </li>
+                                                    </ul>
+            
+                                                    <a href="{% url 'institutional:blog_details' %}"><h3 class="title rr-fw-medium">Courses designed build advanced AI skills</h3></a>
+                                                </div>
+                                            </div>
+            
+                                            <div class="sidebar-post">
+                                                <a href="{% url 'institutional:blog_details' %}" class="sidebar-post_thumb">
+                                                    <img src="{% static 'institutional/imgs/blog/blog-details-sidebar-img-2.png' %}" alt="post">
+                                                </a>
+            
+                                                <div class="sidebar-post_content">
+                                                    <ul class="post-meta">
+                                                        <li>
+                                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M1.39844 6.67206H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+    
+                                                    July 22, 2024
+                                                        </li>
+                                                    </ul>
+            
+                                                    <a href="{% url 'institutional:blog_details' %}"><h3 class="title rr-fw-medium">Developing understanding of AI model usage</h3></a>
+                                                </div>
+                                            </div>
+            
+                                            <div class="sidebar-post">
+                                                <a href="{% url 'institutional:blog_details' %}" class="sidebar-post_thumb">
+                                                    <img src="{% static 'institutional/imgs/blog/blog-details-sidebar-img-3.png' %}" alt="post">
+                                                </a>
+            
+                                                <div class="sidebar-post_content">
+                                                    <ul class="post-meta">
+                                                        <li>
+                                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.4023 1V3.40009" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M1.39844 6.67206H14.9989" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M15.4005 6.19961V12.9999C15.4005 15.3999 14.2005 17 11.4004 17H5.00015C2.20004 17 1 15.3999 1 12.9999V6.19961C1 3.79952 2.20004 2.19946 5.00015 2.19946H11.4004C14.2005 2.19946 15.4005 3.79952 15.4005 6.19961Z" stroke="#8B3DFF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.1534 10.36H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.1534 12.7604H11.1606" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.1964 10.36H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8.1964 12.7604H8.20359" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5.23546 10.36H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5.23546 12.7604H5.24265" stroke="#8B3DFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+    
+                                                    August 25, 2024
+                                                        </li>
+                                                    </ul>
+            
+                                                    <a href="{% url 'institutional:blog_details' %}"><h3 class="title rr-fw-medium">Groundbreaking AI Applications in Marketing</h3></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="sidebar__widget">
+                                        <h5 class="sidebar__widget-title sidebar__widget-title__have-bar">Catagory</h5>
+            
+                                        <div class="sidebar__widget-category">
+                                            <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>AI Generation</span> <span>(4)</span></a>
+                                            <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Featured</span> <span>(6)</span></a>
+                                            <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Technology</span> <span>(14)</span></a>
+                                            <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Business</span> <span>(5)</span></a>
+                                            <a href="{% url 'institutional:blog_details' %}"><span><i class="fa-regular fa-arrow-right"></i>Tips & Tricks</span> <span>(27)</span></a>
+                                        </div>
+                                    </div>
+            
+                                    <div class="sidebar__widget">
+                                        <h5 class="sidebar__widget-title">Popular Tags</h5>
+            
+                                        <div class="sidebar__widget-tags">
+                                            <div class="tags">
+                                                <a href="{% url 'institutional:blog_details' %}">AI</a>
+                                                <a href="{% url 'institutional:blog_details' %}">Chatbot</a>
+                                                <a href="{% url 'institutional:blog_details' %}">Artist</a>
+                                                <a href="{% url 'institutional:blog_details' %}">Business</a>
+                                                <a href="{% url 'institutional:blog_details' %}">App</a>
+                                                <a href="{% url 'institutional:blog_details' %}">Creative</a>
+                                                <a href="{% url 'institutional:blog_details' %}">Design</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

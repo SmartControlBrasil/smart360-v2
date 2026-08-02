@@ -1,0 +1,58 @@
+@use "../../utils" as *;
+
+/*----------------------------------------*/
+/* 8.1 404
+/*----------------------------------------*/
+.error{
+    &__area{
+        margin: 20px;
+        @media #{$xl, $lg, $md, $sm, $xs} {
+			margin: 0;
+		}
+    }
+    &__content{
+        &-title{
+            font-family: 'Langar';
+            font-weight: var(--rr-fw-regular);
+            color: var(--rr-common-white);
+            font-style: normal;
+            font-size: 230px;
+            line-height: 240px;
+            @media #{$xs} {
+                font-size: 160px;
+                line-height: 170px;
+            }
+        }
+        &-sub-title{
+            color: var(--rr-common-white);
+        }
+        &-dec{
+            font-family: var(--rr-ff-body);
+            font-weight: var(--rr-fw-regular);
+            font-style: normal;
+            font-size: 18px;
+            line-height: 26px;
+            color: rgb(255 255 255 / 70%);
+            margin-top: 25px;
+            @media #{$sm, $xs} {
+                br{
+                    display: none;
+                }
+            }
+        }
+        .rr-btn{
+            padding: 15px 33px;
+            margin-top: 35px;
+            &:hover{
+                i{
+                    color: var(--rr-common-white);
+                }
+            }
+            i{
+                color: var(--rr-heading-primary);
+                font-weight: var(--rr-fw-regular);
+                font-size: 18px;
+            }
+        }
+    }
+}

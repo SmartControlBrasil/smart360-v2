@@ -1,0 +1,205 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb area start -->
+            <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="breadcrumb__shapes">
+                        <div class="breadcrumb__shapes-shape-1"></div>
+                        <div class="breadcrumb__shapes-shape-2"></div>
+                        <div class="breadcrumb__shapes-shape-3"></div>
+                        <div class="breadcrumb__shapes-shape-4"></div>
+                        <div class="breadcrumb__shapes-shape-5 upDown">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-8 leftRight">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                        </div>
+                        <div class="breadcrumb__shapes-shape-9">
+                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">Service Details</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav>
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li class="active"><span> Service details</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="image-generation__area faq__area ask-question section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="image-generation-sidebar">
+                                <h5 class="title">Services</h5>
+                                <div class="image-generation-sidebar-box">
+                                    <a class="item" href="{% url 'institutional:service_details' %}"><span class="name">Image Generation</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                    <a class="item" href="{% url 'institutional:service_details' %}"><span class="name">Face Generation</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                    <a class="item" href="{% url 'institutional:service_details' %}"><span class="name">Photo  Effect</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                    <a class="item" href="{% url 'institutional:service_details' %}"><span class="name">Image Captioning</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                    <a class="item" href="{% url 'institutional:service_details' %}"><span class="name">Podcast Hosting</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                    <a class="item" href="{% url 'institutional:service_details' %}"><span class="name">Natural Sounding</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="image-generation-content">
+                                <div class="image-generation-content-video">
+                                    <video autoplay="" loop="" controls="">
+                                        <source type="video/mp4" src="https://player.vimeo.com/external/194837908.sd.mp4?s=c350076905b78c67f74d7ee39fdb4fef01d12420&profile_id=164">
+                                    </video>
+                                </div>
+                                <div class="wrapper">
+                                    <h5 class="title">Rapid Text-to-Image Generation</h5>
+                                    <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitur. Vivamus sit amet lectus porttito fermentum urna sit amet, auctor ex. Suspendisse ut condimentum libero.</p>
+                                    <div class="dark-bg">
+                                        <p class="text">“Mauris a sapien molestie, hendrerit leo ac, vulputate nunc. Nunc sagittis justo diam, ac <br> euismod dui vulputate quis. In ultricies, massa eu placerat vehicula, massa urna malesuada <br> tellus, sit amet posuere libero lacus vitae nunc. Aliquam non aliquet odio”</p>
+                                    </div>
+                                    <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitur. Vivamus sit amet lectus porttito fermentum urna sit amet, auctor ex. Suspendisse ut condimentum libero.</p>
+                                    <h5 class="title mt-65">Services & Software</h5>
+                                    <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitu.</p>
+                                    <div class="cards">
+                                        <div class="row mb-minus-30">
+                                            <div class="col-md-6">
+                                                <div class="service__item-2 service__item-inner">
+                                                    <div class="service__item mb-30">
+                                                        <div class="service__bg-shape" data-background="{% static 'institutional/imgs/shapes/service-bg-shape.png' %}"></div>
+                                                        <div class="service__item-icon">
+                                                            <img src="{% static 'institutional/imgs/icon/service-icon-1.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="service__item-content">
+                                                            <h3 class="title">Data processing</h3>
+                                                            <p class="dec">Fusce interdum neque ligula interdum to condimental maximus neque sempe Donec zonvallis risus morbi senectus.</p>
+                                                            <a class="rr-btn btn-white" href="{% url 'institutional:services' %}">Read More <i class="fa-solid fa-angle-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="service__item-2 service__item-inner">
+                                                    <div class="service__item mb-30">
+                                                        <div class="service__bg-shape" data-background="{% static 'institutional/imgs/shapes/service-bg-shape.png' %}"></div>
+                                                        <div class="service__item-icon service__item-icon-2">
+                                                            <img src="{% static 'institutional/imgs/icon/service-icon-2.png' %}" alt="img not found">
+                                                        </div>
+                                                        <div class="service__item-content">
+                                                            <h3 class="title">Drafting a Response</h3>
+                                                            <p class="dec">Fusce interdum neque ligula interdum to condimental maximus neque sempe Donec zonvallis risus morbi senectus.</p>
+                                                            <a class="rr-btn btn-white" href="{% url 'institutional:services' %}">Read More <i class="fa-solid fa-angle-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="title mt-65">Making AI images is quick & protected</h5>
+                                    <p class="dec">Nunc maximus facilisis risus, ut faucibus ante porta id. In hac habitasse platea dictumst euismod sapien consequat augue tincidunt maximus. Sed rutrum ligula nisi, tincidunt dolor fringilla hendrerit sagittis iaculis tempor. Nullam ornare mauris et diam mattis, ut pretium libero efficitu.</p>
+                                    <div class="media">
+                                        <div class="row mb-minus-30">
+                                            <div class="col-md-6">
+                                                <div class="thumb mb-30">
+                                                    <img src="{% static 'institutional/imgs/images/image-generation-img-1.png' %}" alt="img not found">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="thumb mb-30">
+                                                    <img src="{% static 'institutional/imgs/images/image-generation-img-2.png' %}" alt="img not found">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="thumb mb-30">
+                                                    <img src="{% static 'institutional/imgs/images/image-generation-img-3.png' %}" alt="img not found">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="thumb mb-30">
+                                                    <img src="{% static 'institutional/imgs/images/image-generation-img-4.png' %}" alt="img not found">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="title">Common Questions & Solutions.</h5>
+                                    <div class="ask-question__faq mt-30">
+                                        <div class="accordion" id="accordionExample">
+                                            <div class="accordion-item ask-question__faq-item faq__item wow fadeInLeft animated" data-wow-delay=".3s">
+                                                <h5 class="accordion-header" id="headingThree">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                        What is the time needed for a generation?
+                                                    </button>
+                                                </h5>
+                                                <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <p>Proin non ultrices velit. Nulla eu nisl vel enim sagittis sollicitudin eu gravida ligula. Vestibulum ante ipsum <br> primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc sit amet justo purus. Suspendisse aliquet <br> leo vitae pharetra dignissim. Mauris at mauris nulla. Integer suscipit tellus quis gravida mattis. Aliquam ornare <br> justo viverra pharetra bibendum. Nullam vel rhoncus orci.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div class="accordion-item ask-question__faq-item faq__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                                <h5 class="accordion-header" id="headingOne">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        What is the credit requirement per task?
+                                                    </button>
+                                                </h5>
+                                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <p>Proin non ultrices velit. Nulla eu nisl vel enim sagittis sollicitudin eu gravida ligula. Vestibulum ante ipsum <br> primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc sit amet justo purus. Suspendisse aliquet <br> leo vitae pharetra dignissim. Mauris at mauris nulla. Integer suscipit tellus quis gravida mattis. Aliquam ornare <br> justo viverra pharetra bibendum. Nullam vel rhoncus orci.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="accordion-item ask-question__faq-item faq__item wow fadeInLeft animated" data-wow-delay=".5s">
+                                                <h5 class="accordion-header" id="headingTow">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTow" aria-expanded="true" aria-controls="collapseTow">
+                                                        How will AI's role in self-driving vehicles evolve?
+                                                    </button>
+                                                </h5>
+                                                <div id="collapseTow" class="accordion-collapse collapse" aria-labelledby="headingTow" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <p>Proin non ultrices velit. Nulla eu nisl vel enim sagittis sollicitudin eu gravida ligula. Vestibulum ante ipsum <br> primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc sit amet justo purus. Suspendisse aliquet <br> leo vitae pharetra dignissim. Mauris at mauris nulla. Integer suscipit tellus quis gravida mattis. Aliquam ornare <br> justo viverra pharetra bibendum. Nullam vel rhoncus orci.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="accordion-item ask-question__faq-item faq__item wow fadeInLeft animated" data-wow-delay=".6s">
+                                                <h5 class="accordion-header" id="headingFour">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                        What ethical risks arise in AI development?
+                                                    </button>
+                                                </h5>
+                                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <p>Proin non ultrices velit. Nulla eu nisl vel enim sagittis sollicitudin eu gravida ligula. Vestibulum ante ipsum <br> primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc sit amet justo purus. Suspendisse aliquet <br> leo vitae pharetra dignissim. Mauris at mauris nulla. Integer suscipit tellus quis gravida mattis. Aliquam ornare <br> justo viverra pharetra bibendum. Nullam vel rhoncus orci.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}
