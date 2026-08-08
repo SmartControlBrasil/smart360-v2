@@ -2,116 +2,314 @@
 {% load static %}
 
 {% block content %}
+
 <!-- breadcrumb area start -->
-            <section class="breadcrumb__before p-relative">
-                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
-                    <div class="breadcrumb__shapes">
-                        <div class="breadcrumb__shapes-shape-1"></div>
-                        <div class="breadcrumb__shapes-shape-2"></div>
-                        <div class="breadcrumb__shapes-shape-3"></div>
-                        <div class="breadcrumb__shapes-shape-4"></div>
-                        <div class="breadcrumb__shapes-shape-5 upDown">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+<section class="breadcrumb__before p-relative">
+    <div
+        class="breadcrumb__area overflow-hidden position-relative"
+        data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}"
+    >
+        <div class="breadcrumb__shapes">
+            <div class="breadcrumb__shapes-shape-1"></div>
+            <div class="breadcrumb__shapes-shape-2"></div>
+            <div class="breadcrumb__shapes-shape-3"></div>
+            <div class="breadcrumb__shapes-shape-4"></div>
+
+            <div class="breadcrumb__shapes-shape-5 upDown">
+                <img
+                    src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}"
+                    alt=""
+                >
+            </div>
+
+            <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                <img
+                    src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}"
+                    alt=""
+                >
+            </div>
+
+            <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                <img
+                    src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}"
+                    alt=""
+                >
+            </div>
+
+            <div class="breadcrumb__shapes-shape-8 leftRight">
+                <img
+                    src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}"
+                    alt=""
+                >
+            </div>
+
+            <div class="breadcrumb__shapes-shape-9">
+                <img
+                    src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}"
+                    alt=""
+                >
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12">
+                    <div class="breadcrumb__content">
+                        <div class="breadcrumb__title-wrapper">
+                            <h1 class="breadcrumb__title">
+                                Entre em Contato
+                            </h1>
                         </div>
-                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
-                        </div>
-                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
-                        </div>
-                        <div class="breadcrumb__shapes-shape-8 leftRight">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
-                        </div>
-                        <div class="breadcrumb__shapes-shape-9">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col-12">
-                                <div class="breadcrumb__content">
-                                    <div class="breadcrumb__title-wrapper">
-                                        <h1 class="breadcrumb__title">contact us</h1>
-                                    </div>
-                                    <div class="breadcrumb__menu">
-                                        <nav>
-                                            <ul>
-                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
-                                                <li class="active"><span>contact us</span></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
+
+                        <div class="breadcrumb__menu">
+                            <nav aria-label="Navegação estrutural">
+                                <ul>
+                                    <li>
+                                        <span>
+                                            <a href="{% url 'institutional:home' %}">
+                                                <img
+                                                    src="{% static 'institutional/imgs/icon/home-icon.png' %}"
+                                                    alt=""
+                                                >
+                                                Início
+                                            </a>
+                                        </span>
+                                    </li>
+
+                                    <li class="active">
+                                        <span>Contato</span>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb area end -->
 
-            <!--Contact Section-->
-            <section class="contact__area section-space">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="contact__media">
-                                <img src="{% static 'institutional/imgs/images/contato.webp' %}" alt="img not found">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="contact__title-wrapper">
-                                <div class="section__title-wrapper">
-                                    <h2 class="section__title-wrapper-title">Get In Touch</h2>
+
+<!-- contact area start -->
+<section class="contact__area section-space">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__media">
+                    <img
+                        src="{% static 'institutional/imgs/images/contato.webp' %}"
+                        alt="Equipe da Smart Control Brasil pronta para atender"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__title-wrapper">
+
+                    <div class="section__title-wrapper">
+                        <span class="section__subtitle">
+                            Fale com nossa equipe
+                        </span>
+
+                        <h2 class="section__title-wrapper-title">
+                            Conte-nos sobre seu projeto
+                        </h2>
+
+                        <p>
+                            Envie as informações da sua necessidade. Nossa equipe
+                            analisará o projeto e entrará em contato para entender
+                            os detalhes técnicos e comerciais.
+                        </p>
+                    </div>
+
+                    {% if messages %}
+                        <div class="contact__messages mt-25">
+                            {% for message in messages %}
+                                <div
+                                    class="alert alert-{{ message.tags|default:'info' }}"
+                                    role="alert"
+                                >
+                                    {{ message }}
                                 </div>
-                                <div class="contact__form-wrapper">
-                                    <form class="contact__form" id="contact__form" method="POST" action="./mail.php">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="contact__input">
-                                                    <input type="text" placeholder="Your Name">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 p-0-5-20">
-                                                <div class="contact__input">
-                                                    <input type="email" placeholder="Your Email">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="contact__input">
-                                                    <input type="number" placeholder="Phone Number">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 p-0-5-20">
-                                                <div class="contact__input">
-                                                    <input type="tel" placeholder="Subject">
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="contact__textarea">
-                                                    <textarea name="textarea" id="textarea" cols="30" rows="10" placeholder="Write Message..."></textarea>
-                                                    <div class="wrap">
-                                                        <input type="checkbox" class="form-check-input" id="agree">
-                                                        <label class="form-check-label" for="agree">Select to subscribe to our newsletter and updates and we will send you
-                                                            all updates about our services.</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <button type="submit" class="rr-btn mt-35">Submit now</button>
-                                            </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="contact__form-wrapper">
+                        <form
+                            class="contact__form"
+                            id="contact__form"
+                            method="post"
+                            action=""
+                        >
+                            {% csrf_token %}
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="contact__input">
+                                        <label for="nome" class="visually-hidden">
+                                            Nome
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="nome"
+                                            name="nome"
+                                            placeholder="Seu nome"
+                                            autocomplete="name"
+                                            required
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="contact__input">
+                                        <label for="email" class="visually-hidden">
+                                            E-mail
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            placeholder="Seu e-mail"
+                                            autocomplete="email"
+                                            required
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="contact__input">
+                                        <label for="telefone" class="visually-hidden">
+                                            Telefone
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            id="telefone"
+                                            name="telefone"
+                                            placeholder="Telefone ou WhatsApp"
+                                            autocomplete="tel"
+                                            inputmode="tel"
+                                            required
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="contact__input">
+                                        <label for="empresa" class="visually-hidden">
+                                            Empresa
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="empresa"
+                                            name="empresa"
+                                            placeholder="Empresa"
+                                            autocomplete="organization"
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact__input">
+                                        <label for="assunto" class="visually-hidden">
+                                            Assunto
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="assunto"
+                                            name="assunto"
+                                            placeholder="Assunto"
+                                            required
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact__textarea">
+                                        <label for="mensagem" class="visually-hidden">
+                                            Mensagem
+                                        </label>
+
+                                        <textarea
+                                            id="mensagem"
+                                            name="mensagem"
+                                            cols="30"
+                                            rows="7"
+                                            placeholder="Descreva sua necessidade, equipamento ou projeto..."
+                                            required
+                                        ></textarea>
+
+                                        <div class="wrap">
+                                            <input
+                                                type="checkbox"
+                                                class="form-check-input"
+                                                id="aceite_privacidade"
+                                                name="aceite_privacidade"
+                                                value="1"
+                                                required
+                                            >
+
+                                            <label
+                                                class="form-check-label"
+                                                for="aceite_privacidade"
+                                            >
+                                                Autorizo o uso dos dados informados
+                                                exclusivamente para atendimento desta
+                                                solicitação.
+                                            </label>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="contact-map section-space-bottom">
-                <div class="container">
-                    <div class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14600.157880481716!2d90.35107202273903!3d23.81719545680701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c12c1b289e39%3A0x8d3bdfb80d3ebe88!2sRd%20No.%204%2C%20Dhaka%201216!5e0!3m2!1sen!2sbd!4v1701837409513!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <div class="col-12">
+                                    <button
+                                        type="submit"
+                                        class="rr-btn mt-35"
+                                    >
+                                        Enviar solicitação
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
                     </div>
+
                 </div>
-            </section>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- contact area end -->
+
+
+<!-- contact map start -->
+<section class="contact-map section-space-bottom">
+    <div class="container">
+        <div class="map">
+            <iframe
+                src="https://www.google.com/maps?q=Smart%20Control%20Brasil%2C%20S%C3%A3o%20Paulo%2C%20SP&output=embed"
+                width="100%"
+                height="450"
+                style="border: 0;"
+                title="Localização da Smart Control Brasil"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+    </div>
+</section>
+<!-- contact map end -->
+
 {% endblock %}

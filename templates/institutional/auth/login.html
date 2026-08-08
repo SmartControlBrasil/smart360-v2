@@ -1,0 +1,70 @@
+{% extends 'institutional/base.html' %}
+
+{% block title %}Entrar | Smart360 Experience Center{% endblock %}
+{% block meta_description %}Entre na sua conta para acessar o Smart360 Experience Center.{% endblock %}
+
+{% block content %}
+<section class="contact__area section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="contact__title-wrapper">
+                    <div class="section__title-wrapper">
+                        <span class="section__subtitle">Acesso ao Experience Center</span>
+                        <h1 class="section__title-wrapper-title">Entre para continuar</h1>
+                        <p>
+                            Acesse sua conta para salvar progresso, acumular XP,
+                            concluir missoes e desbloquear conquistas.
+                        </p>
+                    </div>
+
+                    <div class="contact__form-wrapper">
+                        <form class="contact__form" method="post" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ next|default:'' }}">
+
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            {% endif %}
+
+                            <div class="contact__input">
+                                <label for="{{ form.username.id_for_label }}" class="visually-hidden">
+                                    Usuario
+                                </label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <small class="text-danger">{{ form.username.errors|join:", " }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="contact__input">
+                                <label for="{{ form.password.id_for_label }}" class="visually-hidden">
+                                    Senha
+                                </label>
+                                {{ form.password }}
+                                {% if form.password.errors %}
+                                    <small class="text-danger">{{ form.password.errors|join:", " }}</small>
+                                {% endif %}
+                            </div>
+
+                            <button type="submit" class="rr-btn mt-25">
+                                Entrar
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+
+                        <p class="mt-20">
+                            Ainda nao tem conta?
+                            <a href="{% url 'institutional:signup' %}?next={{ next|default:''|urlencode }}">
+                                Cadastre-se para jogar
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

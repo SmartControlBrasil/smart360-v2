@@ -1,8 +1,62 @@
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from django.http import Http404
+from django.shortcuts import redirect
 from django.shortcuts import render
+from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
+
+
+def _safe_next_url(request):
+    next_url = request.POST.get("next") or request.GET.get("next")
+    if next_url and url_has_allowed_host_and_scheme(
+        next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return next_url
+    return reverse("institutional:experience_center_play")
+
+
+class InstitutionalLoginView(LoginView):
+    template_name = "institutional/auth/login.html"
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return _safe_next_url(self.request)
+
+
+class InstitutionalLogoutView(LogoutView):
+    next_page = "institutional:experience_center"
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect(_safe_next_url(request))
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(_safe_next_url(request))
+    else:
+        form = UserCreationForm()
+
+    return render(
+        request,
+        "institutional/auth/signup.html",
+        {
+            "form": form,
+            "next": request.POST.get("next") or request.GET.get("next", ""),
+        },
+    )
 
 
 def home(request):
@@ -125,6 +179,23 @@ def testimonials(request):
 
 def pricing(request):
     return render(request, "institutional/pages/pricing.html")
+
+
+def experience_center(request):
+    return render(
+        request,
+        "institutional/pages/experience_center.html",
+        {"play_mode": False},
+    )
+
+
+@login_required(login_url="institutional:login")
+def experience_center_play(request):
+    return render(
+        request,
+        "institutional/pages/experience_center.html",
+        {"play_mode": True},
+    )
 
 
 def cart(request):

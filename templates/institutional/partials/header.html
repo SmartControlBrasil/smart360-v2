@@ -29,9 +29,9 @@
                                             <a href="#" onclick="return false;"
                                             aria-haspopup="true">Soluções</a>
                                             <ul class="submenu">
-                                                <li class="{% if current == 'home_04' %}active{% endif %}"><a href="{% url 'institutional:home_04' %}">Câmaras Climáticas</a></li>
+                                                {% comment %} <li class="{% if current == 'home_04' %}active{% endif %}"><a href="{% url 'institutional:home_04' %}">Câmaras Climáticas</a></li> {% endcomment %}
                                                 
-                                                <li class="{% if current == 'home_03' %}active{% endif %}"><a href="{% url 'institutional:home_03' %}">Chatbot Lívia</a></li>
+                                                {% comment %} <li class="{% if current == 'home_03' %}active{% endif %}"><a href="{% url 'institutional:home_03' %}">Chatbot Lívia</a></li> {% endcomment %}
                                                 <li class="{% if current == 'home_05' %}active{% endif %}"><a href="{% url 'institutional:home_05' %}">Manuteção Industrial</a></li>
                                                 <li class="{% if current == 'engenharia_serralheria_industrial' %}active{% endif %}"><a href="{% url 'institutional:engenharia_serralheria_industrial' %}">Serralheria Industrial</a></li>
                                                 <li class="{% if current == 'home_10' %}active{% endif %}"><a href="{% url 'institutional:home_10' %}">Mitsubishi Automação</a></li>
@@ -64,7 +64,7 @@
                                                 <li class="{% if current == 'blog_details' %}active{% endif %}"><a href="{% url 'institutional:blog_details' %}">Detalhes do blog</a></li>
                                             </ul>
                                         </li> {% endcomment %}
-                                        <li class="has-dropdown {% if current in 'team team_details projects project_details testimonials pricing cart wishlist checkout shop shop_details faq error_404_preview' %}active{% endif %}">
+                                        {% comment %} <li class="has-dropdown {% if current in 'team team_details projects project_details testimonials pricing cart wishlist checkout shop shop_details faq error_404_preview' %}active{% endif %}">
                                             <a href="javascript:void(0)">Páginas</a>
                                             <ul class="submenu">
                                                 <li class="{% if current == 'team' %}active{% endif %}"><a href="{% url 'institutional:team' %}">Equipe</a></li>
@@ -82,7 +82,7 @@
                                                 <li class="{% if current == 'error_404_preview' %}active{% endif %}"><a href="{% url 'institutional:error_404_preview' %}">Página 404</a></li>
                                             </ul>
                                             
-                                        </li>
+                                        </li> {% endcomment %}
                                         <li class="{% if current == 'contact' %}active{% endif %}">
                                             <a href="{% url 'institutional:contact' %}">Contato</a>
                                         </li>
@@ -122,7 +122,7 @@
                                 </a>
                             </div>
                             <div class="header__btn-wrap d-none d-sm-inline-flex">
-                                <a href="{% url 'institutional:contact' %}" class="rr-btn rr-btn-bold">Junte-se à IA</a>
+                                <a href="{% url 'institutional:experience_center' %}" class="rr-btn rr-btn-bold">Junte-se à IA</a>
                             </div>
                             <div class="header__hamburger ml-20 d-xl-none">
                                 <div class="sidebar__toggle">

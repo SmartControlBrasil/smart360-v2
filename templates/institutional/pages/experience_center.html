@@ -1,0 +1,286 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block title %}Smart360 Experience Center | Smart Control Brasil{% endblock %}
+{% block meta_description %}Explore solucoes de automacao, robotica e sistemas em uma experiencia gamificada da Smart Control Brasil.{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-center.css' %}">
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-components.css' %}">
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-animations.css' %}">
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-responsive.css' %}">
+{% endblock %}
+
+{% block content %}
+<section
+    class="experience-center{% if not play_mode %} experience-center--landing{% endif %}"
+    data-experience-root
+    data-experience-authenticated="{{ user.is_authenticated|yesno:'true,false' }}"
+    data-experience-login-url="{% url 'institutional:login' %}?next={% url 'institutional:experience_center_play' %}"
+    data-experience-signup-url="{% url 'institutional:signup' %}?next={% url 'institutional:experience_center_play' %}"
+    data-experience-play-url="{% url 'institutional:experience_center_play' %}"
+    data-experience-section="intro"
+    aria-labelledby="experience-title"
+>
+    <div class="experience-center__shell">
+        <div class="experience-center__hero">
+            <span class="experience-center__eyebrow">Smart360 Experience Center</span>
+            <h1 id="experience-title">Explore tecnologias Smart Control em uma jornada interativa</h1>
+            <p>
+                Entre para salvar seu progresso, acumular XP, desbloquear conquistas
+                e avancar nas missoes do Smart360.
+            </p>
+            <div class="experience-center__actions">
+                {% if play_mode and user.is_authenticated %}
+                    <button
+                        type="button"
+                        class="rr-btn"
+                        data-experience-action="start"
+                        data-experience-id="experience-start"
+                        data-experience-points="10"
+                        data-experience-once="true"
+                        data-experience-mission="visit-three-areas"
+                    >
+                        Continuar experiencia
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="experience-center__ghost-button"
+                        data-experience-audio="toggle"
+                        aria-label="Ativar ou desativar audio da experiencia"
+                    >
+                        Audio
+                    </button>
+                    <form method="post" action="{% url 'institutional:logout' %}" class="experience-center__inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="experience-center__ghost-button">
+                            Sair
+                        </button>
+                    </form>
+                {% elif user.is_authenticated %}
+                    <button
+                        type="button"
+                        class="rr-btn"
+                        data-experience-action="start-experience"
+                        data-experience-play-url="{% url 'institutional:experience_center_play' %}"
+                    >
+                        Comecar experiencia
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                    <form method="post" action="{% url 'institutional:logout' %}" class="experience-center__inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="experience-center__ghost-button">
+                            Sair
+                        </button>
+                    </form>
+                {% else %}
+                    <a
+                        href="{% url 'institutional:signup' %}?next={% url 'institutional:experience_center_play' %}"
+                        class="rr-btn"
+                    >
+                        Cadastre-se para jogar
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a
+                        href="{% url 'institutional:login' %}?next={% url 'institutional:experience_center_play' %}"
+                        class="experience-center__ghost-button"
+                    >
+                        Já tenho uma conta
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if play_mode and user.is_authenticated %}
+            <aside class="experience-hud" aria-label="Progresso da experiencia">
+                <div class="experience-hud__line">
+                    <span>Pontos</span>
+                    <strong data-experience-ui="points">0</strong>
+                </div>
+                <div class="experience-hud__line">
+                    <span>Nivel</span>
+                    <strong data-experience-ui="level">Explorador</strong>
+                </div>
+                <div class="experience-hud__meter" aria-label="Experiencia do nivel atual">
+                    <span data-experience-ui="xp-label">0 XP</span>
+                    <div class="experience-hud__bar">
+                        <span data-experience-ui="xp-bar"></span>
+                    </div>
+                </div>
+                <div class="experience-hud__meter" aria-label="Progresso geral">
+                    <span data-experience-ui="progress-label">0%</span>
+                    <div class="experience-hud__bar">
+                        <span data-experience-ui="progress-bar"></span>
+                    </div>
+                </div>
+                <p class="experience-hud__saved">Progresso salvo neste navegador enquanto a persistencia no banco e preparada.</p>
+                <div class="experience-hud__controls">
+                    <button type="button" data-experience-audio="toggle" data-experience-ui="audio-button">
+                        Audio off
+                    </button>
+                    <button type="button" data-experience-action="open-missions" data-experience-modal="missions">
+                        Missoes
+                    </button>
+                    <button type="button" data-experience-action="reset" data-experience-id="reset-progress">
+                        Reset
+                    </button>
+                </div>
+            </aside>
+        {% else %}
+            <aside class="experience-hud experience-hud--locked" aria-label="Modo visitante">
+                <div class="experience-hud__line">
+                    <span>Modo</span>
+                    <strong>Visitante</strong>
+                </div>
+                <p>
+                    Crie sua conta gratuita para salvar progresso, acumular XP,
+                    liberar conquistas e acessar missoes tecnicas.
+                </p>
+                <div class="experience-preview-list">
+                    <span>Explorador</span>
+                    <span>Tecnico</span>
+                    <span>Especialista</span>
+                    <span>Mestre da Automacao</span>
+                </div>
+            </aside>
+        {% endif %}
+    </div>
+</section>
+
+<section class="experience-map" aria-label="Areas do Experience Center">
+    <div class="container">
+        {% if not play_mode %}
+            <div class="experience-preview">
+                <span class="experience-center__eyebrow">Previa da jornada</span>
+                <h2>Niveis, missoes e beneficios do cadastro</h2>
+                <p>
+                    A experiencia combina conteudo tecnico, progresso gamificado e trilhas
+                    voltadas para automacao, robotica, sistemas e inteligencia aplicada.
+                </p>
+            </div>
+        {% endif %}
+
+        <div class="experience-map__grid">
+            <article class="experience-card" data-experience-section="automation">
+                <span class="experience-card__icon" aria-hidden="true">A</span>
+                <h2>Automacao Industrial</h2>
+                <p>Conheca controladores, IHMs, inversores, servos e integracao de maquinas.</p>
+                {% if play_mode and user.is_authenticated %}
+                    <button
+                        type="button"
+                        data-experience-action="open-card"
+                        data-experience-id="automation-card"
+                        data-experience-points="10"
+                        data-experience-once="true"
+                        data-experience-mission="open-technical-solution"
+                    >
+                        Explorar solucao
+                    </button>
+                {% else %}
+                    <span class="experience-card__locked">Disponivel apos cadastro</span>
+                {% endif %}
+            </article>
+
+            <article class="experience-card" data-experience-section="robotics">
+                <span class="experience-card__icon" aria-hidden="true">R</span>
+                <h2>Robotica Xyron</h2>
+                <p>Veja possibilidades para recepcao, logistica, limpeza e experiencias de marca.</p>
+                {% if play_mode and user.is_authenticated %}
+                    <button
+                        type="button"
+                        data-experience-action="open-card"
+                        data-experience-id="robotics-card"
+                        data-experience-points="10"
+                        data-experience-once="true"
+                        data-experience-mission="visit-three-areas"
+                    >
+                        Ver aplicacoes
+                    </button>
+                {% else %}
+                    <span class="experience-card__locked">Missao bloqueada para visitantes</span>
+                {% endif %}
+            </article>
+
+            <article class="experience-card" data-experience-section="systems">
+                <span class="experience-card__icon" aria-hidden="true">S</span>
+                <h2>Sistemas e Dados</h2>
+                <p>Organize operacoes com dashboards, sistemas web, desktop e supervisao tecnica.</p>
+                {% if play_mode and user.is_authenticated %}
+                    <button
+                        type="button"
+                        data-experience-action="complete-interaction"
+                        data-experience-id="systems-interaction"
+                        data-experience-points="20"
+                        data-experience-once="true"
+                        data-experience-mission="complete-interaction"
+                    >
+                        Simular interacao
+                    </button>
+                {% else %}
+                    <span class="experience-card__locked">XP indisponivel no modo visitante</span>
+                {% endif %}
+            </article>
+
+            <article class="experience-card" data-experience-section="liro">
+                <span class="experience-card__icon" aria-hidden="true">L</span>
+                <h2>Liro</h2>
+                <p>Espaco reservado para o guia da experiencia e futuras falas de apoio.</p>
+                {% if play_mode and user.is_authenticated %}
+                    <button
+                        type="button"
+                        data-experience-action="meet-liro"
+                        data-experience-id="meet-liro"
+                        data-experience-points="15"
+                        data-experience-once="true"
+                        data-experience-mission="meet-liro"
+                    >
+                        Conhecer o Liro
+                    </button>
+                {% else %}
+                    <span class="experience-card__locked">Conteudo interativo autenticado</span>
+                {% endif %}
+            </article>
+        </div>
+    </div>
+</section>
+
+{% if play_mode and user.is_authenticated %}
+    <div class="experience-missions" data-experience-ui="missions-panel" hidden>
+        <div class="experience-missions__panel" role="dialog" aria-modal="false" aria-labelledby="missions-title">
+            <div class="experience-missions__header">
+                <h2 id="missions-title">Missoes da experiencia</h2>
+                <button type="button" data-experience-action="close-missions" aria-label="Fechar painel de missoes">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div data-experience-ui="missions-list"></div>
+        </div>
+    </div>
+
+    <div class="experience-achievement" data-experience-ui="achievement" role="status" aria-live="polite" hidden>
+        <span class="experience-achievement__icon" aria-hidden="true"></span>
+        <div>
+            <strong data-experience-ui="achievement-title"></strong>
+            <p data-experience-ui="achievement-description"></p>
+            <span data-experience-ui="achievement-points"></span>
+        </div>
+    </div>
+
+    <div class="experience-score-feedback" data-experience-ui="score-feedback" aria-live="polite" hidden></div>
+{% else %}
+    <div class="experience-auth-lock" data-experience-ui="auth-lock" role="status" aria-live="polite" hidden>
+        Crie sua conta gratuita para comecar a experiencia.
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'institutional/js/experience-center/experience-config.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-events.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-storage.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-state.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-audio.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-ui.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-center.js' %}" defer></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+@media (max-width: 1199px) {
+  .experience-map__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991px) {
+  .experience-center {
+    padding-top: 120px;
+  }
+
+  .experience-center__shell {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-center h1 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 767px) {
+  .experience-center {
+    padding: 104px 0 48px;
+  }
+
+  .experience-center__hero {
+    padding: 28px 20px;
+  }
+
+  .experience-center h1 {
+    font-size: 30px;
+  }
+
+  .experience-center p {
+    font-size: 16px;
+  }
+
+  .experience-map {
+    padding: 48px 0;
+  }
+
+  .experience-map__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-card {
+    min-height: 0;
+  }
+
+  .experience-missions {
+    padding: 12px;
+  }
+
+  .experience-missions__panel {
+    max-height: calc(100vh - 24px);
+    max-width: none;
+  }
+
+  .experience-achievement {
+    bottom: 12px;
+    left: 12px;
+    max-width: none;
+    right: 12px;
+  }
+
+  .experience-score-feedback {
+    right: 16px;
+    top: 96px;
+  }
+}

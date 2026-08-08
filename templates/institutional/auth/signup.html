@@ -1,0 +1,86 @@
+{% extends 'institutional/base.html' %}
+
+{% block title %}Cadastro | Smart360 Experience Center{% endblock %}
+{% block meta_description %}Crie sua conta para jogar o Smart360 Experience Center.{% endblock %}
+
+{% block content %}
+<section class="contact__area section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="contact__title-wrapper">
+                    <div class="section__title-wrapper">
+                        <span class="section__subtitle">Smart360 Experience Center</span>
+                        <h1 class="section__title-wrapper-title">Cadastre-se para jogar</h1>
+                        <p>
+                            Crie uma conta gratuita para salvar progresso, acumular XP,
+                            desbloquear conquistas e avancar nas missoes.
+                        </p>
+                    </div>
+
+                    <div class="contact__form-wrapper">
+                        <form class="contact__form" method="post" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ next }}">
+
+                            {% if form.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    Verifique os campos informados e tente novamente.
+                                </div>
+                            {% endif %}
+
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            {% endif %}
+
+                            <div class="contact__input">
+                                <label for="{{ form.username.id_for_label }}" class="visually-hidden">
+                                    Usuario
+                                </label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <small class="text-danger">{{ form.username.errors|join:", " }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="contact__input">
+                                <label for="{{ form.password1.id_for_label }}" class="visually-hidden">
+                                    Senha
+                                </label>
+                                {{ form.password1 }}
+                                {% if form.password1.errors %}
+                                    <small class="text-danger">{{ form.password1.errors|join:", " }}</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="contact__input">
+                                <label for="{{ form.password2.id_for_label }}" class="visually-hidden">
+                                    Confirmacao de senha
+                                </label>
+                                {{ form.password2 }}
+                                {% if form.password2.errors %}
+                                    <small class="text-danger">{{ form.password2.errors|join:", " }}</small>
+                                {% endif %}
+                            </div>
+
+                            <button type="submit" class="rr-btn mt-25">
+                                Criar conta
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+
+                        <p class="mt-20">
+                            Já tenho uma conta?
+                            <a href="{% url 'institutional:login' %}?next={{ next|urlencode }}">
+                                Entrar no Experience Center
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
