@@ -6,10 +6,10 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="footer__widget">
                         <div class="footer__item">
-                            <div class="footer__item-icon"><img src="{% static 'institutional/imgs/logo/favicon.png' %}" alt="Smart Control Brasil"></div>
+                            <div class="footer__item-icon"><img src="{% static 'institutional/imgs/logo/favicon.png' %}" alt="MC Automation"></div>
                             <div class="footer__item-text">
-                                <span>Smart Control Brasil</span>
-                                <h5 class="title"><a href="https://smartcontrolbrasil.com.br">smartcontrolbrasil.com.br</a></h5>
+                                <span>MC Automation</span>
+                                <h5 class="title"><a href="{% url 'institutional:home' %}">mcautomation.com.br</a></h5>
                             </div>
                         </div>
                     </div>
@@ -30,14 +30,14 @@
                         <div class="footer__social">
                             <a href="{% url 'institutional:home' %}" aria-label="Início"><i class="fa-regular fa-house"></i></a>
                             <a href="{% url 'institutional:contact' %}" aria-label="Contato"><i class="fa-regular fa-envelope"></i></a>
-                            <a href="https://smartcontrolbrasil.com.br" aria-label="Site"><i class="fa-regular fa-globe"></i></a>
+                            <a href="{% url 'institutional:home' %}" aria-label="Site MC Automation"><i class="fa-regular fa-globe"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="footer__seken-wrapper">
                 <div class="footer__seken-wrapper-seken">
-                    <h4 class="footer-big-text end">SMART</h4>
+                    <h4 class="footer-big-text end">MC</h4>
                 </div>
                 <div class="footer__seken-wrapper-media">
                     <img src="{% static 'institutional/imgs/shapes/footer-shape-1.png' %}" alt="Elemento visual">
@@ -48,7 +48,7 @@
             <div class="container">
                 <div class="footer__bottom">
                     <div class="footer__copyright">
-                        <p>© {% now "Y" %} Smart Control Brasil. Todos os direitos reservados.</p>
+                        <p>© {% now "Y" %} MC Automation. Todos os direitos reservados.</p>
                     </div>
                     {% comment %} <div class="footer__copyright-menu">
                         <span>Institucional</span>
@@ -75,5 +75,4 @@
 </footer>
 
 </footer>
-
 
