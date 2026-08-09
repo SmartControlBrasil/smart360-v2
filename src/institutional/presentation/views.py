@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.http import Http404
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -22,6 +24,21 @@ def _safe_next_url(request):
     ):
         return next_url
     return reverse("institutional:experience_center_play")
+
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /admin/",
+        "Disallow: /login/",
+        "Disallow: /logout/",
+        "Disallow: /cadastro/",
+        "Disallow: /experience-center/play/",
+        "Disallow: /api/",
+        "",
+        f"Sitemap: {settings.PUBLIC_SITE_URL}/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines) + "\n", content_type="text/plain")
 
 
 class InstitutionalLoginView(LoginView):

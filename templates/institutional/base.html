@@ -1,13 +1,17 @@
-{% load static %}
+{% load static seo_tags %}
 <!doctype html>
 <html class="no-js" lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}MC Automation{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Soluções em automação industrial, robótica, engenharia embarcada, manutenção técnica e sistemas web.{% endblock %}">
+    {% page_title as seo_title %}
+    {% meta_description as seo_description %}
+    {% robots_directives as robots_content %}
+    <title>{{ seo_title }}</title>
+    <meta name="description" content="{{ seo_description }}">
+    {% if robots_content %}<meta name="robots" content="{{ robots_content }}">{% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block canonical %}{% endblock %}
+    <link rel="canonical" href="{% canonical_url %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'institutional/imgs/logo/favicon.png' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +26,16 @@
     <link rel="stylesheet" href="{% static 'institutional/css/vendor/custom-font.css' %}">
     <link rel="stylesheet" href="{% static 'institutional/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'institutional/css/seo.css' %}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X9BGRJ75B7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-X9BGRJ75B7');
+    </script>
+
     {% block extra_head %}{% endblock %}
 </head>
 <body>

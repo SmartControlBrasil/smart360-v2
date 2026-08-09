@@ -34,14 +34,14 @@
                             <div class="col-12">
                                 <div class="breadcrumb__content">
                                     <div class="breadcrumb__title-wrapper">
-                                        <h1 class="breadcrumb__title">{{ post.category }}</h1>
+                                        <h1 class="breadcrumb__title">{{ post.title }}</h1>
                                     </div>
                                     <div class="breadcrumb__menu">
                                         <nav>
                                             <ul>
                                                 <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
                                                 <li><span><a href="{% url 'institutional:blog' %}">Blog</a></span></li>
-                                                <li class="active"><span>{{ post.category }}</span></li>
+                                                <li class="active"><span>{{ post.title }}</span></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -82,7 +82,7 @@
                                     <li><a href="{% url 'institutional:blog' %}">{{ post.category }}</a></li>
                                 </ul>
 
-                                <h2 class="title">{{ post.title }}</h2>
+                                <p class="title">{{ post.category }}</p>
                                 <p class="dec-2">{{ post.intro }}</p>
 
                                 {% for section in post.sections %}

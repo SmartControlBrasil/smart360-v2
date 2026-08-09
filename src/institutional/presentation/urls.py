@@ -6,6 +6,7 @@ from . import views
 app_name = "institutional"
 
 urlpatterns = [
+    path("robots.txt", views.robots_txt, name="robots_txt"),
     path("", views.home, name="home"),
     path("login/", views.InstitutionalLoginView.as_view(), name="login"),
     path("logout/", views.InstitutionalLogoutView.as_view(), name="logout"),

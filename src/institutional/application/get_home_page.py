@@ -14,10 +14,10 @@ class GetHomePage:
     def execute(self) -> HomePageData:
         return HomePageData(
             metadata=PageMetadata(
-                title="MC Automation | Automação, Robótica e Sistemas",
+                title="MC Automation | Automação Industrial, Robótica e Sistemas",
                 description=(
-                    "Soluções em automação industrial, robótica de serviços, "
-                    "manutenção técnica e desenvolvimento de sistemas web."
+                    "Soluções em automação industrial, robótica, manutenção técnica, "
+                    "integração de sistemas e desenvolvimento de software para empresas e indústrias."
                 ),
                 canonical_path="/",
             ),

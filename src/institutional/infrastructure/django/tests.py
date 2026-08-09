@@ -1,8 +1,14 @@
 from pathlib import Path
+from urllib.parse import urljoin
+from xml.etree import ElementTree
 
 from django.contrib.auth import get_user_model
+from django.test import override_settings
 from django.test import TestCase
 from django.urls import reverse
+
+from src.institutional.presentation.blog_posts import BLOG_POSTS
+from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -105,6 +111,133 @@ class InstitutionalRoutesTests(TestCase):
 
         self.assertTemplateUsed(response, "institutional/base.html")
         self.assertContains(response, "breadcrumb__area")
+
+
+@override_settings(ALLOWED_HOSTS=["testserver", "mcautomation.com.br"])
+class TechnicalSeoTests(TestCase):
+    def assertCanonical(self, response, expected_url):
+        html = response.content.decode()
+        self.assertEqual(html.count('rel="canonical"'), 1)
+        self.assertIn(f'<link rel="canonical" href="{expected_url}">', html)
+
+    def assertTitle(self, response, expected_title):
+        html = response.content.decode()
+        self.assertIn(f"<title>{expected_title}</title>", html)
+
+    def assertMetaDescription(self, response, expected_description):
+        html = response.content.decode()
+        self.assertIn(f'<meta name="description" content="{expected_description}">', html)
+
+    def sitemap_urls(self):
+        response = self.client.get(
+            "/sitemap.xml",
+            HTTP_HOST="mcautomation.com.br",
+            secure=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        root = ElementTree.fromstring(response.content.decode())
+        return [
+            element.text
+            for element in root.findall(
+                "{http://www.sitemaps.org/schemas/sitemap/0.9}url/"
+                "{http://www.sitemaps.org/schemas/sitemap/0.9}loc"
+            )
+        ]
+
+    def test_home_uses_metadata_title_description_and_canonical(self):
+        response = self.client.get("/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "MC Automation | Automação Industrial, Robótica e Sistemas")
+        self.assertMetaDescription(
+            response,
+            "Soluções em automação industrial, robótica, manutenção técnica, "
+            "integração de sistemas e desenvolvimento de software para empresas e indústrias.",
+        )
+        self.assertCanonical(response, "https://mcautomation.com.br/")
+        self.assertNotContains(response, 'name="robots"')
+
+    def test_services_has_unique_title_description_and_queryless_canonical(self):
+        response = self.client.get("/servicos/?utm_source=google&utm_campaign=x&gclid=abc")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Serviços de Automação Industrial, Robótica e Software | MC Automation")
+        self.assertMetaDescription(
+            response,
+            "Conheça os serviços da MC Automation em automação industrial, robótica, "
+            "manutenção técnica, retrofit, integração de sistemas e desenvolvimento web.",
+        )
+        self.assertCanonical(response, "https://mcautomation.com.br/servicos/")
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, "gclid")
+        self.assertNotContains(response, 'name="robots"')
+
+    def test_blog_article_uses_title_metadata_h1_and_canonical(self):
+        response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
+        post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, f"{post['title']} | MC Automation")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(
+            response,
+            "https://mcautomation.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+        )
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertIn(f'<h1 class="breadcrumb__title">{post["title"]}</h1>', html)
+        self.assertNotContains(response, 'name="robots"')
+
+    def test_demo_route_has_noindex_follow(self):
+        response = self.client.get("/modelos/index-2/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<meta name="robots" content="noindex,follow">')
+        self.assertCanonical(response, "https://mcautomation.com.br/modelos/index-2/")
+
+    def test_sitemap_returns_public_https_urls_without_noindex_pages(self):
+        urls = self.sitemap_urls()
+
+        self.assertIn("https://mcautomation.com.br/", urls)
+        self.assertIn("https://mcautomation.com.br/solucoes/engenharia-serralheria-industrial/", urls)
+        self.assertEqual(
+            urls.count("https://mcautomation.com.br/solucoes/engenharia-serralheria-industrial/"),
+            1,
+        )
+        self.assertIn("https://mcautomation.com.br/blog/", urls)
+        self.assertIn("https://mcautomation.com.br/contato/", urls)
+        self.assertIn(
+            "https://mcautomation.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+            urls,
+        )
+        self.assertEqual(len(urls), len(set(urls)))
+        self.assertFalse(any("/admin/" in url for url in urls))
+        self.assertFalse(any("/login/" in url for url in urls))
+        self.assertFalse(any("/cadastro/" in url for url in urls))
+        self.assertFalse(any("/experience-center/play/" in url for url in urls))
+        self.assertFalse(any("/modelos/" in url for url in urls))
+        self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
+        self.assertEqual(len(urls), 9 + len(BLOG_POSTS))
+
+        for route_name in NOINDEX_ROUTE_NAMES:
+            try:
+                path = reverse(f"institutional:{route_name}")
+            except Exception:
+                continue
+            absolute_url = urljoin("https://mcautomation.com.br", path)
+            self.assertNotIn(absolute_url, urls)
+
+    def test_robots_txt_points_to_production_sitemap_and_blocks_private_paths(self):
+        response = self.client.get("/robots.txt")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/plain")
+        self.assertContains(response, "Sitemap: https://mcautomation.com.br/sitemap.xml")
+        self.assertContains(response, "Disallow: /admin/")
+        self.assertContains(response, "Disallow: /login/")
+        self.assertContains(response, "Disallow: /cadastro/")
+        self.assertContains(response, "Disallow: /experience-center/play/")
 
 
 
