@@ -1,9 +1,13 @@
+import logging
+
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
+from django.core.mail import EmailMessage
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -13,6 +17,10 @@ from django.utils.http import url_has_allowed_host_and_scheme
 
 from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
+from src.institutional.presentation.forms import ContactForm
+
+
+logger = logging.getLogger(__name__)
 
 
 def _safe_next_url(request):
@@ -240,7 +248,77 @@ def faq(request):
 
 
 def contact(request):
-    return render(request, "institutional/pages/contact.html")
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            recipient_email = getattr(
+                settings,
+                "CONTACT_RECIPIENT_EMAIL",
+                "contato@mcautomation.com.br",
+            )
+            subject = f"[Site MC Automation] {data['assunto']}"
+            body = "\n".join(
+                [
+                    "Nova solicitacao recebida pelo site MC Automation",
+                    "",
+                    "Nome:",
+                    data["nome"],
+                    "",
+                    "E-mail:",
+                    data["email"],
+                    "",
+                    "Telefone / WhatsApp:",
+                    data["telefone"],
+                    "",
+                    "Empresa:",
+                    data["empresa"] or "Nao informado",
+                    "",
+                    "Assunto:",
+                    data["assunto"],
+                    "",
+                    "Mensagem:",
+                    data["mensagem"],
+                    "",
+                    "Consentimento de privacidade:",
+                    "Autorizado",
+                ]
+            )
+
+            try:
+                email = EmailMessage(
+                    subject=subject,
+                    body=body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[recipient_email],
+                    reply_to=[data["email"]],
+                )
+                email.send()
+            except Exception:
+                logger.exception("Falha ao enviar formulario de contato do site.")
+                messages.error(
+                    request,
+                    "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes.",
+                )
+            else:
+                messages.success(
+                    request,
+                    "Solicitação enviada com sucesso. Nossa equipe entrará em contato.",
+                )
+                return redirect("institutional:contact")
+        else:
+            messages.error(
+                request,
+                "Revise os dados informados e tente novamente.",
+            )
+    else:
+        form = ContactForm()
+
+    return render(
+        request,
+        "institutional/pages/contact.html",
+        {"form": form},
+    )
 
 
 def error_404_preview(request):

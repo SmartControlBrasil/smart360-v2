@@ -1,7 +1,10 @@
 from pathlib import Path
+from smtplib import SMTPException
+from unittest.mock import patch
 from urllib.parse import urljoin
 from xml.etree import ElementTree
 
+from django.core import mail
 from django.contrib.auth import get_user_model
 from django.test import override_settings
 from django.test import TestCase
@@ -111,6 +114,146 @@ class InstitutionalRoutesTests(TestCase):
 
         self.assertTemplateUsed(response, "institutional/base.html")
         self.assertContains(response, "breadcrumb__area")
+
+
+@override_settings(
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+    DEFAULT_FROM_EMAIL="MC Automation <no-reply@mcautomation.com.br>",
+    CONTACT_RECIPIENT_EMAIL="contato@mcautomation.com.br",
+)
+class ContactFormTests(TestCase):
+    def setUp(self):
+        mail.outbox = []
+        self.url = reverse("institutional:contact")
+        self.valid_data = {
+            "nome": "  Maria Silva  ",
+            "email": "maria@example.com",
+            "telefone": "  (11) 99999-0000  ",
+            "empresa": "  ACME Industrial  ",
+            "assunto": "Projeto de automacao",
+            "mensagem": "Preciso automatizar uma linha de montagem.",
+            "aceite_privacidade": "1",
+            "website": "",
+        }
+
+    def test_contact_get_returns_200(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "institutional/pages/contact.html")
+
+    def test_contact_form_contains_csrf_and_expected_action(self):
+        response = self.client.get(self.url)
+
+        self.assertContains(response, 'name="csrfmiddlewaretoken"')
+        self.assertContains(response, f'action="{self.url}"')
+
+    def test_valid_post_sends_exactly_one_email(self):
+        response = self.client.post(self.url, self.valid_data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_email_uses_configured_recipient_sender_and_reply_to(self):
+        self.client.post(self.url, self.valid_data)
+
+        message = mail.outbox[0]
+        self.assertEqual(message.to, ["contato@mcautomation.com.br"])
+        self.assertEqual(message.from_email, "MC Automation <no-reply@mcautomation.com.br>")
+        self.assertEqual(message.reply_to, ["maria@example.com"])
+
+    def test_email_body_contains_contact_details(self):
+        self.client.post(self.url, self.valid_data)
+
+        message = mail.outbox[0]
+        self.assertEqual(message.subject, "[Site MC Automation] Projeto de automacao")
+        for expected in (
+            "Maria Silva",
+            "maria@example.com",
+            "(11) 99999-0000",
+            "ACME Industrial",
+            "Projeto de automacao",
+            "Preciso automatizar uma linha de montagem.",
+            "Autorizado",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, message.body)
+
+    def test_empty_company_is_accepted(self):
+        data = {**self.valid_data, "empresa": ""}
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Nao informado", mail.outbox[0].body)
+
+    def test_missing_required_fields_prevent_email(self):
+        required_fields = (
+            "nome",
+            "email",
+            "telefone",
+            "assunto",
+            "mensagem",
+            "aceite_privacidade",
+        )
+
+        for field in required_fields:
+            with self.subTest(field=field):
+                mail.outbox = []
+                data = {**self.valid_data}
+                data.pop(field)
+
+                response = self.client.post(self.url, data)
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(len(mail.outbox), 0)
+
+    def test_invalid_email_prevents_email(self):
+        data = {**self.valid_data, "email": "email-invalido"}
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_missing_privacy_acceptance_prevents_email(self):
+        data = {**self.valid_data}
+        data.pop("aceite_privacidade")
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_filled_honeypot_prevents_email(self):
+        data = {**self.valid_data, "website": "https://spam.example"}
+
+        response = self.client.post(self.url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_valid_post_redirects_to_contact_page(self):
+        response = self.client.post(self.url, self.valid_data)
+
+        self.assertRedirects(response, self.url)
+
+    def test_email_backend_failure_does_not_expose_traceback(self):
+        with patch(
+            "src.institutional.presentation.views.EmailMessage.send",
+            side_effect=SMTPException("smtp unavailable"),
+        ):
+            response = self.client.post(self.url, self.valid_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertContains(
+            response,
+            "Não foi possível enviar sua solicitação agora. Tente novamente em alguns instantes.",
+        )
+        self.assertNotContains(response, "Traceback")
+        self.assertNotContains(response, "smtp unavailable")
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "mcautomation.com.br"])

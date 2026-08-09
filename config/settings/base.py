@@ -35,6 +35,26 @@ ALLOWED_HOSTS = [host.strip() for host in os.getenv("DJANGO_ALLOWED_HOSTS", "").
 PUBLIC_SITE_URL = os.getenv("PUBLIC_SITE_URL", "https://mcautomation.com.br").rstrip("/")
 
 
+def env_bool(name, default=False):
+    return os.getenv(name, str(default)).lower() in {"1", "true", "yes", "on"}
+
+
+EMAIL_HOST = os.getenv("EMAIL_HOST", "")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL",
+    "MC Automation <contato@mcautomation.com.br>",
+)
+CONTACT_RECIPIENT_EMAIL = os.getenv(
+    "CONTACT_RECIPIENT_EMAIL",
+    "contato@mcautomation.com.br",
+)
+
+
 # Application definition
 
 INSTALLED_APPS = [
