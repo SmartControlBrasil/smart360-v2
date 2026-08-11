@@ -19,8 +19,7 @@ empresa, depoimentos, FAQ e contato.
 ## URLs excluidas
 
 Nao entram rotas administrativas, autenticacao, cadastro, demos de template,
-rotas privadas do Experience Center, carrinho, checkout, loja e previews
-tecnicos.
+carrinho, checkout, loja e previews tecnicos.
 
 ## Blog
 

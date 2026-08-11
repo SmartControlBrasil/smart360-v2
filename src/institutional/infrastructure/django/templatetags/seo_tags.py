@@ -83,13 +83,6 @@ ROUTE_METADATA = {
             "adequações, dispositivos especiais e apoio a projetos industriais."
         ),
     },
-    "experience_center": {
-        "title": "Smart360 Experience Center | Smart Control Brasil",
-        "description": (
-            "Entre no Smart360 Experience Center da Smart Control Brasil e explore experiências "
-            "interativas de automação, robótica, tecnologia e inteligência artificial."
-        ),
-    },
 }
 
 NOINDEX_ROUTE_NAMES = {
@@ -109,8 +102,6 @@ NOINDEX_ROUTE_NAMES = {
     "team_details",
     "project_details",
     "pricing",
-    "experience_center_play",
-    "experience_center_experience",
     "cart",
     "wishlist",
     "checkout",

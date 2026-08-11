@@ -1,7 +1,7 @@
 {% extends 'institutional/base.html' %}
 
-{% block title %}Entrar | Smart360 Experience Center{% endblock %}
-{% block meta_description %}Entre na sua conta para acessar o Smart360 Experience Center.{% endblock %}
+{% block title %}Entrar | Smart Control Brasil{% endblock %}
+{% block meta_description %}Entre na sua conta Smart Control Brasil.{% endblock %}
 
 {% block content %}
 <section class="contact__area section-space">
@@ -10,11 +10,10 @@
             <div class="col-lg-6">
                 <div class="contact__title-wrapper">
                     <div class="section__title-wrapper">
-                        <span class="section__subtitle">Acesso ao Experience Center</span>
+                        <span class="section__subtitle">Acesso restrito</span>
                         <h1 class="section__title-wrapper-title">Entre para continuar</h1>
                         <p>
-                            Acesse sua conta para salvar progresso, acumular XP,
-                            concluir missões e desbloquear conquistas.
+                            Acesse sua conta para continuar em áreas restritas da Smart Control Brasil.
                         </p>
                     </div>
 
@@ -58,7 +57,7 @@
                         <p class="mt-20">
                             Ainda não tem conta?
                             <a href="{% url 'institutional:signup' %}?next={{ next|default:''|urlencode }}">
-                                Cadastre-se para jogar
+                                Criar cadastro
                             </a>
                         </p>
                     </div>

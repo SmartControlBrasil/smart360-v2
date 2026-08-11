@@ -1,10 +1,7 @@
 import logging
-from dataclasses import dataclass
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
@@ -24,46 +21,6 @@ from src.institutional.presentation.forms import ContactForm
 logger = logging.getLogger(__name__)
 
 
-@dataclass(frozen=True)
-class ExperienceDefinition:
-    key: str
-    slug: str
-    name: str
-    short_description: str
-    status: str
-
-
-EXPERIENCE_DEFINITIONS = (
-    ExperienceDefinition(
-        key="spider-robot",
-        slug="spider-robot",
-        name="Robô-Aranha",
-        short_description=(
-            "Experiência futura de robótica, automação e interação física/visual."
-        ),
-        status="coming_soon",
-    ),
-    ExperienceDefinition(
-        key="leticia",
-        slug="leticia",
-        name="Letícia",
-        short_description=(
-            "Laboratório interativo futuro com experiências, ciência e desafios de química."
-        ),
-        status="coming_soon",
-    ),
-    ExperienceDefinition(
-        key="marketeiro",
-        slug="marketeiro",
-        name="Marketeiro",
-        short_description=(
-            "Experiência futura de marketing digital, campanhas, desafios e aprendizado."
-        ),
-        status="coming_soon",
-    ),
-)
-
-EXPERIENCES_BY_SLUG = {experience.slug: experience for experience in EXPERIENCE_DEFINITIONS}
 
 
 def _safe_next_url(request):
@@ -74,7 +31,7 @@ def _safe_next_url(request):
         require_https=request.is_secure(),
     ):
         return next_url
-    return reverse("institutional:experience_center_play")
+    return reverse("institutional:home")
 
 
 def robots_txt(request):
@@ -84,7 +41,6 @@ def robots_txt(request):
         "Disallow: /login/",
         "Disallow: /logout/",
         "Disallow: /cadastro/",
-        "Disallow: /experience-center/play/",
         "Disallow: /api/",
         "",
         f"Sitemap: {settings.PUBLIC_SITE_URL}/sitemap.xml",
@@ -101,7 +57,7 @@ class InstitutionalLoginView(LoginView):
 
 
 class InstitutionalLogoutView(LogoutView):
-    next_page = "institutional:experience_center"
+    next_page = "institutional:home"
 
 
 def signup(request):
@@ -253,31 +209,6 @@ def testimonials(request):
 def pricing(request):
     return render(request, "institutional/pages/pricing.html")
 
-
-def experience_center(request):
-    return render(request, "institutional/experience_center/landing.html")
-
-
-@login_required(login_url="institutional:login")
-def experience_center_play(request):
-    return render(
-        request,
-        "institutional/experience_center/hub.html",
-        {"experiences": EXPERIENCE_DEFINITIONS},
-    )
-
-
-@login_required(login_url="institutional:login")
-def experience_center_experience(request, slug):
-    experience = EXPERIENCES_BY_SLUG.get(slug)
-    if experience is None:
-        raise Http404("Experiencia nao encontrada.")
-
-    return render(
-        request,
-        "institutional/experience_center/experience_placeholder.html",
-        {"experience": experience},
-    )
 
 
 def cart(request):

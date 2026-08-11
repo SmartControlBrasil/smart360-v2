@@ -58,13 +58,6 @@ urlpatterns = [
     path("projetos/detalhes/", views.project_details, name="project_details"),
     path("depoimentos/", views.testimonials, name="testimonials"),
     path("planos/", views.pricing, name="pricing"),
-    path("experience-center/", views.experience_center, name="experience_center"),
-    path("experience-center/play/", views.experience_center_play, name="experience_center_play"),
-    path(
-        "experience-center/play/<slug:slug>/",
-        views.experience_center_experience,
-        name="experience_center_experience",
-    ),
     path("carrinho/", views.cart, name="cart"),
     path("lista-de-desejos/", views.wishlist, name="wishlist"),
     path("checkout/", views.checkout, name="checkout"),

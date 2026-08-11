@@ -1,4 +1,3 @@
-from pathlib import Path
 from smtplib import SMTPException
 from unittest.mock import patch
 from urllib.parse import urljoin
@@ -39,7 +38,6 @@ class InstitutionalRoutesTests(TestCase):
         "project_details",
         "testimonials",
         "pricing",
-        "experience_center",
         "login",
         "signup",
         "cart",
@@ -316,19 +314,6 @@ class TechnicalSeoTests(TestCase):
         self.assertContains(response, '<meta name="robots" content="noindex,follow">')
         self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/")
 
-    def test_experience_center_uses_route_metadata_and_is_indexable(self):
-        response = self.client.get(reverse("institutional:experience_center"))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, "Smart360 Experience Center | Smart Control Brasil")
-        self.assertMetaDescription(
-            response,
-            "Entre no Smart360 Experience Center da Smart Control Brasil e explore experiências "
-            "interativas de automação, robótica, tecnologia e inteligência artificial.",
-        )
-        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/experience-center/")
-        self.assertNotContains(response, "name=\"robots\"")
-
     def test_sitemap_returns_public_https_urls_without_noindex_pages(self):
         urls = self.sitemap_urls()
 
@@ -348,7 +333,6 @@ class TechnicalSeoTests(TestCase):
         self.assertFalse(any("/admin/" in url for url in urls))
         self.assertFalse(any("/login/" in url for url in urls))
         self.assertFalse(any("/cadastro/" in url for url in urls))
-        self.assertFalse(any("/experience-center/play/" in url for url in urls))
         self.assertFalse(any("/modelos/" in url for url in urls))
         self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
         self.assertEqual(len(urls), 9 + len(BLOG_POSTS))
@@ -370,175 +354,17 @@ class TechnicalSeoTests(TestCase):
         self.assertContains(response, "Disallow: /admin/")
         self.assertContains(response, "Disallow: /login/")
         self.assertContains(response, "Disallow: /cadastro/")
-        self.assertContains(response, "Disallow: /experience-center/play/")
 
 
 
-class ExperienceCenterAccessTests(TestCase):
-    def test_visitor_accesses_public_landing(self):
-        response = self.client.get(reverse("institutional:experience_center"))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Cadastre-se para jogar")
-        self.assertContains(response, "Já tenho uma conta")
-        self.assertContains(response, "data-experience-authenticated=\"false\"")
-
-    def test_visitor_does_not_receive_playable_controls_on_landing(self):
-        response = self.client.get(reverse("institutional:experience_center"))
-
-        self.assertNotContains(response, "data-experience-id=\"automation-card\"")
-        self.assertContains(response, "Disponível após cadastro")
-
-    def test_private_play_route_redirects_visitor_to_login_with_next(self):
-        play_url = reverse("institutional:experience_center_play")
-        response = self.client.get(play_url)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertIn(reverse("institutional:login"), response["Location"])
-        self.assertIn("next=" + play_url, response["Location"])
-
-    def test_authenticated_user_accesses_private_play_route(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="player", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(reverse("institutional:experience_center_play"))
+class AuthenticationRoutesTests(TestCase):
+    def test_login_page_remains_available(self):
+        response = self.client.get(reverse("institutional:login"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "data-experience-authenticated=\"true\"")
-        self.assertContains(response, "data-experience-id=\"automation-card\"")
-        self.assertContains(response, "Progresso salvo")
+        self.assertContains(response, "Acesso restrito")
 
-    def test_authenticated_public_page_offers_start_link_to_private_route(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="visitor-player", password="strong-pass-123")
-        self.client.force_login(user)
-        play_url = reverse("institutional:experience_center_play")
-
-        response = self.client.get(reverse("institutional:experience_center"))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "data-experience-action=\"start-experience\"")
-        self.assertContains(response, f"href=\"{play_url}\"")
-        self.assertContains(response, "Começar experiência")
-
-    def test_private_play_route_has_noindex_for_authenticated_user(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="seo-player", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(reverse("institutional:experience_center_play"))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<meta name="robots" content="noindex,follow">')
-
-    def test_experience_center_play_route_name_remains_valid(self):
-        self.assertEqual(reverse("institutional:experience_center_play"), "/experience-center/play/")
-
-    def test_hub_contains_registered_future_experience_cards(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="hub-player", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(reverse("institutional:experience_center_play"))
-
-        self.assertEqual(response.status_code, 200)
-        for expected in ("spider-robot", "leticia", "marketeiro"):
-            with self.subTest(expected=expected):
-                self.assertContains(response, expected)
-        self.assertContains(response, "Robô-Aranha")
-        self.assertContains(response, "Letícia")
-        self.assertContains(response, "Marketeiro")
-        self.assertContains(response, "Em breve")
-
-    def test_visitor_experience_route_redirects_to_login_with_next(self):
-        experience_url = reverse(
-            "institutional:experience_center_experience",
-            kwargs={"slug": "spider-robot"},
-        )
-        response = self.client.get(experience_url)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertIn(reverse("institutional:login"), response["Location"])
-        self.assertIn("next=" + experience_url, response["Location"])
-
-    def test_authenticated_user_accesses_known_experience_placeholder(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="known-experience", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(
-            reverse(
-                "institutional:experience_center_experience",
-                kwargs={"slug": "spider-robot"},
-            )
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Robô-Aranha")
-        self.assertContains(response, "Em breve")
-        self.assertContains(response, "Voltar ao hub")
-        self.assertNotContains(response, "data-experience-id=\"experience-start\"")
-
-    def test_authenticated_unknown_experience_returns_404(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="unknown-experience", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(
-            reverse(
-                "institutional:experience_center_experience",
-                kwargs={"slug": "unknown-experience"},
-            )
-        )
-
-        self.assertEqual(response.status_code, 404)
-
-    def test_private_experience_route_has_noindex_for_authenticated_user(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="private-experience-seo", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(
-            reverse(
-                "institutional:experience_center_experience",
-                kwargs={"slug": "leticia"},
-            )
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "<meta name=\"robots\" content=\"noindex,follow\">")
-
-    def test_hub_preserves_javascript_contract_elements(self):
-        user_model = get_user_model()
-        user = user_model.objects.create_user(username="contract-player", password="strong-pass-123")
-        self.client.force_login(user)
-
-        response = self.client.get(reverse("institutional:experience_center_play"))
-
-        for expected in (
-            "data-experience-root",
-            "data-experience-ui=\"points\"",
-            "data-experience-ui=\"level\"",
-            "data-experience-ui=\"missions-panel\"",
-            "data-experience-ui=\"achievement\"",
-            "data-experience-ui=\"score-feedback\"",
-            "data-experience-id=\"automation-card\"",
-            "data-experience-id=\"robotics-card\"",
-            "data-experience-id=\"systems-interaction\"",
-            "data-experience-id=\"meet-liro\"",
-        ):
-            with self.subTest(expected=expected):
-                self.assertContains(response, expected)
-
-    def test_login_next_points_to_experience_play_route(self):
-        play_url = reverse("institutional:experience_center_play")
-        response = self.client.get(reverse("institutional:login") + f"?next={play_url}")
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, f"name=\"next\" value=\"{play_url}\"")
-
-    def test_signup_authenticates_and_redirects_to_private_route_by_default(self):
+    def test_signup_authenticates_and_redirects_to_home_by_default(self):
         response = self.client.post(
             reverse("institutional:signup"),
             {
@@ -549,25 +375,25 @@ class ExperienceCenterAccessTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("institutional:experience_center_play"))
+        self.assertRedirects(response, reverse("institutional:home"))
         self.assertTrue(response.wsgi_request.user.is_authenticated)
 
     def test_signup_respects_safe_next_parameter(self):
-        play_url = reverse("institutional:experience_center_play")
+        next_url = reverse("institutional:contact")
         response = self.client.post(
             reverse("institutional:signup"),
             {
                 "username": "signup-next-player",
                 "password1": "SenhaTeste123!Segura",
                 "password2": "SenhaTeste123!Segura",
-                "next": play_url,
+                "next": next_url,
             },
         )
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, play_url)
+        self.assertRedirects(response, next_url)
 
-    def test_login_rejects_external_next_and_redirects_to_private_route(self):
+    def test_login_rejects_external_next_and_redirects_to_home(self):
         user_model = get_user_model()
         user_model.objects.create_user(
             username="login-safe-next",
@@ -584,7 +410,7 @@ class ExperienceCenterAccessTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("institutional:experience_center_play"))
+        self.assertRedirects(response, reverse("institutional:home"))
 
     def test_logout_post_ends_user_session(self):
         user_model = get_user_model()
@@ -597,15 +423,5 @@ class ExperienceCenterAccessTests(TestCase):
         response = self.client.post(reverse("institutional:logout"))
 
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("institutional:experience_center"))
+        self.assertRedirects(response, reverse("institutional:home"))
         self.assertFalse("_auth_user_id" in self.client.session)
-
-    def test_javascript_has_auth_guards_for_points_and_persistence(self):
-        state_js = Path("static/institutional/js/experience-center/experience-state.js").read_text()
-        storage_js = Path("static/institutional/js/experience-center/experience-storage.js").read_text()
-        controller_js = Path("static/institutional/js/experience-center/experience-center.js").read_text()
-
-        self.assertIn("function isAuthenticated()", state_js)
-        self.assertIn("experience:auth-required", state_js)
-        self.assertIn("if (!isAuthenticated())", storage_js)
-        self.assertIn("function requireAuth", controller_js)
