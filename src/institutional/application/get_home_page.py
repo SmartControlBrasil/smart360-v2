@@ -14,7 +14,7 @@ class GetHomePage:
     def execute(self) -> HomePageData:
         return HomePageData(
             metadata=PageMetadata(
-                title="MC Automation | Automação Industrial, Robótica e Sistemas",
+                title="Smart Control Brasil | Automação Industrial, Robótica e Sistemas",
                 description=(
                     "Soluções em automação industrial, robótica, manutenção técnica, "
                     "integração de sistemas e desenvolvimento de software para empresas e indústrias."

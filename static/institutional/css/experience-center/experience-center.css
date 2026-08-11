@@ -79,3 +79,7 @@
   gap: 18px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+.experience-center__shell--single {
+  grid-template-columns: minmax(0, 1fr);
+}

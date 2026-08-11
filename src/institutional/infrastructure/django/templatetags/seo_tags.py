@@ -6,7 +6,7 @@ from django.conf import settings
 
 register = template.Library()
 
-DEFAULT_TITLE = "MC Automation | Automação Industrial, Robótica e Sistemas"
+DEFAULT_TITLE = "Smart Control Brasil | Automação Industrial, Robótica e Sistemas"
 DEFAULT_DESCRIPTION = (
     "Soluções em automação industrial, robótica, engenharia embarcada, "
     "manutenção técnica e sistemas web."
@@ -14,80 +14,94 @@ DEFAULT_DESCRIPTION = (
 
 ROUTE_METADATA = {
     "home": {
-        "title": "MC Automation | Automação Industrial, Robótica e Sistemas",
+        "title": "Smart Control Brasil | Automação Industrial, Robótica e Sistemas",
         "description": (
             "Soluções em automação industrial, robótica, manutenção técnica, "
             "integração de sistemas e desenvolvimento de software para empresas e indústrias."
         ),
     },
     "services": {
-        "title": "Serviços de Automação Industrial, Robótica e Software | MC Automation",
+        "title": "Serviços de Automação Industrial, Robótica e Software | Smart Control Brasil",
         "description": (
-            "Conheça os serviços da MC Automation em automação industrial, robótica, "
+            "Conheça os serviços da Smart Control Brasil em automação industrial, robótica, "
             "manutenção técnica, retrofit, integração de sistemas e desenvolvimento web."
         ),
     },
     "projects": {
-        "title": "Projetos de Automação, Robótica e Sistemas | MC Automation",
+        "title": "Projetos de Automação, Robótica e Sistemas | Smart Control Brasil",
         "description": (
-            "Veja projetos e aplicações da MC Automation em engenharia, automação "
+            "Veja projetos e aplicações da Smart Control Brasil em engenharia, automação "
             "industrial, robótica, sistemas inteligentes e modernização técnica."
         ),
     },
     "blog": {
-        "title": "Blog de Automação Industrial, Robótica e Tecnologia | MC Automation",
+        "title": "Blog de Automação Industrial, Robótica e Tecnologia | Smart Control Brasil",
         "description": (
             "Artigos técnicos sobre automação industrial, robótica, manutenção, "
             "integração de dados, sistemas web e engenharia aplicada."
         ),
     },
     "about": {
-        "title": "Empresa de Automação, Robótica e Sistemas | MC Automation",
+        "title": "Empresa de Automação, Robótica e Sistemas | Smart Control Brasil",
         "description": (
-            "Conheça a MC Automation, empresa especializada em automação industrial, "
+            "Conheça a Smart Control Brasil, empresa especializada em automação industrial, "
             "robótica, engenharia, manutenção técnica e desenvolvimento de sistemas."
         ),
     },
     "testimonials": {
-        "title": "Depoimentos e Resultados em Tecnologia | MC Automation",
+        "title": "Depoimentos e Resultados em Tecnologia | Smart Control Brasil",
         "description": (
-            "Veja percepções sobre a atuação da MC Automation em projetos de "
+            "Veja percepções sobre a atuação da Smart Control Brasil em projetos de "
             "automação, robótica, engenharia e tecnologia aplicada a negócios."
         ),
     },
     "faq": {
-        "title": "Perguntas Frequentes sobre Automação e Robótica | MC Automation",
+        "title": "Perguntas Frequentes sobre Automação e Robótica | Smart Control Brasil",
         "description": (
             "Tire dúvidas sobre projetos de automação industrial, robótica, sistemas, "
-            "manutenção técnica, suporte e atendimento da MC Automation."
+            "manutenção técnica, suporte e atendimento da Smart Control Brasil."
         ),
     },
     "contact": {
-        "title": "Contato e Orçamento em Automação Industrial | MC Automation",
+        "title": "Contato e Orçamento em Automação Industrial | Smart Control Brasil",
         "description": (
-            "Fale com a MC Automation para solicitar orçamento, diagnóstico técnico "
+            "Fale com a Smart Control Brasil para solicitar orçamento, diagnóstico técnico "
             "ou atendimento comercial em automação, robótica e sistemas."
         ),
     },
+    "smart_control_brasil": {
+        "title": "Smart Control Brasil | Automação Industrial, Robótica e Sistemas",
+        "description": (
+            "Soluções em automação industrial, robótica, manutenção técnica, "
+            "integração de sistemas e desenvolvimento de software para empresas e indústrias."
+        ),
+    },
     "engenharia_serralheria_industrial": {
-        "title": "Engenharia e Serralheria Industrial | MC Automation",
+        "title": "Engenharia e Serralheria Industrial | Smart Control Brasil",
         "description": (
             "Soluções de engenharia e serralheria industrial para estruturas, proteções, "
             "adequações, dispositivos especiais e apoio a projetos industriais."
         ),
     },
+    "experience_center": {
+        "title": "Smart360 Experience Center | Smart Control Brasil",
+        "description": (
+            "Entre no Smart360 Experience Center da Smart Control Brasil e explore experiências "
+            "interativas de automação, robótica, tecnologia e inteligência artificial."
+        ),
+    },
 }
 
 NOINDEX_ROUTE_NAMES = {
-    "home_02",
-    "home_03",
-    "home_04",
-    "home_05",
-    "home_06",
-    "home_07",
-    "home_08",
-    "home_09",
-    "home_10",
+    "smart_control_brasil",
+    "sistemas_websites_python",
+    "livia",
+    "camaras_climaticas",
+    "manutencao_industrial_campo",
+    "ai_video_interaction_platform",
+    "xyron",
+    "ai_web_solutions_startups",
+    "mitsubishi_automacao_industrial",
     "service_details",
     "blog_list",
     "blog_details",
@@ -95,7 +109,8 @@ NOINDEX_ROUTE_NAMES = {
     "team_details",
     "project_details",
     "pricing",
-    "experience_center",
+    "experience_center_play",
+    "experience_center_experience",
     "cart",
     "wishlist",
     "checkout",
@@ -155,7 +170,7 @@ def canonical_url(context):
 def page_title(context):
     post = _post(context)
     if post:
-        return f"{post.get('title', DEFAULT_TITLE)} | MC Automation"
+        return f"{post.get('title', DEFAULT_TITLE)} | Smart Control Brasil"
 
     metadata = _metadata(context)
     if metadata and getattr(metadata, "title", None):

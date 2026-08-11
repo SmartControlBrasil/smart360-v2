@@ -1,4 +1,5 @@
 import logging
+from dataclasses import dataclass
 
 from django.conf import settings
 from django.contrib import messages
@@ -21,6 +22,48 @@ from src.institutional.presentation.forms import ContactForm
 
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True)
+class ExperienceDefinition:
+    key: str
+    slug: str
+    name: str
+    short_description: str
+    status: str
+
+
+EXPERIENCE_DEFINITIONS = (
+    ExperienceDefinition(
+        key="spider-robot",
+        slug="spider-robot",
+        name="Robô-Aranha",
+        short_description=(
+            "Experiência futura de robótica, automação e interação física/visual."
+        ),
+        status="coming_soon",
+    ),
+    ExperienceDefinition(
+        key="leticia",
+        slug="leticia",
+        name="Letícia",
+        short_description=(
+            "Laboratório interativo futuro com experiências, ciência e desafios de química."
+        ),
+        status="coming_soon",
+    ),
+    ExperienceDefinition(
+        key="marketeiro",
+        slug="marketeiro",
+        name="Marketeiro",
+        short_description=(
+            "Experiência futura de marketing digital, campanhas, desafios e aprendizado."
+        ),
+        status="coming_soon",
+    ),
+)
+
+EXPERIENCES_BY_SLUG = {experience.slug: experience for experience in EXPERIENCE_DEFINITIONS}
 
 
 def _safe_next_url(request):
@@ -88,49 +131,54 @@ def home(request):
     page = GetHomePage().execute()
     return render(
         request,
-        "institutional/demos/index_01.html",
+        "institutional/demos/smart-control-brasil.html",
         {"page": page},
     )
 
 
-def home_02(request):
-    return render(request, "institutional/demos/index_02.html")
+def smart_control_brasil(request):
+    page = GetHomePage().execute()
+    return render(
+        request,
+        "institutional/demos/smart-control-brasil.html",
+        {"page": page},
+    )
 
 
-def home_03(request):
-    return render(request, "institutional/demos/index_03.html")
+def sistemas_websites_python(request):
+    return render(request, "institutional/demos/sistemas-websites-python.html")
 
 
-def home_04(request):
-    return render(request, "institutional/demos/index_04.html")
+def livia(request):
+    return render(request, "institutional/demos/livia.html")
 
 
-def home_05(request):
-    return render(request, "institutional/demos/index_05.html")
+def camaras_climaticas(request):
+    return render(request, "institutional/demos/camaras-climaticas.html")
 
 
-def home_06(request):
-    return render(request, "institutional/demos/index_06.html")
+def manutencao_industrial_campo(request):
+    return render(request, "institutional/demos/manutencao-industrial-campo.html")
 
 
-def home_07(request):
-    return render(request, "institutional/demos/index_07.html")
+def ai_video_interaction_platform(request):
+    return render(request, "institutional/demos/ai-video-interaction-platform.html")
 
 
-def home_08(request):
-    return render(request, "institutional/demos/index_08.html")
+def xyron(request):
+    return render(request, "institutional/demos/xyron.html")
 
 
-def home_09(request):
-    return render(request, "institutional/demos/index_09.html")
+def ai_web_solutions_startups(request):
+    return render(request, "institutional/demos/ai-web-solutions-startups.html")
 
 
 def engenharia_serralheria_industrial(request):
-    return render(request, "institutional/demos/index_09.html")
+    return render(request, "institutional/demos/engenharia-serralheria-industrial.html")
 
 
-def home_10(request):
-    return render(request, "institutional/demos/index_10.html")
+def mitsubishi_automacao_industrial(request):
+    return render(request, "institutional/demos/mitsubishi-automacao-industrial.html")
 
 
 def about(request):
@@ -207,19 +255,28 @@ def pricing(request):
 
 
 def experience_center(request):
-    return render(
-        request,
-        "institutional/pages/experience_center.html",
-        {"play_mode": False},
-    )
+    return render(request, "institutional/experience_center/landing.html")
 
 
 @login_required(login_url="institutional:login")
 def experience_center_play(request):
     return render(
         request,
-        "institutional/pages/experience_center.html",
-        {"play_mode": True},
+        "institutional/experience_center/hub.html",
+        {"experiences": EXPERIENCE_DEFINITIONS},
+    )
+
+
+@login_required(login_url="institutional:login")
+def experience_center_experience(request, slug):
+    experience = EXPERIENCES_BY_SLUG.get(slug)
+    if experience is None:
+        raise Http404("Experiencia nao encontrada.")
+
+    return render(
+        request,
+        "institutional/experience_center/experience_placeholder.html",
+        {"experience": experience},
     )
 
 
@@ -255,12 +312,12 @@ def contact(request):
             recipient_email = getattr(
                 settings,
                 "CONTACT_RECIPIENT_EMAIL",
-                "contato@mcautomation.com.br",
+                "comercial@smartcontrolbrasil.com.br",
             )
-            subject = f"[Site MC Automation] {data['assunto']}"
+            subject = f"[Site Smart Control Brasil] {data['assunto']}"
             body = "\n".join(
                 [
-                    "Nova solicitacao recebida pelo site MC Automation",
+                    "Nova solicitacao recebida pelo site Smart Control Brasil",
                     "",
                     "Nome:",
                     data["nome"],

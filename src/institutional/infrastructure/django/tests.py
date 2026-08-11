@@ -17,16 +17,16 @@ from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDE
 class InstitutionalRoutesTests(TestCase):
     routes = (
         "home",
-        "home_02",
-        "home_03",
-        "home_04",
-        "home_05",
-        "home_06",
-        "home_07",
-        "home_08",
-        "home_09",
+        "smart_control_brasil",
+        "sistemas_websites_python",
+        "livia",
+        "camaras_climaticas",
+        "manutencao_industrial_campo",
+        "ai_video_interaction_platform",
+        "xyron",
+        "ai_web_solutions_startups",
         "engenharia_serralheria_industrial",
-        "home_10",
+        "mitsubishi_automacao_industrial",
         "about",
         "services",
         "service_details",
@@ -62,46 +62,23 @@ class InstitutionalRoutesTests(TestCase):
     def test_home_uses_first_full_demo_template_and_static_assets(self):
         response = self.client.get(reverse("institutional:home"))
 
-        self.assertTemplateUsed(response, "institutional/demos/index_01.html")
+        self.assertTemplateUsed(response, "institutional/demos/smart-control-brasil.html")
         self.assertContains(response, "institutional/css/main.css")
         self.assertContains(response, "institutional/js/main.js")
         self.assertContains(response, "banner-before")
 
-    def test_menu_contains_original_dropdowns_without_representadas(self):
+    def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
         expected_labels = (
-            "Início",
-            "AI Co-Pilot",
-            "Gerador de Imagens 3D",
-            "Chatbot",
-            "Loja com IA",
-            "Gerador de Texto com IA",
-            "Texto para Vídeo",
-            "Agência Digital com IA",
-            "SaaS com IA",
-            "DALL-E com IA",
-            "Gerador de Voz com IA",
-            "A Empresa",
-            "Serviços",
-            "Detalhes do serviço",
-            "Blog",
-            "Grade do blog",
-            "Lista do blog",
-            "Detalhes do blog",
-            "Páginas",
-            "Equipe",
-            "Detalhes da equipe",
-            "Projetos",
-            "Detalhes do projeto",
-            "Depoimentos",
-            "Planos",
-            "Carrinho",
-            "Lista de desejos",
-            "Checkout",
-            "Loja",
-            "Detalhes do produto",
-            "FAQ",
-            "Página 404",
+            "Inicio",
+            "Sobre",
+            "Soluções",
+            "Manuteção Industrial",
+            "Serralheria Industrial",
+            "Mitsubishi Automação",
+            "Sistemas e Websites",
+            "Xyron Robótica",
+            "blog",
             "Contato",
         )
 
@@ -118,8 +95,8 @@ class InstitutionalRoutesTests(TestCase):
 
 @override_settings(
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
-    DEFAULT_FROM_EMAIL="MC Automation <no-reply@mcautomation.com.br>",
-    CONTACT_RECIPIENT_EMAIL="contato@mcautomation.com.br",
+    DEFAULT_FROM_EMAIL="Smart Control Brasil <no-reply@smartcontrolbrasil.com.br>",
+    CONTACT_RECIPIENT_EMAIL="comercial@smartcontrolbrasil.com.br",
 )
 class ContactFormTests(TestCase):
     def setUp(self):
@@ -158,15 +135,15 @@ class ContactFormTests(TestCase):
         self.client.post(self.url, self.valid_data)
 
         message = mail.outbox[0]
-        self.assertEqual(message.to, ["contato@mcautomation.com.br"])
-        self.assertEqual(message.from_email, "MC Automation <no-reply@mcautomation.com.br>")
+        self.assertEqual(message.to, ["comercial@smartcontrolbrasil.com.br"])
+        self.assertEqual(message.from_email, "Smart Control Brasil <no-reply@smartcontrolbrasil.com.br>")
         self.assertEqual(message.reply_to, ["maria@example.com"])
 
     def test_email_body_contains_contact_details(self):
         self.client.post(self.url, self.valid_data)
 
         message = mail.outbox[0]
-        self.assertEqual(message.subject, "[Site MC Automation] Projeto de automacao")
+        self.assertEqual(message.subject, "[Site Smart Control Brasil] Projeto de automacao")
         for expected in (
             "Maria Silva",
             "maria@example.com",
@@ -256,7 +233,7 @@ class ContactFormTests(TestCase):
         self.assertNotContains(response, "smtp unavailable")
 
 
-@override_settings(ALLOWED_HOSTS=["testserver", "mcautomation.com.br"])
+@override_settings(ALLOWED_HOSTS=["testserver", "smartcontrolbrasil.com.br"])
 class TechnicalSeoTests(TestCase):
     def assertCanonical(self, response, expected_url):
         html = response.content.decode()
@@ -274,7 +251,7 @@ class TechnicalSeoTests(TestCase):
     def sitemap_urls(self):
         response = self.client.get(
             "/sitemap.xml",
-            HTTP_HOST="mcautomation.com.br",
+            HTTP_HOST="smartcontrolbrasil.com.br",
             secure=True,
         )
         self.assertEqual(response.status_code, 200)
@@ -291,26 +268,26 @@ class TechnicalSeoTests(TestCase):
         response = self.client.get("/")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, "MC Automation | Automação Industrial, Robótica e Sistemas")
+        self.assertTitle(response, "Smart Control Brasil | Automação Industrial, Robótica e Sistemas")
         self.assertMetaDescription(
             response,
             "Soluções em automação industrial, robótica, manutenção técnica, "
             "integração de sistemas e desenvolvimento de software para empresas e indústrias.",
         )
-        self.assertCanonical(response, "https://mcautomation.com.br/")
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/")
         self.assertNotContains(response, 'name="robots"')
 
     def test_services_has_unique_title_description_and_queryless_canonical(self):
         response = self.client.get("/servicos/?utm_source=google&utm_campaign=x&gclid=abc")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, "Serviços de Automação Industrial, Robótica e Software | MC Automation")
+        self.assertTitle(response, "Serviços de Automação Industrial, Robótica e Software | Smart Control Brasil")
         self.assertMetaDescription(
             response,
-            "Conheça os serviços da MC Automation em automação industrial, robótica, "
+            "Conheça os serviços da Smart Control Brasil em automação industrial, robótica, "
             "manutenção técnica, retrofit, integração de sistemas e desenvolvimento web.",
         )
-        self.assertCanonical(response, "https://mcautomation.com.br/servicos/")
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/servicos/")
         self.assertNotContains(response, "utm_source")
         self.assertNotContains(response, "utm_campaign")
         self.assertNotContains(response, "gclid")
@@ -322,36 +299,49 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, f"{post['title']} | MC Automation")
+        self.assertTitle(response, f"{post['title']} | Smart Control Brasil")
         self.assertMetaDescription(response, post["meta_description"])
         self.assertCanonical(
             response,
-            "https://mcautomation.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+            "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
         )
         self.assertEqual(html.count("<h1"), 1)
         self.assertIn(f'<h1 class="breadcrumb__title">{post["title"]}</h1>', html)
         self.assertNotContains(response, 'name="robots"')
 
     def test_demo_route_has_noindex_follow(self):
-        response = self.client.get("/modelos/index-2/")
+        response = self.client.get("/sistemas-websites-python/")
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<meta name="robots" content="noindex,follow">')
-        self.assertCanonical(response, "https://mcautomation.com.br/modelos/index-2/")
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/")
+
+    def test_experience_center_uses_route_metadata_and_is_indexable(self):
+        response = self.client.get(reverse("institutional:experience_center"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Smart360 Experience Center | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Entre no Smart360 Experience Center da Smart Control Brasil e explore experiências "
+            "interativas de automação, robótica, tecnologia e inteligência artificial.",
+        )
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/experience-center/")
+        self.assertNotContains(response, "name=\"robots\"")
 
     def test_sitemap_returns_public_https_urls_without_noindex_pages(self):
         urls = self.sitemap_urls()
 
-        self.assertIn("https://mcautomation.com.br/", urls)
-        self.assertIn("https://mcautomation.com.br/solucoes/engenharia-serralheria-industrial/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/", urls)
         self.assertEqual(
-            urls.count("https://mcautomation.com.br/solucoes/engenharia-serralheria-industrial/"),
+            urls.count("https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/"),
             1,
         )
-        self.assertIn("https://mcautomation.com.br/blog/", urls)
-        self.assertIn("https://mcautomation.com.br/contato/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/blog/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/contato/", urls)
         self.assertIn(
-            "https://mcautomation.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+            "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
             urls,
         )
         self.assertEqual(len(urls), len(set(urls)))
@@ -368,7 +358,7 @@ class TechnicalSeoTests(TestCase):
                 path = reverse(f"institutional:{route_name}")
             except Exception:
                 continue
-            absolute_url = urljoin("https://mcautomation.com.br", path)
+            absolute_url = urljoin("https://www.smartcontrolbrasil.com.br", path)
             self.assertNotIn(absolute_url, urls)
 
     def test_robots_txt_points_to_production_sitemap_and_blocks_private_paths(self):
@@ -376,7 +366,7 @@ class TechnicalSeoTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/plain")
-        self.assertContains(response, "Sitemap: https://mcautomation.com.br/sitemap.xml")
+        self.assertContains(response, "Sitemap: https://www.smartcontrolbrasil.com.br/sitemap.xml")
         self.assertContains(response, "Disallow: /admin/")
         self.assertContains(response, "Disallow: /login/")
         self.assertContains(response, "Disallow: /cadastro/")
@@ -397,7 +387,7 @@ class ExperienceCenterAccessTests(TestCase):
         response = self.client.get(reverse("institutional:experience_center"))
 
         self.assertNotContains(response, "data-experience-id=\"automation-card\"")
-        self.assertContains(response, "Disponivel apos cadastro")
+        self.assertContains(response, "Disponível após cadastro")
 
     def test_private_play_route_redirects_visitor_to_login_with_next(self):
         play_url = reverse("institutional:experience_center_play")
@@ -419,15 +409,127 @@ class ExperienceCenterAccessTests(TestCase):
         self.assertContains(response, "data-experience-id=\"automation-card\"")
         self.assertContains(response, "Progresso salvo")
 
-    def test_authenticated_public_page_offers_start_button(self):
+    def test_authenticated_public_page_offers_start_link_to_private_route(self):
         user_model = get_user_model()
         user = user_model.objects.create_user(username="visitor-player", password="strong-pass-123")
         self.client.force_login(user)
+        play_url = reverse("institutional:experience_center_play")
 
         response = self.client.get(reverse("institutional:experience_center"))
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "data-experience-action=\"start-experience\"")
+        self.assertContains(response, f"href=\"{play_url}\"")
+        self.assertContains(response, "Começar experiência")
+
+    def test_private_play_route_has_noindex_for_authenticated_user(self):
+        user_model = get_user_model()
+        user = user_model.objects.create_user(username="seo-player", password="strong-pass-123")
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("institutional:experience_center_play"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<meta name="robots" content="noindex,follow">')
+
+    def test_experience_center_play_route_name_remains_valid(self):
+        self.assertEqual(reverse("institutional:experience_center_play"), "/experience-center/play/")
+
+    def test_hub_contains_registered_future_experience_cards(self):
+        user_model = get_user_model()
+        user = user_model.objects.create_user(username="hub-player", password="strong-pass-123")
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("institutional:experience_center_play"))
+
+        self.assertEqual(response.status_code, 200)
+        for expected in ("spider-robot", "leticia", "marketeiro"):
+            with self.subTest(expected=expected):
+                self.assertContains(response, expected)
+        self.assertContains(response, "Robô-Aranha")
+        self.assertContains(response, "Letícia")
+        self.assertContains(response, "Marketeiro")
+        self.assertContains(response, "Em breve")
+
+    def test_visitor_experience_route_redirects_to_login_with_next(self):
+        experience_url = reverse(
+            "institutional:experience_center_experience",
+            kwargs={"slug": "spider-robot"},
+        )
+        response = self.client.get(experience_url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(reverse("institutional:login"), response["Location"])
+        self.assertIn("next=" + experience_url, response["Location"])
+
+    def test_authenticated_user_accesses_known_experience_placeholder(self):
+        user_model = get_user_model()
+        user = user_model.objects.create_user(username="known-experience", password="strong-pass-123")
+        self.client.force_login(user)
+
+        response = self.client.get(
+            reverse(
+                "institutional:experience_center_experience",
+                kwargs={"slug": "spider-robot"},
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Robô-Aranha")
+        self.assertContains(response, "Em breve")
+        self.assertContains(response, "Voltar ao hub")
+        self.assertNotContains(response, "data-experience-id=\"experience-start\"")
+
+    def test_authenticated_unknown_experience_returns_404(self):
+        user_model = get_user_model()
+        user = user_model.objects.create_user(username="unknown-experience", password="strong-pass-123")
+        self.client.force_login(user)
+
+        response = self.client.get(
+            reverse(
+                "institutional:experience_center_experience",
+                kwargs={"slug": "unknown-experience"},
+            )
+        )
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_private_experience_route_has_noindex_for_authenticated_user(self):
+        user_model = get_user_model()
+        user = user_model.objects.create_user(username="private-experience-seo", password="strong-pass-123")
+        self.client.force_login(user)
+
+        response = self.client.get(
+            reverse(
+                "institutional:experience_center_experience",
+                kwargs={"slug": "leticia"},
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<meta name=\"robots\" content=\"noindex,follow\">")
+
+    def test_hub_preserves_javascript_contract_elements(self):
+        user_model = get_user_model()
+        user = user_model.objects.create_user(username="contract-player", password="strong-pass-123")
+        self.client.force_login(user)
+
+        response = self.client.get(reverse("institutional:experience_center_play"))
+
+        for expected in (
+            "data-experience-root",
+            "data-experience-ui=\"points\"",
+            "data-experience-ui=\"level\"",
+            "data-experience-ui=\"missions-panel\"",
+            "data-experience-ui=\"achievement\"",
+            "data-experience-ui=\"score-feedback\"",
+            "data-experience-id=\"automation-card\"",
+            "data-experience-id=\"robotics-card\"",
+            "data-experience-id=\"systems-interaction\"",
+            "data-experience-id=\"meet-liro\"",
+        ):
+            with self.subTest(expected=expected):
+                self.assertContains(response, expected)
 
     def test_login_next_points_to_experience_play_route(self):
         play_url = reverse("institutional:experience_center_play")

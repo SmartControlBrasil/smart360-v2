@@ -34,10 +34,10 @@ sitemap, inclua o slug em `BLOG_POSTS`; a URL sera gerada por
 O `robots.txt` e servido em `/robots.txt` pela view `robots_txt`. Ele bloqueia
 areas tecnicas/privadas e declara:
 
-`Sitemap: https://mcautomation.com.br/sitemap.xml`
+`Sitemap: https://www.smartcontrolbrasil.com.br/sitemap.xml`
 
 O dominio vem de `PUBLIC_SITE_URL`, configuravel por variavel de ambiente. O
-padrao do projeto e `https://mcautomation.com.br`.
+padrao do projeto e `https://www.smartcontrolbrasil.com.br`.
 
 ## Validacao local
 

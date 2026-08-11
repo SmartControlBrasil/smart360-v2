@@ -50,7 +50,7 @@
       var progress = mission.requiredInteractions.filter(function (interactionId) {
         return currentState.completedInteractions.indexOf(interactionId) !== -1;
       }).length;
-      var status = completed ? "Concluida" : progress > 0 ? "Em andamento" : "Disponivel";
+      var status = completed ? "Concluída" : progress > 0 ? "Em andamento" : "Disponível";
 
       return [
         "<article class=\"experience-mission " + (completed ? "is-complete" : "") + "\">",
@@ -71,7 +71,7 @@
     setText(config.selectors.progressLabel, snapshot.progress + "%");
     setBar(config.selectors.xpBar, getLevelProgress(snapshot));
     setBar(config.selectors.progressBar, snapshot.progress);
-    setText(config.selectors.audioButton, snapshot.audioEnabled ? "Audio on" : "Audio off");
+    setText(config.selectors.audioButton, snapshot.audioEnabled ? "Áudio on" : "Áudio off");
     renderMissions(snapshot);
   }
 
@@ -118,7 +118,7 @@
     }
 
     element.hidden = false;
-    element.textContent = "Crie sua conta gratuita para comecar a experiencia.";
+    element.textContent = "Crie sua conta gratuita para começar a experiência.";
     window.setTimeout(function () {
       element.hidden = true;
     }, 3200);

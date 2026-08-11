@@ -261,3 +261,24 @@
   right: 24px;
   z-index: 10000;
 }
+
+.experience-card--future {
+  border-style: dashed;
+}
+
+.experience-card__link {
+  align-items: center;
+  border: 1px solid #0f5f4b;
+  border-radius: 6px;
+  color: #0f5f4b;
+  display: inline-flex;
+  font-weight: 800;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 42px;
+  padding: 10px 14px;
+}
+
+.experience-card__link:hover {
+  color: #0f5f4b;
+}

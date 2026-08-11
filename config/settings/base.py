@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-development-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [host.strip() for host in os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",") if host.strip()]
-PUBLIC_SITE_URL = os.getenv("PUBLIC_SITE_URL", "https://mcautomation.com.br").rstrip("/")
+PUBLIC_SITE_URL = os.getenv("PUBLIC_SITE_URL", "https://www.smartcontrolbrasil.com.br").rstrip("/")
 
 
 def env_bool(name, default=False):
@@ -47,11 +47,11 @@ EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
 DEFAULT_FROM_EMAIL = os.getenv(
     "DEFAULT_FROM_EMAIL",
-    "MC Automation <contato@mcautomation.com.br>",
+    "Smart Control Brasil <comercial@smartcontrolbrasil.com.br>",
 )
 CONTACT_RECIPIENT_EMAIL = os.getenv(
     "CONTACT_RECIPIENT_EMAIL",
-    "contato@mcautomation.com.br",
+    "comercial@smartcontrolbrasil.com.br",
 )
 
 

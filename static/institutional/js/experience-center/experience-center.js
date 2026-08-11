@@ -12,6 +12,7 @@
     "complete-interaction": true,
     "meet-liro": true,
     start: true,
+    "start-experience": true,
     reset: true,
     "open-missions": true,
     "close-missions": true
@@ -58,6 +59,11 @@
 
     if (audioToggle === "toggle") {
       audio.toggle();
+      return;
+    }
+
+    if (action === "start-experience") {
+      window.location.assign(element.getAttribute("data-experience-play-url") || config.auth.playUrl);
       return;
     }
 

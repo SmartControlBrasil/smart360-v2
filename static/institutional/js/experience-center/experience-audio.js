@@ -49,10 +49,10 @@
       currentAudio = new Audio(src);
       currentAudio.volume = config.audio.volume;
       currentAudio.play().catch(function (error) {
-        log("Audio nao reproduzido. Verifique o placeholder ou permissao do navegador.", error);
+        log("Áudio não reproduzido. Verifique o placeholder ou permissão do navegador.", error);
       });
     } catch (error) {
-      log("Falha ao preparar audio.", error);
+      log("Falha ao preparar áudio.", error);
     }
   }
 

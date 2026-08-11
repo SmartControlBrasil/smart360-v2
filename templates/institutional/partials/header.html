@@ -9,7 +9,7 @@
                         <div class="header__logo">
                             <a href="{% url 'institutional:home' %}">
                                 <div class="logo">
-                                    <img src="{% static 'institutional/imgs/images/header/logo-cores-05.webp' %}"height="500" alt="MC Automation">
+                                    <img src="{% static 'institutional/imgs/images/header/logo-cores-03.webp' %}"height="500" alt="Smart Control Brasil">
                                 </div>
                             </a>
                         </div>
@@ -25,26 +25,15 @@
                                         <li class="{% if current == 'about' %}active{% endif %}">
                                             <a href="{% url 'institutional:about' %}">Sobre</a>
                                         </li>
-                                        <li class="has-dropdown {% if current in 'home home_02 home_03 home_04 home_05 home_06 home_07 home_08 home_09 home_10 engenharia_serralheria_industrial' %}active{% endif %}">
+                                        <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'livia' or current == 'camaras_climaticas' or current == 'manutencao_industrial_campo' or current == 'ai_video_interaction_platform' or current == 'xyron' or current == 'ai_web_solutions_startups' or current == 'engenharia_serralheria_industrial' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
                                             <a href="#" onclick="return false;"
                                             aria-haspopup="true">Soluções</a>
                                             <ul class="submenu">
-                                                {% comment %} <li class="{% if current == 'home_04' %}active{% endif %}"><a href="{% url 'institutional:home_04' %}">Câmaras Climáticas</a></li> {% endcomment %}
-                                                
-                                                {% comment %} <li class="{% if current == 'home_03' %}active{% endif %}"><a href="{% url 'institutional:home_03' %}">Chatbot Lívia</a></li> {% endcomment %}
-                                                <li class="{% if current == 'home_05' %}active{% endif %}"><a href="{% url 'institutional:home_05' %}">Manuteção Industrial</a></li>
+                                                <li class="{% if current == 'manutencao_industrial_campo' %}active{% endif %}"><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manuteção Industrial</a></li>
                                                 <li class="{% if current == 'engenharia_serralheria_industrial' %}active{% endif %}"><a href="{% url 'institutional:engenharia_serralheria_industrial' %}">Serralheria Industrial</a></li>
-                                                <li class="{% if current == 'home_10' %}active{% endif %}"><a href="{% url 'institutional:home_10' %}">Mitsubishi Automação</a></li>
-                                                <li class="{% if current == 'home_02' %}active{% endif %}"><a href="{% url 'institutional:home_02' %}">Sistemas e Websites</a></li>
-                                                <li class="{% if current == 'home_07' %}active{% endif %}"><a href="{% url 'institutional:home_07' %}">Xyron Robótica</a></li>
-                                                
-                                                
-                                                
-                                                {% comment %} <li class="{% if current == 'home_06' %}active{% endif %}"><a href="{% url 'institutional:home_06' %}">Texto para Vídeo</a></li> {% endcomment %}
-                                                
-                                                {% comment %} <li class="{% if current == 'home_08' %}active{% endif %}"><a href="{% url 'institutional:home_08' %}">SaaS com IA</a></li> {% endcomment %}
-                                                {% comment %} <li class="{% if current == 'home_09' %}active{% endif %}"><a href="{% url 'institutional:home_09' %}">DALL-E com IA</a></li> {% endcomment %}
-                                                
+                                                <li class="{% if current == 'mitsubishi_automacao_industrial' %}active{% endif %}"><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Mitsubishi Automação</a></li>
+                                                <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}"><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites</a></li>
+                                                <li class="{% if current == 'xyron' %}active{% endif %}"><a href="{% url 'institutional:xyron' %}">Xyron Robótica</a></li>
                                             </ul>
                                         </li>
                                         <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">blog</a></li>

@@ -6,7 +6,7 @@
   window.Smart360Experience.config = {
     name: "Smart360 Experience Center",
     version: "0.1.0",
-    debug: true,
+    debug: false,
     storageKey: "smart360_experience_center_v1",
     auth: {
       required: true,
@@ -39,36 +39,36 @@
     },
     levels: [
       { id: "explorer", label: "Explorador", minXp: 0 },
-      { id: "technician", label: "Tecnico", minXp: 40 },
+      { id: "technician", label: "Técnico", minXp: 40 },
       { id: "specialist", label: "Especialista", minXp: 90 },
-      { id: "automation-master", label: "Mestre da Automacao", minXp: 150 }
+      { id: "automation-master", label: "Mestre da Automação", minXp: 150 }
     ],
     missions: [
       {
         id: "visit-three-areas",
-        title: "Visitar tres areas",
-        description: "Explore pelo menos tres areas do Experience Center.",
+        title: "Visitar três áreas",
+        description: "Explore pelo menos três áreas do Experience Center.",
         reward: 30,
         requiredInteractions: ["experience-start", "robotics-card", "systems-interaction"]
       },
       {
         id: "open-technical-solution",
-        title: "Abrir uma solucao tecnica",
-        description: "Abra um card tecnico para conhecer uma solucao.",
+        title: "Abrir uma solução técnica",
+        description: "Abra um card técnico para conhecer uma solução.",
         reward: 20,
         requiredInteractions: ["automation-card"]
       },
       {
         id: "complete-interaction",
-        title: "Concluir uma interacao",
-        description: "Conclua uma acao demonstrativa do centro.",
+        title: "Concluir uma interação",
+        description: "Conclua uma ação demonstrativa do centro.",
         reward: 25,
         requiredInteractions: ["systems-interaction"]
       },
       {
         id: "meet-liro",
         title: "Conhecer o Liro",
-        description: "Ative o primeiro contato com o guia da experiencia.",
+        description: "Ative o primeiro contato com o guia da experiência.",
         reward: 15,
         requiredInteractions: ["meet-liro"]
       }
@@ -76,29 +76,29 @@
     achievements: [
       {
         id: "first-exploration",
-        title: "Primeira Exploracao",
-        description: "Voce iniciou a jornada pelo Experience Center.",
+        title: "Primeira Exploração",
+        description: "Você iniciou a jornada pelo Experience Center.",
         points: 10,
         interactionId: "experience-start"
       },
       {
         id: "technology-curious",
         title: "Curioso por Tecnologia",
-        description: "Voce abriu sua primeira solucao tecnica.",
+        description: "Você abriu sua primeira solução técnica.",
         points: 15,
         interactionId: "automation-card"
       },
       {
         id: "industrial-connection",
-        title: "Conexao Industrial",
-        description: "Voce navegou por robotica e sistemas conectados.",
+        title: "Conexão Industrial",
+        description: "Você navegou por robótica e sistemas conectados.",
         points: 20,
         requiredInteractions: ["robotics-card", "systems-interaction"]
       },
       {
         id: "mission-complete",
-        title: "Missao Cumprida",
-        description: "Voce concluiu uma missao demonstrativa.",
+        title: "Missão Cumprida",
+        description: "Você concluiu uma missão demonstrativa.",
         points: 20,
         missionId: "complete-interaction"
       }

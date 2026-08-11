@@ -68,7 +68,7 @@
       window.localStorage.setItem(config.storageKey, JSON.stringify(state));
       return true;
     } catch (error) {
-      log("Nao foi possivel salvar o estado.", error);
+      log("Não foi possível salvar o estado.", error);
       return false;
     }
   }
@@ -82,7 +82,7 @@
       window.localStorage.removeItem(config.storageKey);
       return true;
     } catch (error) {
-      log("Nao foi possivel limpar o estado.", error);
+      log("Não foi possível limpar o estado.", error);
       return false;
     }
   }

@@ -1,0 +1,169 @@
+{% extends "institutional/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-center.css' %}">
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-components.css' %}">
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-animations.css' %}">
+    <link rel="stylesheet" href="{% static 'institutional/css/experience-center/experience-responsive.css' %}">
+{% endblock %}
+
+{% block content %}
+<section
+    class="experience-center"
+    data-experience-root
+    data-experience-authenticated="{{ user.is_authenticated|yesno:'true,false' }}"
+    data-experience-login-url="{% url 'institutional:login' %}?next={% url 'institutional:experience_center_play' %}"
+    data-experience-signup-url="{% url 'institutional:signup' %}?next={% url 'institutional:experience_center_play' %}"
+    data-experience-play-url="{% url 'institutional:experience_center_play' %}"
+    data-experience-section="intro"
+    aria-labelledby="experience-title"
+>
+    <div class="experience-center__shell">
+        <div class="experience-center__hero">
+            <span class="experience-center__eyebrow">Smart360 Experience Center</span>
+            <h1 id="experience-title">Explore tecnologias da Smart Control Brasil em uma jornada interativa</h1>
+            <p>
+                Entre para salvar seu progresso, acumular XP, desbloquear conquistas
+                e avançar nas missões do Smart360.
+            </p>
+            <div class="experience-center__actions">
+                <button
+                    type="button"
+                    class="rr-btn"
+                    data-experience-action="start"
+                    data-experience-id="experience-start"
+                    data-experience-points="10"
+                    data-experience-once="true"
+                    data-experience-mission="visit-three-areas"
+                >
+                    Continuar experiência
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+                <button
+                    type="button"
+                    class="experience-center__ghost-button"
+                    data-experience-audio="toggle"
+                    aria-label="Ativar ou desativar áudio da experiência"
+                >
+                    Áudio
+                </button>
+                <form method="post" action="{% url 'institutional:logout' %}" class="experience-center__inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="experience-center__ghost-button">
+                        Sair
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% include "institutional/experience_center/partials/hud.html" %}
+    </div>
+</section>
+
+<section class="experience-map" aria-label="Áreas do Experience Center">
+    <div class="container">
+        <div class="experience-preview">
+            <span class="experience-center__eyebrow">Hub de experiências</span>
+            <h2>Experiências disponíveis e futuras</h2>
+            <p>
+                Continue explorando o gameplay atual e acompanhe as próximas experiências independentes do Smart360.
+            </p>
+        </div>
+
+        <div class="experience-map__grid">
+            <article class="experience-card" data-experience-section="automation">
+                <span class="experience-card__icon" aria-hidden="true">A</span>
+                <h2>Automação Industrial</h2>
+                <p>Conheça controladores, IHMs, inversores, servos e integração de máquinas.</p>
+                <button
+                    type="button"
+                    data-experience-action="open-card"
+                    data-experience-id="automation-card"
+                    data-experience-points="10"
+                    data-experience-once="true"
+                    data-experience-mission="open-technical-solution"
+                >
+                    Explorar solução
+                </button>
+            </article>
+
+            <article class="experience-card" data-experience-section="robotics">
+                <span class="experience-card__icon" aria-hidden="true">R</span>
+                <h2>Robótica Xyron</h2>
+                <p>Veja possibilidades para recepção, logística, limpeza e experiências de marca.</p>
+                <button
+                    type="button"
+                    data-experience-action="open-card"
+                    data-experience-id="robotics-card"
+                    data-experience-points="10"
+                    data-experience-once="true"
+                    data-experience-mission="visit-three-areas"
+                >
+                    Ver aplicações
+                </button>
+            </article>
+
+            <article class="experience-card" data-experience-section="systems">
+                <span class="experience-card__icon" aria-hidden="true">S</span>
+                <h2>Sistemas e Dados</h2>
+                <p>Organize operações com dashboards, sistemas web, desktop e supervisão técnica.</p>
+                <button
+                    type="button"
+                    data-experience-action="complete-interaction"
+                    data-experience-id="systems-interaction"
+                    data-experience-points="20"
+                    data-experience-once="true"
+                    data-experience-mission="complete-interaction"
+                >
+                    Simular interação
+                </button>
+            </article>
+
+            <article class="experience-card" data-experience-section="liro">
+                <span class="experience-card__icon" aria-hidden="true">L</span>
+                <h2>Liro</h2>
+                <p>Espaço reservado para o guia da experiência e futuras falas de apoio.</p>
+                <button
+                    type="button"
+                    data-experience-action="meet-liro"
+                    data-experience-id="meet-liro"
+                    data-experience-points="15"
+                    data-experience-once="true"
+                    data-experience-mission="meet-liro"
+                >
+                    Conhecer o Liro
+                </button>
+            </article>
+
+            {% for experience in experiences %}
+                <article class="experience-card experience-card--future" data-experience-key="{{ experience.key }}">
+                    <span class="experience-card__icon" aria-hidden="true">{{ experience.name|first }}</span>
+                    <h2>{{ experience.name }}</h2>
+                    <p>{{ experience.short_description }}</p>
+                    <span class="experience-card__locked">Em breve</span>
+                    <a
+                        href="{% url 'institutional:experience_center_experience' experience.slug %}"
+                        class="experience-card__link"
+                    >
+                        Ver prévia
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include "institutional/experience_center/partials/missions_panel.html" %}
+{% include "institutional/experience_center/partials/achievement_toast.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'institutional/js/experience-center/experience-config.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-events.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-storage.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-state.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-audio.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-ui.js' %}" defer></script>
+    <script src="{% static 'institutional/js/experience-center/experience-center.js' %}" defer></script>
+{% endblock %}
