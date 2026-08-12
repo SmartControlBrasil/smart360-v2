@@ -1,4 +1,35 @@
 /* Sprint 02: ajustes visuais restritos ao catalogo commerce. */
+
+.product-4__item {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 30px);
+}
+
+.product-4__item-thumb {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.product-4__item-thumb img,
+.commerce-detail-gallery-main .gallary-item img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.product-4__content {
+    flex: 1 1 auto;
+}
+
+.product-4__item-cart {
+    margin-top: auto;
+}
+
+.product-4__content-title a {
+    overflow-wrap: anywhere;
+}
+
 .commerce-card-badges,
 .commerce-detail-badges,
 .commerce-card-actions,
@@ -84,6 +115,18 @@
     width: 100%;
 }
 
+
+.commerce-section-title {
+    color: #00160a;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 18px;
+}
+
+.commerce-detail-description {
+    max-width: 980px;
+}
+
 .commerce-detail-meta {
     margin-top: 24px;
 }
@@ -93,6 +136,14 @@
 }
 
 @media (max-width: 767px) {
+    .product-4__item {
+        height: auto;
+    }
+
+    .product-4__item-thumb {
+        aspect-ratio: 16 / 11;
+    }
+
     .commerce-card-actions .rr-btn,
     .commerce-detail-actions .rr-btn {
         justify-content: center;

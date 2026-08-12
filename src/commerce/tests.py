@@ -289,6 +289,13 @@ class CommercePublicViewsTests(TestCase):
         self.assertContains(response, "Solicitar orçamento")
         self.assertContains(response, "R$ 1.200,00")
 
+    def test_product_detail_hides_empty_technical_tab(self):
+        response = self.client.get(self.active_product.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Informações técnicas")
+        self.assertNotContains(response, "Informações técnicas serão apresentadas")
+
     def test_product_with_multiple_images_renders_gallery(self):
         ProductImage.objects.create(
             product=self.active_product,

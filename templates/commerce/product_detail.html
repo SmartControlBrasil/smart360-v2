@@ -96,17 +96,9 @@
 
 <section class="product-description review pb-100">
     <div class="container">
-        <ul class="nav tab-navigation" id="product-tab-navigation" role="tablist">
-            <li role="presentation"><button class="active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Descrição</button></li>
-            <li role="presentation"><button id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Informações técnicas</button></li>
-        </ul>
-        <div class="tab-content extra" id="product-tab-content">
-            <div class="tab-pane gap fade show active description" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="desc-wrap"><div class="left-content"><p>{{ product.description|linebreaksbr|default:product.short_description }}</p></div></div>
-            </div>
-            <div class="tab-pane gap fade description" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="desc-wrap"><div class="left-content"><p class="commerce-meta-note">Informações técnicas serão apresentadas conforme cadastro comercial validado pela Smart Control Brasil.</p></div></div>
-            </div>
+        <div class="commerce-detail-description description">
+            <h2 class="commerce-section-title">Descrição</h2>
+            <div class="desc-wrap"><div class="left-content"><p>{{ product.description|linebreaksbr|default:product.short_description }}</p></div></div>
         </div>
     </div>
 </section>
