@@ -1,6 +1,11 @@
 {% extends 'institutional/base.html' %}
 {% load static %}
 
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'commerce/css/catalog.css' %}">
+{% endblock %}
+
 {% block content %}
 <section class="breadcrumb__before p-relative">
     <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
@@ -31,44 +36,56 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-7 product-details-wrap">
-                <div class="product-slider-wrap">
-                    <div class="swiper product-gallary">
-                        <div class="swiper-wrapper">
+                <div class="product-slider-wrap commerce-detail-gallery-main">
+                    <div class="product-gallary">
+                        {% with primary=product.primary_image %}
+                            {% if primary and primary.image %}
+                                <div class="gallary-item"><img src="{{ primary.image.url }}" alt="{{ primary.alt_text|default:product.name }}"></div>
+                            {% else %}
+                                <div class="gallary-item"><img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="{{ product.name }}"></div>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    {% if product.images.all %}
+                        <div class="commerce-thumb-list" aria-label="Galeria de imagens do produto">
                             {% for image in product.images.all %}
                                 {% if image.image %}
-                                    <div class="swiper-slide">
-                                        <div class="gallary-item"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}"></div>
-                                    </div>
+                                    <div class="commerce-thumb-item"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}"></div>
                                 {% endif %}
-                            {% empty %}
-                                <div class="swiper-slide">
-                                    <div class="gallary-item"><img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="{{ product.name }}"></div>
-                                </div>
                             {% endfor %}
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="product-details">
                     <div class="product-info">
                         <div class="product-inner hero">
+                            <div class="commerce-detail-badges">
+                                <span class="commerce-badge">{{ product.commercial_state_label }}</span>
+                                {% if product.featured %}<span class="commerce-badge featured">Destaque</span>{% endif %}
+                            </div>
                             <h3 class="title _split_text">{{ product.name }}</h3>
+                            {% if product.brand %}<p class="commerce-brand">Marca: {{ product.brand.name }}</p>{% endif %}
                             <p class="dec">{{ product.short_description|default:product.description|truncatechars:180 }}</p>
-                            <h4 class="price">{{ product.public_price_label }}</h4>
-                        </div>
-                        <div class="product-btn">
-                            <div><a href="{% url 'institutional:contact' %}?produto={{ product.slug }}" class="rr-btn">{{ product.primary_cta_label }}</a></div>
-                            {% if product.secondary_cta_label %}
-                                <div><a href="{% url 'institutional:contact' %}?produto={{ product.slug }}&tipo=orcamento" class="rr-btn">{{ product.secondary_cta_label }}</a></div>
+                            {% if product.public_price_label %}
+                                <h4 class="price">{{ product.public_price_label }}</h4>
+                            {% else %}
+                                <p class="commerce-condition">{{ product.commercial_condition_label }}</p>
                             {% endif %}
                         </div>
-                        <ul class="product-inner-list">
+                        <div class="product-btn commerce-detail-actions">
+                            <div><a href="{{ product.primary_cta_url }}" class="rr-btn">{{ product.primary_cta_label }}</a></div>
+                            {% if product.secondary_cta_label %}
+                                <div><a href="{{ product.secondary_cta_url }}" class="rr-btn btn-transparent">{{ product.secondary_cta_label }}</a></div>
+                            {% endif %}
+                        </div>
+                        <ul class="product-inner-list commerce-detail-meta">
                             {% if product.sku %}<li><span>SKU:</span>{{ product.sku }}</li>{% endif %}
                             <li><span>Categoria:</span><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
                             {% if product.brand %}<li><span>Marca:</span>{{ product.brand.name }}</li>{% endif %}
                             <li><span>Disponibilidade:</span>{{ product.get_availability_display }}</li>
-                            <li><span>Modalidade:</span>{{ product.get_sale_mode_display }}</li>
+                            <li><span>Modalidade:</span>{{ product.commercial_state_label }}</li>
                         </ul>
                     </div>
                 </div>
@@ -81,14 +98,14 @@
     <div class="container">
         <ul class="nav tab-navigation" id="product-tab-navigation" role="tablist">
             <li role="presentation"><button class="active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Descrição</button></li>
-            <li role="presentation"><button id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Informações</button></li>
+            <li role="presentation"><button id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Informações técnicas</button></li>
         </ul>
         <div class="tab-content extra" id="product-tab-content">
             <div class="tab-pane gap fade show active description" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="desc-wrap"><div class="left-content"><p>{{ product.description|linebreaksbr|default:product.short_description }}</p></div></div>
             </div>
             <div class="tab-pane gap fade description" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="desc-wrap"><div class="left-content"><p>Produto preparado para atendimento comercial pela Smart Control Brasil.</p></div></div>
+                <div class="desc-wrap"><div class="left-content"><p class="commerce-meta-note">Informações técnicas serão apresentadas conforme cadastro comercial validado pela Smart Control Brasil.</p></div></div>
             </div>
         </div>
     </div>

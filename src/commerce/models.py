@@ -164,10 +164,41 @@ class Product(TimeStampedModel):
         return self.images.order_by("-is_primary", "position", "id").first()
 
     @property
+    def formatted_price(self):
+        if self.price is None:
+            return ""
+        value = f"{self.price:,.2f}".replace(",", "_").replace(".", ",").replace("_", ".")
+        return f"R$ {value}"
+
+    @property
     def public_price_label(self):
         if self.show_price and self.price is not None:
-            return f"R$ {self.price}"
-        return "Preço sob consulta"
+            return self.formatted_price
+        return ""
+
+    @property
+    def commercial_state_label(self):
+        labels = {
+            self.SaleMode.DIRECT: "Venda direta",
+            self.SaleMode.QUOTE: "Sob orçamento",
+            self.SaleMode.DIRECT_AND_QUOTE: "Venda direta / orçamento",
+            self.SaleMode.PROJECT: "Projeto personalizado",
+            self.SaleMode.DEMO: "Demonstração disponível",
+        }
+        return labels.get(self.sale_mode, "Atendimento comercial")
+
+    @property
+    def commercial_condition_label(self):
+        if self.public_price_label:
+            return "Preço público"
+        labels = {
+            self.SaleMode.DIRECT: "Consulte a disponibilidade",
+            self.SaleMode.QUOTE: "Solicite um orçamento",
+            self.SaleMode.DIRECT_AND_QUOTE: "Preço sob consulta",
+            self.SaleMode.PROJECT: "Projeto sob consulta",
+            self.SaleMode.DEMO: "Agende uma demonstração",
+        }
+        return labels.get(self.sale_mode, "Fale com a equipe")
 
     @property
     def primary_cta_label(self):
@@ -184,6 +215,16 @@ class Product(TimeStampedModel):
     def secondary_cta_label(self):
         if self.sale_mode == self.SaleMode.DIRECT_AND_QUOTE:
             return "Solicitar orçamento"
+        return ""
+
+    @property
+    def primary_cta_url(self):
+        return f"{reverse('institutional:contact')}?produto={self.slug}&acao={self.sale_mode}"
+
+    @property
+    def secondary_cta_url(self):
+        if self.secondary_cta_label:
+            return f"{reverse('institutional:contact')}?produto={self.slug}&acao=orcamento"
         return ""
 
 

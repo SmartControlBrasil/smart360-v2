@@ -1,6 +1,11 @@
 {% extends 'institutional/base.html' %}
 {% load static %}
 
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'commerce/css/catalog.css' %}">
+{% endblock %}
+
 {% block content %}
 <section class="breadcrumb__before p-relative">
     <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
@@ -45,7 +50,7 @@
                     <div class="rr-fea-product__wrapper">
                         <div class="row mb-minus-30">
                             {% for product in products %}
-                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
                                     <div class="product-4__item mb-30">
                                         <div class="product-4__item-thumb product-4__item-thumb-2">
                                             <a href="{{ product.get_absolute_url }}">
@@ -59,25 +64,32 @@
                                             </a>
                                         </div>
                                         <div class="product-4__content">
+                                            <div class="commerce-card-badges">
+                                                <span class="commerce-badge">{{ product.commercial_state_label }}</span>
+                                                {% if product.featured %}<span class="commerce-badge featured">Destaque</span>{% endif %}
+                                            </div>
                                             <div class="product-4__content-wrap">
                                                 <div class="product-4__content-wrap-icon">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-layer-group"></i></li>
                                                     </ul>
                                                 </div>
                                                 <h5>{{ product.category.name }}</h5>
                                             </div>
                                             <h3 class="product-4__content-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
-                                            <p class="product-4__content-dec">{{ product.short_description|default:product.category.description|truncatechars:90 }}</p>
-                                            {% if product.brand %}<p class="product-4__content-dec">Marca: {{ product.brand.name }}</p>{% endif %}
+                                            <p class="product-4__content-dec">{{ product.short_description|default:product.category.description|truncatechars:105 }}</p>
+                                            {% if product.brand %}<p class="commerce-brand">Marca: {{ product.brand.name }}</p>{% endif %}
+                                            {% if not product.public_price_label %}<p class="commerce-condition">{{ product.commercial_condition_label }}</p>{% endif %}
                                         </div>
                                         <div class="product-4__item-cart">
-                                            <h5 class="product-4__item-cart-text">{{ product.public_price_label }}</h5>
-                                            <a href="{{ product.get_absolute_url }}" class="rr-btn"><i class="fa-regular fa-eye"></i>Ver detalhes</a>
+                                            {% if product.public_price_label %}<h5 class="product-4__item-cart-text">{{ product.public_price_label }}</h5>{% endif %}
+                                            <div class="commerce-card-actions">
+                                                <a href="{{ product.get_absolute_url }}" class="rr-btn"><i class="fa-regular fa-eye"></i>Ver detalhes</a>
+                                                <a href="{{ product.primary_cta_url }}" class="rr-btn btn-transparent">{{ product.primary_cta_label }}</a>
+                                                {% if product.secondary_cta_label %}
+                                                    <a href="{{ product.secondary_cta_url }}" class="rr-btn btn-transparent">{{ product.secondary_cta_label }}</a>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -98,10 +110,10 @@
                     <div class="sidebar__widget">
                         <h4 class="sidebar__widget-title">Categorias</h4>
                         <div class="sidebar__widget-content">
-                            <ul>
-                                <li><a href="{% url 'commerce:shop' %}">Todos os produtos</a></li>
+                            <ul class="commerce-category-nav">
+                                <li><a href="{% url 'commerce:shop' %}"{% if not category %} class="active"{% endif %}>Todos os produtos</a></li>
                                 {% for item in categories %}
-                                    <li><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></li>
+                                    <li><a href="{{ item.get_absolute_url }}"{% if category and item.pk == category.pk %} class="active"{% endif %}>{{ item.name }}</a></li>
                                 {% empty %}
                                     <li><span>Nenhuma categoria ativa.</span></li>
                                 {% endfor %}

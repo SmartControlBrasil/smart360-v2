@@ -44,10 +44,28 @@ class ProductImageInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "sku", "category", "brand", "sale_mode", "show_price", "price", "active")
+    list_display = (
+        "name",
+        "sku",
+        "category",
+        "brand",
+        "sale_mode",
+        "availability",
+        "featured",
+        "show_price",
+        "price",
+        "active",
+    )
     list_filter = ("active", "featured", "sale_mode", "availability", "category", "brand")
-    search_fields = ("name", "sku", "short_description", "description")
+    search_fields = ("name", "sku", "short_description", "description", "brand__name", "category__name")
     prepopulated_fields = {"slug": ("name",)}
+    fieldsets = (
+        ("Identificação", {"fields": ("name", "slug", "sku", "category", "brand")}),
+        ("Vitrine comercial", {"fields": ("sale_mode", "availability", "featured", "active")}),
+        ("Preço", {"fields": ("show_price", "price")}),
+        ("Conteúdo", {"fields": ("short_description", "description")}),
+        ("SEO", {"fields": ("seo_title", "seo_description")}),
+    )
     inlines = [ProductImageInline]
 
 

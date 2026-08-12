@@ -16,6 +16,7 @@ from .models import Product
 from .models import ProductImage
 
 
+TEST_MODEL_MEDIA_ROOT = tempfile.mkdtemp()
 TEST_MEDIA_ROOT = tempfile.mkdtemp()
 
 
@@ -25,7 +26,13 @@ def image_upload(name="image.jpg", image_format="JPEG", content_type="image/jpeg
     return SimpleUploadedFile(name, buffer.getvalue(), content_type=content_type)
 
 
+@override_settings(MEDIA_ROOT=TEST_MODEL_MEDIA_ROOT)
 class CommerceModelTests(TestCase):
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(TEST_MODEL_MEDIA_ROOT, ignore_errors=True)
+
     def test_category_creation(self):
         category = Category.objects.create(name="Robótica", slug="robotica")
 
@@ -143,7 +150,10 @@ class CommercePublicViewsTests(TestCase):
     def setUp(self):
         self.category = Category.objects.create(name="Robótica", slug="robotica")
         self.other_category = Category.objects.create(name="Climatização", slug="climatizacao")
-        self.brand = Brand.objects.create(name="Xyron", slug="xyron")
+        self.refrigeration_category = Category.objects.create(name="Refrigeração", slug="refrigeracao")
+        self.automation_category = Category.objects.create(name="Automação Industrial", slug="automacao-industrial")
+        self.brand = Brand.objects.create(name="Xyron Robotics", slug="xyron-robotics")
+        self.mitsubishi_brand = Brand.objects.create(name="Mitsubishi Electric", slug="mitsubishi-electric")
         self.active_product = Product.objects.create(
             name="Xyron Demo",
             slug="xyron-demo",
@@ -161,12 +171,28 @@ class CommercePublicViewsTests(TestCase):
             active=False,
         )
         self.other_product = Product.objects.create(
-            name="Câmara Climática",
-            slug="camara-climatica",
+            name="Ar-condicionado",
+            slug="ar-condicionado",
             category=self.other_category,
             show_price=True,
             price=Decimal("1200.00"),
             sale_mode=Product.SaleMode.DIRECT_AND_QUOTE,
+            availability=Product.Availability.IN_STOCK,
+        )
+        self.quote_product = Product.objects.create(
+            name="Produto Mitsubishi",
+            slug="produto-mitsubishi",
+            category=self.automation_category,
+            brand=self.mitsubishi_brand,
+            sale_mode=Product.SaleMode.QUOTE,
+            show_price=False,
+        )
+        self.project_product = Product.objects.create(
+            name="Câmara frigorífica",
+            slug="camara-frigorifica",
+            category=self.refrigeration_category,
+            sale_mode=Product.SaleMode.PROJECT,
+            show_price=False,
         )
 
     def test_shop_responds_200(self):
@@ -217,6 +243,73 @@ class CommercePublicViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "/media/commerce/products/xyron-demo/")
         self.assertContains(response, "Imagem do catálogo")
+
+
+    def test_price_appears_when_allowed(self):
+        response = self.client.get(reverse("commerce:shop"))
+
+        self.assertContains(response, "R$ 1.200,00")
+        self.assertContains(response, "Venda direta / orçamento")
+
+    def test_price_does_not_appear_when_hidden(self):
+        response = self.client.get(self.active_product.get_absolute_url())
+
+        self.assertNotContains(response, "R$ 0,00")
+        self.assertNotContains(response, "R$ 0.00")
+        self.assertNotContains(response, "Preço sob consulta")
+        self.assertContains(response, "Agende uma demonstração")
+
+    def test_quote_product_shows_quote_cta(self):
+        response = self.client.get(self.quote_product.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Solicitar orçamento")
+        self.assertContains(response, "Sob orçamento")
+        self.assertContains(response, "Mitsubishi Electric")
+
+    def test_demo_product_shows_demo_cta(self):
+        response = self.client.get(self.active_product.get_absolute_url())
+
+        self.assertContains(response, "Agendar demonstração")
+        self.assertContains(response, "Demonstração disponível")
+
+    def test_project_product_shows_project_cta(self):
+        response = self.client.get(self.project_product.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Solicitar projeto")
+        self.assertContains(response, "Projeto personalizado")
+        self.assertContains(response, "Projeto sob consulta")
+
+    def test_direct_and_quote_product_shows_both_ctas(self):
+        response = self.client.get(self.other_product.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Comprar")
+        self.assertContains(response, "Solicitar orçamento")
+        self.assertContains(response, "R$ 1.200,00")
+
+    def test_product_with_multiple_images_renders_gallery(self):
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("principal.jpg"),
+            alt_text="Imagem principal LittleBot",
+            is_primary=True,
+            position=0,
+        )
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("detalhe.jpg"),
+            alt_text="Imagem adicional LittleBot",
+            position=1,
+        )
+
+        response = self.client.get(self.active_product.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Imagem principal LittleBot", count=2)
+        self.assertContains(response, "Imagem adicional LittleBot")
+        self.assertContains(response, "commerce-thumb-list")
 
     def test_missing_product_returns_404(self):
         response = self.client.get(reverse("commerce:product_detail", kwargs={"slug": "nao-existe"}))

@@ -1,0 +1,106 @@
+/* Sprint 02: ajustes visuais restritos ao catalogo commerce. */
+.commerce-card-badges,
+.commerce-detail-badges,
+.commerce-card-actions,
+.commerce-detail-actions,
+.commerce-category-nav,
+.commerce-thumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.commerce-card-badges,
+.commerce-detail-badges {
+    margin-bottom: 14px;
+}
+
+.commerce-badge {
+    align-items: center;
+    background: rgba(139, 61, 255, 0.1);
+    border: 1px solid rgba(139, 61, 255, 0.18);
+    border-radius: 999px;
+    color: #5a27b8;
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 8px 12px;
+}
+
+.commerce-badge.featured {
+    background: rgba(37, 211, 102, 0.12);
+    border-color: rgba(37, 211, 102, 0.28);
+    color: #087d35;
+}
+
+.commerce-brand,
+.commerce-condition,
+.commerce-meta-note {
+    color: #5f6672;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.commerce-card-actions {
+    align-items: center;
+}
+
+.commerce-card-actions .rr-btn,
+.commerce-detail-actions .rr-btn {
+    min-height: 44px;
+}
+
+.commerce-card-actions .rr-btn.btn-transparent,
+.commerce-detail-actions .rr-btn.btn-transparent {
+    border-color: rgba(0, 22, 10, 0.18);
+    color: #00160a;
+}
+
+.commerce-category-nav li a.active {
+    color: #8b3dff;
+    font-weight: 700;
+}
+
+.commerce-detail-gallery-main .gallary-item {
+    margin-bottom: 14px;
+}
+
+.commerce-thumb-list {
+    margin-top: 12px;
+}
+
+.commerce-thumb-item {
+    border: 1px solid rgba(0, 22, 10, 0.12);
+    border-radius: 6px;
+    height: 84px;
+    overflow: hidden;
+    width: 104px;
+}
+
+.commerce-thumb-item img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.commerce-detail-meta {
+    margin-top: 24px;
+}
+
+.commerce-detail-actions {
+    margin: 24px 0;
+}
+
+@media (max-width: 767px) {
+    .commerce-card-actions .rr-btn,
+    .commerce-detail-actions .rr-btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .commerce-thumb-item {
+        height: 72px;
+        width: 88px;
+    }
+}
