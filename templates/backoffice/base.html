@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Painel Administrativo{% endblock %} | Smart Control Brasil</title>
+    <link rel="stylesheet" href="{% static 'backoffice/css/backoffice.css' %}">
+</head>
+<body>
+    <div class="bo-shell">
+        <aside class="bo-sidebar" aria-label="Menu do painel">
+            <a class="bo-brand" href="{% url 'backoffice:dashboard' %}">
+                <span class="bo-brand-mark">SC</span>
+                <span>
+                    <strong>Smart Control Brasil</strong>
+                    <small>Painel Administrativo</small>
+                </span>
+            </a>
+
+            <nav class="bo-nav">
+                <a class="bo-nav-link active" href="{% url 'backoffice:dashboard' %}">Dashboard</a>
+
+                {% if perms.customers.view_customer or perms.salespeople.view_salesperson %}
+                    <span class="bo-nav-heading">Comercial</span>
+                    {% if perms.customers.view_customer %}
+                        <a class="bo-nav-link" href="{% url 'backoffice:customer_list' %}">Clientes</a>
+                    {% endif %}
+                    {% if perms.salespeople.view_salesperson %}
+                        <a class="bo-nav-link" href="{% url 'backoffice:salesperson_list' %}">Vendedores</a>
+                    {% endif %}
+                {% endif %}
+
+                <span class="bo-nav-heading">Catálogo</span>
+                <span class="bo-nav-link disabled">Produtos</span>
+                <span class="bo-nav-link disabled">Categorias</span>
+                <span class="bo-nav-link disabled">Marcas</span>
+
+                <span class="bo-nav-heading">Administração</span>
+                <span class="bo-nav-link disabled">Usuários</span>
+                <span class="bo-nav-link disabled">Acessos</span>
+                <span class="bo-nav-link disabled">Auditoria</span>
+            </nav>
+        </aside>
+
+        <div class="bo-main">
+            <header class="bo-topbar">
+                <div>
+                    <p class="bo-eyebrow">Smart Control Brasil</p>
+                    <h1>{% block page_title %}Painel Administrativo{% endblock %}</h1>
+                </div>
+                <div class="bo-user">
+                    <span>{{ request.user.get_username }}</span>
+                    <form method="post" action="{% url 'institutional:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Sair</button>
+                    </form>
+                </div>
+            </header>
+
+            <main class="bo-content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends "backoffice/base.html" %}
+{% block title %}Clientes{% endblock %}
+{% block page_title %}Clientes{% endblock %}
+{% block content %}
+<section class="bo-card bo-toolbar">
+    <form method="get" class="bo-filters">
+        <input class="bo-input" type="search" name="q" value="{{ query }}" placeholder="Buscar cliente">
+        <select class="bo-input" name="status"><option value="">Status</option>{% for value,label in customer_statuses %}<option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+        <select class="bo-input" name="type"><option value="">Tipo</option>{% for value,label in customer_types %}<option value="{{ value }}" {% if customer_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+        <select class="bo-input" name="salesperson"><option value="">Vendedor</option>{% for salesperson in salespeople %}<option value="{{ salesperson.pk }}" {% if salesperson_id == salesperson.pk|stringformat:'s' %}selected{% endif %}>{{ salesperson.name }}</option>{% endfor %}</select>
+        <button class="bo-button" type="submit">Filtrar</button>
+    </form>
+    {% if can_manage %}<a class="bo-button bo-button-primary" href="{% url 'backoffice:customer_create' %}">Novo cliente</a>{% endif %}
+</section>
+<section class="bo-list">
+    {% for customer in customers %}
+        <article class="bo-card bo-row-card">
+            <div><strong>{{ customer.display_name }}</strong><span>{{ customer.get_customer_type_display }}{% if customer.document %} · {{ customer.document }}{% endif %}</span></div>
+            <div>{{ customer.city }}{% if customer.state %}/{{ customer.state }}{% endif %}</div>
+            <div>{{ customer.assigned_salesperson|default:"Sem vendedor" }}</div>
+            <div>{{ customer.get_status_display }}</div>
+            <div>{{ customer.updated_at|date:"d/m/Y H:i" }}</div>
+            <div class="bo-actions"><a href="{% url 'backoffice:customer_detail' customer.pk %}">Ver</a>{% if can_manage %}<a href="{% url 'backoffice:customer_update' customer.pk %}">Editar</a>{% endif %}</div>
+        </article>
+    {% empty %}<article class="bo-card"><p class="bo-empty">Nenhum cliente encontrado.</p></article>{% endfor %}
+</section>
+{% endblock %}

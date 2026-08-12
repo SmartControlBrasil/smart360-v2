@@ -67,6 +67,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "src.institutional.infrastructure.django.apps.InstitutionalConfig",
     "src.commerce.apps.CommerceConfig",
+    "src.salespeople.apps.SalespeopleConfig",
+    "src.customers.apps.CustomersConfig",
+    "src.backoffice.apps.BackofficeConfig",
 ]
 
 MIDDLEWARE = [

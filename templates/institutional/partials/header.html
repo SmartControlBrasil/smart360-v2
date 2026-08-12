@@ -84,7 +84,7 @@
                         <div class="header__action d-flex align-items-center">
                     
                             <div class="contact d-none d-md-inline-flex">
-                                <a href="{% url 'institutional:login' %}">
+                                <a href="{% if request.user.is_authenticated %}{% url 'backoffice:dashboard' %}{% else %}{% url 'institutional:login' %}?next={% url 'backoffice:dashboard' %}{% endif %}">
                                     <svg
                                         width="14"
                                         height="16"
@@ -108,7 +108,7 @@
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    Entrar
+                                    {% if request.user.is_authenticated %}Painel{% else %}Entrar{% endif %}
                                 </a>
                             </div>
                     

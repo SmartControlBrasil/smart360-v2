@@ -1,0 +1,6 @@
+{% extends "backoffice/base.html" %}
+{% block title %}{{ salesperson.name }}{% endblock %}
+{% block page_title %}{{ salesperson.name }}{% endblock %}
+{% block content %}
+<section class="bo-grid bo-grid-panels"><article class="bo-card"><h2>Dados do vendedor</h2><dl class="bo-definition-list"><dt>Código</dt><dd>{{ salesperson.code }}</dd><dt>Usuário</dt><dd>{{ salesperson.user|default:"Sem usuário" }}</dd><dt>E-mail</dt><dd>{{ salesperson.email|default:"Não informado" }}</dd><dt>Telefone</dt><dd>{{ salesperson.phone|default:"Não informado" }}</dd><dt>WhatsApp</dt><dd>{{ salesperson.whatsapp|default:"Não informado" }}</dd><dt>Status</dt><dd>{% if salesperson.active %}Ativo{% else %}Inativo{% endif %}</dd><dt>Clientes</dt><dd>{{ salesperson.customer_count }}</dd></dl>{% if can_manage %}<a class="bo-button bo-button-primary" href="{% url 'backoffice:salesperson_update' salesperson.pk %}">Editar</a>{% endif %}</article><article class="bo-card"><h2>Histórico de alterações</h2>{% include "backoffice/partials/history.html" with history=history %}</article></section>
+{% endblock %}

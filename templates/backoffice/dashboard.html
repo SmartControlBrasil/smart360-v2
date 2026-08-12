@@ -1,0 +1,55 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Painel Administrativo{% endblock %}
+
+{% block content %}
+<section class="bo-grid bo-grid-cards" aria-label="Indicadores do catálogo">
+    {% for card in cards %}
+        <article class="bo-card bo-metric">
+            <span>{{ card.label }}</span>
+            <strong>{{ card.value }}</strong>
+        </article>
+    {% endfor %}
+</section>
+
+<section class="bo-grid bo-grid-panels">
+    <article class="bo-card">
+        <header class="bo-card-header">
+            <h2>Últimos acessos</h2>
+        </header>
+        {% if recent_logins %}
+            <ol class="bo-activity-list">
+                {% for log in recent_logins %}
+                    <li>
+                        <strong>{{ log.get_action_display }}</strong>
+                        <span>{{ log.actor|default:"Usuário não identificado" }}</span>
+                        <time datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p class="bo-empty">Nenhum acesso registrado ainda.</p>
+        {% endif %}
+    </article>
+
+    <article class="bo-card">
+        <header class="bo-card-header">
+            <h2>Últimas atividades</h2>
+        </header>
+        {% if recent_activities %}
+            <ol class="bo-activity-list">
+                {% for log in recent_activities %}
+                    <li>
+                        <strong>{{ log.module }} · {{ log.get_action_display }}</strong>
+                        <span>{{ log.object_repr|default:log.actor|default:"Evento do sistema" }}</span>
+                        <time datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p class="bo-empty">Nenhuma atividade registrada ainda.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

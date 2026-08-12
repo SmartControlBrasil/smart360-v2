@@ -1,0 +1,6 @@
+{% extends "backoffice/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+{% block content %}
+<form method="post" class="bo-form">{% csrf_token %}{% if form.non_field_errors %}<div class="bo-card bo-error">{{ form.non_field_errors }}</div>{% endif %}<section class="bo-card bo-form-section"><h2>Vendedor</h2><div class="bo-form-grid">{{ form.user.as_field_group }}{{ form.code.as_field_group }}{{ form.name.as_field_group }}{{ form.email.as_field_group }}{{ form.phone.as_field_group }}{{ form.whatsapp.as_field_group }}{{ form.active.as_field_group }}</div></section><section class="bo-card bo-form-section"><h2>Observações</h2>{{ form.notes.as_field_group }}</section><div class="bo-form-actions"><a class="bo-button" href="{% url 'backoffice:salesperson_list' %}">Cancelar</a><button class="bo-button bo-button-primary" type="submit">Salvar</button></div></form>
+{% endblock %}

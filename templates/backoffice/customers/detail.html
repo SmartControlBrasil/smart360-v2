@@ -1,0 +1,6 @@
+{% extends "backoffice/base.html" %}
+{% block title %}{{ customer.display_name }}{% endblock %}
+{% block page_title %}{{ customer.display_name }}{% endblock %}
+{% block content %}
+<section class="bo-grid bo-grid-panels"><article class="bo-card"><h2>Dados do cliente</h2><dl class="bo-definition-list"><dt>Tipo</dt><dd>{{ customer.get_customer_type_display }}</dd><dt>Documento</dt><dd>{{ customer.document|default:"Não informado" }}</dd><dt>E-mail</dt><dd>{{ customer.email|default:"Não informado" }}</dd><dt>Telefone</dt><dd>{{ customer.phone|default:"Não informado" }}</dd><dt>WhatsApp</dt><dd>{{ customer.whatsapp|default:"Não informado" }}</dd><dt>Endereço</dt><dd>{{ customer.address_line }} {{ customer.address_number }} {{ customer.city }}{% if customer.state %}/{{ customer.state }}{% endif %}</dd><dt>Vendedor</dt><dd>{{ customer.assigned_salesperson|default:"Sem vendedor" }}</dd><dt>Status</dt><dd>{{ customer.get_status_display }}</dd></dl>{% if can_manage %}<a class="bo-button bo-button-primary" href="{% url 'backoffice:customer_update' customer.pk %}">Editar</a>{% endif %}</article><article class="bo-card"><h2>Histórico de alterações</h2>{% include "backoffice/partials/history.html" with history=history %}</article></section>
+{% endblock %}

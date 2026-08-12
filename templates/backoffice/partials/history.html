@@ -1,0 +1,13 @@
+{% if history %}
+    <ol class="bo-activity-list">
+        {% for log in history %}
+            <li>
+                <strong>{{ log.get_action_display }}</strong>
+                <span>{{ log.actor|default:"Sistema" }}</span>
+                <time datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
+            </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p class="bo-empty">Nenhuma alteração registrada ainda.</p>
+{% endif %}
