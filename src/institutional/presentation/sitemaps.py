@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap
+from django.conf import settings
 from django.urls import reverse
 
 from src.institutional.presentation.blog_posts import BLOG_POSTS
@@ -56,6 +57,9 @@ STATIC_PUBLIC_ROUTES = (
 class StaticViewSitemap(Sitemap):
     protocol = "https"
 
+    def get_domain(self, site=None):
+        return settings.PUBLIC_SITE_URL.removeprefix("https://").removeprefix("http://")
+
     def items(self):
         return STATIC_PUBLIC_ROUTES
 
@@ -73,6 +77,9 @@ class BlogPostSitemap(Sitemap):
     changefreq = "monthly"
     priority = 0.8
     protocol = "https"
+
+    def get_domain(self, site=None):
+        return settings.PUBLIC_SITE_URL.removeprefix("https://").removeprefix("http://")
 
     def items(self):
         return list(BLOG_POSTS)

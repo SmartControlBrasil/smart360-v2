@@ -1,0 +1,116 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="breadcrumb__before p-relative">
+    <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+        <div class="breadcrumb__shapes">
+            <div class="breadcrumb__shapes-shape-1"></div>
+            <div class="breadcrumb__shapes-shape-2"></div>
+            <div class="breadcrumb__shapes-shape-3"></div>
+            <div class="breadcrumb__shapes-shape-4"></div>
+            <div class="breadcrumb__shapes-shape-5 upDown"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-6 line-to-bottom-360"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-8 leftRight"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-9"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt=""></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12">
+                    <div class="breadcrumb__content">
+                        <div class="breadcrumb__title-wrapper">
+                            <h1 class="breadcrumb__title">{{ page_heading|default:'Loja' }}</h1>
+                        </div>
+                        <div class="breadcrumb__menu">
+                            <nav>
+                                <ul>
+                                    <li><span><a href="{% url 'institutional:home' %}"><img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Home</a></span></li>
+                                    <li class="active"><span>{{ page_heading|default:'Loja' }}</span></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="prodact-area product-bg">
+    <div class="rr-fea-product__area sub-inner-area p-relative fix grey-bg-2 pb-120 pt-115 rr-pro-tab1 rr-el-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="rr-fea-product__wrapper">
+                        <div class="row mb-minus-30">
+                            {% for product in products %}
+                                <div class="col-xl-6 col-lg-4 col-md-4 col-sm-6">
+                                    <div class="product-4__item mb-30">
+                                        <div class="product-4__item-thumb product-4__item-thumb-2">
+                                            <a href="{{ product.get_absolute_url }}">
+                                                {% with image=product.primary_image %}
+                                                    {% if image and image.image %}
+                                                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}">
+                                                    {% else %}
+                                                        <img src="{% static 'institutional/imgs/images/shop-img-1.png' %}" alt="{{ product.name }}">
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </a>
+                                        </div>
+                                        <div class="product-4__content">
+                                            <div class="product-4__content-wrap">
+                                                <div class="product-4__content-wrap-icon">
+                                                    <ul>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+                                                <h5>{{ product.category.name }}</h5>
+                                            </div>
+                                            <h3 class="product-4__content-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                                            <p class="product-4__content-dec">{{ product.short_description|default:product.category.description|truncatechars:90 }}</p>
+                                            {% if product.brand %}<p class="product-4__content-dec">Marca: {{ product.brand.name }}</p>{% endif %}
+                                        </div>
+                                        <div class="product-4__item-cart">
+                                            <h5 class="product-4__item-cart-text">{{ product.public_price_label }}</h5>
+                                            <a href="{{ product.get_absolute_url }}" class="rr-btn"><i class="fa-regular fa-eye"></i>Ver detalhes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="col-12">
+                                    <div class="product-4__item mb-30">
+                                        <div class="product-4__content">
+                                            <h3 class="product-4__content-title">Nenhum produto ativo encontrado.</h3>
+                                            <p class="product-4__content-dec">Novos produtos serão publicados em breve.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="sidebar__widget">
+                        <h4 class="sidebar__widget-title">Categorias</h4>
+                        <div class="sidebar__widget-content">
+                            <ul>
+                                <li><a href="{% url 'commerce:shop' %}">Todos os produtos</a></li>
+                                {% for item in categories %}
+                                    <li><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></li>
+                                {% empty %}
+                                    <li><span>Nenhuma categoria ativa.</span></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

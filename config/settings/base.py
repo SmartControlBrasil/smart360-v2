@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     "src.institutional.infrastructure.django.apps.InstitutionalConfig",
+    "src.commerce.apps.CommerceConfig",
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,7 @@ TEMPLATES[0]["DIRS"] = [BASE_DIR / "templates"]
 # Arquivos estáticos
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Arquivos enviados/cadastrados por usuários
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

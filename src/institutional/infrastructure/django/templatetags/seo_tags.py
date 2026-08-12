@@ -128,10 +128,19 @@ def _metadata(context):
     return getattr(page, "metadata", None)
 
 
-def _route_name(context):
+def _resolver_match(context):
     request = context.get("request")
-    resolver_match = getattr(request, "resolver_match", None)
+    return getattr(request, "resolver_match", None)
+
+
+def _route_name(context):
+    resolver_match = _resolver_match(context)
     return getattr(resolver_match, "url_name", None)
+
+
+def _app_name(context):
+    resolver_match = _resolver_match(context)
+    return getattr(resolver_match, "app_name", None)
 
 
 def _route_metadata(context):
@@ -145,6 +154,10 @@ def _metadata_canonical_path(context):
 
 def _post(context):
     return context.get("post")
+
+
+def _product(context):
+    return context.get("product")
 
 
 @register.simple_tag(takes_context=True)
@@ -163,6 +176,10 @@ def page_title(context):
     if post:
         return f"{post.get('title', DEFAULT_TITLE)} | Smart Control Brasil"
 
+    product = _product(context)
+    if product:
+        return f"{product.seo_title or product.name} | Smart Control Brasil"
+
     metadata = _metadata(context)
     if metadata and getattr(metadata, "title", None):
         return metadata.title
@@ -176,6 +193,10 @@ def meta_description(context):
     if post and post.get("meta_description"):
         return post["meta_description"]
 
+    product = _product(context)
+    if product:
+        return product.seo_description or product.short_description or DEFAULT_DESCRIPTION
+
     metadata = _metadata(context)
     if metadata and getattr(metadata, "description", None):
         return metadata.description
@@ -185,6 +206,8 @@ def meta_description(context):
 
 @register.simple_tag(takes_context=True)
 def robots_directives(context):
+    if _app_name(context) == "commerce":
+        return ""
     if _route_name(context) in NOINDEX_ROUTE_NAMES:
         return "noindex,follow"
     return ""
