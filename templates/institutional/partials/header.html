@@ -82,8 +82,9 @@
                     </div>
                     <div class="header__right">
                         <div class="header__action d-flex align-items-center">
+                    
                             <div class="contact d-none d-md-inline-flex">
-                                <a href="{% url 'institutional:contact' %}">
+                                <a href="{% url 'institutional:login' %}">
                                     <svg
                                         width="14"
                                         height="16"
@@ -110,8 +111,13 @@
                                     Entrar
                                 </a>
                             </div>
+                    
                             <div class="header__btn-wrap d-none d-sm-inline-flex">
+                                <a href="{% url 'institutional:signup' %}" class="rr-btn rr-btn-bold">
+                                    Junte-se à IA
+                                </a>
                             </div>
+                    
                             <div class="header__hamburger ml-20 d-xl-none">
                                 <div class="sidebar__toggle">
                                     <button class="bar-icon" aria-label="Abrir menu">
@@ -121,6 +127,7 @@
                                     </button>
                                 </div>
                             </div>
+                    
                         </div>
                     </div>
                 </div>
