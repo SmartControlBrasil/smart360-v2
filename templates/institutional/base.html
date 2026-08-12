@@ -12,6 +12,15 @@
     {% if robots_content %}<meta name="robots" content="{{ robots_content }}">{% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="{% canonical_url %}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-9XGJDZ0N87');
+    </script>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'institutional/imgs/logo/favicon.png' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

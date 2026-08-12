@@ -9,6 +9,8 @@ from django.test import override_settings
 from django.test import TestCase
 from django.urls import reverse
 
+from src.commerce.models import Category
+from src.commerce.models import Product
 from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
@@ -262,6 +264,15 @@ class TechnicalSeoTests(TestCase):
             )
         ]
 
+    def test_home_includes_approved_google_tag_once(self):
+        response = self.client.get("/")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(html.count("https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"), 1)
+        self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
+        self.assertNotIn("G-X9BGRJ75B7", html)
+
     def test_home_uses_metadata_title_description_and_canonical(self):
         response = self.client.get("/")
 
@@ -335,15 +346,58 @@ class TechnicalSeoTests(TestCase):
         self.assertFalse(any("/cadastro/" in url for url in urls))
         self.assertFalse(any("/modelos/" in url for url in urls))
         self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
-        self.assertEqual(len(urls), 9 + len(BLOG_POSTS))
+        self.assertIn("https://www.smartcontrolbrasil.com.br/loja/", urls)
+        self.assertEqual(len(urls), 10 + len(BLOG_POSTS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
+            if route_name == "shop":
+                continue
             try:
                 path = reverse(f"institutional:{route_name}")
             except Exception:
                 continue
             absolute_url = urljoin("https://www.smartcontrolbrasil.com.br", path)
             self.assertNotIn(absolute_url, urls)
+
+    def test_sitemap_includes_public_commerce_urls_dynamically(self):
+        robotica = Category.objects.create(name="Robótica", slug="robotica")
+        climatizacao = Category.objects.create(name="Climatização", slug="climatizacao")
+        refrigeracao = Category.objects.create(name="Refrigeração", slug="refrigeracao")
+        automacao = Category.objects.create(name="Automação Industrial", slug="automacao-industrial")
+        inactive_category = Category.objects.create(name="Categoria interna", slug="categoria-interna", active=False)
+        Product.objects.create(name="LittleBot", slug="littlebot", category=robotica, active=True)
+        Product.objects.create(name="Orbit", slug="orbit", category=robotica, active=True)
+        Product.objects.create(
+            name="Câmara Climática sob medida",
+            slug="camara-climatica-sob-medida",
+            category=refrigeracao,
+            active=True,
+        )
+        Product.objects.create(name="Produto futuro ativo", slug="produto-futuro-ativo", category=automacao, active=True)
+        Product.objects.create(name="Produto inativo", slug="produto-inativo", category=robotica, active=False)
+        Product.objects.create(name="Produto categoria inativa", slug="produto-categoria-inativa", category=inactive_category, active=True)
+
+        urls = self.sitemap_urls()
+
+        expected_urls = {
+            "https://www.smartcontrolbrasil.com.br/loja/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/robotica/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/climatizacao/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/refrigeracao/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/automacao-industrial/",
+            "https://www.smartcontrolbrasil.com.br/loja/produto/littlebot/",
+            "https://www.smartcontrolbrasil.com.br/loja/produto/orbit/",
+            "https://www.smartcontrolbrasil.com.br/loja/produto/camara-climatica-sob-medida/",
+            "https://www.smartcontrolbrasil.com.br/loja/produto/produto-futuro-ativo/",
+        }
+        for expected_url in expected_urls:
+            with self.subTest(expected_url=expected_url):
+                self.assertIn(expected_url, urls)
+
+        self.assertNotIn("https://www.smartcontrolbrasil.com.br/loja/produto/produto-inativo/", urls)
+        self.assertNotIn("https://www.smartcontrolbrasil.com.br/loja/produto/produto-categoria-inativa/", urls)
+        self.assertNotIn("https://www.smartcontrolbrasil.com.br/loja/categoria/categoria-interna/", urls)
+        self.assertTrue(all(url.startswith("https://www.smartcontrolbrasil.com.br/") for url in urls))
 
     def test_robots_txt_points_to_production_sitemap_and_blocks_private_paths(self):
         response = self.client.get("/robots.txt")
