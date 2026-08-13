@@ -1,6 +1,37 @@
 {% extends "backoffice/base.html" %}
-{% block title %}{{ title }}{% endblock %}
-{% block page_title %}{{ title }}{% endblock %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block page_title_breadcrumb %}{{ title }}{% endblock page_title_breadcrumb %}
+
 {% block content %}
-<form method="post" class="bo-form">{% csrf_token %}{% if form.non_field_errors %}<div class="bo-card bo-error">{{ form.non_field_errors }}</div>{% endif %}<section class="bo-card bo-form-section"><h2>Vendedor</h2><div class="bo-form-grid">{{ form.user.as_field_group }}{{ form.code.as_field_group }}{{ form.name.as_field_group }}{{ form.email.as_field_group }}{{ form.phone.as_field_group }}{{ form.whatsapp.as_field_group }}{{ form.active.as_field_group }}</div></section><section class="bo-card bo-form-section"><h2>Observações</h2>{{ form.notes.as_field_group }}</section><div class="bo-form-actions"><a class="bo-button" href="{% url 'backoffice:salesperson_list' %}">Cancelar</a><button class="bo-button bo-button-primary" type="submit">Salvar</button></div></form>
-{% endblock %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Vendedor</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.user %}</div>
+                <div class="col-md-3">{% include "backoffice/partials/field.html" with field=form.code %}</div>
+                <div class="col-md-3">{% include "backoffice/partials/field.html" with field=form.active %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.name %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.email %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.phone %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.whatsapp %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Observações</h5></div>
+        <div class="card-body">{% include "backoffice/partials/field.html" with field=form.notes %}</div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-light" href="{% url 'backoffice:salesperson_list' %}">Cancelar</a>
+    </div>
+</form>
+{% endblock content %}

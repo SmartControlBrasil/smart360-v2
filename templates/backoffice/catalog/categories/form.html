@@ -1,0 +1,31 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block page_title_breadcrumb %}{{ title }}{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Categoria</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.name %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.slug %}</div>
+                <div class="col-12">{% include "backoffice/partials/field.html" with field=form.description %}</div>
+                <div class="col-12">{% include "backoffice/partials/field.html" with field=form.active %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-light" href="{% url 'backoffice:category_list' %}">Cancelar</a>
+    </div>
+</form>
+{% endblock content %}

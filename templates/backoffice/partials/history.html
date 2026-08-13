@@ -1,13 +1,15 @@
 {% if history %}
-    <ol class="bo-activity-list">
+    <div class="list-group list-group-flush">
         {% for log in history %}
-            <li>
-                <strong>{{ log.get_action_display }}</strong>
-                <span>{{ log.actor|default:"Sistema" }}</span>
-                <time datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
-            </li>
+            <div class="list-group-item px-0 d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <div>
+                    <span class="badge bg-primary-subtle text-primary me-2">{{ log.get_action_display }}</span>
+                    <span class="text-muted">{{ log.actor|default:"Sistema" }}</span>
+                </div>
+                <time class="text-muted fs-13" datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
+            </div>
         {% endfor %}
-    </ol>
+    </div>
 {% else %}
-    <p class="bo-empty">Nenhuma alteração registrada ainda.</p>
+    <p class="text-muted mb-0">Nenhuma alteração registrada ainda.</p>
 {% endif %}

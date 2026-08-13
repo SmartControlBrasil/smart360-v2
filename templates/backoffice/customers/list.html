@@ -1,27 +1,113 @@
 {% extends "backoffice/base.html" %}
-{% block title %}Clientes{% endblock %}
-{% block page_title %}Clientes{% endblock %}
+
+{% block title %}Clientes{% endblock title %}
+{% block page_title %}Clientes{% endblock page_title %}
+{% block page_title_breadcrumb %}Clientes{% endblock page_title_breadcrumb %}
+
 {% block content %}
-<section class="bo-card bo-toolbar">
-    <form method="get" class="bo-filters">
-        <input class="bo-input" type="search" name="q" value="{{ query }}" placeholder="Buscar cliente">
-        <select class="bo-input" name="status"><option value="">Status</option>{% for value,label in customer_statuses %}<option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
-        <select class="bo-input" name="type"><option value="">Tipo</option>{% for value,label in customer_types %}<option value="{{ value }}" {% if customer_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
-        <select class="bo-input" name="salesperson"><option value="">Vendedor</option>{% for salesperson in salespeople %}<option value="{{ salesperson.pk }}" {% if salesperson_id == salesperson.pk|stringformat:'s' %}selected{% endif %}>{{ salesperson.name }}</option>{% endfor %}</select>
-        <button class="bo-button" type="submit">Filtrar</button>
-    </form>
-    {% if can_manage %}<a class="bo-button bo-button-primary" href="{% url 'backoffice:customer_create' %}">Novo cliente</a>{% endif %}
-</section>
-<section class="bo-list">
-    {% for customer in customers %}
-        <article class="bo-card bo-row-card">
-            <div><strong>{{ customer.display_name }}</strong><span>{{ customer.get_customer_type_display }}{% if customer.document %} · {{ customer.document }}{% endif %}</span></div>
-            <div>{{ customer.city }}{% if customer.state %}/{{ customer.state }}{% endif %}</div>
-            <div>{{ customer.assigned_salesperson|default:"Sem vendedor" }}</div>
-            <div>{{ customer.get_status_display }}</div>
-            <div>{{ customer.updated_at|date:"d/m/Y H:i" }}</div>
-            <div class="bo-actions"><a href="{% url 'backoffice:customer_detail' customer.pk %}">Ver</a>{% if can_manage %}<a href="{% url 'backoffice:customer_update' customer.pk %}">Editar</a>{% endif %}</div>
-        </article>
-    {% empty %}<article class="bo-card"><p class="bo-empty">Nenhum cliente encontrado.</p></article>{% endfor %}
-</section>
-{% endblock %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Clientes</h5>
+            <small class="text-muted">Carteira comercial e relacionamento</small>
+        </div>
+        {% if can_manage %}
+            <a class="btn btn-primary" href="{% url 'backoffice:customer_create' %}">
+                <i data-feather="plus" class="me-1"></i>Novo cliente
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-4 col-md-6">
+                <label class="form-label" for="customer-search">Buscar</label>
+                <input id="customer-search" class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar cliente">
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label" for="customer-status">Status</label>
+                <select id="customer-status" class="form-select" name="status">
+                    <option value="">Status</option>
+                    {% for value,label in customer_statuses %}
+                        <option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label" for="customer-type">Tipo</label>
+                <select id="customer-type" class="form-select" name="type">
+                    <option value="">Tipo</option>
+                    {% for value,label in customer_types %}
+                        <option value="{{ value }}" {% if customer_type == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="customer-salesperson">Vendedor</label>
+                <select id="customer-salesperson" class="form-select" name="salesperson">
+                    <option value="">Vendedor</option>
+                    {% for salesperson in salespeople %}
+                        <option value="{{ salesperson.pk }}" {% if salesperson_id == salesperson.pk|stringformat:'s' %}selected{% endif %}>{{ salesperson.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-auto col-md-12 d-grid">
+                <button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Documento</th>
+                        <th>Contato</th>
+                        <th>Status</th>
+                        <th>Responsável</th>
+                        <th>Atualizado</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers %}
+                        <tr>
+                            <td>
+                                <h6 class="mb-0">{{ customer.display_name }}</h6>
+                                <small class="text-muted">{{ customer.get_customer_type_display }}{% if customer.city %} · {{ customer.city }}{% if customer.state %}/{{ customer.state }}{% endif %}{% endif %}</small>
+                            </td>
+                            <td>{{ customer.document|default:"Não informado" }}</td>
+                            <td>
+                                <div>{{ customer.email|default:"Sem e-mail" }}</div>
+                                <small class="text-muted">{{ customer.phone|default:customer.whatsapp|default:"Sem telefone" }}</small>
+                            </td>
+                            <td>
+                                {% if customer.status == "ACTIVE" %}
+                                    <span class="badge bg-success-subtle text-success">{{ customer.get_status_display }}</span>
+                                {% elif customer.status == "INACTIVE" %}
+                                    <span class="badge bg-secondary-subtle text-secondary">{{ customer.get_status_display }}</span>
+                                {% else %}
+                                    <span class="badge bg-warning-subtle text-warning">{{ customer.get_status_display }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ customer.assigned_salesperson|default:"Sem vendedor" }}</td>
+                            <td>{{ customer.updated_at|date:"d/m/Y H:i" }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-light" href="{% url 'backoffice:customer_detail' customer.pk %}">Ver</a>
+                                    {% if can_manage %}
+                                        <a class="btn btn-sm btn-primary" href="{% url 'backoffice:customer_update' customer.pk %}">Editar</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">Nenhum cliente encontrado.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

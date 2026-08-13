@@ -48,6 +48,8 @@ smart360v2_baixado/
 
 # Template administrativo Hando - referência local
 hando/
+!static/backoffice/hando/
+!static/backoffice/hando/**
 
 # Arquivos de backup/local
 smart-v2.zip

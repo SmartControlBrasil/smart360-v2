@@ -1,0 +1,149 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Produtos{% endblock title %}
+{% block page_title %}Produtos{% endblock page_title %}
+{% block page_title_breadcrumb %}Produtos{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Produtos</h5>
+            <small class="text-muted">Catálogo público da Smart Control Brasil</small>
+        </div>
+        {% if can_create %}
+            <a class="btn btn-primary" href="{% url 'backoffice:product_create' %}">
+                <i data-feather="plus" class="me-1"></i>Novo produto
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <label class="form-label" for="product-search">Buscar</label>
+                <input id="product-search" class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar produto">
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6">
+                <label class="form-label" for="product-category">Categoria</label>
+                <select id="product-category" class="form-select" name="category">
+                    <option value="">Categoria</option>
+                    {% for category in categories %}
+                        <option value="{{ category.pk }}"{% if request.GET.category == category.pk|stringformat:"s" %} selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6">
+                <label class="form-label" for="product-brand">Marca</label>
+                <select id="product-brand" class="form-select" name="brand">
+                    <option value="">Marca</option>
+                    {% for brand in brands %}
+                        <option value="{{ brand.pk }}"{% if request.GET.brand == brand.pk|stringformat:"s" %} selected{% endif %}>{{ brand.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6">
+                <label class="form-label" for="product-sale-mode">Modo</label>
+                <select id="product-sale-mode" class="form-select" name="sale_mode">
+                    <option value="">Modo</option>
+                    {% for value,label in sale_modes %}
+                        <option value="{{ value }}"{% if request.GET.sale_mode == value %} selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6">
+                <label class="form-label" for="product-availability">Disponibilidade</label>
+                <select id="product-availability" class="form-select" name="availability">
+                    <option value="">Disponibilidade</option>
+                    {% for value,label in availabilities %}
+                        <option value="{{ value }}"{% if request.GET.availability == value %} selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-xl-1 col-lg-2 col-md-6">
+                <label class="form-label" for="product-active">Status</label>
+                <select id="product-active" class="form-select" name="active">
+                    <option value="">Todos</option>
+                    <option value="1"{% if request.GET.active == "1" %} selected{% endif %}>Ativo</option>
+                    <option value="0"{% if request.GET.active == "0" %} selected{% endif %}>Inativo</option>
+                </select>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-6">
+                <label class="form-label" for="product-featured">Destaque</label>
+                <select id="product-featured" class="form-select" name="featured">
+                    <option value="">Destaque</option>
+                    <option value="1"{% if request.GET.featured == "1" %} selected{% endif %}>Destacado</option>
+                    <option value="0"{% if request.GET.featured == "0" %} selected{% endif %}>Sem destaque</option>
+                </select>
+            </div>
+            <div class="col-lg-auto col-md-12 d-grid">
+                <button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Produto</th>
+                        <th>Categoria</th>
+                        <th>Marca</th>
+                        <th>Comercial</th>
+                        <th>Disponibilidade</th>
+                        <th>Status</th>
+                        <th>Atualizado</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>
+                                {% with image=product.primary_image %}
+                                    {% if image %}
+                                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" class="img-thumbnail rounded" width="56" height="56">
+                                    {% else %}
+                                        <span class="badge bg-secondary-subtle text-secondary">Sem imagem</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                            <td>
+                                <h6 class="mb-0">{{ product.name }}</h6>
+                                <small class="text-muted">{{ product.sku|default:"Sem SKU" }} · {{ product.slug }}</small>
+                            </td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.brand|default:"Sem marca" }}</td>
+                            <td>
+                                <div>{{ product.commercial_state_label }}</div>
+                                <small class="text-muted">{{ product.public_price_label|default:"Preço oculto" }}</small>
+                            </td>
+                            <td>{{ product.get_availability_display }}</td>
+                            <td>
+                                {% if product.active and product.category.active %}
+                                    <span class="badge bg-success-subtle text-success">Publicado</span>
+                                {% elif product.active %}
+                                    <span class="badge bg-warning-subtle text-warning">Ativo</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary">Inativo</span>
+                                {% endif %}
+                                {% if product.featured %}<span class="badge bg-primary-subtle text-primary ms-1">Destacado</span>{% endif %}
+                            </td>
+                            <td>{{ product.updated_at|date:"d/m/Y H:i" }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-light" href="{% url 'backoffice:product_detail' product.pk %}">Ver</a>
+                                    {% if can_manage %}<a class="btn btn-sm btn-primary" href="{% url 'backoffice:product_update' product.pk %}">Editar</a>{% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">Nenhum produto encontrado.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

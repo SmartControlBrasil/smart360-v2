@@ -1,0 +1,37 @@
+{% load static %}
+<a href="{{ brand_href|default:'/' }}" class="logo logo-light">
+    {% if not auth_only %}
+        <span class="logo-sm">
+            <img
+                src="{% static 'institutional/imgs/logo/favicon.png' %}"
+                alt="Smart Control Brasil"
+                class="erp-brand-logo erp-brand-logo--sm"
+            >
+        </span>
+    {% endif %}
+    <span class="logo-lg">
+        <img
+            src="{% static 'institutional/imgs/images/header/logo-cores-03.webp' %}"
+            alt="Smart Control Brasil"
+            class="erp-brand-logo erp-brand-logo--lg"
+        >
+    </span>
+</a>
+<a href="{{ brand_href|default:'/' }}" class="logo logo-dark">
+    {% if not auth_only %}
+        <span class="logo-sm">
+            <img
+                src="{% static 'institutional/imgs/logo/favicon.png' %}"
+                alt="Smart Control Brasil"
+                class="erp-brand-logo erp-brand-logo--sm"
+            >
+        </span>
+    {% endif %}
+    <span class="logo-lg">
+        <img
+            src="{% static 'institutional/imgs/images/header/logo-cores-03.webp' %}"
+            alt="Smart Control Brasil"
+            class="erp-brand-logo erp-brand-logo--lg"
+        >
+    </span>
+</a>

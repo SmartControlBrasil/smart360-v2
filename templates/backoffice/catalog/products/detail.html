@@ -1,0 +1,124 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+{% block page_title %}{{ product.name }}{% endblock page_title %}
+{% block page_title_breadcrumb %}Produto{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <div class="d-flex flex-wrap gap-2">
+        {% if product.active and product.category.active %}
+            <span class="badge bg-success-subtle text-success">Publicado</span>
+        {% elif product.active %}
+            <span class="badge bg-warning-subtle text-warning">Ativo</span>
+        {% else %}
+            <span class="badge bg-secondary-subtle text-secondary">Inativo</span>
+        {% endif %}
+        {% if product.featured %}<span class="badge bg-primary-subtle text-primary">Destacado</span>{% endif %}
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        {% if can_manage %}
+            <a class="btn btn-primary" href="{% url 'backoffice:product_update' product.pk %}">Editar</a>
+            <form method="post" action="{% if product.active %}{% url 'backoffice:product_deactivate' product.pk %}{% else %}{% url 'backoffice:product_activate' product.pk %}{% endif %}">
+                {% csrf_token %}
+                <button class="btn btn-light" type="submit">{% if product.active %}Desativar{% else %}Ativar{% endif %}</button>
+            </form>
+            <form method="post" action="{% if product.featured %}{% url 'backoffice:product_unfeature' product.pk %}{% else %}{% url 'backoffice:product_feature' product.pk %}{% endif %}">
+                {% csrf_token %}
+                <button class="btn btn-light" type="submit">{% if product.featured %}Remover destaque{% else %}Destacar{% endif %}</button>
+            </form>
+        {% endif %}
+        {% if product.active %}
+            <a class="btn btn-outline-primary" target="_blank" rel="noopener noreferrer" href="{{ product.get_absolute_url }}">Ver na loja</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Produto</h5></div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">SKU</dt><dd class="col-sm-8">{{ product.sku|default:"Sem SKU" }}</dd>
+                    <dt class="col-sm-4 text-muted">Slug</dt><dd class="col-sm-8">{{ product.slug }}</dd>
+                    <dt class="col-sm-4 text-muted">Categoria</dt><dd class="col-sm-8">{{ product.category }}</dd>
+                    <dt class="col-sm-4 text-muted">Marca</dt><dd class="col-sm-8">{{ product.brand|default:"Sem marca" }}</dd>
+                    <dt class="col-sm-4 text-muted">Modo</dt><dd class="col-sm-8">{{ product.get_sale_mode_display }}</dd>
+                    <dt class="col-sm-4 text-muted">Preço</dt><dd class="col-sm-8">{{ product.public_price_label|default:"Oculto" }}</dd>
+                    <dt class="col-sm-4 text-muted">Disponibilidade</dt><dd class="col-sm-8">{{ product.get_availability_display }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">SEO e vitrine</h5></div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Status</dt><dd class="col-sm-8">{% if product.active %}Ativo{% else %}Inativo{% endif %}</dd>
+                    <dt class="col-sm-4 text-muted">Destaque</dt><dd class="col-sm-8">{% if product.featured %}Sim{% else %}Não{% endif %}</dd>
+                    <dt class="col-sm-4 text-muted">Título SEO</dt><dd class="col-sm-8">{{ product.seo_title|default:"Sem título SEO" }}</dd>
+                    <dt class="col-sm-4 text-muted">Descrição SEO</dt><dd class="col-sm-8">{{ product.seo_description|default:"Sem descrição SEO" }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h5 class="card-title mb-0">Descrição</h5></div>
+    <div class="card-body">
+        {% if product.short_description %}<p class="text-muted">{{ product.short_description }}</p>{% endif %}
+        <p class="mb-0">{{ product.description|default:"Sem descrição cadastrada." }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h5 class="card-title mb-0">Imagens</h5></div>
+    <div class="card-body">
+        <div class="row g-3 mb-4">
+            {% for image in product.images.all %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 mb-0">
+                        <img class="card-img-top img-fluid" src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}">
+                        <div class="card-body">
+                            <h6 class="mb-1">{{ image.alt_text|default:image.image.name }}</h6>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                {% if image.is_primary %}<span class="badge bg-primary-subtle text-primary">Principal</span>{% endif %}
+                                <span class="badge bg-secondary-subtle text-secondary">Posição {{ image.position }}</span>
+                            </div>
+                            {% if can_manage_images %}
+                                <form method="post" action="{% url 'backoffice:product_image_delete' image.pk %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Remover</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12"><p class="text-muted mb-0">Nenhuma imagem cadastrada.</p></div>
+            {% endfor %}
+        </div>
+
+        {% if can_manage_images %}
+            <form method="post" enctype="multipart/form-data" action="{% url 'backoffice:product_image_create' product.pk %}">
+                {% csrf_token %}
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-5">{% include "backoffice/partials/field.html" with field=image_form.image %}</div>
+                    <div class="col-md-3">{% include "backoffice/partials/field.html" with field=image_form.alt_text %}</div>
+                    <div class="col-md-2">{% include "backoffice/partials/field.html" with field=image_form.position %}</div>
+                    <div class="col-md-2">{% include "backoffice/partials/field.html" with field=image_form.is_primary %}</div>
+                    <div class="col-12"><button class="btn btn-primary" type="submit">Enviar imagem</button></div>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h5 class="card-title mb-0">Histórico de alterações</h5></div>
+    <div class="card-body">{% include "backoffice/partials/history.html" with history=history %}</div>
+</div>
+{% endblock content %}

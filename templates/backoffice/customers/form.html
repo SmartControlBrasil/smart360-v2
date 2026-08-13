@@ -1,15 +1,75 @@
 {% extends "backoffice/base.html" %}
-{% block title %}{{ title }}{% endblock %}
-{% block page_title %}{{ title }}{% endblock %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block page_title_breadcrumb %}{{ title }}{% endblock page_title_breadcrumb %}
+
 {% block content %}
-<form method="post" class="bo-form">
+<form method="post" novalidate>
     {% csrf_token %}
-    {% if form.non_field_errors %}<div class="bo-card bo-error">{{ form.non_field_errors }}</div>{% endif %}
-    <section class="bo-card bo-form-section"><h2>Identificação</h2><div class="bo-form-grid">{{ form.customer_type.as_field_group }}{{ form.legal_name.as_field_group }}{{ form.trade_name.as_field_group }}{{ form.document.as_field_group }}{{ form.state_registration.as_field_group }}</div></section>
-    <section class="bo-card bo-form-section"><h2>Contato</h2><div class="bo-form-grid">{{ form.email.as_field_group }}{{ form.phone.as_field_group }}{{ form.whatsapp.as_field_group }}{{ form.website.as_field_group }}</div></section>
-    <section class="bo-card bo-form-section"><h2>Endereço</h2><div class="bo-form-grid">{{ form.postal_code.as_field_group }}{{ form.address_line.as_field_group }}{{ form.address_number.as_field_group }}{{ form.address_extra.as_field_group }}{{ form.district.as_field_group }}{{ form.city.as_field_group }}{{ form.state.as_field_group }}</div></section>
-    <section class="bo-card bo-form-section"><h2>Comercial</h2><div class="bo-form-grid">{{ form.assigned_salesperson.as_field_group }}{{ form.status.as_field_group }}</div></section>
-    <section class="bo-card bo-form-section"><h2>Observações</h2>{{ form.notes.as_field_group }}</section>
-    <div class="bo-form-actions"><a class="bo-button" href="{% url 'backoffice:customer_list' %}">Cancelar</a><button class="bo-button bo-button-primary" type="submit">Salvar</button></div>
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Identificação</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                {% for field in form.visible_fields %}
+                    {% if field.name in "customer_type legal_name trade_name document state_registration" %}
+                        <div class="{% if field.name == 'legal_name' or field.name == 'trade_name' %}col-md-6{% else %}col-md-4{% endif %}">
+                            {% include "backoffice/partials/field.html" with field=field %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Contato</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                {% for field in form.visible_fields %}
+                    {% if field.name in "email phone whatsapp website" %}
+                        <div class="col-md-6">{% include "backoffice/partials/field.html" with field=field %}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Endereço</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                {% for field in form.visible_fields %}
+                    {% if field.name in "postal_code address_line address_number address_extra district city state" %}
+                        <div class="{% if field.name == 'address_line' or field.name == 'address_extra' %}col-md-6{% elif field.name == 'state' %}col-md-2{% else %}col-md-4{% endif %}">{% include "backoffice/partials/field.html" with field=field %}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Comercial</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8">{% include "backoffice/partials/field.html" with field=form.assigned_salesperson %}</div>
+                <div class="col-md-4">{% include "backoffice/partials/field.html" with field=form.status %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Observações</h5></div>
+        <div class="card-body">{% include "backoffice/partials/field.html" with field=form.notes %}</div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-light" href="{% url 'backoffice:customer_list' %}">Cancelar</a>
+    </div>
 </form>
-{% endblock %}
+{% endblock content %}

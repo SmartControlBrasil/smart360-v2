@@ -1,0 +1,66 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block page_title_breadcrumb %}{{ title }}{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Identificação</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.name %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.slug %}</div>
+                <div class="col-md-4">{% include "backoffice/partials/field.html" with field=form.sku %}</div>
+                <div class="col-md-4">{% include "backoffice/partials/field.html" with field=form.category %}</div>
+                <div class="col-md-4">{% include "backoffice/partials/field.html" with field=form.brand %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Comercial</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">{% include "backoffice/partials/field.html" with field=form.sale_mode %}</div>
+                <div class="col-md-3">{% include "backoffice/partials/field.html" with field=form.price %}</div>
+                <div class="col-md-3">{% include "backoffice/partials/field.html" with field=form.availability %}</div>
+                <div class="col-md-2">{% include "backoffice/partials/field.html" with field=form.show_price %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Vitrine</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-12">{% include "backoffice/partials/field.html" with field=form.short_description %}</div>
+                <div class="col-12">{% include "backoffice/partials/field.html" with field=form.description %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.featured %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.active %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">SEO</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.seo_title %}</div>
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.seo_description %}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn btn-light" href="{% url 'backoffice:product_list' %}">Cancelar</a>
+    </div>
+</form>
+{% endblock content %}

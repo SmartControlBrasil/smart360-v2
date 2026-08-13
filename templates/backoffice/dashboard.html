@@ -1,55 +1,102 @@
 {% extends "backoffice/base.html" %}
 
-{% block title %}Dashboard{% endblock %}
-{% block page_title %}Painel Administrativo{% endblock %}
+{% block title %}Dashboard{% endblock title %}
 
-{% block content %}
-<section class="bo-grid bo-grid-cards" aria-label="Indicadores do catálogo">
-    {% for card in cards %}
-        <article class="bo-card bo-metric">
-            <span>{{ card.label }}</span>
-            <strong>{{ card.value }}</strong>
-        </article>
-    {% endfor %}
-</section>
-
-<section class="bo-grid bo-grid-panels">
-    <article class="bo-card">
-        <header class="bo-card-header">
-            <h2>Últimos acessos</h2>
-        </header>
-        {% if recent_logins %}
-            <ol class="bo-activity-list">
-                {% for log in recent_logins %}
-                    <li>
-                        <strong>{{ log.get_action_display }}</strong>
-                        <span>{{ log.actor|default:"Usuário não identificado" }}</span>
-                        <time datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
-                    </li>
-                {% endfor %}
+{% block page_content %}
+<div class="container-fluid">
+    <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column gap-2">
+        <div class="flex-grow-1">
+            <h4 class="fs-18 fw-semibold m-0">Painel Administrativo</h4>
+            <ol class="breadcrumb m-0 py-1">
+                <li class="breadcrumb-item active">Smart Control Brasil</li>
             </ol>
-        {% else %}
-            <p class="bo-empty">Nenhum acesso registrado ainda.</p>
-        {% endif %}
-    </article>
+        </div>
+    </div>
 
-    <article class="bo-card">
-        <header class="bo-card-header">
-            <h2>Últimas atividades</h2>
-        </header>
-        {% if recent_activities %}
-            <ol class="bo-activity-list">
-                {% for log in recent_activities %}
-                    <li>
-                        <strong>{{ log.module }} · {{ log.get_action_display }}</strong>
-                        <span>{{ log.object_repr|default:log.actor|default:"Evento do sistema" }}</span>
-                        <time datetime="{{ log.timestamp|date:'c' }}">{{ log.timestamp|date:"d/m/Y H:i" }}</time>
-                    </li>
-                {% endfor %}
-            </ol>
-        {% else %}
-            <p class="bo-empty">Nenhuma atividade registrada ainda.</p>
-        {% endif %}
-    </article>
-</section>
-{% endblock %}
+    <div class="row">
+        {% for card in cards %}
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="widget-first">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="p-2 border border-{{ card.color }} border-opacity-10 bg-{{ card.color }}-subtle rounded-2 me-2">
+                                    <div class="bg-{{ card.color }} rounded-circle widget-size text-center">
+                                        <i data-feather="{{ card.icon }}" class="text-white"></i>
+                                    </div>
+                                </div>
+                                <p class="mb-0 text-dark fs-15">{{ card.label }}</p>
+                            </div>
+                            <h3 class="mb-0 fs-22 text-dark">{{ card.value }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">Nenhum indicador disponível para seu perfil.</div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Últimos acessos</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_logins %}
+                        <div class="table-responsive">
+                            <table class="table table-centered table-hover mb-0">
+                                <tbody>
+                                    {% for log in recent_logins %}
+                                        <tr>
+                                            <td>
+                                                <h6 class="mb-0">{{ log.get_action_display }}</h6>
+                                                <small class="text-muted">{{ log.actor|default:"Usuário não identificado" }}</small>
+                                            </td>
+                                            <td class="text-end text-muted">{{ log.timestamp|date:"d/m/Y H:i" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted mb-0">Nenhum acesso registrado ainda.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Últimas atividades</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_activities %}
+                        <div class="table-responsive">
+                            <table class="table table-centered table-hover mb-0">
+                                <tbody>
+                                    {% for log in recent_activities %}
+                                        <tr>
+                                            <td>
+                                                <h6 class="mb-0">{{ log.module }} · {{ log.get_action_display }}</h6>
+                                                <small class="text-muted">{{ log.object_repr|default:log.actor|default:"Evento do sistema" }}</small>
+                                            </td>
+                                            <td class="text-end text-muted">{{ log.timestamp|date:"d/m/Y H:i" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted mb-0">Nenhuma atividade registrada ainda.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}

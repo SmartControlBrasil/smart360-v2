@@ -1,0 +1,62 @@
+<div class="app-sidebar-menu">
+    <div class="h-100" data-simplebar>
+        <div id="sidebar-menu">
+            <div class="logo-box">
+                {% url 'backoffice:dashboard' as dashboard_url %}
+                {% include "backoffice/partials/brand_logo.html" with brand_href=dashboard_url %}
+            </div>
+
+            <ul id="side-menu">
+                <li class="menu-title">Menu</li>
+                <li class="{% if request.resolver_match.url_name == 'dashboard' %}menuitem-active{% endif %}">
+                    <a href="{% url 'backoffice:dashboard' %}" class="tp-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i data-feather="home"></i><span>Dashboard</span>
+                    </a>
+                </li>
+
+                {% if perms.customers.view_customer or perms.salespeople.view_salesperson %}
+                    <li class="menu-title">Comercial</li>
+                    {% if perms.customers.view_customer %}
+                        <li class="{% if 'customer_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:customer_list' %}" class="tp-link {% if 'customer_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="users"></i><span>Clientes</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if perms.salespeople.view_salesperson %}
+                        <li class="{% if 'salesperson_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:salesperson_list' %}" class="tp-link {% if 'salesperson_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="briefcase"></i><span>Vendedores</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
+                {% if perms.commerce.view_product or perms.commerce.view_category or perms.commerce.view_brand %}
+                    <li class="menu-title">Catálogo</li>
+                    {% if perms.commerce.view_product %}
+                        <li class="{% if 'product_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:product_list' %}" class="tp-link {% if 'product_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="box"></i><span>Produtos</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if perms.commerce.view_category %}
+                        <li class="{% if 'category_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:category_list' %}" class="tp-link {% if 'category_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="grid"></i><span>Categorias</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if perms.commerce.view_brand %}
+                        <li class="{% if 'brand_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:brand_list' %}" class="tp-link {% if 'brand_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="tag"></i><span>Marcas</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

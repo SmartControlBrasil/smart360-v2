@@ -1,7 +1,76 @@
 {% extends "backoffice/base.html" %}
-{% block title %}Vendedores{% endblock %}
-{% block page_title %}Vendedores{% endblock %}
+
+{% block title %}Vendedores{% endblock title %}
+{% block page_title %}Vendedores{% endblock page_title %}
+{% block page_title_breadcrumb %}Vendedores{% endblock page_title_breadcrumb %}
+
 {% block content %}
-<section class="bo-card bo-toolbar"><form method="get" class="bo-filters"><input class="bo-input" type="search" name="q" value="{{ query }}" placeholder="Buscar vendedor"><select class="bo-input" name="active"><option value="">Status</option><option value="1" {% if active == "1" %}selected{% endif %}>Ativo</option><option value="0" {% if active == "0" %}selected{% endif %}>Inativo</option></select><button class="bo-button" type="submit">Filtrar</button></form>{% if can_manage %}<a class="bo-button bo-button-primary" href="{% url 'backoffice:salesperson_create' %}">Novo vendedor</a>{% endif %}</section>
-<section class="bo-list">{% for salesperson in salespeople %}<article class="bo-card bo-row-card"><div><strong>{{ salesperson.name }}</strong><span>{{ salesperson.code }}</span></div><div>{{ salesperson.user|default:"Sem usuário" }}</div><div>{{ salesperson.email|default:"Sem e-mail" }}</div><div>{{ salesperson.phone|default:"Sem telefone" }}</div><div>{% if salesperson.active %}Ativo{% else %}Inativo{% endif %}</div><div>{{ salesperson.customer_count }} cliente(s)</div><div>{{ salesperson.updated_at|date:"d/m/Y H:i" }}</div><div class="bo-actions"><a href="{% url 'backoffice:salesperson_detail' salesperson.pk %}">Ver</a>{% if can_manage %}<a href="{% url 'backoffice:salesperson_update' salesperson.pk %}">Editar</a>{% endif %}</div></article>{% empty %}<article class="bo-card"><p class="bo-empty">Nenhum vendedor encontrado.</p></article>{% endfor %}</section>
-{% endblock %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Vendedores</h5>
+            <small class="text-muted">Equipe comercial vinculada a clientes</small>
+        </div>
+        {% if can_manage %}
+            <a class="btn btn-primary" href="{% url 'backoffice:salesperson_create' %}">
+                <i data-feather="plus" class="me-1"></i>Novo vendedor
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-8 col-md-6">
+                <label class="form-label" for="salesperson-search">Buscar</label>
+                <input id="salesperson-search" class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar vendedor">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="salesperson-active">Status</label>
+                <select id="salesperson-active" class="form-select" name="active">
+                    <option value="">Status</option>
+                    <option value="1" {% if active == "1" %}selected{% endif %}>Ativo</option>
+                    <option value="0" {% if active == "0" %}selected{% endif %}>Inativo</option>
+                </select>
+            </div>
+            <div class="col-lg-auto col-md-12 d-grid">
+                <button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Vendedor</th>
+                        <th>Usuário</th>
+                        <th>Contato</th>
+                        <th>Status</th>
+                        <th>Clientes</th>
+                        <th>Atualizado</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for salesperson in salespeople %}
+                        <tr>
+                            <td><h6 class="mb-0">{{ salesperson.name }}</h6><small class="text-muted">{{ salesperson.code }}</small></td>
+                            <td>{{ salesperson.user|default:"Sem usuário" }}</td>
+                            <td><div>{{ salesperson.email|default:"Sem e-mail" }}</div><small class="text-muted">{{ salesperson.phone|default:salesperson.whatsapp|default:"Sem telefone" }}</small></td>
+                            <td>{% if salesperson.active %}<span class="badge bg-success-subtle text-success">Ativo</span>{% else %}<span class="badge bg-secondary-subtle text-secondary">Inativo</span>{% endif %}</td>
+                            <td>{{ salesperson.customer_count }} cliente(s)</td>
+                            <td>{{ salesperson.updated_at|date:"d/m/Y H:i" }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-light" href="{% url 'backoffice:salesperson_detail' salesperson.pk %}">Ver</a>
+                                    {% if can_manage %}<a class="btn btn-sm btn-primary" href="{% url 'backoffice:salesperson_update' salesperson.pk %}">Editar</a>{% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="7" class="text-center text-muted py-4">Nenhum vendedor encontrado.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

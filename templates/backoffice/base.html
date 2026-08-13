@@ -1,67 +1,69 @@
-{% load static %}
-<!doctype html>
-<html lang="pt-BR">
+{% load static i18n %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:'pt-BR' }}" {% block html_class %}{% endblock html_class %}>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Painel Administrativo{% endblock %} | Smart Control Brasil</title>
-    <link rel="stylesheet" href="{% static 'backoffice/css/backoffice.css' %}">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Painel Administrativo{% endblock title %} | Smart Control Brasil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel Administrativo - Smart Control Brasil">
+    <meta name="author" content="Smart Control Brasil">
+    <link rel="shortcut icon" href="{% static 'institutional/imgs/logo/favicon.png' %}" type="image/png">
+
+    {% block css %}
+        {% block extra_css %}{% endblock extra_css %}
+        <link href="{% static 'backoffice/hando/css/app.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'backoffice/hando/css/icons.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'backoffice/hando/css/erp-forms.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'backoffice/hando/css/erp-brand.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'backoffice/hando/js/head.js' %}"></script>
+    {% endblock css %}
 </head>
-<body>
-    <div class="bo-shell">
-        <aside class="bo-sidebar" aria-label="Menu do painel">
-            <a class="bo-brand" href="{% url 'backoffice:dashboard' %}">
-                <span class="bo-brand-mark">SC</span>
-                <span>
-                    <strong>Smart Control Brasil</strong>
-                    <small>Painel Administrativo</small>
-                </span>
-            </a>
 
-            <nav class="bo-nav">
-                <a class="bo-nav-link active" href="{% url 'backoffice:dashboard' %}">Dashboard</a>
+<body {% block body_class %}{% endblock body_class %}>
+    <div id="app-layout">
+        {% include "backoffice/partials/menu.html" %}
 
-                {% if perms.customers.view_customer or perms.salespeople.view_salesperson %}
-                    <span class="bo-nav-heading">Comercial</span>
-                    {% if perms.customers.view_customer %}
-                        <a class="bo-nav-link" href="{% url 'backoffice:customer_list' %}">Clientes</a>
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+                    {% if messages %}
+                        <div class="pt-3">
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">{{ message }}</div>
+                            {% endfor %}
+                        </div>
                     {% endif %}
-                    {% if perms.salespeople.view_salesperson %}
-                        <a class="bo-nav-link" href="{% url 'backoffice:salesperson_list' %}">Vendedores</a>
-                    {% endif %}
-                {% endif %}
-
-                <span class="bo-nav-heading">Catálogo</span>
-                <span class="bo-nav-link disabled">Produtos</span>
-                <span class="bo-nav-link disabled">Categorias</span>
-                <span class="bo-nav-link disabled">Marcas</span>
-
-                <span class="bo-nav-heading">Administração</span>
-                <span class="bo-nav-link disabled">Usuários</span>
-                <span class="bo-nav-link disabled">Acessos</span>
-                <span class="bo-nav-link disabled">Auditoria</span>
-            </nav>
-        </aside>
-
-        <div class="bo-main">
-            <header class="bo-topbar">
-                <div>
-                    <p class="bo-eyebrow">Smart Control Brasil</p>
-                    <h1>{% block page_title %}Painel Administrativo{% endblock %}</h1>
                 </div>
-                <div class="bo-user">
-                    <span>{{ request.user.get_username }}</span>
-                    <form method="post" action="{% url 'institutional:logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">Sair</button>
-                    </form>
-                </div>
-            </header>
 
-            <main class="bo-content">
-                {% block content %}{% endblock %}
-            </main>
+                {% block page_content %}
+                    <div class="container-fluid">
+                        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column gap-2">
+                            <div class="flex-grow-1">
+                                <h4 class="fs-18 fw-semibold m-0">{% block page_title %}Painel Administrativo{% endblock page_title %}</h4>
+                                <ol class="breadcrumb m-0 py-1">
+                                    <li class="breadcrumb-item"><a href="{% url 'backoffice:dashboard' %}">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">{% block breadcrumb_title %}{% block page_title_breadcrumb %}Painel{% endblock page_title_breadcrumb %}{% endblock breadcrumb_title %}</li>
+                                </ol>
+                            </div>
+                        </div>
+                        {% block content %}{% endblock content %}
+                    </div>
+                {% endblock page_content %}
+            </div>
+
+            {% include "backoffice/partials/footer.html" %}
         </div>
     </div>
+
+    {% block modal %}{% endblock modal %}
+
+    {% block javascript %}
+        <script src="{% static 'backoffice/hando/js/vendors.js' %}"></script>
+        <script src="{% static 'backoffice/hando/js/app.js' %}"></script>
+        {% block extra_javascript %}{% endblock extra_javascript %}
+    {% endblock javascript %}
 </body>
 </html>

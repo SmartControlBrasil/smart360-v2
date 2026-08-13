@@ -1,0 +1,73 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Marcas{% endblock title %}
+{% block page_title %}Marcas{% endblock page_title %}
+{% block page_title_breadcrumb %}Marcas{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Marcas</h5>
+            <small class="text-muted">Fabricantes e linhas comerciais</small>
+        </div>
+        {% if can_create %}
+            <a class="btn btn-primary" href="{% url 'backoffice:brand_create' %}">
+                <i data-feather="plus" class="me-1"></i>Nova marca
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Status</th>
+                        <th>Produtos</th>
+                        <th>Atualizada</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for brand in brands %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    {% if brand.logo %}
+                                        <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="img-thumbnail rounded" width="48" height="48">
+                                    {% endif %}
+                                    <div>
+                                        <h6 class="mb-0">{{ brand.name }}</h6>
+                                        <small class="text-muted">{{ brand.slug }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if brand.active %}
+                                    <span class="badge bg-success-subtle text-success">Ativa</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary">Inativa</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ brand.product_count }} produto(s)</td>
+                            <td>{{ brand.updated_at|date:"d/m/Y H:i" }}</td>
+                            <td class="text-end">
+                                {% if can_manage %}
+                                    <a class="btn btn-sm btn-primary" href="{% url 'backoffice:brand_update' brand.pk %}">Editar</a>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Nenhuma marca encontrada.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

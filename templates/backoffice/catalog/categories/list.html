@@ -1,0 +1,66 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Categorias{% endblock title %}
+{% block page_title %}Categorias{% endblock page_title %}
+{% block page_title_breadcrumb %}Categorias{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Categorias</h5>
+            <small class="text-muted">Organização pública dos produtos</small>
+        </div>
+        {% if can_create %}
+            <a class="btn btn-primary" href="{% url 'backoffice:category_create' %}">
+                <i data-feather="plus" class="me-1"></i>Nova categoria
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Status</th>
+                        <th>Produtos</th>
+                        <th>Atualizada</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>
+                                <h6 class="mb-0">{{ category.name }}</h6>
+                                <small class="text-muted">{{ category.slug }}</small>
+                            </td>
+                            <td>
+                                {% if category.active %}
+                                    <span class="badge bg-success-subtle text-success">Ativa</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-subtle text-secondary">Inativa</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ category.product_count }} produto(s)</td>
+                            <td>{{ category.updated_at|date:"d/m/Y H:i" }}</td>
+                            <td class="text-end">
+                                {% if can_manage %}
+                                    <a class="btn btn-sm btn-primary" href="{% url 'backoffice:category_update' category.pk %}">Editar</a>
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Nenhuma categoria encontrada.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
