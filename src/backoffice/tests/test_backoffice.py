@@ -65,6 +65,14 @@ class BackofficeRoleSyncCommandTests(BackofficeBaseTestCase):
         self.assertFalse(Permission.objects.filter(codename="customers_view").exists())
         self.assertFalse(Permission.objects.filter(codename="commerce_products_create").exists())
 
+
+    def test_salesperson_role_receives_customer_write_permissions(self):
+        self.create_user(username="seller-write-role", role=BackofficeRole.SALESPERSON)
+        group = Group.objects.get(name=BackofficeRole.SALESPERSON.value)
+
+        self.assertTrue(group.permissions.filter(content_type__app_label="customers", codename="add_customer").exists())
+        self.assertTrue(group.permissions.filter(content_type__app_label="customers", codename="change_customer").exists())
+
     def test_command_preserves_external_group_permissions(self):
         call_command("sync_backoffice_roles", verbosity=0)
         group = Group.objects.get(name=BackofficeRole.VIEWER.value)
@@ -163,6 +171,7 @@ class BackofficeAuditTests(BackofficeBaseTestCase):
         self.assertEqual(log.actor.get_username(), "login-ok")
         self.assertEqual(log.ip_address, "127.0.0.1")
         self.assertEqual(log.user_agent, "Test Browser")
+        self.assertTrue(log.session_key)
         self.assertNotIn("password", log.metadata)
 
     def test_invalid_login_generates_audit_log_without_credentials(self):
@@ -241,3 +250,227 @@ class BackofficeHeaderLinkTests(BackofficeBaseTestCase):
         )
 
         self.assertRedirects(response, reverse("institutional:home"))
+
+from decimal import Decimal
+from io import BytesIO
+import shutil
+import tempfile
+
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import override_settings
+from PIL import Image
+
+from src.commerce.models import ProductImage
+
+CATALOG_TEST_MEDIA_ROOT = tempfile.mkdtemp()
+
+
+def catalog_image(name="image.jpg", image_format="JPEG", content_type="image/jpeg"):
+    buffer = BytesIO()
+    Image.new("RGB", (4, 4), color="white").save(buffer, format=image_format)
+    return SimpleUploadedFile(name, buffer.getvalue(), content_type=content_type)
+
+
+def catalog_product_payload(category, brand=None, **overrides):
+    data = {
+        "name": "Produto Painel",
+        "slug": "produto-painel",
+        "sku": "PAINEL-001",
+        "category": category.pk,
+        "brand": brand.pk if brand else "",
+        "sale_mode": Product.SaleMode.QUOTE,
+        "availability": Product.Availability.CHECK_AVAILABILITY,
+        "short_description": "Resumo comercial",
+        "description": "Descrição completa",
+        "active": "on",
+        "seo_title": "SEO Produto",
+        "seo_description": "Descrição SEO",
+    }
+    data.update(overrides)
+    return data
+
+
+@override_settings(MEDIA_ROOT=CATALOG_TEST_MEDIA_ROOT)
+class BackofficeCatalogTests(BackofficeBaseTestCase):
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(CATALOG_TEST_MEDIA_ROOT, ignore_errors=True)
+
+    def setUp(self):
+        self.category = Category.objects.create(name="Robótica", slug="robotica")
+        self.brand = Brand.objects.create(name="Smart Brand", slug="smart-brand")
+
+    def login_role(self, role):
+        user = self.create_user(username=f"user-{role.value.lower()}", role=role)
+        self.client.force_login(user)
+        return user
+
+    def product(self, **kwargs):
+        data = {
+            "name": "Produto Base",
+            "slug": "produto-base",
+            "sku": "BASE-001",
+            "category": self.category,
+            "brand": self.brand,
+            "sale_mode": Product.SaleMode.QUOTE,
+            "active": True,
+        }
+        data.update(kwargs)
+        return Product.objects.create(**data)
+
+    def test_catalog_manager_creates_product_and_shop_reflects_same_record(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+
+        response = self.client.post(
+            reverse("backoffice:product_create"),
+            catalog_product_payload(self.category, self.brand),
+        )
+
+        product = Product.objects.get(slug="produto-painel")
+        self.assertRedirects(response, reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+        self.assertTrue(AuditLog.objects.filter(action=AuditLog.Action.CREATE, module="commerce.products", object_id=str(product.pk)).exists())
+        shop_response = self.client.get(reverse("commerce:shop"))
+        self.assertContains(shop_response, "Produto Painel")
+
+    def test_product_update_audits_before_after_and_validates_price(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+        product = self.product()
+
+        response = self.client.post(
+            reverse("backoffice:product_update", kwargs={"pk": product.pk}),
+            catalog_product_payload(
+                self.category,
+                self.brand,
+                name="Produto Alterado",
+                slug=product.slug,
+                sku=product.sku,
+                sale_mode=Product.SaleMode.DIRECT_AND_QUOTE,
+                show_price="on",
+                price="1200.00",
+                availability=Product.Availability.IN_STOCK,
+                featured="on",
+            ),
+        )
+
+        self.assertRedirects(response, reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+        product.refresh_from_db()
+        self.assertEqual(product.name, "Produto Alterado")
+        self.assertEqual(product.price, Decimal("1200.00"))
+        self.assertTrue(product.featured)
+        log = AuditLog.objects.get(action=AuditLog.Action.UPDATE, module="commerce.products", object_id=str(product.pk))
+        self.assertEqual(log.before_data["name"], "Produto Base")
+        self.assertEqual(log.after_data["name"], "Produto Alterado")
+
+    def test_duplicate_sku_returns_form_error(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+        self.product(sku="DUP-001")
+
+        response = self.client.post(
+            reverse("backoffice:product_create"),
+            catalog_product_payload(self.category, self.brand, slug="produto-duplicado", sku="DUP-001"),
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Produto with this Sku already exists")
+
+    def test_activate_deactivate_post_only_and_audits(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+        product = self.product(active=True)
+
+        get_response = self.client.get(reverse("backoffice:product_deactivate", kwargs={"pk": product.pk}))
+        post_response = self.client.post(reverse("backoffice:product_deactivate", kwargs={"pk": product.pk}))
+
+        self.assertEqual(get_response.status_code, 405)
+        self.assertRedirects(post_response, reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+        product.refresh_from_db()
+        self.assertFalse(product.active)
+        self.assertTrue(AuditLog.objects.filter(action=AuditLog.Action.DEACTIVATE, object_id=str(product.pk)).exists())
+
+    def test_permissions_for_catalog_roles(self):
+        catalog = self.create_user(username="catalog-role", role=BackofficeRole.CATALOG_MANAGER)
+        seller = self.create_user(username="seller-role", role=BackofficeRole.SALESPERSON)
+        viewer = self.create_user(username="viewer-role", role=BackofficeRole.VIEWER)
+
+        self.assertTrue(catalog.has_perm("commerce.change_product"))
+        self.assertTrue(seller.has_perm("commerce.view_product"))
+        self.assertFalse(seller.has_perm("commerce.change_product"))
+        self.assertTrue(viewer.has_perm("commerce.view_product"))
+        self.assertFalse(viewer.has_perm("commerce.change_product"))
+
+    def test_salesperson_and_viewer_cannot_edit_product(self):
+        product = self.product()
+        seller = self.create_user(username="catalog-seller", role=BackofficeRole.SALESPERSON)
+        self.client.force_login(seller)
+
+        response = self.client.get(reverse("backoffice:product_update", kwargs={"pk": product.pk}))
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_product_history_is_shown(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+        product = self.product()
+        AuditLog.objects.create(action=AuditLog.Action.UPDATE, module="commerce.products", object_type="Product", object_id=str(product.pk))
+
+        response = self.client.get(reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+
+        self.assertContains(response, "Histórico de alterações")
+        self.assertContains(response, "Atualização")
+
+    def test_category_create_update_and_audit(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+
+        create_response = self.client.post(reverse("backoffice:category_create"), {"name": "Clima", "slug": "clima", "description": "Linha clima", "active": "on"})
+        category = Category.objects.get(slug="clima")
+        update_response = self.client.post(reverse("backoffice:category_update", kwargs={"pk": category.pk}), {"name": "Climatização", "slug": "clima", "description": "Linha clima", "active": "on"})
+
+        self.assertRedirects(create_response, reverse("backoffice:category_list"))
+        self.assertRedirects(update_response, reverse("backoffice:category_list"))
+        self.assertTrue(AuditLog.objects.filter(module="commerce.categories", object_id=str(category.pk)).exists())
+
+    def test_brand_create_update_logo_and_audit(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+
+        create_response = self.client.post(reverse("backoffice:brand_create"), {"name": "Marca Nova", "slug": "marca-nova", "description": "Marca", "active": "on"}, FILES={"logo": catalog_image("logo.webp", "WEBP", "image/webp")})
+        brand = Brand.objects.get(slug="marca-nova")
+        update_response = self.client.post(reverse("backoffice:brand_update", kwargs={"pk": brand.pk}), {"name": "Marca Atualizada", "slug": "marca-nova", "description": "Marca", "active": "on"})
+
+        self.assertRedirects(create_response, reverse("backoffice:brand_list"))
+        self.assertRedirects(update_response, reverse("backoffice:brand_list"))
+        self.assertTrue(AuditLog.objects.filter(module="commerce.brands", object_id=str(brand.pk)).exists())
+
+    def test_product_image_upload_invalid_and_delete(self):
+        self.login_role(BackofficeRole.CATALOG_MANAGER)
+        product = self.product()
+
+        upload_response = self.client.post(reverse("backoffice:product_image_create", kwargs={"pk": product.pk}), {
+            "alt_text": "Imagem principal",
+            "position": 0,
+            "is_primary": "on",
+            "image": catalog_image("produto.png", "PNG", "image/png"),
+        })
+        image = ProductImage.objects.get(product=product)
+        invalid_response = self.client.post(reverse("backoffice:product_image_create", kwargs={"pk": product.pk}), {
+            "alt_text": "Arquivo ruim",
+            "position": 1,
+            "image": SimpleUploadedFile("bad.txt", b"x", content_type="text/plain"),
+        })
+        delete_response = self.client.post(reverse("backoffice:product_image_delete", kwargs={"pk": image.pk}))
+
+        self.assertRedirects(upload_response, reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+        self.assertRedirects(invalid_response, reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+        self.assertRedirects(delete_response, reverse("backoffice:product_detail", kwargs={"pk": product.pk}))
+        self.assertFalse(ProductImage.objects.filter(pk=image.pk).exists())
+        self.assertTrue(AuditLog.objects.filter(module="commerce.product_images", action=AuditLog.Action.CREATE).exists())
+        self.assertTrue(AuditLog.objects.filter(module="commerce.product_images", action=AuditLog.Action.DELETE).exists())
+
+    def test_image_delete_requires_permission(self):
+        product = self.product()
+        image = ProductImage.objects.create(product=product, image=catalog_image("foto.jpg"))
+        viewer = self.create_user(username="image-viewer", role=BackofficeRole.VIEWER)
+        self.client.force_login(viewer)
+
+        response = self.client.post(reverse("backoffice:product_image_delete", kwargs={"pk": image.pk}))
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(ProductImage.objects.filter(pk=image.pk).exists())

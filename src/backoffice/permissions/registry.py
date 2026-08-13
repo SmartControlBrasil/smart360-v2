@@ -23,6 +23,16 @@ class BackofficePermission(StrEnum):
     COMMERCE_PRODUCTS_UPDATE = "commerce.products.update"
     COMMERCE_PRODUCTS_PUBLISH = "commerce.products.publish"
     COMMERCE_PRODUCTS_DELETE = "commerce.products.delete"
+    COMMERCE_CATEGORIES_VIEW = "commerce.categories.view"
+    COMMERCE_CATEGORIES_CREATE = "commerce.categories.create"
+    COMMERCE_CATEGORIES_UPDATE = "commerce.categories.update"
+    COMMERCE_BRANDS_VIEW = "commerce.brands.view"
+    COMMERCE_BRANDS_CREATE = "commerce.brands.create"
+    COMMERCE_BRANDS_UPDATE = "commerce.brands.update"
+    COMMERCE_IMAGES_VIEW = "commerce.images.view"
+    COMMERCE_IMAGES_CREATE = "commerce.images.create"
+    COMMERCE_IMAGES_UPDATE = "commerce.images.update"
+    COMMERCE_IMAGES_DELETE = "commerce.images.delete"
     AUDIT_VIEW = "audit.view"
     USERS_MANAGE = "users.manage"
     PERMISSIONS_MANAGE = "permissions.manage"
@@ -55,6 +65,19 @@ REAL_PERMISSION_MAP = {
         DjangoPermissionRef("salespeople", "add_salesperson"),
         DjangoPermissionRef("salespeople", "change_salesperson"),
     ),
+    BackofficePermission.COMMERCE_PRODUCTS_VIEW: DjangoPermissionRef("commerce", "view_product"),
+    BackofficePermission.COMMERCE_PRODUCTS_CREATE: DjangoPermissionRef("commerce", "add_product"),
+    BackofficePermission.COMMERCE_PRODUCTS_UPDATE: DjangoPermissionRef("commerce", "change_product"),
+    BackofficePermission.COMMERCE_CATEGORIES_VIEW: DjangoPermissionRef("commerce", "view_category"),
+    BackofficePermission.COMMERCE_CATEGORIES_CREATE: DjangoPermissionRef("commerce", "add_category"),
+    BackofficePermission.COMMERCE_CATEGORIES_UPDATE: DjangoPermissionRef("commerce", "change_category"),
+    BackofficePermission.COMMERCE_BRANDS_VIEW: DjangoPermissionRef("commerce", "view_brand"),
+    BackofficePermission.COMMERCE_BRANDS_CREATE: DjangoPermissionRef("commerce", "add_brand"),
+    BackofficePermission.COMMERCE_BRANDS_UPDATE: DjangoPermissionRef("commerce", "change_brand"),
+    BackofficePermission.COMMERCE_IMAGES_VIEW: DjangoPermissionRef("commerce", "view_productimage"),
+    BackofficePermission.COMMERCE_IMAGES_CREATE: DjangoPermissionRef("commerce", "add_productimage"),
+    BackofficePermission.COMMERCE_IMAGES_UPDATE: DjangoPermissionRef("commerce", "change_productimage"),
+    BackofficePermission.COMMERCE_IMAGES_DELETE: DjangoPermissionRef("commerce", "delete_productimage"),
     BackofficePermission.AUDIT_VIEW: DjangoPermissionRef("backoffice", "view_auditlog"),
 }
 
@@ -81,6 +104,9 @@ ROLE_DEFINITIONS = {
             BackofficePermission.SALESPEOPLE_VIEW,
             BackofficePermission.SALESPEOPLE_MANAGE,
             BackofficePermission.COMMERCE_PRODUCTS_VIEW,
+            BackofficePermission.COMMERCE_PRODUCTS_UPDATE,
+            BackofficePermission.COMMERCE_CATEGORIES_VIEW,
+            BackofficePermission.COMMERCE_BRANDS_VIEW,
             BackofficePermission.AUDIT_VIEW,
         ),
     ),
@@ -90,6 +116,11 @@ ROLE_DEFINITIONS = {
         permissions=(
             BackofficePermission.DASHBOARD_VIEW,
             BackofficePermission.CUSTOMERS_VIEW,
+            BackofficePermission.CUSTOMERS_CREATE,
+            BackofficePermission.CUSTOMERS_UPDATE,
+            BackofficePermission.COMMERCE_PRODUCTS_VIEW,
+            BackofficePermission.COMMERCE_CATEGORIES_VIEW,
+            BackofficePermission.COMMERCE_BRANDS_VIEW,
         ),
     ),
     BackofficeRole.CATALOG_MANAGER: RoleDefinition(
@@ -100,7 +131,16 @@ ROLE_DEFINITIONS = {
             BackofficePermission.COMMERCE_PRODUCTS_VIEW,
             BackofficePermission.COMMERCE_PRODUCTS_CREATE,
             BackofficePermission.COMMERCE_PRODUCTS_UPDATE,
-            BackofficePermission.COMMERCE_PRODUCTS_PUBLISH,
+            BackofficePermission.COMMERCE_CATEGORIES_VIEW,
+            BackofficePermission.COMMERCE_CATEGORIES_CREATE,
+            BackofficePermission.COMMERCE_CATEGORIES_UPDATE,
+            BackofficePermission.COMMERCE_BRANDS_VIEW,
+            BackofficePermission.COMMERCE_BRANDS_CREATE,
+            BackofficePermission.COMMERCE_BRANDS_UPDATE,
+            BackofficePermission.COMMERCE_IMAGES_VIEW,
+            BackofficePermission.COMMERCE_IMAGES_CREATE,
+            BackofficePermission.COMMERCE_IMAGES_UPDATE,
+            BackofficePermission.COMMERCE_IMAGES_DELETE,
         ),
     ),
     BackofficeRole.VIEWER: RoleDefinition(
@@ -111,6 +151,8 @@ ROLE_DEFINITIONS = {
             BackofficePermission.CUSTOMERS_VIEW,
             BackofficePermission.SALESPEOPLE_VIEW,
             BackofficePermission.COMMERCE_PRODUCTS_VIEW,
+            BackofficePermission.COMMERCE_CATEGORIES_VIEW,
+            BackofficePermission.COMMERCE_BRANDS_VIEW,
         ),
     ),
 }

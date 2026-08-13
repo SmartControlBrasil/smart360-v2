@@ -146,6 +146,48 @@ class CustomerBackofficeTests(CustomerTestCase):
         self.assertEqual(detail_response.status_code, 200)
         self.assertEqual(idor_response.status_code, 404)
 
+
+    def test_salesperson_can_create_and_edit_own_customer(self):
+        user = self.user("seller-create", role=BackofficeRole.SALESPERSON)
+        seller = self.salesperson(name="Seller", user=user, code="S300")
+        self.client.force_login(user)
+
+        create_response = self.client.post(reverse("backoffice:customer_create"), {
+            "customer_type": Customer.CustomerType.COMPANY,
+            "legal_name": "Cliente Novo",
+            "status": Customer.Status.PROSPECT,
+        })
+        customer = Customer.objects.get(legal_name="Cliente Novo")
+        edit_response = self.client.post(reverse("backoffice:customer_update", kwargs={"pk": customer.pk}), {
+            "customer_type": Customer.CustomerType.COMPANY,
+            "legal_name": "Cliente Próprio Editado",
+            "status": Customer.Status.ACTIVE,
+        })
+
+        self.assertRedirects(create_response, reverse("backoffice:customer_detail", kwargs={"pk": customer.pk}))
+        self.assertEqual(customer.assigned_salesperson, seller)
+        self.assertRedirects(edit_response, reverse("backoffice:customer_detail", kwargs={"pk": customer.pk}))
+        customer.refresh_from_db()
+        self.assertEqual(customer.legal_name, "Cliente Próprio Editado")
+        self.assertEqual(customer.assigned_salesperson, seller)
+
+    def test_salesperson_cannot_edit_other_salesperson_customer_by_post(self):
+        user = self.user("seller-post", role=BackofficeRole.SALESPERSON)
+        self.salesperson(name="Seller", user=user, code="S301")
+        other = self.salesperson(name="Other", code="S302")
+        alien = self.customer(name="Cliente Alheio POST", salesperson=other)
+        self.client.force_login(user)
+
+        response = self.client.post(reverse("backoffice:customer_update", kwargs={"pk": alien.pk}), {
+            "customer_type": Customer.CustomerType.COMPANY,
+            "legal_name": "Tentativa Indevida",
+            "status": Customer.Status.ACTIVE,
+        })
+
+        self.assertEqual(response.status_code, 404)
+        alien.refresh_from_db()
+        self.assertEqual(alien.legal_name, "Cliente Alheio POST")
+
     def test_catalog_manager_cannot_access_customers(self):
         user = self.user("catalog", role=BackofficeRole.CATALOG_MANAGER)
         self.client.force_login(user)
