@@ -15,6 +15,7 @@ class BackofficePermission(StrEnum):
     CUSTOMERS_VIEW = "customers.view"
     CUSTOMERS_CREATE = "customers.create"
     CUSTOMERS_UPDATE = "customers.update"
+    CUSTOMERS_TRANSFER_ASSIGNMENT = "customers.transfer_assignment"
     CUSTOMERS_DELETE = "customers.delete"
     SALESPEOPLE_VIEW = "salespeople.view"
     SALESPEOPLE_MANAGE = "salespeople.manage"
@@ -34,6 +35,18 @@ class BackofficePermission(StrEnum):
     COMMERCE_IMAGES_UPDATE = "commerce.images.update"
     COMMERCE_IMAGES_DELETE = "commerce.images.delete"
     AUDIT_VIEW = "audit.view"
+    BUSINESS_UNITS_VIEW = "business_units.view"
+    BUSINESS_UNITS_CREATE = "business_units.create"
+    BUSINESS_UNITS_UPDATE = "business_units.update"
+    DEPARTMENTS_VIEW = "departments.view"
+    DEPARTMENTS_CREATE = "departments.create"
+    DEPARTMENTS_UPDATE = "departments.update"
+    TEAMS_VIEW = "teams.view"
+    TEAMS_CREATE = "teams.create"
+    TEAMS_UPDATE = "teams.update"
+    BUSINESS_UNIT_MEMBERSHIPS_VIEW = "business_unit_memberships.view"
+    BUSINESS_UNIT_MEMBERSHIPS_CREATE = "business_unit_memberships.create"
+    BUSINESS_UNIT_MEMBERSHIPS_UPDATE = "business_unit_memberships.update"
     USERS_MANAGE = "users.manage"
     PERMISSIONS_MANAGE = "permissions.manage"
 
@@ -60,6 +73,7 @@ REAL_PERMISSION_MAP = {
     BackofficePermission.CUSTOMERS_VIEW: DjangoPermissionRef("customers", "view_customer"),
     BackofficePermission.CUSTOMERS_CREATE: DjangoPermissionRef("customers", "add_customer"),
     BackofficePermission.CUSTOMERS_UPDATE: DjangoPermissionRef("customers", "change_customer"),
+    BackofficePermission.CUSTOMERS_TRANSFER_ASSIGNMENT: DjangoPermissionRef("customers", "transfer_customerassignment"),
     BackofficePermission.SALESPEOPLE_VIEW: DjangoPermissionRef("salespeople", "view_salesperson"),
     BackofficePermission.SALESPEOPLE_MANAGE: (
         DjangoPermissionRef("salespeople", "add_salesperson"),
@@ -79,6 +93,18 @@ REAL_PERMISSION_MAP = {
     BackofficePermission.COMMERCE_IMAGES_UPDATE: DjangoPermissionRef("commerce", "change_productimage"),
     BackofficePermission.COMMERCE_IMAGES_DELETE: DjangoPermissionRef("commerce", "delete_productimage"),
     BackofficePermission.AUDIT_VIEW: DjangoPermissionRef("backoffice", "view_auditlog"),
+    BackofficePermission.BUSINESS_UNITS_VIEW: DjangoPermissionRef("backoffice", "view_businessunit"),
+    BackofficePermission.BUSINESS_UNITS_CREATE: DjangoPermissionRef("backoffice", "add_businessunit"),
+    BackofficePermission.BUSINESS_UNITS_UPDATE: DjangoPermissionRef("backoffice", "change_businessunit"),
+    BackofficePermission.DEPARTMENTS_VIEW: DjangoPermissionRef("backoffice", "view_department"),
+    BackofficePermission.DEPARTMENTS_CREATE: DjangoPermissionRef("backoffice", "add_department"),
+    BackofficePermission.DEPARTMENTS_UPDATE: DjangoPermissionRef("backoffice", "change_department"),
+    BackofficePermission.TEAMS_VIEW: DjangoPermissionRef("backoffice", "view_team"),
+    BackofficePermission.TEAMS_CREATE: DjangoPermissionRef("backoffice", "add_team"),
+    BackofficePermission.TEAMS_UPDATE: DjangoPermissionRef("backoffice", "change_team"),
+    BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_VIEW: DjangoPermissionRef("backoffice", "view_businessunitmembership"),
+    BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_CREATE: DjangoPermissionRef("backoffice", "add_businessunitmembership"),
+    BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_UPDATE: DjangoPermissionRef("backoffice", "change_businessunitmembership"),
 }
 
 
@@ -101,6 +127,7 @@ ROLE_DEFINITIONS = {
             BackofficePermission.CUSTOMERS_VIEW,
             BackofficePermission.CUSTOMERS_CREATE,
             BackofficePermission.CUSTOMERS_UPDATE,
+            BackofficePermission.CUSTOMERS_TRANSFER_ASSIGNMENT,
             BackofficePermission.SALESPEOPLE_VIEW,
             BackofficePermission.SALESPEOPLE_MANAGE,
             BackofficePermission.COMMERCE_PRODUCTS_VIEW,
@@ -108,6 +135,10 @@ ROLE_DEFINITIONS = {
             BackofficePermission.COMMERCE_CATEGORIES_VIEW,
             BackofficePermission.COMMERCE_BRANDS_VIEW,
             BackofficePermission.AUDIT_VIEW,
+            BackofficePermission.BUSINESS_UNITS_VIEW,
+            BackofficePermission.DEPARTMENTS_VIEW,
+            BackofficePermission.TEAMS_VIEW,
+            BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_VIEW,
         ),
     ),
     BackofficeRole.SALESPERSON: RoleDefinition(

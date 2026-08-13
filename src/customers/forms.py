@@ -54,3 +54,26 @@ class CustomerForm(forms.ModelForm):
             except Exception:
                 cleaned["assigned_salesperson"] = None
         return cleaned
+
+
+class CustomerAssignmentTransferForm(forms.Form):
+    new_salesperson = forms.ModelChoiceField(label="Novo responsável", queryset=Salesperson.objects.none())
+    reason = forms.CharField(label="Motivo", widget=forms.Textarea(attrs={"rows": 4}), min_length=3, max_length=2000)
+
+    def __init__(self, *args, valid_salespeople=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["new_salesperson"].queryset = valid_salespeople or Salesperson.objects.none()
+        for field in self.fields.values():
+            widget = field.widget
+            if isinstance(widget, forms.Select):
+                css = "form-select"
+            else:
+                css = "form-control"
+            existing = widget.attrs.get("class", "")
+            widget.attrs["class"] = f"{existing} {css}".strip()
+
+    def clean_reason(self):
+        reason = (self.cleaned_data.get("reason") or "").strip()
+        if not reason:
+            raise forms.ValidationError("Informe o motivo da transferência.")
+        return reason

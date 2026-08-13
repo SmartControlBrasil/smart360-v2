@@ -1,0 +1,78 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Unidades de Negócio{% endblock title %}
+{% block page_title %}Unidades de Negócio{% endblock page_title %}
+{% block page_title_breadcrumb %}Administração{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Unidades de Negócio</h5>
+            <small class="text-muted">Estrutura corporativa ativa no Hando</small>
+        </div>
+        {% if can_create %}
+            <a class="btn btn-primary" href="{% url 'backoffice:business_unit_create' %}">
+                <i data-feather="plus" class="me-1"></i>Nova unidade
+            </a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-8 col-md-6">
+                <label class="form-label" for="business-unit-search">Buscar</label>
+                <input id="business-unit-search" class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar unidade">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="business-unit-active">Status</label>
+                <select id="business-unit-active" class="form-select" name="active">
+                    <option value="">Status</option>
+                    <option value="1" {% if active == "1" %}selected{% endif %}>Ativa</option>
+                    <option value="0" {% if active == "0" %}selected{% endif %}>Inativa</option>
+                </select>
+            </div>
+            <div class="col-lg-auto col-md-12 d-grid">
+                <button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Unidade</th>
+                        <th>Código</th>
+                        <th>Status</th>
+                        <th>Acessos</th>
+                        <th>Relacionamentos</th>
+                        <th>Criada em</th>
+                        <th>Atualizada em</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for unit in business_units %}
+                        <tr>
+                            <td><h6 class="mb-0">{{ unit.name }}</h6><small class="text-muted">{{ unit.slug }}</small></td>
+                            <td>{{ unit.code }}</td>
+                            <td>{% if unit.is_active %}<span class="badge bg-success-subtle text-success">Ativa</span>{% else %}<span class="badge bg-secondary-subtle text-secondary">Inativa</span>{% endif %}</td>
+                            <td>{{ unit.membership_count }} acesso(s)</td>
+                            <td>{{ unit.customer_relationship_count }} relacionamento(s)</td>
+                            <td>{{ unit.created_at|date:"d/m/Y H:i" }}</td>
+                            <td>{{ unit.updated_at|date:"d/m/Y H:i" }}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-light" href="{% url 'backoffice:business_unit_detail' unit.pk %}">Ver</a>
+                                    {% if can_manage %}<a class="btn btn-sm btn-primary" href="{% url 'backoffice:business_unit_update' unit.pk %}">Editar</a>{% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="8" class="text-center text-muted py-4">Nenhuma unidade encontrada.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

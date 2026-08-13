@@ -56,6 +56,39 @@
                         </li>
                     {% endif %}
                 {% endif %}
+
+                {% if perms.backoffice.view_businessunit or perms.backoffice.view_department or perms.backoffice.view_team or perms.backoffice.view_businessunitmembership %}
+                    <li class="menu-title">Administração</li>
+                    {% if perms.backoffice.view_businessunit %}
+                        <li class="{% if 'business_unit_' in request.resolver_match.url_name and 'membership' not in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:business_unit_list' %}" class="tp-link {% if 'business_unit_' in request.resolver_match.url_name and 'membership' not in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="layers"></i><span>Unidades de Negócio</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if perms.backoffice.view_department %}
+                        <li class="{% if 'department_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:department_list' %}" class="tp-link {% if 'department_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="git-branch"></i><span>Departamentos</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if perms.backoffice.view_team %}
+                        <li class="{% if 'team_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:team_list' %}" class="tp-link {% if 'team_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="users"></i><span>Equipes</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if perms.backoffice.view_businessunitmembership %}
+                        <li class="{% if 'business_unit_membership_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
+                            <a href="{% url 'backoffice:business_unit_membership_list' %}" class="tp-link {% if 'business_unit_membership_' in request.resolver_match.url_name %}active{% endif %}">
+                                <i data-feather="shield"></i><span>Acessos por Unidade</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
             </ul>
         </div>
     </div>

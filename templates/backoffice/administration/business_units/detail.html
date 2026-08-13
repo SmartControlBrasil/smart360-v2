@@ -1,0 +1,58 @@
+{% extends "backoffice/base.html" %}
+{% load backoffice_hando %}
+
+{% block title %}{{ business_unit.name }}{% endblock title %}
+{% block page_title %}{{ business_unit.name }}{% endblock page_title %}
+{% block page_title_breadcrumb %}Unidade de Negócio{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <div>{% if business_unit.is_active %}<span class="badge bg-success-subtle text-success">Ativa</span>{% else %}<span class="badge bg-secondary-subtle text-secondary">Inativa</span>{% endif %}</div>
+    {% if can_manage %}<a class="btn btn-primary" href="{% url 'backoffice:business_unit_update' business_unit.pk %}">Editar</a>{% endif %}
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Dados da unidade</h5></div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Nome</dt><dd class="col-sm-8">{{ business_unit.name }}</dd>
+                    <dt class="col-sm-4 text-muted">Código</dt><dd class="col-sm-8">{{ business_unit.code }}</dd>
+                    <dt class="col-sm-4 text-muted">Slug</dt><dd class="col-sm-8">{{ business_unit.slug }}</dd>
+                    <dt class="col-sm-4 text-muted">Criada em</dt><dd class="col-sm-8">{{ business_unit.created_at|date:"d/m/Y H:i" }}</dd>
+                    <dt class="col-sm-4 text-muted">Atualizada em</dt><dd class="col-sm-8">{{ business_unit.updated_at|date:"d/m/Y H:i" }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Acessos vinculados</h5></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-centered mb-0">
+                        <thead><tr><th>Usuário</th><th>Acesso aos dados</th><th>Status</th></tr></thead>
+                        <tbody>
+                            {% for membership in memberships %}
+                                <tr>
+                                    <td>{{ membership.user.get_full_name|default:membership.user.username }}</td>
+                                    <td>{{ membership.scope|access_scope_label }}</td>
+                                    <td>{% if membership.is_active %}<span class="badge bg-success-subtle text-success">Ativo</span>{% else %}<span class="badge bg-secondary-subtle text-secondary">Inativo</span>{% endif %}</td>
+                                </tr>
+                            {% empty %}
+                                <tr><td colspan="3" class="text-center text-muted py-4">Nenhum acesso vinculado.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h5 class="card-title mb-0">Histórico de alterações</h5></div>
+    <div class="card-body">{% include "backoffice/partials/history.html" with history=history %}</div>
+</div>
+{% endblock content %}

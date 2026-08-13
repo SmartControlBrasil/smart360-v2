@@ -37,3 +37,16 @@ def backoffice_form_fields(form):
         "items": items,
         "hidden_fields": form.hidden_fields(),
     }
+
+
+@register.filter
+def access_scope_label(value):
+    labels = {
+        "ALL": "Todos da unidade",
+        "OWN": "Somente próprios",
+        "NONE": "Sem acesso",
+        "TEAM": "Equipe",
+        "DEPARTMENT": "Departamento",
+    }
+    raw_value = getattr(value, "value", value)
+    return labels.get(raw_value, raw_value)

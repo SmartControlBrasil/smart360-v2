@@ -1,0 +1,23 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Equipes{% endblock title %}
+{% block page_title %}Equipes{% endblock page_title %}
+{% block page_title_breadcrumb %}Administração{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2"><div><h5 class="card-title mb-0">Equipes</h5><small class="text-muted">Times dentro dos departamentos</small></div>{% if can_create %}<a class="btn btn-primary" href="{% url 'backoffice:team_create' %}"><i data-feather="plus" class="me-1"></i>Nova equipe</a>{% endif %}</div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-3 col-md-6"><label class="form-label" for="team-search">Buscar</label><input id="team-search" class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar equipe"></div>
+            <div class="col-lg-3 col-md-6"><label class="form-label" for="team-business-unit">Unidade</label><select id="team-business-unit" class="form-select" name="business_unit"><option value="">Todas</option>{% for unit in business_units %}<option value="{{ unit.pk }}" {% if business_unit_id == unit.pk|stringformat:'s' %}selected{% endif %}>{{ unit.name }}</option>{% endfor %}</select></div>
+            <div class="col-lg-3 col-md-6"><label class="form-label" for="team-department">Departamento</label><select id="team-department" class="form-select" name="department"><option value="">Todos</option>{% for department in departments %}<option value="{{ department.pk }}" {% if department_id == department.pk|stringformat:'s' %}selected{% endif %}>{{ department.name }}</option>{% endfor %}</select></div>
+            <div class="col-lg-2 col-md-6"><label class="form-label" for="team-active">Status</label><select id="team-active" class="form-select" name="active"><option value="">Status</option><option value="1" {% if active == "1" %}selected{% endif %}>Ativo</option><option value="0" {% if active == "0" %}selected{% endif %}>Inativo</option></select></div>
+            <div class="col-lg-auto col-md-12 d-grid"><button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button></div>
+        </form>
+        <div class="table-responsive"><table class="table table-hover table-centered mb-0"><thead><tr><th>Equipe</th><th>Departamento</th><th>Unidade</th><th>Status</th><th>Atualizado</th><th class="text-end">Ações</th></tr></thead><tbody>
+            {% for team in teams %}<tr><td><h6 class="mb-0">{{ team.name }}</h6><small class="text-muted">{{ team.code }} · {{ team.slug }}</small></td><td>{{ team.department.name }}</td><td>{{ team.department.business_unit.name }}</td><td>{% if team.is_active %}<span class="badge bg-success-subtle text-success">Ativo</span>{% else %}<span class="badge bg-secondary-subtle text-secondary">Inativo</span>{% endif %}</td><td>{{ team.updated_at|date:"d/m/Y H:i" }}</td><td class="text-end">{% if can_manage %}<a class="btn btn-sm btn-primary" href="{% url 'backoffice:team_update' team.pk %}">Editar</a>{% else %}<span class="text-muted">-</span>{% endif %}</td></tr>{% empty %}<tr><td colspan="6" class="text-center text-muted py-4">Nenhuma equipe encontrada.</td></tr>{% endfor %}
+        </tbody></table></div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.db.models import Count
@@ -7,13 +9,31 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
+from src.backoffice.forms import BusinessUnitForm
+from src.backoffice.forms import BusinessUnitMembershipForm
+from src.backoffice.forms import DepartmentForm
+from src.backoffice.forms import TeamForm
 from src.backoffice.models import AuditLog
+from src.backoffice.models import BusinessUnit
+from src.backoffice.models import BusinessUnitMembership
+from src.backoffice.models import Department
+from src.backoffice.models import Team
 from src.backoffice.permissions.registry import BackofficePermission
 from src.backoffice.permissions.services import user_has_backoffice_permission
 from src.backoffice.services.scopes import apply_customer_scope
+from src.backoffice.services.scopes import has_active_business_unit_memberships
 from src.backoffice.services.scopes import user_can_manage_customers
 from src.backoffice.services.scopes import user_can_manage_salespeople
 from src.backoffice.services.scopes import user_is_salesperson_role
+from src.backoffice.services.governance import create_business_unit
+from src.backoffice.services.governance import create_department
+from src.backoffice.services.governance import create_membership
+from src.backoffice.services.governance import create_team
+from src.backoffice.services.governance import update_business_unit
+from src.backoffice.services.governance import update_department
+from src.backoffice.services.governance import update_membership
+from src.backoffice.services.governance import update_team
+from src.backoffice.services.governance import visible_customer_relationships_for_user
 from src.commerce.forms import BrandBackofficeForm
 from src.commerce.forms import CategoryBackofficeForm
 from src.commerce.forms import ProductBackofficeForm
@@ -32,9 +52,15 @@ from src.commerce.services import set_product_featured
 from src.commerce.services import update_brand
 from src.commerce.services import update_category
 from src.commerce.services import update_product
+from src.customers.forms import CustomerAssignmentTransferForm
 from src.customers.forms import CustomerForm
 from src.customers.models import Customer
+from src.customers.models import CustomerAssignmentTransfer
+from src.customers.models import CustomerBusinessRelationship
 from src.customers.services import create_customer
+from src.customers.services import transfer_customer_relationship
+from src.customers.services import user_can_transfer_customer_relationship
+from src.customers.services import valid_salespeople_for_relationship
 from src.customers.services import update_customer
 from src.salespeople.forms import SalespersonForm
 from src.salespeople.models import Salesperson
@@ -106,7 +132,12 @@ def customer_list(request):
         customers = customers.filter(customer_type=customer_type)
     salesperson_id = request.GET.get("salesperson", "")
     if salesperson_id:
-        customers = customers.filter(assigned_salesperson_id=salesperson_id)
+        customers = customers.filter(business_relationships__assigned_salesperson_id=salesperson_id).distinct()
+    business_unit_id = request.GET.get("business_unit", "")
+    if business_unit_id:
+        customers = customers.filter(business_relationships__business_unit_id=business_unit_id).distinct()
+    active_business_units = BusinessUnit.objects.filter(is_active=True).order_by("name")
+    show_business_unit_filter = active_business_units.count() > 1 or bool(business_unit_id)
     return render(
         request,
         "backoffice/customers/list.html",
@@ -117,6 +148,9 @@ def customer_list(request):
             "customer_type": customer_type,
             "salesperson_id": salesperson_id,
             "salespeople": Salesperson.objects.order_by("name"),
+            "business_units": active_business_units,
+            "business_unit_id": business_unit_id,
+            "show_business_unit_filter": show_business_unit_filter,
             "customer_statuses": Customer.Status.choices,
             "customer_types": Customer.CustomerType.choices,
             "can_manage": user_can_manage_customers(request.user),
@@ -131,15 +165,71 @@ def customer_detail(request, pk):
         pk=pk,
     )
     history = AuditLog.objects.filter(module="customers", object_type="Customer", object_id=str(customer.pk))[:20]
+    relationships = visible_customer_relationships_for_user(customer=customer, user=request.user)
+    transfer_history = CustomerAssignmentTransfer.objects.select_related(
+        "relationship",
+        "relationship__business_unit",
+        "previous_salesperson",
+        "new_salesperson",
+        "transferred_by",
+    ).filter(relationship__customer=customer, relationship__in=relationships)[:20]
     return render(
         request,
         "backoffice/customers/detail.html",
-        {"customer": customer, "history": history, "can_manage": user_can_manage_customers(request.user)},
+        {
+            "customer": customer,
+            "history": history,
+            "relationships": relationships,
+            "transfer_history": transfer_history,
+            "can_transfer_assignment": user_has_backoffice_permission(request.user, BackofficePermission.CUSTOMERS_TRANSFER_ASSIGNMENT),
+            "can_manage": user_can_manage_customers(request.user),
+        },
+    )
+
+
+@backoffice_permission_required(BackofficePermission.CUSTOMERS_TRANSFER_ASSIGNMENT)
+def customer_relationship_transfer(request, pk, relationship_pk):
+    customer = get_object_or_404(apply_customer_scope(Customer.objects.all(), request.user), pk=pk)
+    relationship = get_object_or_404(
+        visible_customer_relationships_for_user(customer=customer, user=request.user),
+        pk=relationship_pk,
+    )
+    if not user_can_transfer_customer_relationship(user=request.user, relationship=relationship):
+        return render(request, "backoffice/403.html", status=403)
+    valid_salespeople = valid_salespeople_for_relationship(relationship).exclude(pk=relationship.assigned_salesperson_id)
+    form = CustomerAssignmentTransferForm(request.POST or None, valid_salespeople=valid_salespeople)
+    if request.method == "POST" and form.is_valid():
+        try:
+            transfer_customer_relationship(
+                relationship=relationship,
+                new_salesperson=form.cleaned_data["new_salesperson"],
+                actor=request.user,
+                reason=form.cleaned_data["reason"],
+                request=request,
+            )
+        except PermissionDenied:
+            return render(request, "backoffice/403.html", status=403)
+        except ValidationError as exc:
+            form.add_error(None, exc)
+        else:
+            messages.success(request, "Responsável transferido com sucesso.")
+            return redirect("backoffice:customer_detail", pk=customer.pk)
+    return render(
+        request,
+        "backoffice/customers/transfer.html",
+        {
+            "form": form,
+            "customer": customer,
+            "relationship": relationship,
+            "title": "Transferir responsável",
+        },
     )
 
 
 @backoffice_permission_required(BackofficePermission.CUSTOMERS_CREATE)
 def customer_create(request):
+    if user_is_salesperson_role(request.user) and not has_active_business_unit_memberships(request.user):
+        return render(request, "backoffice/403.html", status=403)
     form = CustomerForm(
         request.POST or None,
         user=request.user,
@@ -403,3 +493,268 @@ def brand_update(request, pk):
         messages.success(request, "Marca atualizada.")
         return redirect("backoffice:brand_list")
     return render(request, "backoffice/catalog/brands/form.html", {"form": form, "brand": brand, "title": "Editar marca"})
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNITS_VIEW)
+def business_unit_list(request):
+    business_units = BusinessUnit.objects.annotate(
+        membership_count=Count("memberships", distinct=True),
+        customer_relationship_count=Count("customer_relationships", distinct=True),
+    ).order_by("name")
+    active = request.GET.get("active", "")
+    if active == "1":
+        business_units = business_units.filter(is_active=True)
+    elif active == "0":
+        business_units = business_units.filter(is_active=False)
+    query = request.GET.get("q", "").strip()
+    if query:
+        business_units = business_units.filter(Q(name__icontains=query) | Q(code__icontains=query) | Q(slug__icontains=query))
+    return render(
+        request,
+        "backoffice/administration/business_units/list.html",
+        {
+            "business_units": business_units,
+            "query": query,
+            "active": active,
+            "can_create": user_has_backoffice_permission(request.user, BackofficePermission.BUSINESS_UNITS_CREATE),
+            "can_manage": user_has_backoffice_permission(request.user, BackofficePermission.BUSINESS_UNITS_UPDATE),
+        },
+    )
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNITS_VIEW)
+def business_unit_detail(request, pk):
+    business_unit = get_object_or_404(
+        BusinessUnit.objects.annotate(
+            membership_count=Count("memberships", distinct=True),
+            customer_relationship_count=Count("customer_relationships", distinct=True),
+        ),
+        pk=pk,
+    )
+    memberships = business_unit.memberships.select_related("user").order_by("user__username")
+    history = AuditLog.objects.filter(module="backoffice.business_units", object_type="BusinessUnit", object_id=str(business_unit.pk))[:20]
+    return render(
+        request,
+        "backoffice/administration/business_units/detail.html",
+        {
+            "business_unit": business_unit,
+            "memberships": memberships,
+            "history": history,
+            "can_manage": user_has_backoffice_permission(request.user, BackofficePermission.BUSINESS_UNITS_UPDATE),
+        },
+    )
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNITS_CREATE)
+def business_unit_create(request):
+    form = BusinessUnitForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        business_unit = create_business_unit(form=form, request=request)
+        messages.success(request, "Unidade de negócio cadastrada com sucesso.")
+        return redirect("backoffice:business_unit_detail", pk=business_unit.pk)
+    return render(request, "backoffice/administration/business_units/form.html", {"form": form, "title": "Nova unidade de negócio"})
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNITS_UPDATE)
+def business_unit_update(request, pk):
+    business_unit = get_object_or_404(BusinessUnit, pk=pk)
+    form = BusinessUnitForm(request.POST or None, instance=business_unit)
+    if request.method == "POST" and form.is_valid():
+        business_unit = update_business_unit(business_unit=business_unit, form=form, request=request)
+        messages.success(request, "Unidade de negócio atualizada com sucesso.")
+        return redirect("backoffice:business_unit_detail", pk=business_unit.pk)
+    return render(
+        request,
+        "backoffice/administration/business_units/form.html",
+        {"form": form, "business_unit": business_unit, "title": "Editar unidade de negócio"},
+    )
+
+
+@backoffice_permission_required(BackofficePermission.DEPARTMENTS_VIEW)
+def department_list(request):
+    departments = Department.objects.select_related("business_unit").annotate(team_count=Count("teams", distinct=True)).order_by("business_unit__name", "name")
+    business_unit_id = request.GET.get("business_unit", "")
+    if business_unit_id:
+        departments = departments.filter(business_unit_id=business_unit_id)
+    active = request.GET.get("active", "")
+    if active == "1":
+        departments = departments.filter(is_active=True)
+    elif active == "0":
+        departments = departments.filter(is_active=False)
+    query = request.GET.get("q", "").strip()
+    if query:
+        departments = departments.filter(Q(name__icontains=query) | Q(code__icontains=query) | Q(slug__icontains=query) | Q(business_unit__name__icontains=query))
+    return render(
+        request,
+        "backoffice/administration/departments/list.html",
+        {
+            "departments": departments,
+            "business_units": BusinessUnit.objects.order_by("name"),
+            "business_unit_id": business_unit_id,
+            "query": query,
+            "active": active,
+            "can_create": user_has_backoffice_permission(request.user, BackofficePermission.DEPARTMENTS_CREATE),
+            "can_manage": user_has_backoffice_permission(request.user, BackofficePermission.DEPARTMENTS_UPDATE),
+        },
+    )
+
+
+@backoffice_permission_required(BackofficePermission.DEPARTMENTS_CREATE)
+def department_create(request):
+    form = DepartmentForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        department = create_department(form=form, request=request)
+        messages.success(request, "Departamento cadastrado com sucesso.")
+        return redirect("backoffice:department_list")
+    return render(request, "backoffice/administration/departments/form.html", {"form": form, "title": "Novo departamento"})
+
+
+@backoffice_permission_required(BackofficePermission.DEPARTMENTS_UPDATE)
+def department_update(request, pk):
+    department = get_object_or_404(Department.objects.select_related("business_unit"), pk=pk)
+    form = DepartmentForm(request.POST or None, instance=department)
+    if request.method == "POST" and form.is_valid():
+        update_department(department=department, form=form, request=request)
+        messages.success(request, "Departamento atualizado com sucesso.")
+        return redirect("backoffice:department_list")
+    return render(
+        request,
+        "backoffice/administration/departments/form.html",
+        {"form": form, "department": department, "title": "Editar departamento"},
+    )
+
+
+@backoffice_permission_required(BackofficePermission.TEAMS_VIEW)
+def team_list(request):
+    teams = Team.objects.select_related("department", "department__business_unit").order_by("department__business_unit__name", "department__name", "name")
+    business_unit_id = request.GET.get("business_unit", "")
+    if business_unit_id:
+        teams = teams.filter(department__business_unit_id=business_unit_id)
+    department_id = request.GET.get("department", "")
+    if department_id:
+        teams = teams.filter(department_id=department_id)
+    active = request.GET.get("active", "")
+    if active == "1":
+        teams = teams.filter(is_active=True)
+    elif active == "0":
+        teams = teams.filter(is_active=False)
+    query = request.GET.get("q", "").strip()
+    if query:
+        teams = teams.filter(Q(name__icontains=query) | Q(code__icontains=query) | Q(slug__icontains=query) | Q(department__name__icontains=query))
+    departments = Department.objects.select_related("business_unit").order_by("business_unit__name", "name")
+    if business_unit_id:
+        departments = departments.filter(business_unit_id=business_unit_id)
+    return render(
+        request,
+        "backoffice/administration/teams/list.html",
+        {
+            "teams": teams,
+            "business_units": BusinessUnit.objects.order_by("name"),
+            "departments": departments,
+            "business_unit_id": business_unit_id,
+            "department_id": department_id,
+            "query": query,
+            "active": active,
+            "can_create": user_has_backoffice_permission(request.user, BackofficePermission.TEAMS_CREATE),
+            "can_manage": user_has_backoffice_permission(request.user, BackofficePermission.TEAMS_UPDATE),
+        },
+    )
+
+
+@backoffice_permission_required(BackofficePermission.TEAMS_CREATE)
+def team_create(request):
+    business_unit_id = request.POST.get("business_unit") or request.GET.get("business_unit")
+    business_unit = BusinessUnit.objects.filter(pk=business_unit_id).first() if business_unit_id else None
+    form = TeamForm(request.POST or None, business_unit=business_unit)
+    if request.method == "POST" and form.is_valid():
+        team = create_team(form=form, request=request)
+        messages.success(request, "Equipe cadastrada com sucesso.")
+        return redirect("backoffice:team_list")
+    return render(
+        request,
+        "backoffice/administration/teams/form.html",
+        {"form": form, "title": "Nova equipe", "business_units": BusinessUnit.objects.order_by("name"), "business_unit_id": business_unit_id or ""},
+    )
+
+
+@backoffice_permission_required(BackofficePermission.TEAMS_UPDATE)
+def team_update(request, pk):
+    team = get_object_or_404(Team.objects.select_related("department", "department__business_unit"), pk=pk)
+    business_unit_id = request.POST.get("business_unit") or request.GET.get("business_unit") or team.department.business_unit_id
+    business_unit = BusinessUnit.objects.filter(pk=business_unit_id).first() if business_unit_id else None
+    form = TeamForm(request.POST or None, instance=team, business_unit=business_unit)
+    if request.method == "POST" and form.is_valid():
+        update_team(team=team, form=form, request=request)
+        messages.success(request, "Equipe atualizada com sucesso.")
+        return redirect("backoffice:team_list")
+    return render(
+        request,
+        "backoffice/administration/teams/form.html",
+        {"form": form, "team": team, "title": "Editar equipe", "business_units": BusinessUnit.objects.order_by("name"), "business_unit_id": str(business_unit_id or "")},
+    )
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_VIEW)
+def business_unit_membership_list(request):
+    memberships = BusinessUnitMembership.objects.select_related("user", "business_unit").order_by("business_unit__name", "user__username")
+    business_unit_id = request.GET.get("business_unit", "")
+    if business_unit_id:
+        memberships = memberships.filter(business_unit_id=business_unit_id)
+    user_query = request.GET.get("user", "").strip()
+    if user_query:
+        memberships = memberships.filter(
+            Q(user__username__icontains=user_query)
+            | Q(user__first_name__icontains=user_query)
+            | Q(user__last_name__icontains=user_query)
+            | Q(user__email__icontains=user_query)
+        )
+    scope = request.GET.get("scope", "")
+    if scope:
+        memberships = memberships.filter(scope=scope)
+    active = request.GET.get("active", "")
+    if active == "1":
+        memberships = memberships.filter(is_active=True)
+    elif active == "0":
+        memberships = memberships.filter(is_active=False)
+    return render(
+        request,
+        "backoffice/administration/memberships/list.html",
+        {
+            "memberships": memberships,
+            "business_units": BusinessUnit.objects.order_by("name"),
+            "business_unit_id": business_unit_id,
+            "user_query": user_query,
+            "scope": scope,
+            "active": active,
+            "departments": Department.objects.select_related("business_unit").order_by("business_unit__name", "name"),
+            "teams": Team.objects.select_related("department", "department__business_unit").order_by("department__business_unit__name", "department__name", "name"),
+            "scope_choices": BusinessUnitMembershipForm.SUPPORTED_SCOPE_CHOICES,
+            "can_create": user_has_backoffice_permission(request.user, BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_CREATE),
+            "can_manage": user_has_backoffice_permission(request.user, BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_UPDATE),
+        },
+    )
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_CREATE)
+def business_unit_membership_create(request):
+    form = BusinessUnitMembershipForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        membership = create_membership(form=form, request=request)
+        messages.success(request, "Acesso por unidade cadastrado com sucesso.")
+        return redirect("backoffice:business_unit_membership_list")
+    return render(request, "backoffice/administration/memberships/form.html", {"form": form, "title": "Novo acesso por unidade"})
+
+
+@backoffice_permission_required(BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_UPDATE)
+def business_unit_membership_update(request, pk):
+    membership = get_object_or_404(BusinessUnitMembership.objects.select_related("user", "business_unit"), pk=pk)
+    form = BusinessUnitMembershipForm(request.POST or None, instance=membership)
+    if request.method == "POST" and form.is_valid():
+        update_membership(membership=membership, form=form, request=request)
+        messages.success(request, "Acesso por unidade atualizado com sucesso.")
+        return redirect("backoffice:business_unit_membership_list")
+    return render(
+        request,
+        "backoffice/administration/memberships/form.html",
+        {"form": form, "membership": membership, "title": "Editar acesso por unidade"},
+    )

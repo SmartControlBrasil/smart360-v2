@@ -1,0 +1,25 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Departamentos{% endblock title %}
+{% block page_title %}Departamentos{% endblock page_title %}
+{% block page_title_breadcrumb %}Administração{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div><h5 class="card-title mb-0">Departamentos</h5><small class="text-muted">Estrutura organizacional por unidade</small></div>
+        {% if can_create %}<a class="btn btn-primary" href="{% url 'backoffice:department_create' %}"><i data-feather="plus" class="me-1"></i>Novo departamento</a>{% endif %}
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-4 col-md-6"><label class="form-label" for="department-search">Buscar</label><input id="department-search" class="form-control" type="search" name="q" value="{{ query }}" placeholder="Buscar departamento"></div>
+            <div class="col-lg-3 col-md-6"><label class="form-label" for="department-business-unit">Unidade</label><select id="department-business-unit" class="form-select" name="business_unit"><option value="">Todas</option>{% for unit in business_units %}<option value="{{ unit.pk }}" {% if business_unit_id == unit.pk|stringformat:'s' %}selected{% endif %}>{{ unit.name }}</option>{% endfor %}</select></div>
+            <div class="col-lg-2 col-md-6"><label class="form-label" for="department-active">Status</label><select id="department-active" class="form-select" name="active"><option value="">Status</option><option value="1" {% if active == "1" %}selected{% endif %}>Ativo</option><option value="0" {% if active == "0" %}selected{% endif %}>Inativo</option></select></div>
+            <div class="col-lg-auto col-md-12 d-grid"><button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button></div>
+        </form>
+        <div class="table-responsive"><table class="table table-hover table-centered mb-0"><thead><tr><th>Departamento</th><th>Unidade</th><th>Status</th><th>Equipes</th><th>Atualizado</th><th class="text-end">Ações</th></tr></thead><tbody>
+            {% for department in departments %}<tr><td><h6 class="mb-0">{{ department.name }}</h6><small class="text-muted">{{ department.code }} · {{ department.slug }}</small></td><td>{{ department.business_unit.name }}</td><td>{% if department.is_active %}<span class="badge bg-success-subtle text-success">Ativo</span>{% else %}<span class="badge bg-secondary-subtle text-secondary">Inativo</span>{% endif %}</td><td>{{ department.team_count }} equipe(s)</td><td>{{ department.updated_at|date:"d/m/Y H:i" }}</td><td class="text-end">{% if can_manage %}<a class="btn btn-sm btn-primary" href="{% url 'backoffice:department_update' department.pk %}">Editar</a>{% else %}<span class="text-muted">-</span>{% endif %}</td></tr>{% empty %}<tr><td colspan="6" class="text-center text-muted py-4">Nenhum departamento encontrado.</td></tr>{% endfor %}
+        </tbody></table></div>
+    </div>
+</div>
+{% endblock content %}

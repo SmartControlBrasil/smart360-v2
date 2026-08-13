@@ -1,0 +1,19 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block page_title_breadcrumb %}Equipes{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<form method="post" novalidate>{% csrf_token %}{% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    <div class="card"><div class="card-header"><h5 class="card-title mb-0">Equipe</h5></div><div class="card-body"><div class="row g-3">
+        <div class="col-md-6"><label class="form-label" for="team-business-unit-form">Unidade de negócio</label><select id="team-business-unit-form" class="form-select" name="business_unit"><option value="">Todas</option>{% for unit in business_units %}<option value="{{ unit.pk }}" {% if business_unit_id == unit.pk|stringformat:'s' %}selected{% endif %}>{{ unit.name }}</option>{% endfor %}</select><div class="form-text">Use para filtrar os departamentos disponíveis ao reenviar o formulário.</div></div>
+        <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.department %}</div>
+        <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.name %}</div>
+        <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.code %}</div>
+        <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.slug %}</div>
+        <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.is_active %}</div>
+    </div></div></div>
+    <div class="d-flex flex-wrap gap-2 mb-3"><button class="btn btn-primary" type="submit">Salvar</button><a class="btn btn-light" href="{% url 'backoffice:team_list' %}">Cancelar</a></div>
+</form>
+{% endblock content %}

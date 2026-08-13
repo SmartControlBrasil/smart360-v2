@@ -6,6 +6,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 from src.backoffice.models import AuditLog
+from src.backoffice.models import AccessScope
+from src.backoffice.models import BusinessUnit
+from src.backoffice.models import BusinessUnitMembership
+from src.backoffice.models import Department
+from src.backoffice.models import Team
 from src.backoffice.permissions.registry import BackofficePermission
 from src.backoffice.permissions.registry import BackofficeRole
 from src.backoffice.permissions.registry import REAL_PERMISSION_MAP
@@ -474,3 +479,295 @@ class BackofficeCatalogTests(BackofficeBaseTestCase):
 
         self.assertEqual(response.status_code, 403)
         self.assertTrue(ProductImage.objects.filter(pk=image.pk).exists())
+
+
+class BackofficeGovernanceTests(BackofficeBaseTestCase):
+    def system_admin_login(self):
+        user = self.create_user(username="governance-admin", role=BackofficeRole.SYSTEM_ADMIN)
+        self.client.force_login(user)
+        return user
+
+    def business_unit_payload(self, **overrides):
+        data = {
+            "name": "Unidade Teste",
+            "code": "UNIT_TEST",
+            "slug": "unit-test",
+            "is_active": "on",
+        }
+        data.update(overrides)
+        if data.get("is_active") == "":
+            data.pop("is_active")
+        return data
+
+
+    def department_payload(self, business_unit, **overrides):
+        data = {
+            "business_unit": business_unit.pk,
+            "name": "Comercial",
+            "code": "COMERCIAL",
+            "slug": "comercial",
+            "is_active": "on",
+        }
+        data.update(overrides)
+        if data.get("is_active") == "":
+            data.pop("is_active")
+        return data
+
+    def team_payload(self, department, **overrides):
+        data = {
+            "business_unit": department.business_unit_id,
+            "department": department.pk,
+            "name": "Equipe Robótica",
+            "code": "ROBOTICA",
+            "slug": "robotica",
+            "is_active": "on",
+        }
+        data.update(overrides)
+        if data.get("is_active") == "":
+            data.pop("is_active")
+        return data
+
+    def test_admin_lists_creates_edits_and_deactivates_business_unit(self):
+        self.system_admin_login()
+
+        list_response = self.client.get(reverse("backoffice:business_unit_list"))
+        create_response = self.client.post(reverse("backoffice:business_unit_create"), self.business_unit_payload())
+        unit = BusinessUnit.objects.get(code="UNIT_TEST")
+        update_response = self.client.post(
+            reverse("backoffice:business_unit_update", kwargs={"pk": unit.pk}),
+            self.business_unit_payload(name="Unidade Teste Editada", code="UNIT_TEST", slug="unit-test", is_active=""),
+        )
+
+        self.assertEqual(list_response.status_code, 200)
+        self.assertRedirects(create_response, reverse("backoffice:business_unit_detail", kwargs={"pk": unit.pk}))
+        self.assertRedirects(update_response, reverse("backoffice:business_unit_detail", kwargs={"pk": unit.pk}))
+        unit.refresh_from_db()
+        self.assertEqual(unit.name, "Unidade Teste Editada")
+        self.assertFalse(unit.is_active)
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.business_units", action=AuditLog.Action.CREATE, object_id=str(unit.pk)).exists())
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.business_units", action=AuditLog.Action.DEACTIVATE, object_id=str(unit.pk)).exists())
+
+    def test_business_unit_duplicate_code_and_slug_are_rejected(self):
+        self.system_admin_login()
+        BusinessUnit.objects.create(name="Existente", code="EXISTENTE", slug="existente")
+
+        code_response = self.client.post(reverse("backoffice:business_unit_create"), self.business_unit_payload(code="EXISTENTE", slug="nova"))
+        slug_response = self.client.post(reverse("backoffice:business_unit_create"), self.business_unit_payload(code="NOVA", slug="existente"))
+
+        self.assertEqual(code_response.status_code, 200)
+        self.assertContains(code_response, "Já existe uma unidade com este código.")
+        self.assertEqual(slug_response.status_code, 200)
+        self.assertContains(slug_response, "Já existe uma unidade com este slug.")
+
+    def test_business_unit_management_requires_real_permissions_on_get_and_post(self):
+        unit = BusinessUnit.objects.create(name="Bloqueada", code="BLOCKED", slug="blocked")
+        seller = self.create_user(username="governance-seller", role=BackofficeRole.SALESPERSON)
+        self.client.force_login(seller)
+
+        list_response = self.client.get(reverse("backoffice:business_unit_list"))
+        post_response = self.client.post(reverse("backoffice:business_unit_update", kwargs={"pk": unit.pk}), self.business_unit_payload(name="Alterada", code="BLOCKED", slug="blocked"))
+
+        self.assertEqual(list_response.status_code, 403)
+        self.assertEqual(post_response.status_code, 403)
+        unit.refresh_from_db()
+        self.assertEqual(unit.name, "Bloqueada")
+
+    def test_commercial_manager_can_view_but_not_change_business_unit(self):
+        unit = BusinessUnit.objects.create(name="Somente leitura", code="READ", slug="read")
+        manager = self.create_user(username="governance-manager", role=BackofficeRole.COMMERCIAL_MANAGER)
+        self.client.force_login(manager)
+
+        list_response = self.client.get(reverse("backoffice:business_unit_list"))
+        post_response = self.client.post(reverse("backoffice:business_unit_update", kwargs={"pk": unit.pk}), self.business_unit_payload(name="Mudou", code="READ", slug="read"))
+
+        self.assertEqual(list_response.status_code, 200)
+        self.assertEqual(post_response.status_code, 403)
+        unit.refresh_from_db()
+        self.assertEqual(unit.name, "Somente leitura")
+
+
+
+    def test_admin_lists_creates_edits_and_deactivates_department(self):
+        self.system_admin_login()
+        unit = BusinessUnit.objects.create(name="Unidade Dept", code="DEPT_UNIT", slug="dept-unit")
+
+        list_response = self.client.get(reverse("backoffice:department_list"))
+        create_response = self.client.post(reverse("backoffice:department_create"), self.department_payload(unit))
+        department = Department.objects.get(code="COMERCIAL", business_unit=unit)
+        update_response = self.client.post(
+            reverse("backoffice:department_update", kwargs={"pk": department.pk}),
+            self.department_payload(unit, name="Comercial Editado", code="COMERCIAL", slug="comercial", is_active=""),
+        )
+
+        self.assertEqual(list_response.status_code, 200)
+        self.assertRedirects(create_response, reverse("backoffice:department_list"))
+        self.assertRedirects(update_response, reverse("backoffice:department_list"))
+        department.refresh_from_db()
+        self.assertEqual(department.name, "Comercial Editado")
+        self.assertFalse(department.is_active)
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.departments", action=AuditLog.Action.CREATE, object_id=str(department.pk)).exists())
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.departments", action=AuditLog.Action.DEACTIVATE, object_id=str(department.pk)).exists())
+
+    def test_admin_lists_creates_edits_and_deactivates_team(self):
+        self.system_admin_login()
+        unit = BusinessUnit.objects.create(name="Unidade Team", code="TEAM_UNIT", slug="team-unit")
+        department = Department.objects.create(business_unit=unit, name="Comercial", code="COM", slug="com")
+
+        list_response = self.client.get(reverse("backoffice:team_list"))
+        create_response = self.client.post(reverse("backoffice:team_create"), self.team_payload(department))
+        team = Team.objects.get(code="ROBOTICA", department=department)
+        update_response = self.client.post(
+            reverse("backoffice:team_update", kwargs={"pk": team.pk}),
+            self.team_payload(department, name="Equipe Robótica Editada", code="ROBOTICA", slug="robotica", is_active=""),
+        )
+
+        self.assertEqual(list_response.status_code, 200)
+        self.assertRedirects(create_response, reverse("backoffice:team_list"))
+        self.assertRedirects(update_response, reverse("backoffice:team_list"))
+        team.refresh_from_db()
+        self.assertEqual(team.name, "Equipe Robótica Editada")
+        self.assertFalse(team.is_active)
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.teams", action=AuditLog.Action.CREATE, object_id=str(team.pk)).exists())
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.teams", action=AuditLog.Action.DEACTIVATE, object_id=str(team.pk)).exists())
+
+    def test_admin_lists_creates_updates_and_deactivates_membership(self):
+        self.system_admin_login()
+        user = self.create_user(username="member-user")
+        unit = BusinessUnit.objects.create(name="Governança", code="GOV", slug="gov")
+
+        list_response = self.client.get(reverse("backoffice:business_unit_membership_list"))
+        create_response = self.client.post(reverse("backoffice:business_unit_membership_create"), {
+            "user": user.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.OWN,
+            "is_active": "on",
+        })
+        membership = BusinessUnitMembership.objects.get(user=user, business_unit=unit)
+        update_all_response = self.client.post(reverse("backoffice:business_unit_membership_update", kwargs={"pk": membership.pk}), {
+            "user": user.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.ALL,
+            "is_active": "on",
+        })
+        update_own_response = self.client.post(reverse("backoffice:business_unit_membership_update", kwargs={"pk": membership.pk}), {
+            "user": user.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.OWN,
+            "is_active": "on",
+        })
+        deactivate_response = self.client.post(reverse("backoffice:business_unit_membership_update", kwargs={"pk": membership.pk}), {
+            "user": user.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.OWN,
+        })
+
+        self.assertEqual(list_response.status_code, 200)
+        self.assertRedirects(create_response, reverse("backoffice:business_unit_membership_list"))
+        self.assertRedirects(update_all_response, reverse("backoffice:business_unit_membership_list"))
+        self.assertRedirects(update_own_response, reverse("backoffice:business_unit_membership_list"))
+        self.assertRedirects(deactivate_response, reverse("backoffice:business_unit_membership_list"))
+        membership.refresh_from_db()
+        self.assertEqual(membership.scope, AccessScope.OWN)
+        self.assertFalse(membership.is_active)
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.business_unit_memberships", action=AuditLog.Action.CREATE, object_id=str(membership.pk)).exists())
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.business_unit_memberships", action=AuditLog.Action.PERMISSION_CHANGED, object_id=str(membership.pk)).exists())
+        self.assertTrue(AuditLog.objects.filter(module="backoffice.business_unit_memberships", action=AuditLog.Action.DEACTIVATE, object_id=str(membership.pk)).exists())
+
+    def test_membership_duplicate_and_incoherent_scope_links_are_rejected(self):
+        self.system_admin_login()
+        user = self.create_user(username="duplicate-member")
+        unit = BusinessUnit.objects.create(name="Duplicada", code="DUP", slug="dup")
+        other_unit = BusinessUnit.objects.create(name="Outra", code="OTHER", slug="other")
+        department = Department.objects.create(business_unit=unit, name="Comercial", code="COM", slug="com")
+        other_department = Department.objects.create(business_unit=other_unit, name="Outro", code="OUT", slug="out")
+        team = Team.objects.create(department=department, name="Equipe", code="EQ", slug="eq")
+        other_team = Team.objects.create(department=other_department, name="Outra equipe", code="OEQ", slug="oeq")
+        BusinessUnitMembership.objects.create(user=user, business_unit=unit, scope=AccessScope.OWN)
+
+        duplicate_response = self.client.post(reverse("backoffice:business_unit_membership_create"), {
+            "user": user.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.ALL,
+            "is_active": "on",
+        })
+        missing_department_response = self.client.post(reverse("backoffice:business_unit_membership_create"), {
+            "user": self.create_user(username="department-member").pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.DEPARTMENT,
+            "is_active": "on",
+        })
+        cross_department_response = self.client.post(reverse("backoffice:business_unit_membership_create"), {
+            "user": self.create_user(username="cross-department-member").pk,
+            "business_unit": unit.pk,
+            "department": other_department.pk,
+            "scope": AccessScope.DEPARTMENT,
+            "is_active": "on",
+        })
+        cross_team_response = self.client.post(reverse("backoffice:business_unit_membership_create"), {
+            "user": self.create_user(username="cross-team-member").pk,
+            "business_unit": unit.pk,
+            "department": department.pk,
+            "team": other_team.pk,
+            "scope": AccessScope.TEAM,
+            "is_active": "on",
+        })
+        valid_team_response = self.client.post(reverse("backoffice:business_unit_membership_create"), {
+            "user": self.create_user(username="valid-team-member").pk,
+            "business_unit": unit.pk,
+            "department": department.pk,
+            "team": team.pk,
+            "scope": AccessScope.TEAM,
+            "is_active": "on",
+        })
+
+        self.assertEqual(duplicate_response.status_code, 200)
+        self.assertContains(duplicate_response, "Este usuário já possui acesso configurado para esta unidade.")
+        self.assertContains(missing_department_response, "Membership com escopo Departamento exige departamento.")
+        self.assertContains(cross_department_response, "Select a valid choice")
+        self.assertContains(cross_team_response, "Select a valid choice")
+        self.assertRedirects(valid_team_response, reverse("backoffice:business_unit_membership_list"))
+
+    def test_salesperson_and_viewer_do_not_administer_memberships(self):
+        unit = BusinessUnit.objects.create(name="Protegida", code="SAFE", slug="safe")
+        target = self.create_user(username="target-member")
+        membership = BusinessUnitMembership.objects.create(user=target, business_unit=unit, scope=AccessScope.OWN)
+        seller = self.create_user(username="membership-seller", role=BackofficeRole.SALESPERSON)
+        self.client.force_login(seller)
+
+        seller_get = self.client.get(reverse("backoffice:business_unit_membership_list"))
+        seller_post = self.client.post(reverse("backoffice:business_unit_membership_update", kwargs={"pk": membership.pk}), {
+            "user": target.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.ALL,
+            "is_active": "on",
+        })
+        viewer = self.create_user(username="membership-viewer", role=BackofficeRole.VIEWER)
+        self.client.force_login(viewer)
+        viewer_post = self.client.post(reverse("backoffice:business_unit_membership_update", kwargs={"pk": membership.pk}), {
+            "user": target.pk,
+            "business_unit": unit.pk,
+            "scope": AccessScope.ALL,
+            "is_active": "on",
+        })
+
+        self.assertEqual(seller_get.status_code, 403)
+        self.assertEqual(seller_post.status_code, 403)
+        self.assertEqual(viewer_post.status_code, 403)
+        membership.refresh_from_db()
+        self.assertEqual(membership.scope, AccessScope.OWN)
+
+    def test_membership_filtering_by_unit_user_scope_and_status(self):
+        self.system_admin_login()
+        unit = BusinessUnit.objects.create(name="Filtro", code="FILTER", slug="filter")
+        user = self.create_user(username="filter-member", email="filter@example.com")
+        BusinessUnitMembership.objects.create(user=user, business_unit=unit, scope=AccessScope.NONE, is_active=False)
+
+        response = self.client.get(reverse("backoffice:business_unit_membership_list"), {
+            "business_unit": unit.pk,
+            "user": "filter",
+            "scope": AccessScope.NONE,
+            "active": "0",
+        })
+
+        self.assertContains(response, "filter@example.com")
+        self.assertContains(response, "Sem acesso")

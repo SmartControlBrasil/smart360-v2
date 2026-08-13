@@ -1,0 +1,30 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block page_title %}{{ title }}{% endblock page_title %}
+{% block page_title_breadcrumb %}Cliente{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Transferência de responsável</h5></div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 text-muted">Cliente</dt><dd class="col-sm-9">{{ customer.display_name }}</dd>
+                <dt class="col-sm-3 text-muted">Unidade</dt><dd class="col-sm-9">{{ relationship.business_unit.name }}</dd>
+                <dt class="col-sm-3 text-muted">Responsável atual</dt><dd class="col-sm-9">{{ relationship.assigned_salesperson|default:"Sem responsável" }}</dd>
+            </dl>
+            <div class="row g-3">
+                <div class="col-md-6">{% include "backoffice/partials/field.html" with field=form.new_salesperson %}</div>
+                <div class="col-12">{% include "backoffice/partials/field.html" with field=form.reason %}</div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-primary" type="submit">Transferir responsável</button>
+        <a class="btn btn-light" href="{% url 'backoffice:customer_detail' customer.pk %}">Cancelar</a>
+    </div>
+</form>
+{% endblock content %}
