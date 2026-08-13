@@ -22,6 +22,12 @@ class SalespersonForm(forms.ModelForm):
             pk__in=linked_users.values_list("user_id", flat=True),
         ).order_by("username")
         for field in self.fields.values():
-            css = "bo-input"
-            existing = field.widget.attrs.get("class", "")
-            field.widget.attrs["class"] = f"{existing} {css}".strip()
+            widget = field.widget
+            if isinstance(widget, forms.CheckboxInput):
+                css = "form-check-input"
+            elif isinstance(widget, forms.Select):
+                css = "form-select"
+            else:
+                css = "form-control"
+            existing = widget.attrs.get("class", "")
+            widget.attrs["class"] = f"{existing} {css}".strip()

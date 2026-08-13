@@ -32,9 +32,15 @@ class CustomerForm(forms.ModelForm):
             self.fields["assigned_salesperson"].initial = salesperson
             self.fields["assigned_salesperson"].disabled = True
         for field in self.fields.values():
-            css = "bo-input"
-            existing = field.widget.attrs.get("class", "")
-            field.widget.attrs["class"] = f"{existing} {css}".strip()
+            widget = field.widget
+            if isinstance(widget, forms.CheckboxInput):
+                css = "form-check-input"
+            elif isinstance(widget, forms.Select):
+                css = "form-select"
+            else:
+                css = "form-control"
+            existing = widget.attrs.get("class", "")
+            widget.attrs["class"] = f"{existing} {css}".strip()
 
     def clean_document(self):
         value = only_digits(self.cleaned_data.get("document") or "")
