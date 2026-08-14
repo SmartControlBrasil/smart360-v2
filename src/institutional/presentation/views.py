@@ -22,6 +22,35 @@ logger = logging.getLogger(__name__)
 
 
 
+BLOG_SOLUTION_LINKS = {
+    "convergencia-robotica-ia-firmwares-dedicados": {
+        "url_name": "institutional:xyron",
+        "label": "robótica inteligente Xyron",
+        "summary": "Veja como a Smart Control Brasil aplica robótica inteligente em soluções Xyron.",
+    },
+    "inovacao-que-aparece-e-gera-valor": {
+        "url_name": "institutional:xyron",
+        "label": "soluções robóticas Xyron",
+        "summary": "Conheça aplicações comerciais de robótica para atendimento, segurança e interação.",
+    },
+    "reducao-paradas-inesperadas-planejamento-tecnico": {
+        "url_name": "institutional:manutencao_industrial_campo",
+        "label": "manutenção industrial em campo",
+        "summary": "Conecte o planejamento técnico a um atendimento de manutenção industrial.",
+    },
+    "selecao-controladores-ativos-alta-severidade": {
+        "url_name": "institutional:mitsubishi_automacao_industrial",
+        "label": "automação industrial Mitsubishi",
+        "summary": "Veja soluções Mitsubishi Electric para CLPs, IHMs, inversores e integração industrial.",
+    },
+    "equipamentos-sistemas-para-evoluir": {
+        "url_name": "institutional:sistemas_websites_python",
+        "label": "sistemas Python e Django",
+        "summary": "Conheça sistemas empresariais e integrações digitais sob medida.",
+    },
+}
+
+
 
 def _safe_next_url(request):
     next_url = request.POST.get("next") or request.GET.get("next")
@@ -126,6 +155,18 @@ def xyron(request):
     return render(request, "institutional/demos/xyron.html")
 
 
+def robotica_educacional(request):
+    return render(request, "institutional/landing/robotica-educacional.html")
+
+
+def robo_seguranca_condominios(request):
+    return render(request, "institutional/landing/robo-seguranca-condominios.html")
+
+
+def camara_climatica(request):
+    return render(request, "institutional/landing/camara-climatica.html")
+
+
 def ai_web_solutions_startups(request):
     return render(request, "institutional/demos/ai-web-solutions-startups.html")
 
@@ -173,12 +214,15 @@ def blog_detail(request, slug):
         if related_slug != slug
     ][:3]
 
+    solution_link = BLOG_SOLUTION_LINKS.get(slug)
+
     return render(
         request,
         "institutional/pages/blog_detail.html",
         {
             "post": {"slug": slug, **post},
             "related_posts": related_posts,
+            "solution_link": solution_link,
         },
     )
 

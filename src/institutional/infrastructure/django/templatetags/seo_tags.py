@@ -121,6 +121,27 @@ ROUTE_METADATA = {
             "integração, engenharia e suporte técnico especializado."
         ),
     },
+    "robotica_educacional": {
+        "title": "Robótica Educacional para Escolas | Smart Control Brasil",
+        "description": (
+            "Robôs educacionais e soluções interativas para escolas, projetos pedagógicos e "
+            "experiências de tecnologia com alunos."
+        ),
+    },
+    "robo_seguranca_condominios": {
+        "title": "Robô de Segurança para Condomínios | Smart Control Brasil",
+        "description": (
+            "Soluções com robô Orbit para patrulhamento, vigilância assistida e apoio à "
+            "segurança em condomínios e operações corporativas."
+        ),
+    },
+    "camara_climatica": {
+        "title": "Câmara Climática Sob Medida | Smart Control Brasil",
+        "description": (
+            "Projeto, instalação, retrofit e manutenção de câmaras climáticas sob medida para "
+            "testes ambientais, temperatura e umidade."
+        ),
+    },
 }
 
 NOINDEX_ROUTE_NAMES = {
@@ -277,6 +298,9 @@ def _breadcrumb_items(context):
 
     solution_names = {
         "xyron": "Xyron Robotics",
+        "robotica_educacional": "Robótica Educacional",
+        "robo_seguranca_condominios": "Robô de Segurança para Condomínios",
+        "camara_climatica": "Câmara Climática Sob Medida",
         "mitsubishi_automacao_industrial": "Mitsubishi Automação Industrial",
         "manutencao_industrial_campo": "Manutenção Industrial",
         "engenharia_serralheria_industrial": "Engenharia e Serralheria Industrial",

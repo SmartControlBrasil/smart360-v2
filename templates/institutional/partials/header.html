@@ -25,7 +25,7 @@
                                         <li class="{% if current == 'about' %}active{% endif %}">
                                             <a href="{% url 'institutional:about' %}">Sobre</a>
                                         </li>
-                                        <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'livia' or current == 'camaras_climaticas' or current == 'manutencao_industrial_campo' or current == 'ai_video_interaction_platform' or current == 'xyron' or current == 'ai_web_solutions_startups' or current == 'engenharia_serralheria_industrial' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
+                                        <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'livia' or current == 'camaras_climaticas' or current == 'manutencao_industrial_campo' or current == 'ai_video_interaction_platform' or current == 'xyron' or current == 'ai_web_solutions_startups' or current == 'engenharia_serralheria_industrial' or current == 'mitsubishi_automacao_industrial' or current == 'robotica_educacional' or current == 'robo_seguranca_condominios' or current == 'camara_climatica' %}active{% endif %}">
                                             <a href="#" onclick="return false;"
                                             aria-haspopup="true">Soluções</a>
                                             <ul class="submenu">
@@ -34,6 +34,9 @@
                                                 <li class="{% if current == 'mitsubishi_automacao_industrial' %}active{% endif %}"><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Mitsubishi Automação</a></li>
                                                 <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}"><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites</a></li>
                                                 <li class="{% if current == 'xyron' %}active{% endif %}"><a href="{% url 'institutional:xyron' %}">Xyron Robótica</a></li>
+                                                <li class="{% if current == 'robotica_educacional' %}active{% endif %}"><a href="{% url 'institutional:robotica_educacional' %}">Robótica Educacional</a></li>
+                                                <li class="{% if current == 'robo_seguranca_condominios' %}active{% endif %}"><a href="{% url 'institutional:robo_seguranca_condominios' %}">Robô de Segurança</a></li>
+                                                <li class="{% if current == 'camara_climatica' %}active{% endif %}"><a href="{% url 'institutional:camara_climatica' %}">Câmara Climática</a></li>
                                             </ul>
                                         </li>
                                         <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">Blog</a></li>

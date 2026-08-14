@@ -26,6 +26,9 @@ class InstitutionalRoutesTests(TestCase):
         "manutencao_industrial_campo",
         "ai_video_interaction_platform",
         "xyron",
+        "robotica_educacional",
+        "robo_seguranca_condominios",
+        "camara_climatica",
         "ai_web_solutions_startups",
         "engenharia_serralheria_industrial",
         "mitsubishi_automacao_industrial",
@@ -85,6 +88,9 @@ class InstitutionalRoutesTests(TestCase):
             "Mitsubishi Automação",
             "Sistemas e Websites",
             "Xyron Robótica",
+            "Robótica Educacional",
+            "Robô de Segurança",
+            "Câmara Climática",
             "Blog",
             "Contato",
         )
@@ -521,6 +527,9 @@ class TechnicalSeoTests(TestCase):
     def test_commercial_solution_routes_are_indexable(self):
         expected_canonicals = {
             "/xyron/": "https://www.smartcontrolbrasil.com.br/xyron/",
+            "/robotica-educacional/": "https://www.smartcontrolbrasil.com.br/robotica-educacional/",
+            "/robo-seguranca-condominios/": "https://www.smartcontrolbrasil.com.br/robo-seguranca-condominios/",
+            "/camara-climatica/": "https://www.smartcontrolbrasil.com.br/camara-climatica/",
             "/mitsubishi-automacao-industrial/": "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
             "/manutencao-industrial-campo/": "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
             "/sistemas-websites-python/": "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/",
@@ -559,6 +568,24 @@ class TechnicalSeoTests(TestCase):
                 "atendimento, interação e aplicações profissionais com a Smart Control Brasil.",
             ),
             (
+                "/robotica-educacional/",
+                "Robótica Educacional para Escolas | Smart Control Brasil",
+                "Robôs educacionais e soluções interativas para escolas, projetos pedagógicos e "
+                "experiências de tecnologia com alunos.",
+            ),
+            (
+                "/robo-seguranca-condominios/",
+                "Robô de Segurança para Condomínios | Smart Control Brasil",
+                "Soluções com robô Orbit para patrulhamento, vigilância assistida e apoio à "
+                "segurança em condomínios e operações corporativas.",
+            ),
+            (
+                "/camara-climatica/",
+                "Câmara Climática Sob Medida | Smart Control Brasil",
+                "Projeto, instalação, retrofit e manutenção de câmaras climáticas sob medida para "
+                "testes ambientais, temperatura e umidade.",
+            ),
+            (
                 "/mitsubishi-automacao-industrial/",
                 "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
                 "Soluções de automação industrial Mitsubishi Electric com CLPs, IHMs, inversores, "
@@ -593,6 +620,21 @@ class TechnicalSeoTests(TestCase):
                 "https://www.smartcontrolbrasil.com.br/xyron/",
             ),
             (
+                "/robotica-educacional/",
+                "Robótica Educacional para Escolas | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/robotica-educacional/",
+            ),
+            (
+                "/robo-seguranca-condominios/",
+                "Robô de Segurança para Condomínios | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/robo-seguranca-condominios/",
+            ),
+            (
+                "/camara-climatica/",
+                "Câmara Climática Sob Medida | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/camara-climatica/",
+            ),
+            (
                 "/mitsubishi-automacao-industrial/",
                 "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
                 "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
@@ -608,6 +650,69 @@ class TechnicalSeoTests(TestCase):
                 self.assertMetaProperty(response, "og:url", expected_url)
                 self.assertMetaProperty(response, "og:type", "website")
                 self.assertMetaName(response, "twitter:title", expected_title)
+
+    def test_new_landing_pages_have_single_h1_metadata_breadcrumb_and_sitemap(self):
+        expectations = (
+            (
+                "/robotica-educacional/",
+                "Robótica Educacional para Escolas",
+                "Robótica Educacional para Escolas | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/robotica-educacional/",
+                "Robótica Educacional",
+            ),
+            (
+                "/robo-seguranca-condominios/",
+                "Robô de Segurança para Condomínios",
+                "Robô de Segurança para Condomínios | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/robo-seguranca-condominios/",
+                "Robô de Segurança para Condomínios",
+            ),
+            (
+                "/camara-climatica/",
+                "Câmara Climática Sob Medida",
+                "Câmara Climática Sob Medida | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/camara-climatica/",
+                "Câmara Climática Sob Medida",
+            ),
+        )
+        sitemap_urls = self.sitemap_urls()
+
+        for path, h1, title, canonical, breadcrumb_name in expectations:
+            with self.subTest(path=path):
+                response = self.client.get(f"{path}?utm_source=google")
+                html = response.content.decode()
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(self.h1_texts(response), [h1])
+                self.assertTitle(response, title)
+                self.assertCanonical(response, canonical)
+                self.assertNotContains(response, 'name="robots"')
+                self.assertMetaProperty(response, "og:title", title)
+                self.assertMetaProperty(response, "og:url", canonical)
+                self.assertMetaName(response, "twitter:title", title)
+                self.assertIn(canonical, sitemap_urls)
+                self.assertIn('fetchpriority="high"', html)
+
+                breadcrumbs = self.graph_items(response, "BreadcrumbList")
+                self.assertEqual(len(breadcrumbs), 1)
+                items = breadcrumbs[0]["itemListElement"]
+                self.assertEqual([item["name"] for item in items], ["Início", breadcrumb_name])
+                self.assertEqual(items[-1]["item"], canonical)
+
+    def test_a6_internal_links_connect_home_solutions_blog_and_contact(self):
+        home = self.client.get("/")
+        xyron = self.client.get("/xyron/")
+        manutencao = self.client.get("/manutencao-industrial-campo/")
+        blog = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
+
+        self.assertContains(home, 'href="/mitsubishi-automacao-industrial/"')
+        self.assertContains(home, 'href="/xyron/"')
+        self.assertContains(home, 'href="/sistemas-websites-python/"')
+        self.assertContains(xyron, 'href="/robotica-educacional/"')
+        self.assertContains(xyron, 'href="/robo-seguranca-condominios/"')
+        self.assertContains(manutencao, 'href="/camara-climatica/"')
+        self.assertContains(blog, 'href="/mitsubishi-automacao-industrial/"')
+        self.assertContains(blog, 'href="/contato/"')
 
     def test_blog_article_includes_article_social_metadata_and_post_image(self):
         response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
@@ -673,6 +778,9 @@ class TechnicalSeoTests(TestCase):
         self.assertIn("https://www.smartcontrolbrasil.com.br/", urls)
         strategic_solution_urls = (
             "https://www.smartcontrolbrasil.com.br/xyron/",
+            "https://www.smartcontrolbrasil.com.br/robotica-educacional/",
+            "https://www.smartcontrolbrasil.com.br/robo-seguranca-condominios/",
+            "https://www.smartcontrolbrasil.com.br/camara-climatica/",
             "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
             "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
             "https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/",
@@ -695,7 +803,7 @@ class TechnicalSeoTests(TestCase):
         self.assertFalse(any("/modelos/" in url for url in urls))
         self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
         self.assertIn("https://www.smartcontrolbrasil.com.br/loja/", urls)
-        self.assertEqual(len(urls), 14 + len(BLOG_POSTS))
+        self.assertEqual(len(urls), 17 + len(BLOG_POSTS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":

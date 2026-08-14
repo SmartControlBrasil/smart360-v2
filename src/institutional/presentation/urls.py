@@ -36,6 +36,17 @@ urlpatterns = [
     ),
     path("xyron/", views.xyron, name="xyron"),
     path(
+        "robotica-educacional/",
+        views.robotica_educacional,
+        name="robotica_educacional",
+    ),
+    path(
+        "robo-seguranca-condominios/",
+        views.robo_seguranca_condominios,
+        name="robo_seguranca_condominios",
+    ),
+    path("camara-climatica/", views.camara_climatica, name="camara_climatica"),
+    path(
         "ai-web-solutions-startups/",
         views.ai_web_solutions_startups,
         name="ai_web_solutions_startups",

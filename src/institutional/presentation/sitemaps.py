@@ -24,6 +24,21 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 0.9,
     },
     {
+        "name": "institutional:robotica_educacional",
+        "changefreq": "weekly",
+        "priority": 0.85,
+    },
+    {
+        "name": "institutional:robo_seguranca_condominios",
+        "changefreq": "weekly",
+        "priority": 0.85,
+    },
+    {
+        "name": "institutional:camara_climatica",
+        "changefreq": "weekly",
+        "priority": 0.85,
+    },
+    {
         "name": "institutional:mitsubishi_automacao_industrial",
         "changefreq": "weekly",
         "priority": 0.9,

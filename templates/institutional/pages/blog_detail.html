@@ -99,6 +99,12 @@
                                     </div>
                                 </div>
 
+                                {% if solution_link %}
+                                    <div class="blog__details-content-quite">
+                                        <p class="dec">{{ solution_link.summary }} <a href="{% url solution_link.url_name %}">{{ solution_link.label }}</a>.</p>
+                                    </div>
+                                {% endif %}
+
                                 <div class="blog__details-bottom d-flex flex-column flex-md-row justify-content-md-between">
                                     <div class="blog__details-bottom-tags_wapper d-flex align-items-center mb-sm-30 mb-xs-30">
                                         <span>Categoria:</span>
