@@ -268,6 +268,47 @@ class CommercePublicViewsTests(TestCase):
         self.assertContains(response, "/media/commerce/products/xyron-demo/")
         self.assertContains(response, "Imagem do catálogo")
 
+    def test_shop_product_card_images_use_lazy_loading(self):
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("catalogo.jpg"),
+            alt_text="Imagem do catálogo",
+            is_primary=True,
+        )
+
+        response = self.client.get(reverse("commerce:shop"))
+        html = response.content.decode()
+        image_start = html.find("/media/commerce/products/xyron-demo/")
+        self.assertNotEqual(image_start, -1)
+        image_tag = html[html.rfind("<img", 0, image_start):html.find(">", image_start) + 1]
+
+        self.assertIn('loading="lazy"', image_tag)
+
+    def test_product_detail_prioritizes_primary_image_and_lazies_thumbnails(self):
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("principal.jpg"),
+            alt_text="Imagem principal Xyron Demo",
+            is_primary=True,
+        )
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("secundaria.jpg"),
+            alt_text="Imagem secundária Xyron Demo",
+        )
+
+        response = self.client.get(self.active_product.get_absolute_url())
+        html = response.content.decode()
+        main_start = html.find('alt="Imagem principal Xyron Demo"')
+        self.assertNotEqual(main_start, -1)
+        main_tag = html[html.rfind("<img", 0, main_start):html.find(">", main_start) + 1]
+
+        self.assertIn('loading="eager"', main_tag)
+        self.assertIn('fetchpriority="high"', main_tag)
+        self.assertNotIn('loading="lazy"', main_tag)
+        self.assertIn('class="commerce-thumb-item"><img', html)
+        self.assertIn('loading="lazy"', html[html.find('class="commerce-thumb-item"'):])
+
 
     def test_product_detail_social_metadata_uses_primary_image(self):
         ProductImage.objects.create(

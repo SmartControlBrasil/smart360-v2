@@ -56,9 +56,9 @@
                                             <a href="{{ product.get_absolute_url }}">
                                                 {% with image=product.primary_image %}
                                                     {% if image and image.image %}
-                                                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}">
+                                                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" loading="lazy">
                                                     {% else %}
-                                                        <img src="{% static 'institutional/imgs/images/shop-img-1.png' %}" alt="{{ product.name }}">
+                                                        <img src="{% static 'institutional/imgs/images/shop-img-1.png' %}" alt="{{ product.name }}" width="410" height="270" loading="lazy">
                                                     {% endif %}
                                                 {% endwith %}
                                             </a>

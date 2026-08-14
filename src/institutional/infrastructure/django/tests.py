@@ -316,6 +316,52 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
         self.assertNotIn("G-X9BGRJ75B7", html)
 
+    def test_global_theme_scripts_are_deferred_in_dependency_order(self):
+        response = self.client.get("/")
+        html = response.content.decode()
+        scripts = (
+            "institutional/js/vendor/jquery-3.7.1.min.js",
+            "institutional/js/plugins/meanmenu.min.js",
+            "institutional/js/plugins/swiper.min.js",
+            "institutional/js/plugins/gsap.js",
+            "institutional/js/plugins/ScrollSmoother.js",
+            "institutional/js/vendor/magnific-popup.min.js",
+            "institutional/js/main.js",
+        )
+
+        previous_position = -1
+        for script in scripts:
+            with self.subTest(script=script):
+                tag = f'<script defer src="/static/{script}"></script>'
+                position = html.find(tag)
+                self.assertGreater(position, previous_position)
+                previous_position = position
+
+        self.assertEqual(html.count("institutional/js/vendor/jquery-3.7.1.min.js"), 1)
+        self.assertEqual(html.count("institutional/js/main.js"), 1)
+
+    def test_home_lcp_image_is_prioritized_without_lazy_loading(self):
+        response = self.client.get("/")
+        html = response.content.decode()
+        image_start = html.find("institutional/imgs/home/recepicionista-atendento.webp")
+        self.assertNotEqual(image_start, -1)
+        image_tag = html[html.rfind("<img", 0, image_start):html.find(">", image_start) + 1]
+
+        self.assertIn('width="381"', image_tag)
+        self.assertIn('height="571"', image_tag)
+        self.assertIn('loading="eager"', image_tag)
+        self.assertIn('fetchpriority="high"', image_tag)
+        self.assertNotIn('loading="lazy"', image_tag)
+
+    def test_home_below_fold_images_use_lazy_loading(self):
+        response = self.client.get("/")
+
+        self.assertContains(
+            response,
+            'institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp',
+        )
+        self.assertContains(response, 'width="380" height="260" loading="lazy"')
+
     def test_home_uses_metadata_title_description_and_canonical(self):
         response = self.client.get("/")
 

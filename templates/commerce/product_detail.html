@@ -41,9 +41,9 @@
                     <div class="product-gallary">
                         {% with primary=product.primary_image %}
                             {% if primary and primary.image %}
-                                <div class="gallary-item"><img src="{{ primary.image.url }}" alt="{{ primary.alt_text|default:product.name }}"></div>
+                                <div class="gallary-item"><img src="{{ primary.image.url }}" alt="{{ primary.alt_text|default:product.name }}" loading="eager" fetchpriority="high"></div>
                             {% else %}
-                                <div class="gallary-item"><img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="{{ product.name }}"></div>
+                                <div class="gallary-item"><img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="{{ product.name }}" loading="eager" fetchpriority="high"></div>
                             {% endif %}
                         {% endwith %}
                     </div>
@@ -51,7 +51,7 @@
                         <div class="commerce-thumb-list" aria-label="Galeria de imagens do produto">
                             {% for image in product.images.all %}
                                 {% if image.image %}
-                                    <div class="commerce-thumb-item"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}"></div>
+                                    <div class="commerce-thumb-item"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" loading="lazy"></div>
                                 {% endif %}
                             {% endfor %}
                         </div>

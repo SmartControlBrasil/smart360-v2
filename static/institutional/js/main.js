@@ -47,8 +47,14 @@
           resourcesHubMasonry();
 
 
-	$(window).on('load', function (event) {
-		$('#preloader').delay(1000).fadeOut(500);
+    let odometerWaypointInitialized = false;
+
+    function initOdometerWaypoint() {
+        if (odometerWaypointInitialized || !$('.odometer').length) {
+            return;
+        }
+
+        odometerWaypointInitialized = true;
 
         $('.odometer').waypoint(function(direction) {
             if (direction === 'down') {
@@ -58,20 +64,16 @@
         }, {
             offset: '80%'
         });
-	});
+    }
 
+    $(function () {
+        $('#preloader').fadeOut(300);
+        initOdometerWaypoint();
+    });
 
     $(".preloader-close").on("click", function () {
-        $('#preloader').delay(0).fadeOut(500);
-
-        $('.odometer').waypoint(function(direction) {
-            if (direction === 'down') {
-                let countNumber = $(this.element).attr("data-count");
-                $(this.element).html(countNumber);
-            }
-        }, {
-            offset: '80%'
-        });
+        $('#preloader').fadeOut(300);
+        initOdometerWaypoint();
     })
 
     //GSAP START
