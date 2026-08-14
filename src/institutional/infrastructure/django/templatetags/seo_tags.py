@@ -76,6 +76,27 @@ ROUTE_METADATA = {
             "integração de sistemas e desenvolvimento de software para empresas e indústrias."
         ),
     },
+    "sistemas_websites_python": {
+        "title": "Sistemas Web e Desenvolvimento Python | Smart Control Brasil",
+        "description": (
+            "Desenvolvimento de sistemas web, plataformas empresariais, automações e soluções "
+            "em Python e Django para digitalização de processos."
+        ),
+    },
+    "manutencao_industrial_campo": {
+        "title": "Manutenção Industrial e Assistência Técnica | Smart Control Brasil",
+        "description": (
+            "Manutenção industrial, diagnóstico, assistência técnica em campo, automação, "
+            "eletrônica e suporte especializado para máquinas e equipamentos."
+        ),
+    },
+    "xyron": {
+        "title": "Robôs Inteligentes Xyron Robotics | Smart Control Brasil",
+        "description": (
+            "Conheça as soluções de robótica inteligente da Xyron Robotics para educação, "
+            "atendimento, interação e aplicações profissionais com a Smart Control Brasil."
+        ),
+    },
     "engenharia_serralheria_industrial": {
         "title": "Engenharia e Serralheria Industrial | Smart Control Brasil",
         "description": (
@@ -83,18 +104,21 @@ ROUTE_METADATA = {
             "adequações, dispositivos especiais e apoio a projetos industriais."
         ),
     },
+    "mitsubishi_automacao_industrial": {
+        "title": "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
+        "description": (
+            "Soluções de automação industrial Mitsubishi Electric com CLPs, IHMs, inversores, "
+            "integração, engenharia e suporte técnico especializado."
+        ),
+    },
 }
 
 NOINDEX_ROUTE_NAMES = {
     "smart_control_brasil",
-    "sistemas_websites_python",
     "livia",
     "camaras_climaticas",
-    "manutencao_industrial_campo",
     "ai_video_interaction_platform",
-    "xyron",
     "ai_web_solutions_startups",
-    "mitsubishi_automacao_industrial",
     "service_details",
     "blog_list",
     "blog_details",

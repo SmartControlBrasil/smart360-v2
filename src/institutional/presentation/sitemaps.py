@@ -19,6 +19,26 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 0.9,
     },
     {
+        "name": "institutional:xyron",
+        "changefreq": "weekly",
+        "priority": 0.9,
+    },
+    {
+        "name": "institutional:mitsubishi_automacao_industrial",
+        "changefreq": "weekly",
+        "priority": 0.9,
+    },
+    {
+        "name": "institutional:manutencao_industrial_campo",
+        "changefreq": "weekly",
+        "priority": 0.9,
+    },
+    {
+        "name": "institutional:sistemas_websites_python",
+        "changefreq": "weekly",
+        "priority": 0.9,
+    },
+    {
         "name": "institutional:services",
         "changefreq": "weekly",
         "priority": 0.9,

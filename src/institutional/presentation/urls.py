@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
 from . import views
 
@@ -11,7 +12,11 @@ urlpatterns = [
     path("login/", views.InstitutionalLoginView.as_view(), name="login"),
     path("logout/", views.InstitutionalLogoutView.as_view(), name="logout"),
     path("cadastro/", views.signup, name="signup"),
-    path("smart-control-brasil/", views.smart_control_brasil, name="smart_control_brasil"),
+    path(
+        "smart-control-brasil/",
+        RedirectView.as_view(pattern_name="institutional:home", permanent=True),
+        name="smart_control_brasil",
+    ),
     path(
         "sistemas-websites-python/",
         views.sistemas_websites_python,

@@ -38,6 +38,7 @@ def robots_txt(request):
     lines = [
         "User-agent: *",
         "Disallow: /admin/",
+        "Disallow: /painel/",
         "Disallow: /login/",
         "Disallow: /logout/",
         "Disallow: /cadastro/",

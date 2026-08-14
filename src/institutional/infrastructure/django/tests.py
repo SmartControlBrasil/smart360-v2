@@ -18,7 +18,6 @@ from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDE
 class InstitutionalRoutesTests(TestCase):
     routes = (
         "home",
-        "smart_control_brasil",
         "sistemas_websites_python",
         "livia",
         "camaras_climaticas",
@@ -66,6 +65,12 @@ class InstitutionalRoutesTests(TestCase):
         self.assertContains(response, "institutional/css/main.css")
         self.assertContains(response, "institutional/js/main.js")
         self.assertContains(response, "banner-before")
+
+    def test_smart_control_brasil_redirects_permanently_to_home(self):
+        response = self.client.get(reverse("institutional:smart_control_brasil"))
+
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response["Location"], reverse("institutional:home"))
 
     def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
@@ -318,22 +323,80 @@ class TechnicalSeoTests(TestCase):
         self.assertIn(f'<h1 class="breadcrumb__title">{post["title"]}</h1>', html)
         self.assertNotContains(response, 'name="robots"')
 
-    def test_demo_route_has_noindex_follow(self):
-        response = self.client.get("/sistemas-websites-python/")
+    def test_commercial_solution_routes_are_indexable(self):
+        expected_canonicals = {
+            "/xyron/": "https://www.smartcontrolbrasil.com.br/xyron/",
+            "/mitsubishi-automacao-industrial/": "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
+            "/manutencao-industrial-campo/": "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
+            "/sistemas-websites-python/": "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/",
+            "/engenharia-serralheria-industrial/": "https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/",
+        }
+
+        for path, canonical in expected_canonicals.items():
+            with self.subTest(path=path):
+                response = self.client.get(f"{path}?utm_source=google")
+
+                self.assertEqual(response.status_code, 200)
+                self.assertNotContains(response, 'name="robots"')
+                self.assertCanonical(response, canonical)
+
+    def test_commercial_solution_metadata_is_specific(self):
+        metadata_expectations = (
+            (
+                "/xyron/",
+                "Robôs Inteligentes Xyron Robotics | Smart Control Brasil",
+                "Conheça as soluções de robótica inteligente da Xyron Robotics para educação, "
+                "atendimento, interação e aplicações profissionais com a Smart Control Brasil.",
+            ),
+            (
+                "/mitsubishi-automacao-industrial/",
+                "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
+                "Soluções de automação industrial Mitsubishi Electric com CLPs, IHMs, inversores, "
+                "integração, engenharia e suporte técnico especializado.",
+            ),
+            (
+                "/manutencao-industrial-campo/",
+                "Manutenção Industrial e Assistência Técnica | Smart Control Brasil",
+                "Manutenção industrial, diagnóstico, assistência técnica em campo, automação, "
+                "eletrônica e suporte especializado para máquinas e equipamentos.",
+            ),
+            (
+                "/sistemas-websites-python/",
+                "Sistemas Web e Desenvolvimento Python | Smart Control Brasil",
+                "Desenvolvimento de sistemas web, plataformas empresariais, automações e soluções "
+                "em Python e Django para digitalização de processos.",
+            ),
+        )
+
+        for path, expected_title, expected_description in metadata_expectations:
+            with self.subTest(path=path):
+                response = self.client.get(path)
+
+                self.assertTitle(response, expected_title)
+                self.assertMetaDescription(response, expected_description)
+
+    def test_experimental_demo_route_still_has_noindex_follow(self):
+        response = self.client.get("/livia/")
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<meta name="robots" content="noindex,follow">')
-        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/")
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/livia/")
 
     def test_sitemap_returns_public_https_urls_without_noindex_pages(self):
         urls = self.sitemap_urls()
 
         self.assertIn("https://www.smartcontrolbrasil.com.br/", urls)
-        self.assertIn("https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/", urls)
-        self.assertEqual(
-            urls.count("https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/"),
-            1,
+        strategic_solution_urls = (
+            "https://www.smartcontrolbrasil.com.br/xyron/",
+            "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
+            "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
+            "https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/",
+            "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/",
         )
+        for strategic_url in strategic_solution_urls:
+            with self.subTest(strategic_url=strategic_url):
+                self.assertIn(strategic_url, urls)
+                self.assertEqual(urls.count(strategic_url), 1)
         self.assertIn("https://www.smartcontrolbrasil.com.br/blog/", urls)
         self.assertIn("https://www.smartcontrolbrasil.com.br/contato/", urls)
         self.assertIn(
@@ -347,7 +410,7 @@ class TechnicalSeoTests(TestCase):
         self.assertFalse(any("/modelos/" in url for url in urls))
         self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
         self.assertIn("https://www.smartcontrolbrasil.com.br/loja/", urls)
-        self.assertEqual(len(urls), 10 + len(BLOG_POSTS))
+        self.assertEqual(len(urls), 14 + len(BLOG_POSTS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":
@@ -406,6 +469,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(response["Content-Type"], "text/plain")
         self.assertContains(response, "Sitemap: https://www.smartcontrolbrasil.com.br/sitemap.xml")
         self.assertContains(response, "Disallow: /admin/")
+        self.assertContains(response, "Disallow: /painel/")
         self.assertContains(response, "Disallow: /login/")
         self.assertContains(response, "Disallow: /cadastro/")
 
