@@ -1,4 +1,5 @@
 import json
+import re
 from smtplib import SMTPException
 from unittest.mock import patch
 from urllib.parse import urljoin
@@ -76,15 +77,15 @@ class InstitutionalRoutesTests(TestCase):
     def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
         expected_labels = (
-            "Inicio",
+            "Início",
             "Sobre",
             "Soluções",
-            "Manuteção Industrial",
+            "Manutenção Industrial",
             "Serralheria Industrial",
             "Mitsubishi Automação",
             "Sistemas e Websites",
             "Xyron Robótica",
-            "blog",
+            "Blog",
             "Contato",
         )
 
@@ -262,6 +263,11 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
         self.assertIn(f'<meta name="{name}" content="{expected_content}">', html)
 
+    def h1_texts(self, response):
+        html = response.content.decode()
+        matches = re.findall(r'<h1\b[^>]*>(.*?)</h1>', html, flags=re.I | re.S)
+        return [re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', match)).strip() for match in matches]
+
     def structured_data(self, response):
         html = response.content.decode()
         start_marker = '<script type="application/ld+json">'
@@ -413,6 +419,58 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(html.count("<h1"), 1)
         self.assertIn(f'<h1 class="breadcrumb__title">{post["title"]}</h1>', html)
         self.assertNotContains(response, 'name="robots"')
+
+    def test_strategic_pages_have_single_descriptive_h1_and_clean_on_page_markers(self):
+        expectations = {
+            "/xyron/": "Xyron Robotics",
+            "/mitsubishi-automacao-industrial/": "Mitsubishi Automação Industrial",
+            "/manutencao-industrial-campo/": "Manutenção Industrial",
+            "/engenharia-serralheria-industrial/": "Engenharia e Serralheria Industrial",
+            "/sistemas-websites-python/": "Sistemas e Websites",
+        }
+        forbidden = (
+            'alt="image"',
+            'alt="img not found"',
+            'alt="img not fount"',
+            'Read More',
+            'Learn More',
+            'Home</a>',
+            './assets/',
+        )
+
+        for path, expected_h1_fragment in expectations.items():
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                html = response.content.decode()
+                h1s = self.h1_texts(response)
+
+                self.assertEqual(len(h1s), 1)
+                self.assertIn(expected_h1_fragment, h1s[0])
+                for marker in forbidden:
+                    self.assertNotIn(marker, html)
+
+    def test_indexable_breadcrumbs_use_inicio_text(self):
+        expectations = (
+            ("/xyron/", "Xyron Robotics"),
+            ("/blog/selecao-controladores-ativos-alta-severidade/", "Blog"),
+        )
+
+        for path, final_label in expectations:
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                html = response.content.decode()
+
+                self.assertIn('>Início</a>', html)
+                self.assertIn(final_label, html)
+                self.assertNotIn('>Home</a>', html)
+
+    def test_header_search_does_not_submit_fake_home_search(self):
+        response = self.client.get("/")
+        html = response.content.decode()
+
+        self.assertIn('role="search"', html)
+        self.assertIn('onsubmit="return false"', html)
+        self.assertNotIn('name="s"', html)
 
     def test_commercial_solution_routes_are_indexable(self):
         expected_canonicals = {

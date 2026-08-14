@@ -20,7 +20,7 @@
                                 <nav id="mobile-menu" aria-label="Menu principal">
                                     <ul>
                                         <li class="{% if current == 'about' %}active{% endif %}">
-                                            <a href="{% url 'institutional:home' %}">Inicio</a>
+                                            <a href="{% url 'institutional:home' %}">Início</a>
                                         </li>
                                         <li class="{% if current == 'about' %}active{% endif %}">
                                             <a href="{% url 'institutional:about' %}">Sobre</a>
@@ -29,14 +29,14 @@
                                             <a href="#" onclick="return false;"
                                             aria-haspopup="true">Soluções</a>
                                             <ul class="submenu">
-                                                <li class="{% if current == 'manutencao_industrial_campo' %}active{% endif %}"><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manuteção Industrial</a></li>
+                                                <li class="{% if current == 'manutencao_industrial_campo' %}active{% endif %}"><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção Industrial</a></li>
                                                 <li class="{% if current == 'engenharia_serralheria_industrial' %}active{% endif %}"><a href="{% url 'institutional:engenharia_serralheria_industrial' %}">Serralheria Industrial</a></li>
                                                 <li class="{% if current == 'mitsubishi_automacao_industrial' %}active{% endif %}"><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Mitsubishi Automação</a></li>
                                                 <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}"><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites</a></li>
                                                 <li class="{% if current == 'xyron' %}active{% endif %}"><a href="{% url 'institutional:xyron' %}">Xyron Robótica</a></li>
                                             </ul>
                                         </li>
-                                        <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">blog</a></li>
+                                        <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">Blog</a></li>
                                         
                                         {% comment %} <li class="has-dropdown {% if current in 'services service_details' %}active{% endif %}">
                                             <a href="{% url 'institutional:services' %}">Serviços</a>

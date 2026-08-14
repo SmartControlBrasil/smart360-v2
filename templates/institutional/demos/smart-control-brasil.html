@@ -12,10 +12,10 @@
                         <div class="banner1__shapes-shape-4"></div>
                         <div class="banner1__shapes-shape-5"></div>
                         <div class="banner1__shapes-shape-6 upDown">
-                            <img src="{% static 'institutional/imgs/shapes/hero-1-shape-1.png' %}" alt="img not found">
+                            <img src="{% static 'institutional/imgs/shapes/hero-1-shape-1.png' %}" alt="">
                         </div>
                         <div class="banner1__shapes-shape-7 leftRight">
-                            <img src="{% static 'institutional/imgs/shapes/hero-1-shape-2.png' %}" alt="img not found">
+                            <img src="{% static 'institutional/imgs/shapes/hero-1-shape-2.png' %}" alt="">
                         </div>
                         <div class="banner1__shapes-shape-8" data-background="{% static 'institutional/imgs/shapes/home-1-bg-shape.png' %}"></div>
                     </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="about__searching-box">
                             <div class="text">
-                                <img src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="img not found">
+                                <img src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="">
                                 <p>Precisa modernizar sua operação?</p>
                             </div>
                             <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Conosco <i class="fa-solid fa-angle-right"></i></a>
@@ -104,13 +104,13 @@
                             <div class="choose-us__media-wrapper">
                                 <div class="choose-us__thumb">
                                     <div class="choose-us__thumb-img return">
-                                        <img src="{% static 'institutional/imgs/images/braco-robotico.webp' %}" alt="img not fount">
+                                        <img src="{% static 'institutional/imgs/images/braco-robotico.webp' %}" alt="Braço robótico industrial">
                                     </div>
                                     <div class="choose-us__thumb-img-2">
-                                        <img src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="">
                                     </div>
                                     <div class="choose-us__thumb-img-3">
-                                        <img src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -122,9 +122,9 @@
                                     <p class="section__title-wrapper-dec rr_title_anim mt-20">Unimos engenharia especializada e tecnologias globais para eliminar falhas, reduzir <br> o downtime de máquinas e gerar dados em tempo real para decisões estratégicas.</p>
                                     <div class="choose-us__list-item">
                                         <ul>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="img not found">Automação Industrial Mitsubishi</li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="img not found">Inovação e Tecnologia Xyron</li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="img not found">Conectividade e Telemetria IoT</li>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Automação Industrial Mitsubishi</li>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Inovação e Tecnologia Xyron</li>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Conectividade e Telemetria IoT</li>
                                         </ul>
                                     </div>
                                     <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Engenharia <i class="fa-solid fa-angle-right"></i></a>
@@ -148,7 +148,7 @@
                                 <div class="service__item mb-30 fade-top">
                                     <div class="service__bg-shape" data-background="{% static 'institutional/imgs/shapes/service-bg-shape.png' %}"></div>
                                     <div class="service__item-icon">
-                                        <img src="{% static 'institutional/imgs/icon/service-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/service-icon-1.png' %}" alt="">
                                     </div>
                                     <div class="service__item-content">
                                         <h3 class="title">Automação Industrial Mitsubishi</h3>
@@ -163,7 +163,7 @@
                                 <div class="service__item mb-30 fade-top">
                                     <div class="service__bg-shape" data-background="{% static 'institutional/imgs/shapes/service-bg-shape.png' %}"></div>
                                     <div class="service__item-icon service__item-icon-2">
-                                        <img src="{% static 'institutional/imgs/icon/service-icon-2.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/service-icon-2.png' %}" alt="">
                                     </div>
                                     <div class="service__item-content">
                                         <h3 class="title">Robótica de Serviço e IA Xyron</h3>
@@ -178,7 +178,7 @@
                                 <div class="service__item mb-30 fade-top">
                                     <div class="service__bg-shape" data-background="{% static 'institutional/imgs/shapes/service-bg-shape.png' %}"></div>
                                     <div class="service__item-icon">
-                                        <img src="{% static 'institutional/imgs/icon/service-icon-3.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/service-icon-3.png' %}" alt="">
                                     </div>
                                     <div class="service__item-content">
                                         <h3 class="title">IoT e Hardware Sob Medida</h3>
@@ -220,7 +220,7 @@
                                 </ul>
                             </div>
                             <div class="card_bottom card_bottom-1">
-                                <a class="meeting" href="#">Agendar Consultoria</a>
+                                <a class="meeting" href="{% url 'institutional:contact' %}">Agendar Consultoria</a>
                             </div>
                         </div>
                         <div class="pricing_card extra_border_card">
@@ -304,7 +304,7 @@
                         </div>
                         <div class="testimonial__review">
                             <div class="icon">
-                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-1.png' %}" alt="img not found">
+                                <img src="{% static 'institutional/imgs/icon/testimonial-icon-1.png' %}" alt="">
                             </div>
                             <div class="title-star-box">
                                 <div class="star-list">
@@ -328,11 +328,11 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item">
                                     <div class="testimonial__item-logo">
-                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-1.png' %}" alt="">
                                     </div>
                                     <p class="testimonial__item-dec">“Cada linha de código ou componente especificado responde diretamente a um indicador de performance e a uma meta real do cliente.”</p>
                                     <div class="testimonial__item-author">
-                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
                                             <h5 class="title"><a href="#">Princípio 1</a></h5>
                                             <span>Engenharia Consultiva</span>
@@ -343,11 +343,11 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-1">
                                     <div class="testimonial__item-logo">
-                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-2.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-2.png' %}" alt="">
                                     </div>
                                     <p class="testimonial__item-dec">“O valor da tecnologia está na convergência entre a automação industrial clássica Mitsubishi e os novos ecossistemas digitais.”</p>
                                     <div class="testimonial__item-author">
-                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
                                             <h5 class="title"><a href="#">Princípio 2</a></h5>
                                             <span>Integração Fluida</span>
@@ -358,11 +358,11 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-2">
                                     <div class="testimonial__item-logo">
-                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-3.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-3.png' %}" alt="">
                                     </div>
                                     <p class="testimonial__item-dec">“A robótica de serviço Xyron combinada à Inteligência Artificial redefine a produtividade e eleva o patamar da marca.”</p>
                                     <div class="testimonial__item-author">
-                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
                                             <h5 class="title"><a href="#">Princípio 3</a></h5>
                                             <span>Inovação Prática</span>
@@ -373,11 +373,11 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-3">
                                     <div class="testimonial__item-logo">
-                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-4.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-4.png' %}" alt="">
                                     </div>
                                     <p class="testimonial__item-dec">“Transformamos dados brutos de campo em ações táticas por meio de pontes estáveis de IoT e telemetria em Python.”</p>
                                     <div class="testimonial__item-author">
-                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
                                             <h5 class="title"><a href="#">Princípio 4</a></h5>
                                             <span>Decisão por Dados</span>
@@ -388,11 +388,11 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-4">
                                     <div class="testimonial__item-logo">
-                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-5.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/testimonial-card-icon-5.png' %}" alt="">
                                     </div>
                                     <p class="testimonial__item-dec">“Projetamos, programamos e testamos soluções calibradas para os desafios práticos da sua empresa, evitando implementações vazias.”</p>
                                     <div class="testimonial__item-author">
-                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
                                             <h5 class="title"><a href="#">Smart Control Brasil</a></h5>
                                             <span>Engenharia e Tecnologia</span>
@@ -480,7 +480,7 @@
                         <div class="col-lg-6">
                             <div class="faq__thumb-2">
                                 <div class="faq__thumb return">
-                                    <img src="{% static 'institutional/imgs/images/faq-conectbot-em-acao.webp' %}" alt="img not found">
+                                    <img src="{% static 'institutional/imgs/images/faq-conectbot-em-acao.webp' %}" alt="Robô ConnectBot em atendimento">
                                 </div>
                             </div>
                         </div>
@@ -505,7 +505,7 @@
                                     <div class="blog__item-details">
                                         <div class="blog__item-details-cta">
                                             <div class="man-img">
-                                                <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="img not found">
+                                                <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                             </div>
                                             <div class="text">
                                                 <h6 class="title"><a href="#">Equipe Smart Control Brasil</a></h6>
@@ -516,7 +516,7 @@
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
-                                            <img src="{% static 'institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp' %}" alt="img not found">
+                                            <img src="{% static 'institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp' %}" alt="Controladores industriais em ambiente severo">
                                         </div>
                                     </div>
                                     <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Seleção de Controladores e Ativos <br> para Ambientes de Alta Severidade</a></h4>
@@ -529,7 +529,7 @@
                                     <div class="blog__item-details">
                                         <div class="blog__item-details-cta">
                                             <div class="man-img">
-                                                <img src="{% static 'institutional/imgs/icon/blog-man-icon-2.png' %}" alt="img not found">
+                                                <img src="{% static 'institutional/imgs/icon/blog-man-icon-2.png' %}" alt="">
                                             </div>
                                             <div class="text">
                                                 <h6 class="title"><a href="#">Equipe Smart Control Brasil</a></h6>
@@ -540,7 +540,7 @@
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
-                                            <img src="{% static 'institutional/imgs/blog/convergencia-entre-robotica-ia-e-firmwares.webp' %}" alt="img not found">
+                                            <img src="{% static 'institutional/imgs/blog/convergencia-entre-robotica-ia-e-firmwares.webp' %}" alt="Robótica e inteligência artificial aplicada">
                                         </div>
                                     </div>
                                     <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">A Convergência entre Robótica, <br> IA e Firmwares Dedicados</a></h4>
@@ -552,7 +552,7 @@
                                 <div class="blog__item-details">
                                     <div class="blog__item-details-cta">
                                         <div class="man-img">
-                                            <img src="{% static 'institutional/imgs/icon/blog-man-icon-3.png' %}" alt="img not found">
+                                            <img src="{% static 'institutional/imgs/icon/blog-man-icon-3.png' %}" alt="">
                                         </div>
                                         <div class="text">
                                             <h6 class="title"><a href="#">Equipe Smart Control Brasil</a></h6>
@@ -563,7 +563,7 @@
                                 </div>
                                 <div class="blog__item-thumb-2">
                                     <div class="blog__item-thumb return">
-                                        <img src="{% static 'institutional/imgs/blog/automatizando-processos.webp' %}" alt="img not found">
+                                        <img src="{% static 'institutional/imgs/blog/automatizando-processos.webp' %}" alt="Automação de processos industriais">
                                     </div>      
                                 </div>
                                 <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Como Eliminar Gargalos com <br> Autonomia e Previsibilidade</a></h4>

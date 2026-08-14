@@ -354,6 +354,17 @@ class CommercePublicViewsTests(TestCase):
             },
         )
 
+    def test_product_detail_breadcrumb_uses_inicio_loja_category_and_product(self):
+        response = self.client.get(self.active_product.get_absolute_url())
+        html = response.content.decode()
+
+        self.assertIn('>Início</a>', html)
+        self.assertIn('>Loja</a>', html)
+        self.assertIn(f'href="{self.active_product.category.get_absolute_url()}"', html)
+        self.assertIn(self.active_product.category.name, html)
+        self.assertIn(f'<li class="active"><span>{self.active_product.name}</span></li>', html)
+        self.assertNotIn('>Home</a>', html)
+
     def test_price_appears_when_allowed(self):
         response = self.client.get(reverse("commerce:shop"))
 
