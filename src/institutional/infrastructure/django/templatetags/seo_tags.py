@@ -2,6 +2,7 @@ from urllib.parse import urlsplit
 
 from django import template
 from django.conf import settings
+from django.templatetags.static import static
 
 
 register = template.Library()
@@ -11,6 +12,8 @@ DEFAULT_DESCRIPTION = (
     "Soluções em automação industrial, robótica, engenharia embarcada, "
     "manutenção técnica e sistemas web."
 )
+DEFAULT_SOCIAL_IMAGE = "institutional/imgs/images/banner-6-img-1.png"
+SOCIAL_SITE_NAME = "Smart Control Brasil"
 
 ROUTE_METADATA = {
     "home": {
@@ -184,6 +187,39 @@ def _product(context):
     return context.get("product")
 
 
+def _absolute_public_url(path):
+    if not path:
+        return ""
+
+    candidate = str(path)
+    if candidate.startswith(("http://", "https://")):
+        return candidate
+    return f"{settings.PUBLIC_SITE_URL}{_normalize_path(candidate)}"
+
+
+def _static_public_url(path):
+    return _absolute_public_url(static(path))
+
+
+def _post_image_url(context):
+    post = _post(context)
+    if post and post.get("image"):
+        return _static_public_url(post["image"])
+    return ""
+
+
+def _product_image_url(context):
+    product = _product(context)
+    primary_image = getattr(product, "primary_image", None) if product else None
+    image = getattr(primary_image, "image", None)
+    if image:
+        try:
+            return _absolute_public_url(image.url)
+        except ValueError:
+            return ""
+    return ""
+
+
 @register.simple_tag(takes_context=True)
 def canonical_url(context):
     path = _metadata_canonical_path(context)
@@ -226,6 +262,18 @@ def meta_description(context):
         return metadata.description
 
     return _route_metadata(context).get("description", DEFAULT_DESCRIPTION)
+
+
+@register.simple_tag(takes_context=True)
+def social_type(context):
+    if _post(context):
+        return "article"
+    return "website"
+
+
+@register.simple_tag(takes_context=True)
+def social_image_url(context):
+    return _post_image_url(context) or _product_image_url(context) or _static_public_url(DEFAULT_SOCIAL_IMAGE)
 
 
 @register.simple_tag(takes_context=True)

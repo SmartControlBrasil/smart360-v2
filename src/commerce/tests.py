@@ -245,6 +245,39 @@ class CommercePublicViewsTests(TestCase):
         self.assertContains(response, "Imagem do catálogo")
 
 
+    def test_product_detail_social_metadata_uses_primary_image(self):
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("principal.jpg"),
+            alt_text="Imagem principal Xyron Demo",
+            is_primary=True,
+        )
+
+        response = self.client.get(self.active_product.get_absolute_url())
+        html = response.content.decode()
+
+        self.assertContains(response, '<meta property="og:title" content="Xyron Demo | Smart Control Brasil">')
+        self.assertContains(
+            response,
+            '<meta property="og:description" content="Robô demonstrativo para validação pública.">',
+        )
+        self.assertContains(
+            response,
+            '<meta property="og:url" content="https://www.smartcontrolbrasil.com.br/loja/produto/xyron-demo/">',
+        )
+        self.assertContains(response, '<meta property="og:type" content="website">')
+        self.assertIn('content="https://www.smartcontrolbrasil.com.br/media/commerce/products/xyron-demo/', html)
+        self.assertContains(response, '<meta name="twitter:card" content="summary_large_image">')
+        self.assertContains(response, '<meta name="twitter:title" content="Xyron Demo | Smart Control Brasil">')
+        self.assertNotIn('content="/media/', html)
+
+    def test_product_detail_social_metadata_uses_fallback_without_image(self):
+        response = self.client.get(self.active_product.get_absolute_url())
+        fallback_image = "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/banner-6-img-1.png"
+
+        self.assertContains(response, f'<meta property="og:image" content="{fallback_image}">')
+        self.assertContains(response, f'<meta name="twitter:image" content="{fallback_image}">')
+
     def test_price_appears_when_allowed(self):
         response = self.client.get(reverse("commerce:shop"))
 

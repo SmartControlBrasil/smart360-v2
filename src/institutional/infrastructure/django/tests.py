@@ -253,6 +253,14 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
         self.assertIn(f'<meta name="description" content="{expected_description}">', html)
 
+    def assertMetaProperty(self, response, property_name, expected_content):
+        html = response.content.decode()
+        self.assertIn(f'<meta property="{property_name}" content="{expected_content}">', html)
+
+    def assertMetaName(self, response, name, expected_content):
+        html = response.content.decode()
+        self.assertIn(f'<meta name="{name}" content="{expected_content}">', html)
+
     def sitemap_urls(self):
         response = self.client.get(
             "/sitemap.xml",
@@ -290,6 +298,33 @@ class TechnicalSeoTests(TestCase):
         )
         self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/")
         self.assertNotContains(response, 'name="robots"')
+
+    def test_home_includes_open_graph_and_twitter_card_metadata(self):
+        response = self.client.get("/")
+        image_url = "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/banner-6-img-1.png"
+
+        self.assertMetaProperty(response, "og:title", "Smart Control Brasil | Automação Industrial, Robótica e Sistemas")
+        self.assertMetaProperty(
+            response,
+            "og:description",
+            "Soluções em automação industrial, robótica, manutenção técnica, "
+            "integração de sistemas e desenvolvimento de software para empresas e indústrias.",
+        )
+        self.assertMetaProperty(response, "og:url", "https://www.smartcontrolbrasil.com.br/")
+        self.assertMetaProperty(response, "og:type", "website")
+        self.assertMetaProperty(response, "og:image", image_url)
+        self.assertMetaProperty(response, "og:site_name", "Smart Control Brasil")
+        self.assertMetaProperty(response, "og:locale", "pt_BR")
+        self.assertMetaName(response, "twitter:card", "summary_large_image")
+        self.assertMetaName(response, "twitter:title", "Smart Control Brasil | Automação Industrial, Robótica e Sistemas")
+        self.assertMetaName(
+            response,
+            "twitter:description",
+            "Soluções em automação industrial, robótica, manutenção técnica, "
+            "integração de sistemas e desenvolvimento de software para empresas e indústrias.",
+        )
+        self.assertMetaName(response, "twitter:image", image_url)
+        self.assertNotIn('content="/static/', response.content.decode())
 
     def test_services_has_unique_title_description_and_queryless_canonical(self):
         response = self.client.get("/servicos/?utm_source=google&utm_campaign=x&gclid=abc")
@@ -339,6 +374,21 @@ class TechnicalSeoTests(TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertNotContains(response, 'name="robots"')
                 self.assertCanonical(response, canonical)
+                self.assertMetaProperty(response, "og:url", canonical)
+                self.assertMetaProperty(response, "og:type", "website")
+                self.assertMetaProperty(
+                    response,
+                    "og:image",
+                    "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/banner-6-img-1.png",
+                )
+                self.assertMetaProperty(response, "og:site_name", "Smart Control Brasil")
+                self.assertMetaProperty(response, "og:locale", "pt_BR")
+                self.assertMetaName(response, "twitter:card", "summary_large_image")
+                self.assertIn('<meta property="og:title" content="', response.content.decode())
+                self.assertIn('<meta property="og:description" content="', response.content.decode())
+                self.assertIn('<meta name="twitter:title" content="', response.content.decode())
+                self.assertIn('<meta name="twitter:description" content="', response.content.decode())
+                self.assertIn('<meta name="twitter:image" content="https://', response.content.decode())
 
     def test_commercial_solution_metadata_is_specific(self):
         metadata_expectations = (
@@ -374,6 +424,49 @@ class TechnicalSeoTests(TestCase):
 
                 self.assertTitle(response, expected_title)
                 self.assertMetaDescription(response, expected_description)
+
+    def test_strategic_solution_social_metadata_uses_existing_seo_values(self):
+        expectations = (
+            (
+                "/xyron/?utm_source=google",
+                "Robôs Inteligentes Xyron Robotics | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/xyron/",
+            ),
+            (
+                "/mitsubishi-automacao-industrial/",
+                "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
+                "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
+            ),
+        )
+
+        for path, expected_title, expected_url in expectations:
+            with self.subTest(path=path):
+                response = self.client.get(path)
+
+                self.assertCanonical(response, expected_url)
+                self.assertMetaProperty(response, "og:title", expected_title)
+                self.assertMetaProperty(response, "og:url", expected_url)
+                self.assertMetaProperty(response, "og:type", "website")
+                self.assertMetaName(response, "twitter:title", expected_title)
+
+    def test_blog_article_includes_article_social_metadata_and_post_image(self):
+        response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
+        post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
+        expected_title = f"{post['title']} | Smart Control Brasil"
+        expected_image = f"https://www.smartcontrolbrasil.com.br/static/{post['image']}"
+
+        self.assertMetaProperty(response, "og:type", "article")
+        self.assertMetaProperty(response, "og:title", expected_title)
+        self.assertMetaProperty(response, "og:description", post["meta_description"])
+        self.assertMetaProperty(
+            response,
+            "og:url",
+            "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+        )
+        self.assertMetaProperty(response, "og:image", expected_image)
+        self.assertMetaName(response, "twitter:title", expected_title)
+        self.assertMetaName(response, "twitter:description", post["meta_description"])
+        self.assertMetaName(response, "twitter:image", expected_image)
 
     def test_experimental_demo_route_still_has_noindex_follow(self):
         response = self.client.get("/livia/")
