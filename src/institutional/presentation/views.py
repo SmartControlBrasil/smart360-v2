@@ -163,6 +163,10 @@ def robo_seguranca_condominios(request):
     return render(request, "institutional/landing/robo-seguranca-condominios.html")
 
 
+def disabled_commercial_landing(request):
+    raise Http404("Landing page temporariamente desabilitada.")
+
+
 def camara_climatica(request):
     return render(request, "institutional/landing/camara-climatica.html")
 

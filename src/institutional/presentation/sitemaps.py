@@ -14,11 +14,6 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 1.0,
     },
     {
-        "name": "institutional:engenharia_serralheria_industrial",
-        "changefreq": "weekly",
-        "priority": 0.9,
-    },
-    {
         "name": "institutional:xyron",
         "changefreq": "weekly",
         "priority": 0.9,
@@ -30,11 +25,6 @@ STATIC_PUBLIC_ROUTES = (
     },
     {
         "name": "institutional:robo_seguranca_condominios",
-        "changefreq": "weekly",
-        "priority": 0.85,
-    },
-    {
-        "name": "institutional:camara_climatica",
         "changefreq": "weekly",
         "priority": 0.85,
     },

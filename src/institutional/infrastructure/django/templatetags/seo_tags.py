@@ -107,13 +107,6 @@ ROUTE_METADATA = {
             "atendimento, interação e aplicações profissionais com a Smart Control Brasil."
         ),
     },
-    "engenharia_serralheria_industrial": {
-        "title": "Engenharia e Serralheria Industrial | Smart Control Brasil",
-        "description": (
-            "Soluções de engenharia e serralheria industrial para estruturas, proteções, "
-            "adequações, dispositivos especiais e apoio a projetos industriais."
-        ),
-    },
     "mitsubishi_automacao_industrial": {
         "title": "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
         "description": (
@@ -133,13 +126,6 @@ ROUTE_METADATA = {
         "description": (
             "Soluções com robô Orbit para patrulhamento, vigilância assistida e apoio à "
             "segurança em condomínios e operações corporativas."
-        ),
-    },
-    "camara_climatica": {
-        "title": "Câmara Climática Sob Medida | Smart Control Brasil",
-        "description": (
-            "Projeto, instalação, retrofit e manutenção de câmaras climáticas sob medida para "
-            "testes ambientais, temperatura e umidade."
         ),
     },
 }
@@ -300,10 +286,8 @@ def _breadcrumb_items(context):
         "xyron": "Xyron Robotics",
         "robotica_educacional": "Robótica Educacional",
         "robo_seguranca_condominios": "Robô de Segurança para Condomínios",
-        "camara_climatica": "Câmara Climática Sob Medida",
         "mitsubishi_automacao_industrial": "Mitsubishi Automação Industrial",
         "manutencao_industrial_campo": "Manutenção Industrial",
-        "engenharia_serralheria_industrial": "Engenharia e Serralheria Industrial",
         "sistemas_websites_python": "Sistemas Web e Desenvolvimento Python",
     }
     if route_name in solution_names:

@@ -45,7 +45,7 @@ urlpatterns = [
         views.robo_seguranca_condominios,
         name="robo_seguranca_condominios",
     ),
-    path("camara-climatica/", views.camara_climatica, name="camara_climatica"),
+    path("camara-climatica/", views.disabled_commercial_landing, name="camara_climatica"),
     path(
         "ai-web-solutions-startups/",
         views.ai_web_solutions_startups,
@@ -53,7 +53,7 @@ urlpatterns = [
     ),
     path(
         "engenharia-serralheria-industrial/",
-        views.engenharia_serralheria_industrial,
+        views.disabled_commercial_landing,
         name="engenharia_serralheria_industrial",
     ),
     path(
