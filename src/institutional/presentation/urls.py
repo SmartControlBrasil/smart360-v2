@@ -35,14 +35,15 @@ urlpatterns = [
         name="ai_video_interaction_platform",
     ),
     path("xyron/", views.xyron, name="xyron"),
+    path("robos/<slug:slug>/", views.robot_detail, name="robot_detail"),
     path(
         "robotica-educacional/",
-        views.robotica_educacional,
+        views.disabled_commercial_landing,
         name="robotica_educacional",
     ),
     path(
         "robo-seguranca-condominios/",
-        views.robo_seguranca_condominios,
+        views.disabled_commercial_landing,
         name="robo_seguranca_condominios",
     ),
     path("camara-climatica/", views.disabled_commercial_landing, name="camara_climatica"),

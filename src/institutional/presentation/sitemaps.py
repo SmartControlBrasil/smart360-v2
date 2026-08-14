@@ -3,6 +3,7 @@ from django.conf import settings
 from django.urls import reverse
 
 from src.institutional.presentation.blog_posts import BLOG_POSTS
+from src.institutional.presentation.robot_pages import ROBOT_LIST
 from src.commerce.models import Category
 from src.commerce.models import Product
 
@@ -17,16 +18,6 @@ STATIC_PUBLIC_ROUTES = (
         "name": "institutional:xyron",
         "changefreq": "weekly",
         "priority": 0.9,
-    },
-    {
-        "name": "institutional:robotica_educacional",
-        "changefreq": "weekly",
-        "priority": 0.85,
-    },
-    {
-        "name": "institutional:robo_seguranca_condominios",
-        "changefreq": "weekly",
-        "priority": 0.85,
     },
     {
         "name": "institutional:mitsubishi_automacao_industrial",
@@ -98,6 +89,21 @@ class StaticViewSitemap(Sitemap):
 
     def priority(self, item):
         return item["priority"]
+
+
+class RobotSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.85
+    protocol = "https"
+
+    def get_domain(self, site=None):
+        return settings.PUBLIC_SITE_URL.removeprefix("https://").removeprefix("http://")
+
+    def items(self):
+        return ROBOT_LIST
+
+    def location(self, robot):
+        return reverse("institutional:robot_detail", kwargs={"slug": robot["slug"]})
 
 
 class BlogPostSitemap(Sitemap):

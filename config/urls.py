@@ -8,12 +8,14 @@ from src.institutional.presentation.sitemaps import BlogPostSitemap
 from src.institutional.presentation.sitemaps import CommerceCategorySitemap
 from src.institutional.presentation.sitemaps import CommerceProductSitemap
 from src.institutional.presentation.sitemaps import CommerceStaticSitemap
+from src.institutional.presentation.sitemaps import RobotSitemap
 from src.institutional.presentation.sitemaps import StaticViewSitemap
 
 
 sitemaps = {
     "static": StaticViewSitemap,
     "blog": BlogPostSitemap,
+    "robots": RobotSitemap,
     "commerce_static": CommerceStaticSitemap,
     "commerce_categories": CommerceCategorySitemap,
     "commerce_products": CommerceProductSitemap,

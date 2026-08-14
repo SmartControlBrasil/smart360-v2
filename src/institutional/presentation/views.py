@@ -1,4 +1,5 @@
 import logging
+from types import SimpleNamespace
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
@@ -16,6 +17,9 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
 from src.institutional.presentation.forms import ContactForm
+from src.institutional.presentation.robot_pages import ROBOTS
+from src.institutional.presentation.robot_pages import robot_canonical_path
+from src.institutional.presentation.robot_pages import robot_title
 
 
 logger = logging.getLogger(__name__)
@@ -152,7 +156,26 @@ def ai_video_interaction_platform(request):
 
 
 def xyron(request):
-    return render(request, "institutional/demos/xyron.html")
+    return render(request, "institutional/demos/xyron.html", {"robots": ROBOTS})
+
+
+def robot_detail(request, slug):
+    robot = ROBOTS.get(slug)
+    if robot is None:
+        raise Http404("Robô não encontrado.")
+
+    page = SimpleNamespace(
+        metadata=SimpleNamespace(
+            title=robot_title(robot),
+            description=robot["description"],
+            canonical_path=robot_canonical_path(robot),
+        )
+    )
+    return render(
+        request,
+        "institutional/pages/robot_detail.html",
+        {"page": page, "robot": robot},
+    )
 
 
 def robotica_educacional(request):

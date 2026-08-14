@@ -114,20 +114,6 @@ ROUTE_METADATA = {
             "integração, engenharia e suporte técnico especializado."
         ),
     },
-    "robotica_educacional": {
-        "title": "Robótica Educacional para Escolas | Smart Control Brasil",
-        "description": (
-            "Robôs educacionais e soluções interativas para escolas, projetos pedagógicos e "
-            "experiências de tecnologia com alunos."
-        ),
-    },
-    "robo_seguranca_condominios": {
-        "title": "Robô de Segurança para Condomínios | Smart Control Brasil",
-        "description": (
-            "Soluções com robô Orbit para patrulhamento, vigilância assistida e apoio à "
-            "segurança em condomínios e operações corporativas."
-        ),
-    },
 }
 
 NOINDEX_ROUTE_NAMES = {
@@ -201,6 +187,10 @@ def _product(context):
     return context.get("product")
 
 
+def _robot(context):
+    return context.get("robot")
+
+
 def _absolute_public_url(path):
     if not path:
         return ""
@@ -231,6 +221,13 @@ def _product_image_url(context):
             return _absolute_public_url(image.url)
         except ValueError:
             return ""
+    return ""
+
+
+def _robot_image_url(context):
+    robot = _robot(context)
+    if robot and robot.get("image"):
+        return _static_public_url(robot["image"])
     return ""
 
 
@@ -280,12 +277,18 @@ def _breadcrumb_items(context):
     route_name = _route_name(context)
     post = _post(context)
     product = _product(context)
+    robot = _robot(context)
     home = ("Início", _site_url(reverse("institutional:home")))
+
+    if robot:
+        return [
+            home,
+            ("Xyron Robotics", _site_url(reverse("institutional:xyron"))),
+            (robot.get("name", "Robô Xyron"), canonical_url(context)),
+        ]
 
     solution_names = {
         "xyron": "Xyron Robotics",
-        "robotica_educacional": "Robótica Educacional",
-        "robo_seguranca_condominios": "Robô de Segurança para Condomínios",
         "mitsubishi_automacao_industrial": "Mitsubishi Automação Industrial",
         "manutencao_industrial_campo": "Manutenção Industrial",
         "sistemas_websites_python": "Sistemas Web e Desenvolvimento Python",
@@ -458,7 +461,7 @@ def social_type(context):
 
 @register.simple_tag(takes_context=True)
 def social_image_url(context):
-    return _post_image_url(context) or _product_image_url(context) or _static_public_url(DEFAULT_SOCIAL_IMAGE)
+    return _post_image_url(context) or _product_image_url(context) or _robot_image_url(context) or _static_public_url(DEFAULT_SOCIAL_IMAGE)
 
 
 @register.simple_tag(takes_context=True)
