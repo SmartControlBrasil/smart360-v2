@@ -1,3 +1,4 @@
+import json
 from smtplib import SMTPException
 from unittest.mock import patch
 from urllib.parse import urljoin
@@ -261,6 +262,29 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
         self.assertIn(f'<meta name="{name}" content="{expected_content}">', html)
 
+    def structured_data(self, response):
+        html = response.content.decode()
+        start_marker = '<script type="application/ld+json">'
+        end_marker = '</script>'
+        blocks = []
+        start = html.find(start_marker)
+        while start != -1:
+            start += len(start_marker)
+            end = html.find(end_marker, start)
+            self.assertNotEqual(end, -1)
+            blocks.append(json.loads(html[start:end]))
+            start = html.find(start_marker, end + len(end_marker))
+        return blocks
+
+    def graph_items(self, response, item_type=None):
+        items = []
+        for payload in self.structured_data(response):
+            graph = payload.get("@graph", [])
+            items.extend(graph if isinstance(graph, list) else [graph])
+        if item_type:
+            return [item for item in items if item.get("@type") == item_type]
+        return items
+
     def sitemap_urls(self):
         response = self.client.get(
             "/sitemap.xml",
@@ -325,6 +349,38 @@ class TechnicalSeoTests(TestCase):
         )
         self.assertMetaName(response, "twitter:image", image_url)
         self.assertNotIn('content="/static/', response.content.decode())
+
+    def test_home_includes_organization_and_website_json_ld(self):
+        response = self.client.get("/")
+
+        organizations = self.graph_items(response, "Organization")
+        websites = self.graph_items(response, "WebSite")
+
+        self.assertEqual(len(organizations), 1)
+        self.assertEqual(organizations[0]["name"], "Smart Control Brasil")
+        self.assertEqual(organizations[0]["url"], "https://www.smartcontrolbrasil.com.br")
+        self.assertEqual(
+            organizations[0]["logo"],
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/header/logo-cores-03.webp",
+        )
+        self.assertEqual(organizations[0]["email"], "comercial@smartcontrolbrasil.com.br")
+        self.assertEqual(organizations[0]["telephone"], "+551151968525")
+        self.assertEqual(len(websites), 1)
+        self.assertEqual(websites[0]["name"], "Smart Control Brasil")
+        self.assertEqual(websites[0]["url"], "https://www.smartcontrolbrasil.com.br")
+        self.assertNotIn("SearchAction", response.content.decode())
+
+    def test_solution_page_includes_breadcrumb_json_ld(self):
+        response = self.client.get("/xyron/?utm_source=google")
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        self.assertEqual(len(breadcrumbs), 1)
+        items = breadcrumbs[0]["itemListElement"]
+        self.assertEqual([item["position"] for item in items], [1, 2])
+        self.assertEqual(items[0]["name"], "Início")
+        self.assertEqual(items[0]["item"], "https://www.smartcontrolbrasil.com.br/")
+        self.assertEqual(items[1]["name"], "Xyron Robotics")
+        self.assertEqual(items[1]["item"], "https://www.smartcontrolbrasil.com.br/xyron/")
 
     def test_services_has_unique_title_description_and_queryless_canonical(self):
         response = self.client.get("/servicos/?utm_source=google&utm_campaign=x&gclid=abc")
@@ -467,6 +523,38 @@ class TechnicalSeoTests(TestCase):
         self.assertMetaName(response, "twitter:title", expected_title)
         self.assertMetaName(response, "twitter:description", post["meta_description"])
         self.assertMetaName(response, "twitter:image", expected_image)
+
+    def test_blog_article_includes_article_and_breadcrumb_json_ld(self):
+        response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
+        post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
+
+        articles = self.graph_items(response, "Article")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+
+        self.assertEqual(len(articles), 1)
+        article = articles[0]
+        self.assertEqual(article["headline"], post["title"])
+        self.assertEqual(article["description"], post["meta_description"])
+        self.assertEqual(
+            article["url"],
+            "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+        )
+        self.assertEqual(article["image"], f"https://www.smartcontrolbrasil.com.br/static/{post['image']}")
+        self.assertEqual(article["author"], {"@type": "Organization", "name": "Smart Control Brasil"})
+        self.assertEqual(article["publisher"]["@type"], "Organization")
+        self.assertEqual(article["publisher"]["name"], "Smart Control Brasil")
+        self.assertNotIn("datePublished", article)
+        self.assertNotIn("dateModified", article)
+        self.assertEqual(len(breadcrumbs), 1)
+        items = breadcrumbs[0]["itemListElement"]
+        self.assertEqual([item["position"] for item in items], [1, 2, 3])
+        self.assertEqual(items[1]["name"], "Blog")
+        self.assertEqual(items[2]["item"], article["url"])
+
+    def test_noindex_page_does_not_render_json_ld(self):
+        response = self.client.get("/livia/")
+
+        self.assertEqual(self.structured_data(response), [])
 
     def test_experimental_demo_route_still_has_noindex_follow(self):
         response = self.client.get("/livia/")

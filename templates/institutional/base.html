@@ -12,6 +12,7 @@
     {% canonical_url as seo_canonical_url %}
     {% social_type as seo_social_type %}
     {% social_image_url as seo_social_image_url %}
+    {% structured_data_jsonld as seo_structured_data %}
 
     <title>{{ seo_title }}</title>
     <meta name="description" content="{{ seo_description }}">
@@ -33,6 +34,9 @@
     <meta name="twitter:title" content="{{ seo_title }}">
     <meta name="twitter:description" content="{{ seo_description }}">
     <meta name="twitter:image" content="{{ seo_social_image_url }}">
+    {% if seo_structured_data %}
+    <script type="application/ld+json">{{ seo_structured_data }}</script>
+    {% endif %}
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>

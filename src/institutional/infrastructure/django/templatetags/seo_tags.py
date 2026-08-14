@@ -1,8 +1,12 @@
+import json
+from decimal import Decimal
 from urllib.parse import urlsplit
 
 from django import template
 from django.conf import settings
 from django.templatetags.static import static
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 
 register = template.Library()
@@ -13,7 +17,10 @@ DEFAULT_DESCRIPTION = (
     "manutenção técnica e sistemas web."
 )
 DEFAULT_SOCIAL_IMAGE = "institutional/imgs/images/banner-6-img-1.png"
+ORGANIZATION_LOGO = "institutional/imgs/images/header/logo-cores-03.webp"
 SOCIAL_SITE_NAME = "Smart Control Brasil"
+ORGANIZATION_EMAIL = "comercial@smartcontrolbrasil.com.br"
+ORGANIZATION_TELEPHONE = "+551151968525"
 
 ROUTE_METADATA = {
     "home": {
@@ -220,6 +227,176 @@ def _product_image_url(context):
     return ""
 
 
+def _site_url(path="/"):
+    return _absolute_public_url(path)
+
+
+def _organization_schema():
+    return {
+        "@type": "Organization",
+        "name": SOCIAL_SITE_NAME,
+        "url": settings.PUBLIC_SITE_URL,
+        "logo": _static_public_url(ORGANIZATION_LOGO),
+        "email": getattr(settings, "CONTACT_RECIPIENT_EMAIL", ORGANIZATION_EMAIL),
+        "telephone": ORGANIZATION_TELEPHONE,
+    }
+
+
+def _website_schema():
+    return {
+        "@type": "WebSite",
+        "name": SOCIAL_SITE_NAME,
+        "url": settings.PUBLIC_SITE_URL,
+    }
+
+
+def _list_item(position, name, item):
+    return {
+        "@type": "ListItem",
+        "position": position,
+        "name": name,
+        "item": item,
+    }
+
+
+def _breadcrumb_schema(items):
+    return {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            _list_item(position, name, item)
+            for position, (name, item) in enumerate(items, start=1)
+        ],
+    }
+
+
+def _breadcrumb_items(context):
+    route_name = _route_name(context)
+    post = _post(context)
+    product = _product(context)
+    home = ("Início", _site_url(reverse("institutional:home")))
+
+    solution_names = {
+        "xyron": "Xyron Robotics",
+        "mitsubishi_automacao_industrial": "Mitsubishi Automação Industrial",
+        "manutencao_industrial_campo": "Manutenção Industrial",
+        "engenharia_serralheria_industrial": "Engenharia e Serralheria Industrial",
+        "sistemas_websites_python": "Sistemas Web e Desenvolvimento Python",
+    }
+    if route_name in solution_names:
+        return [home, (solution_names[route_name], canonical_url(context))]
+
+    if post:
+        return [
+            home,
+            ("Blog", _site_url(reverse("institutional:blog"))),
+            (post.get("title", "Artigo"), canonical_url(context)),
+        ]
+
+    if product:
+        items = [home, ("Loja", _site_url(reverse("commerce:shop")))]
+        category = getattr(product, "category", None)
+        if category:
+            items.append((category.name, _site_url(category.get_absolute_url())))
+        items.append((product.name, canonical_url(context)))
+        return items
+
+    return []
+
+
+def _article_schema(context):
+    post = _post(context)
+    if not post:
+        return None
+
+    schema = {
+        "@type": "Article",
+        "headline": post.get("title", ""),
+        "description": post.get("meta_description", ""),
+        "url": canonical_url(context),
+        "image": _post_image_url(context) or social_image_url(context),
+        "author": {
+            "@type": "Organization",
+            "name": SOCIAL_SITE_NAME,
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": SOCIAL_SITE_NAME,
+            "logo": {
+                "@type": "ImageObject",
+                "url": _static_public_url(ORGANIZATION_LOGO),
+            },
+        },
+    }
+    return {key: value for key, value in schema.items() if value}
+
+
+def _product_description(product):
+    return product.seo_description or product.short_description or DEFAULT_DESCRIPTION
+
+
+def _product_offer(product, url):
+    if not (product.show_price and product.price and product.price > Decimal("0")):
+        return None
+    direct_modes = {product.SaleMode.DIRECT, product.SaleMode.DIRECT_AND_QUOTE}
+    if product.sale_mode not in direct_modes:
+        return None
+    return {
+        "@type": "Offer",
+        "price": str(product.price),
+        "priceCurrency": "BRL",
+        "url": url,
+    }
+
+
+def _product_schema(context):
+    product = _product(context)
+    if not product:
+        return None
+
+    url = canonical_url(context)
+    schema = {
+        "@type": "Product",
+        "name": product.name,
+        "description": _product_description(product),
+        "image": _product_image_url(context) or social_image_url(context),
+        "url": url,
+    }
+    if getattr(product, "brand", None):
+        schema["brand"] = {
+            "@type": "Brand",
+            "name": product.brand.name,
+        }
+    if getattr(product, "category", None):
+        schema["category"] = product.category.name
+    offer = _product_offer(product, url)
+    if offer:
+        schema["offers"] = offer
+    return schema
+
+
+def _structured_data_graph(context):
+    if robots_directives(context):
+        return []
+
+    graph = []
+    if _route_name(context) == "home":
+        graph.extend([_organization_schema(), _website_schema()])
+
+    breadcrumbs = _breadcrumb_items(context)
+    if breadcrumbs:
+        graph.append(_breadcrumb_schema(breadcrumbs))
+
+    article = _article_schema(context)
+    if article:
+        graph.append(article)
+
+    product = _product_schema(context)
+    if product:
+        graph.append(product)
+
+    return graph
+
+
 @register.simple_tag(takes_context=True)
 def canonical_url(context):
     path = _metadata_canonical_path(context)
@@ -283,3 +460,16 @@ def robots_directives(context):
     if _route_name(context) in NOINDEX_ROUTE_NAMES:
         return "noindex,follow"
     return ""
+
+
+@register.simple_tag(takes_context=True)
+def structured_data_jsonld(context):
+    graph = _structured_data_graph(context)
+    if not graph:
+        return ""
+
+    payload = {
+        "@context": "https://schema.org",
+        "@graph": graph,
+    }
+    return mark_safe(json.dumps(payload, ensure_ascii=False, separators=(",", ":")))

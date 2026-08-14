@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 from io import BytesIO
 import shutil
@@ -195,6 +196,29 @@ class CommercePublicViewsTests(TestCase):
             show_price=False,
         )
 
+    def structured_data(self, response):
+        html = response.content.decode()
+        start_marker = '<script type="application/ld+json">'
+        end_marker = '</script>'
+        blocks = []
+        start = html.find(start_marker)
+        while start != -1:
+            start += len(start_marker)
+            end = html.find(end_marker, start)
+            self.assertNotEqual(end, -1)
+            blocks.append(json.loads(html[start:end]))
+            start = html.find(start_marker, end + len(end_marker))
+        return blocks
+
+    def graph_items(self, response, item_type=None):
+        items = []
+        for payload in self.structured_data(response):
+            graph = payload.get("@graph", [])
+            items.extend(graph if isinstance(graph, list) else [graph])
+        if item_type:
+            return [item for item in items if item.get("@type") == item_type]
+        return items
+
     def test_shop_responds_200(self):
         response = self.client.get(reverse("commerce:shop"))
 
@@ -277,6 +301,58 @@ class CommercePublicViewsTests(TestCase):
 
         self.assertContains(response, f'<meta property="og:image" content="{fallback_image}">')
         self.assertContains(response, f'<meta name="twitter:image" content="{fallback_image}">')
+
+    def test_product_json_ld_without_public_price_has_no_offer(self):
+        ProductImage.objects.create(
+            product=self.active_product,
+            image=image_upload("principal.jpg"),
+            alt_text="Imagem principal Xyron Demo",
+            is_primary=True,
+        )
+
+        response = self.client.get(self.active_product.get_absolute_url())
+        products = self.graph_items(response, "Product")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "Xyron Demo")
+        self.assertEqual(product["description"], "Robô demonstrativo para validação pública.")
+        self.assertEqual(product["url"], "https://www.smartcontrolbrasil.com.br/loja/produto/xyron-demo/")
+        self.assertIn("https://www.smartcontrolbrasil.com.br/media/commerce/products/xyron-demo/", product["image"])
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["category"], "Robótica")
+        self.assertNotIn("offers", product)
+        self.assertEqual(len(breadcrumbs), 1)
+        items = breadcrumbs[0]["itemListElement"]
+        self.assertEqual([item["position"] for item in items], [1, 2, 3, 4])
+        self.assertEqual(items[1]["name"], "Loja")
+        self.assertEqual(items[2]["name"], "Robótica")
+        self.assertEqual(items[2]["item"], "https://www.smartcontrolbrasil.com.br/loja/categoria/robotica/")
+        self.assertEqual(items[3]["item"], product["url"])
+
+    def test_product_json_ld_with_public_direct_price_has_offer(self):
+        response = self.client.get(self.other_product.get_absolute_url())
+        products = self.graph_items(response, "Product")
+
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "Ar-condicionado")
+        self.assertEqual(product["category"], "Climatização")
+        self.assertNotIn("brand", product)
+        self.assertEqual(
+            product["image"],
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/banner-6-img-1.png",
+        )
+        self.assertEqual(
+            product["offers"],
+            {
+                "@type": "Offer",
+                "price": "1200.00",
+                "priceCurrency": "BRL",
+                "url": "https://www.smartcontrolbrasil.com.br/loja/produto/ar-condicionado/",
+            },
+        )
 
     def test_price_appears_when_allowed(self):
         response = self.client.get(reverse("commerce:shop"))
