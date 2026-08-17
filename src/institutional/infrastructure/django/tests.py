@@ -15,8 +15,7 @@ from django.urls import reverse
 from src.commerce.models import Category
 from src.commerce.models import Product
 from src.institutional.presentation.blog_posts import BLOG_POSTS
-from src.institutional.presentation.robot_pages import ROBOT_LIST
-from src.institutional.presentation.robot_pages import robot_title
+from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
 
@@ -624,13 +623,13 @@ class TechnicalSeoTests(TestCase):
                 self.assertMetaProperty(response, "og:type", "website")
                 self.assertMetaName(response, "twitter:title", expected_title)
 
-    def test_robot_detail_pages_have_single_h1_metadata_breadcrumb_and_sitemap(self):
+    def test_xyron_robot_pages_have_single_h1_metadata_breadcrumb_and_sitemap(self):
         sitemap_urls = self.sitemap_urls()
 
-        for robot in ROBOT_LIST:
-            path = f"/robos/{robot['slug']}/"
+        for robot in XYRON_ROBOT_PAGES:
+            path = f"/xyron/{robot['slug']}/"
             canonical = f"https://www.smartcontrolbrasil.com.br{path}"
-            title = robot_title(robot)
+            title = robot["title"]
             with self.subTest(path=path):
                 response = self.client.get(f"{path}?utm_source=google")
                 html = response.content.decode()
@@ -662,7 +661,7 @@ class TechnicalSeoTests(TestCase):
                 self.assertEqual(items[1]["item"], "https://www.smartcontrolbrasil.com.br/xyron/")
                 self.assertEqual(items[-1]["item"], canonical)
 
-    def test_internal_links_connect_home_xyron_robot_pages_blog_and_contact(self):
+    def test_internal_links_connect_home_xyron_pages_blog_and_contact(self):
         home = self.client.get("/")
         xyron = self.client.get("/xyron/")
         manutencao = self.client.get("/manutencao-industrial-campo/")
@@ -671,8 +670,8 @@ class TechnicalSeoTests(TestCase):
         self.assertContains(home, 'href="/mitsubishi-automacao-industrial/"')
         self.assertContains(home, 'href="/xyron/"')
         self.assertContains(home, 'href="/sistemas-websites-python/"')
-        for robot in ROBOT_LIST:
-            self.assertContains(xyron, f'href="/robos/{robot["slug"]}/"')
+        for robot in XYRON_ROBOT_PAGES:
+            self.assertContains(xyron, f'href="/xyron/{robot["slug"]}/"')
         self.assertNotContains(xyron, 'href="/robotica-educacional/"')
         self.assertNotContains(xyron, 'href="/robo-seguranca-condominios/"')
         self.assertNotContains(manutencao, 'href="/camara-climatica/"')
@@ -765,8 +764,8 @@ class TechnicalSeoTests(TestCase):
         self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
         self.assertIn("https://www.smartcontrolbrasil.com.br/loja/", urls)
         robot_urls = tuple(
-            f"https://www.smartcontrolbrasil.com.br/robos/{robot['slug']}/"
-            for robot in ROBOT_LIST
+            f"https://www.smartcontrolbrasil.com.br/xyron/{robot['slug']}/"
+            for robot in XYRON_ROBOT_PAGES
         )
         for robot_url in robot_urls:
             with self.subTest(robot_url=robot_url):

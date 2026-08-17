@@ -17,9 +17,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
 from src.institutional.presentation.forms import ContactForm
-from src.institutional.presentation.robot_pages import ROBOTS
-from src.institutional.presentation.robot_pages import robot_canonical_path
-from src.institutional.presentation.robot_pages import robot_title
+from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 
 
 logger = logging.getLogger(__name__)
@@ -156,26 +154,55 @@ def ai_video_interaction_platform(request):
 
 
 def xyron(request):
-    return render(request, "institutional/demos/xyron.html", {"robots": ROBOTS})
+    return render(request, "institutional/demos/xyron.html")
 
 
-def robot_detail(request, slug):
-    robot = ROBOTS.get(slug)
-    if robot is None:
-        raise Http404("Robô não encontrado.")
-
+def _render_xyron_robot(request, key):
+    robot = XYRON_ROBOT_PAGE_BY_KEY[key]
     page = SimpleNamespace(
         metadata=SimpleNamespace(
-            title=robot_title(robot),
+            title=robot["title"],
             description=robot["description"],
-            canonical_path=robot_canonical_path(robot),
+            canonical_path=f"/xyron/{robot['slug']}/",
         )
     )
-    return render(
-        request,
-        "institutional/pages/robot_detail.html",
-        {"page": page, "robot": robot},
-    )
+    return render(request, robot["template"], {"page": page, "robot": robot})
+
+
+def xyron_littlebot(request):
+    return _render_xyron_robot(request, "littlebot")
+
+
+def xyron_orbit(request):
+    return _render_xyron_robot(request, "orbit")
+
+
+def xyron_neo_bot(request):
+    return _render_xyron_robot(request, "neo_bot")
+
+
+def xyron_waiter_bot(request):
+    return _render_xyron_robot(request, "waiter_bot")
+
+
+def xyron_hygibot_dune_bot(request):
+    return _render_xyron_robot(request, "hygibot_dune_bot")
+
+
+def xyron_buddy_bot(request):
+    return _render_xyron_robot(request, "buddy_bot")
+
+
+def xyron_carebot(request):
+    return _render_xyron_robot(request, "carebot")
+
+
+def xyron_hostbot(request):
+    return _render_xyron_robot(request, "hostbot")
+
+
+def xyron_mowerbot(request):
+    return _render_xyron_robot(request, "mowerbot")
 
 
 def robotica_educacional(request):

@@ -1,89 +1,274 @@
 {% load static %}
 {% with current=request.resolver_match.url_name %}
+
 <header>
     <div id="header-sticky" class="header header-1">
         <div class="container">
             <div class="mega__menu-wrapper p-relative">
                 <div class="header__main">
+
+                    <!-- LOGO -->
                     <div class="header__left">
                         <div class="header__logo">
                             <a href="{% url 'institutional:home' %}">
                                 <div class="logo">
-                                    <img src="{% static 'institutional/imgs/images/header/logo-cores-03.webp' %}" alt="Smart Control Brasil" width="192" height="80">
+                                    <img
+                                        src="{% static 'institutional/imgs/images/header/logo-cores-03.webp' %}"
+                                        alt="Smart Control Brasil"
+                                        width="192"
+                                        height="80"
+                                    >
                                 </div>
                             </a>
                         </div>
                     </div>
+
+
+                    <!-- MENU PRINCIPAL -->
                     <div class="header__middle header-1__middle">
                         <div class="mean__menu-wrapper d-none d-xl-block">
                             <div class="main-menu">
+
                                 <nav id="mobile-menu" aria-label="Menu principal">
                                     <ul>
-                                        <li class="{% if current == 'about' %}active{% endif %}">
-                                            <a href="{% url 'institutional:home' %}">Início</a>
+
+                                        <!-- INÍCIO -->
+                                        <li class="{% if current == 'home' %}active{% endif %}">
+                                            <a href="{% url 'institutional:home' %}">
+                                                Início
+                                            </a>
                                         </li>
+
+
+                                        <!-- SOBRE -->
                                         <li class="{% if current == 'about' %}active{% endif %}">
-                                            <a href="{% url 'institutional:about' %}">Sobre</a>
+                                            <a href="{% url 'institutional:about' %}">
+                                                Sobre
+                                            </a>
                                         </li>
+
+
+                                        <!-- SOLUÇÕES -->
                                         <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'livia' or current == 'camaras_climaticas' or current == 'manutencao_industrial_campo' or current == 'ai_video_interaction_platform' or current == 'xyron' or current == 'ai_web_solutions_startups' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
-                                            <a href="#" onclick="return false;"
-                                            aria-haspopup="true">Soluções</a>
+
+                                            <a
+                                                href="#"
+                                                onclick="return false;"
+                                                aria-haspopup="true"
+                                            >
+                                                Soluções
+                                            </a>
+
                                             <ul class="submenu">
-                                                <li class="{% if current == 'manutencao_industrial_campo' %}active{% endif %}"><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção Industrial</a></li>
-                                                <li class="{% if current == 'mitsubishi_automacao_industrial' %}active{% endif %}"><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Mitsubishi Automação</a></li>
-                                                <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}"><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites</a></li>
-                                                <li class="{% if current == 'xyron' %}active{% endif %}"><a href="{% url 'institutional:xyron' %}">Xyron Robótica</a></li>
+
+                                                <li class="{% if current == 'manutencao_industrial_campo' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:manutencao_industrial_campo' %}">
+                                                        Manutenção Industrial
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">
+                                                        Mitsubishi Automação
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:sistemas_websites_python' %}">
+                                                        Sistemas e Websites
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'xyron' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:xyron' %}">
+                                                        Xyron Robótica
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
+
+
+                                        <!-- BLOG -->
+                                        <li class="{% if current == 'blog' %}active{% endif %}">
+                                            <a href="{% url 'institutional:blog' %}">
+                                                Blog
+                                            </a>
+                                        </li>
+
+
+                                        {% comment %}
+                                        <li class="has-dropdown {% if current in 'services service_details' %}active{% endif %}">
+                                            <a href="{% url 'institutional:services' %}">
+                                                Serviços
+                                            </a>
+
+                                            <ul class="submenu">
+                                                <li class="{% if current == 'services' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:services' %}">
+                                                        Serviços
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'service_details' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:service_details' %}">
+                                                        Detalhes do serviço
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
-                                        <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">Blog</a></li>
-                                        
-                                        {% comment %} <li class="has-dropdown {% if current in 'services service_details' %}active{% endif %}">
-                                            <a href="{% url 'institutional:services' %}">Serviços</a>
+                                        {% endcomment %}
+
+
+                                        {% comment %}
+                                        <li class="has-dropdown {% if current in 'blog blog_list blog_details' %}active{% endif %}">
+                                            <a href="{% url 'institutional:blog' %}">
+                                                Blog
+                                            </a>
+
                                             <ul class="submenu">
-                                                <li class="{% if current == 'services' %}active{% endif %}"><a href="{% url 'institutional:services' %}">Serviços</a></li>
-                                                <li class="{% if current == 'service_details' %}active{% endif %}"><a href="{% url 'institutional:service_details' %}">Detalhes do serviço</a></li>
+                                                <li class="{% if current == 'blog' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:blog' %}">
+                                                        Grade do blog
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'blog_list' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:blog_list' %}">
+                                                        Lista do blog
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'blog_details' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:blog_details' %}">
+                                                        Detalhes do blog
+                                                    </a>
+                                                </li>
                                             </ul>
-                                        </li> {% endcomment %}
-                                        {% comment %} <li class="has-dropdown {% if current in 'blog blog_list blog_details' %}active{% endif %}">
-                                            <a href="{% url 'institutional:blog' %}">Blog</a>
+                                        </li>
+                                        {% endcomment %}
+
+
+                                        {% comment %}
+                                        <li class="has-dropdown {% if current in 'team team_details projects project_details testimonials pricing cart wishlist checkout shop shop_details faq error_404_preview' %}active{% endif %}">
+
+                                            <a href="javascript:void(0)">
+                                                Páginas
+                                            </a>
+
                                             <ul class="submenu">
-                                                <li class="{% if current == 'blog' %}active{% endif %}"><a href="{% url 'institutional:blog' %}">Grade do blog</a></li>
-                                                <li class="{% if current == 'blog_list' %}active{% endif %}"><a href="{% url 'institutional:blog_list' %}">Lista do blog</a></li>
-                                                <li class="{% if current == 'blog_details' %}active{% endif %}"><a href="{% url 'institutional:blog_details' %}">Detalhes do blog</a></li>
+
+                                                <li class="{% if current == 'team' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:team' %}">
+                                                        Equipe
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'team_details' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:team_details' %}">
+                                                        Detalhes da equipe
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'projects' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:projects' %}">
+                                                        Projetos
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'project_details' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:project_details' %}">
+                                                        Detalhes do projeto
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'testimonials' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:testimonials' %}">
+                                                        Depoimentos
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'pricing' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:pricing' %}">
+                                                        Planos
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'cart' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:cart' %}">
+                                                        Carrinho
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'wishlist' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:wishlist' %}">
+                                                        Lista de desejos
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'checkout' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:checkout' %}">
+                                                        Checkout
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'shop' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:shop' %}">
+                                                        Loja
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'shop_details' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:shop_details' %}">
+                                                        Detalhes do produto
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'faq' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:faq' %}">
+                                                        FAQ
+                                                    </a>
+                                                </li>
+
+                                                <li class="{% if current == 'error_404_preview' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:error_404_preview' %}">
+                                                        Página 404
+                                                    </a>
+                                                </li>
+
                                             </ul>
-                                        </li> {% endcomment %}
-                                        {% comment %} <li class="has-dropdown {% if current in 'team team_details projects project_details testimonials pricing cart wishlist checkout shop shop_details faq error_404_preview' %}active{% endif %}">
-                                            <a href="javascript:void(0)">Páginas</a>
-                                            <ul class="submenu">
-                                                <li class="{% if current == 'team' %}active{% endif %}"><a href="{% url 'institutional:team' %}">Equipe</a></li>
-                                                <li class="{% if current == 'team_details' %}active{% endif %}"><a href="{% url 'institutional:team_details' %}">Detalhes da equipe</a></li>
-                                                <li class="{% if current == 'projects' %}active{% endif %}"><a href="{% url 'institutional:projects' %}">Projetos</a></li>
-                                                <li class="{% if current == 'project_details' %}active{% endif %}"><a href="{% url 'institutional:project_details' %}">Detalhes do projeto</a></li>
-                                                <li class="{% if current == 'testimonials' %}active{% endif %}"><a href="{% url 'institutional:testimonials' %}">Depoimentos</a></li>
-                                                <li class="{% if current == 'pricing' %}active{% endif %}"><a href="{% url 'institutional:pricing' %}">Planos</a></li>
-                                                <li class="{% if current == 'cart' %}active{% endif %}"><a href="{% url 'institutional:cart' %}">Carrinho</a></li>
-                                                <li class="{% if current == 'wishlist' %}active{% endif %}"><a href="{% url 'institutional:wishlist' %}">Lista de desejos</a></li>
-                                                <li class="{% if current == 'checkout' %}active{% endif %}"><a href="{% url 'institutional:checkout' %}">Checkout</a></li>
-                                                <li class="{% if current == 'shop' %}active{% endif %}"><a href="{% url 'institutional:shop' %}">Loja</a></li>
-                                                <li class="{% if current == 'shop_details' %}active{% endif %}"><a href="{% url 'institutional:shop_details' %}">Detalhes do produto</a></li>
-                                                <li class="{% if current == 'faq' %}active{% endif %}"><a href="{% url 'institutional:faq' %}">FAQ</a></li>
-                                                <li class="{% if current == 'error_404_preview' %}active{% endif %}"><a href="{% url 'institutional:error_404_preview' %}">Página 404</a></li>
-                                            </ul>
-                                            
-                                        </li> {% endcomment %}
+
+                                        </li>
+                                        {% endcomment %}
+
+
+                                        <!-- CONTATO -->
                                         <li class="{% if current == 'contact' %}active{% endif %}">
-                                            <a href="{% url 'institutional:contact' %}">Contato</a>
+                                            <a href="{% url 'institutional:contact' %}">
+                                                Contato
+                                            </a>
                                         </li>
+
                                     </ul>
                                 </nav>
+
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- LADO DIREITO -->
                     <div class="header__right">
+
                         <div class="header__action d-flex align-items-center">
-                    
+
+
+                            <!-- LOGIN / PAINEL -->
                             <div class="contact d-none d-md-inline-flex">
+
                                 <a href="{% if request.user.is_authenticated %}{% url 'backoffice:dashboard' %}{% else %}{% url 'institutional:login' %}?next={% url 'backoffice:dashboard' %}{% endif %}">
+
                                     <svg
                                         width="14"
                                         height="16"
@@ -92,6 +277,7 @@
                                         xmlns="http://www.w3.org/2000/svg"
                                         aria-hidden="true"
                                     >
+
                                         <path
                                             d="M7.01172 8C8.94472 8 10.5117 6.433 10.5117 4.5C10.5117 2.567 8.94472 1 7.01172 1C5.07872 1 3.51172 2.567 3.51172 4.5C3.51172 6.433 5.07872 8 7.01172 8Z"
                                             stroke="white"
@@ -99,6 +285,7 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                         />
+
                                         <path
                                             d="M13.026 15C13.026 12.291 10.331 10.1 7.013 10.1C3.695 10.1 1 12.291 1 15"
                                             stroke="white"
@@ -106,32 +293,111 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round"
                                         />
+
                                     </svg>
-                                    {% if request.user.is_authenticated %}Painel{% else %}Entrar{% endif %}
+
+                                    {% if request.user.is_authenticated %}
+                                        Painel
+                                    {% else %}
+                                        Entrar
+                                    {% endif %}
+
                                 </a>
+
                             </div>
-                    
+
+
+                            <!-- =================================================
+                                 REDES SOCIAIS
+                                 Trocar somente as URLs abaixo pelos perfis oficiais
+                                 ================================================= -->
+                            <div
+                                class="header__social d-none d-lg-flex align-items-center"
+                                style="gap: 12px; margin-left: 18px; margin-right: 18px;"
+                            >
+
+                                <!-- GOOGLE -->
+                                <a
+                                    href="https://www.youtube.com/@SmartControlBrasil"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Smart Control Brasil no YouTube"
+                                    title="YouTube"
+                                    style="color: #ffffff; font-size: 17px;"
+                                >
+                                    <i class="fa-brands fa-youtube"></i>
+                                </a>
+
+
+                                <!-- INSTAGRAM -->
+                                <!-- SUBSTITUA PELA URL OFICIAL DO INSTAGRAM -->
+                                <a
+                                    href="https://www.instagram.com/smartcontrolbrasil/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Smart Control Brasil no Instagram"
+                                    title="Instagram"
+                                    style="color: #ffffff; font-size: 18px;"
+                                >
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+
+
+                                <!-- FACEBOOK -->
+                                <!-- SUBSTITUA PELA URL OFICIAL DO FACEBOOK -->
+                                <a
+                                    href="https://www.facebook.com/profile.php?id=61579259162806"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Smart Control Brasil no Facebook"
+                                    title="Facebook"
+                                    style="color: #ffffff; font-size: 18px;"
+                                >
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+
+                            </div>
+
+
+                            <!-- PRODUTOS -->
                             <div class="header__btn-wrap d-none d-sm-inline-flex">
-                                <a href="{% url 'commerce:shop' %}" class="rr-btn rr-btn-bold">
+
+                                <a
+                                    href="{% url 'commerce:shop' %}"
+                                    class="rr-btn rr-btn-bold"
+                                >
                                     Ver Produtos
                                 </a>
+
                             </div>
-                    
+
+
+                            <!-- MENU MOBILE -->
                             <div class="header__hamburger ml-20 d-xl-none">
+
                                 <div class="sidebar__toggle">
-                                    <button class="bar-icon" aria-label="Abrir menu">
+
+                                    <button
+                                        class="bar-icon"
+                                        aria-label="Abrir menu"
+                                    >
                                         <span></span>
                                         <span></span>
                                         <span></span>
                                     </button>
+
                                 </div>
+
                             </div>
-                    
+
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </header>
+
 {% endwith %}

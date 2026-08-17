@@ -1,0 +1,1309 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- =========================================================
+     LITTLEBOT - PRODUCT DETAIL
+     ========================================================= -->
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="banner9__area p-relative overflow-hidden heading-bg z-1">
+
+    <div class="banner9__shapes">
+        <div class="banner9__shapes-shape-1"></div>
+        <div class="banner9__shapes-shape-2"></div>
+        <div class="banner9__shapes-shape-3"></div>
+        <div class="banner9__shapes-shape-4"></div>
+        <div class="banner9__shapes-shape-5"></div>
+        <div class="banner9__shapes-shape-6"></div>
+
+        <div
+            class="banner9__shapes-shape-7"
+            data-background="{% static 'institutional/imgs/shapes/hero-9-bg-shape-1.png' %}">
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <div class="banner9__content">
+
+                    <div class="banner-heading__wrapper">
+
+                        <h1 class="banner-heading__wrapper-title">
+                            LIRO / Little Bot
+                        </h1>
+
+                        <p class="banner-heading__wrapper-dec">
+                            Um robô interativo desenvolvido para aproximar
+                            crianças e jovens da tecnologia por meio de
+                            experiências envolventes, comunicação, movimento
+                            e interação.
+                        </p>
+
+                    </div>
+
+                    <div class="banner9__from-wrapper-box">
+
+                        <a
+                            href="{% url 'institutional:contact' %}"
+                            class="rr-btn">
+
+                            Agendar demonstração
+                            <i class="fa-regular fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                    <div class="banner9__option">
+
+                        <span class="banner9__option-box">
+                            Educação
+                        </span>
+
+                        <span class="banner9__option-box">
+                            Interação
+                        </span>
+
+                        <span class="banner9__option-box">
+                            Robótica
+                        </span>
+
+                        <span class="banner9__option-box">
+                            Tecnologia
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5">
+
+                <div class="banner9__thumb">
+
+                    <img
+                        src="{% static 'institutional/imgs/service/little-bot-pensativo.webp' %}"
+                        alt="LittleBot - robô interativo educacional"
+                        width="345"
+                        height="410"
+                        loading="eager"
+                        fetchpriority="high">
+
+                    <div class="banner9__thumb-content">
+
+                        <div class="banner9__thumb-content-box">
+
+                            <img
+                                src="{% static 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}"
+                                alt="LittleBot interagindo"
+                                width="84"
+                                height="80">
+
+                            <h5 class="title">
+                                Interação
+                            </h5>
+
+                        </div>
+
+                        <div class="banner9__thumb-content-box">
+
+                            <img
+                                src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}"
+                                alt="LittleBot em ambiente educacional"
+                                width="84"
+                                height="80">
+
+                            <h5 class="title">
+                                Educação
+                            </h5>
+
+                        </div>
+
+                        <div class="banner9__thumb-content-box">
+
+                            <img
+                                src="{% static 'institutional/imgs/blog/blog-liro.webp' %}"
+                                alt="Tecnologia LittleBot"
+                                width="84"
+                                height="80">
+
+                            <h5 class="title">
+                                Tecnologia
+                            </h5>
+
+                        </div>
+
+                        <div class="banner9__thumb-content-text">
+
+                            <div class="text-box">
+                                <h5>IA</h5>
+                            </div>
+
+                            <h5 class="title">
+                                Robótica
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTRO
+     ========================================================= -->
+<section class="blog__area section-space-bottom pastel-blue-bg">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+
+                <h2 class="section__title-wrapper-title _split_text">
+                    Uma nova forma de apresentar tecnologia às crianças
+                </h2>
+
+                <p>
+                    O LittleBot transforma o primeiro contato com a robótica
+                    em uma experiência memorável. Movimento, comunicação,
+                    expressão e interação despertam curiosidade e tornam
+                    conceitos tecnológicos muito mais próximos do cotidiano
+                    dos estudantes.
+                </p>
+
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+
+                <a
+                    class="rr-btn"
+                    href="{% url 'institutional:contact' %}">
+                    Levar o LittleBot para minha escola
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+
+                <a
+                    class="rr-btn btn-transparent mt-15"
+                    href="{% url 'institutional:contact' %}">
+                    Solicitar informações
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+     ========================================================= -->
+<section class="about-9__area section-space-9 p-relative overflow-hidden">
+
+    <div class="about-9__shapes">
+
+        <div class="about-9__shapes-shape-1">
+            <img
+                src="{% static 'institutional/imgs/shapes/about-9-shape-2.png' %}"
+                alt="">
+        </div>
+
+        <div class="about-9__shapes-shape-2">
+            <img
+                src="{% static 'institutional/imgs/shapes/about-9-shape-3.png' %}"
+                alt="">
+        </div>
+
+        <div class="about-9__shapes-shape-3">
+            <img
+                src="{% static 'institutional/imgs/shapes/about-9-shape-4.png' %}"
+                alt="">
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <div class="about-9__thumb">
+
+                    <img
+                        src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}"
+                        alt="LittleBot interagindo com crianças">
+
+                    <div class="about-9__thumb-shape-1">
+
+                        <img
+                            src="{% static 'institutional/imgs/shapes/about-9-shape-1.png' %}"
+                            alt="">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="about-9__content">
+
+                    <div class="section__title-wrapper hero">
+
+                        <h2 class="section__title-wrapper-title _split_text">
+                            Mais do que observar tecnologia.
+                            É possível interagir com ela.
+                        </h2>
+
+                        <p class="dec rr_title_anim">
+                            O LittleBot cria um ponto de encontro entre
+                            pessoas e tecnologia. Sua presença desperta
+                            curiosidade imediatamente e transforma uma
+                            demonstração tecnológica em uma experiência
+                            interativa.
+                        </p>
+
+                        <p class="dec rr_title_anim">
+                            Em escolas, feiras, eventos e ambientes de
+                            inovação, o robô pode contribuir para apresentar
+                            temas relacionados à robótica, inteligência
+                            artificial, programação e transformação digital.
+                        </p>
+
+                    </div>
+
+                    <div class="about-9__content-btn">
+
+                        <a
+                            class="rr-btn"
+                            href="{% url 'institutional:contact' %}">
+
+                            Conhecer o LittleBot
+                            <i class="fa-regular fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                    <div class="about-9__content-counter">
+
+                        <div class="count-item">
+
+                            <h3 class="title">
+                                Tecnologia
+                            </h3>
+
+                            <p>
+                                Aproxima a robótica das pessoas
+                            </p>
+
+                        </div>
+
+                        <div class="count-item">
+
+                            <h3 class="title">
+                                Experiência
+                            </h3>
+
+                            <p>
+                                Interação que desperta curiosidade
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BENEFÍCIOS
+     ========================================================= -->
+<section class="service-9__area light-blue section-space-13">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-5 col-sm-12">
+
+                <div class="section__title-wrapper hero mb-30">
+
+                    <h2 class="section__title-wrapper-title _split_text">
+                        Tecnologia que gera
+                        curiosidade e participação
+                    </h2>
+
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                        O LittleBot transforma tecnologia em experiência,
+                        permitindo criar atividades que estimulam participação,
+                        descoberta, criatividade e interesse pela inovação.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-7 col-sm-12">
+
+                <div class="row pl-30 pl-md-0">
+
+                    <!-- ITEM 01 -->
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="service-9__item mb-30">
+
+                            <div class="service-9__item-icon">
+
+                                <img
+                                    src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}"
+                                    alt="Interação">
+
+                            </div>
+
+                            <h4 class="title">
+                                Interação
+                            </h4>
+
+                            <p class="dec">
+                                A presença física do robô cria uma experiência
+                                muito diferente de uma apresentação convencional,
+                                aumentando a atenção e o envolvimento do público.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ITEM 02 -->
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="service-9__item mb-30">
+
+                            <div class="service-9__item-icon">
+
+                                <img
+                                    src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}"
+                                    alt="Educação tecnológica">
+
+                            </div>
+
+                            <h4 class="title">
+                                Educação Tecnológica
+                            </h4>
+
+                            <p class="dec">
+                                Robótica e inteligência artificial deixam
+                                de ser conceitos abstratos e passam a fazer
+                                parte de uma experiência concreta.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row mb-minus-30">
+
+            <div class="col-lg-7 col-sm-12">
+
+                <div class="row pl-30 pl-md-0">
+
+
+                    <!-- ITEM 03 -->
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="service-9__item mb-30">
+
+                            <div class="service-9__item-icon">
+
+                                <img
+                                    src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}"
+                                    alt="Engajamento">
+
+                            </div>
+
+                            <h4 class="title">
+                                Engajamento
+                            </h4>
+
+                            <p class="dec">
+                                Movimento, aparência e interação ajudam
+                                a criar momentos marcantes em atividades
+                                educacionais, apresentações e eventos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ITEM 04 -->
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="service-9__item mb-30">
+
+                            <div class="service-9__item-icon">
+
+                                <img
+                                    src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}"
+                                    alt="Inovação">
+
+                            </div>
+
+                            <h4 class="title">
+                                Cultura de Inovação
+                            </h4>
+
+                            <p class="dec">
+                                O contato com novas tecnologias ajuda
+                                escolas e instituições a estimular uma
+                                cultura voltada à ciência, tecnologia,
+                                criatividade e inovação.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5 col-sm-12">
+
+                <div class="service-9__thumb mb-30">
+
+                    <img
+                        src="{% static 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}"
+                        alt="Experiência com LittleBot">
+
+                    <a
+                        class="rr-btn"
+                        href="{% url 'institutional:contact' %}">
+
+                        Agendar demonstração
+                        <i class="fa-regular fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APPLICATIONS
+     ========================================================= -->
+<section class="product-9__area section-space">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="section__title-wrapper text-center mb-55 hero">
+
+                    <h2 class="section__title-wrapper-title _split_text">
+                        Onde o LittleBot pode fazer a diferença
+                    </h2>
+
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                        Diferentes ambientes podem utilizar o robô
+                        como ferramenta de interação, demonstração
+                        tecnológica e aproximação com a inovação.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row mb-minus-30">
+
+
+            <!-- ESCOLAS -->
+            <div class="col-md-5 col-sm-6">
+
+                <div class="product-9__item mb-30">
+
+                    <img
+                        src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}"
+                        alt="LittleBot em escolas">
+
+                    <div class="product-9__item-content">
+
+                        <h3 class="title">
+                            Escolas
+                        </h3>
+
+                        <p class="dec">
+                            Tecnologia próxima dos estudantes
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EVENTOS -->
+            <div class="col-md-7 col-sm-6">
+
+                <div class="product-9__item mb-30">
+
+                    <img
+                        src="{% static 'institutional/imgs/blog/blog-liro.webp' %}"
+                        alt="LittleBot em eventos">
+
+                    <div class="product-9__item-content">
+
+                        <h3 class="title">
+                            Feiras e Eventos
+                        </h3>
+
+                        <p class="dec">
+                            Experiência tecnológica de alto impacto
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INOVAÇÃO -->
+            <div class="col-md-7 col-sm-6">
+
+                <div class="product-9__item mb-30">
+
+                    <img
+                        src="{% static 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}"
+                        alt="LittleBot em ambientes de inovação">
+
+                    <div class="product-9__item-content">
+
+                        <h3 class="title">
+                            Espaços de Inovação
+                        </h3>
+
+                        <p class="dec">
+                            Robótica como parte da experiência
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJETOS -->
+            <div class="col-md-5 col-sm-6">
+
+                <div class="product-9__item mb-30">
+
+                    <img
+                        src="{% static 'institutional/imgs/service/little-bot-sobre-a-mesa.webp' %}"
+                        alt="Projetos educacionais com LittleBot">
+
+                    <div class="product-9__item-content">
+
+                        <h3 class="title">
+                            Projetos Educacionais
+                        </h3>
+
+                        <p class="dec">
+                            Ciência, tecnologia e criatividade
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIÊNCIA
+     ========================================================= -->
+<section class="review-9__area section-space light-blue">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="section__title-wrapper text-center mb-45 hero">
+
+                    <h2 class="section__title-wrapper-title _split_text">
+                        Por que utilizar um robô em experiências educacionais?
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="swiper review-9__slider">
+
+                    <div class="swiper-wrapper mb-90 mb-sm-10 mb-xs-10">
+
+
+                        <div class="swiper-slide">
+
+                            <div class="review-9__item">
+
+                                <p class="dec">
+                                    “A tecnologia deixa de estar somente
+                                    em uma tela e passa a ocupar o mesmo
+                                    ambiente das pessoas.”
+                                </p>
+
+                                <h5 class="mt-20">
+                                    Tecnologia Presente
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="swiper-slide">
+
+                            <div class="review-9__item">
+
+                                <p class="dec">
+                                    “Quando uma criança pode observar e
+                                    interagir com um robô, a curiosidade
+                                    naturalmente abre espaço para novas perguntas.”
+                                </p>
+
+                                <h5 class="mt-20">
+                                    Curiosidade
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="swiper-slide">
+
+                            <div class="review-9__item">
+
+                                <p class="dec">
+                                    “Robótica, programação e inteligência
+                                    artificial tornam-se assuntos muito mais
+                                    próximos quando fazem parte de uma experiência.”
+                                </p>
+
+                                <h5 class="mt-20">
+                                    Aprendizado
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="swiper-slide">
+
+                            <div class="review-9__item">
+
+                                <p class="dec">
+                                    “O LittleBot ajuda instituições a transformar
+                                    inovação em algo que estudantes, famílias
+                                    e visitantes conseguem realmente vivenciar.”
+                                </p>
+
+                                <h5 class="mt-20">
+                                    Experiência
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     POSSIBILIDADES
+     ========================================================= -->
+<section class="pricing-9__area section-space fade-wrapper">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="section__title-wrapper text-center mb-45 hero">
+
+                    <h2 class="section__title-wrapper-title _split_text">
+                        Uma plataforma para diferentes experiências
+                    </h2>
+
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                        O LittleBot pode fazer parte de diferentes iniciativas
+                        relacionadas à educação, tecnologia, comunicação
+                        e inovação.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+
+            <!-- CARD 01 -->
+            <div class="col-xl-4 col-lg-4 col-md-6">
+
+                <div class="pricing-9__item fade-top mb-30">
+
+                    <div class="pricing-9__header">
+
+                        <h3>
+                            Educação
+                        </h3>
+
+                        <p class="dec">
+                            Experiências voltadas à aproximação dos
+                            estudantes com novas tecnologias.
+                        </p>
+
+                    </div>
+
+                    <div class="pricing-9__features text-start">
+
+                        <h6>
+                            Possibilidades
+                        </h6>
+
+                        <ul>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Introdução à robótica
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Tecnologia e inovação
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Inteligência artificial
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Atividades demonstrativas
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Experiências STEM
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 02 -->
+            <div class="col-xl-4 col-lg-4 col-md-6">
+
+                <div class="pricing-9__item fade-top mb-30">
+
+                    <div class="pricing-9__header">
+
+                        <h3>
+                            Interação
+                        </h3>
+
+                        <p class="dec">
+                            O robô se torna parte da experiência,
+                            despertando atenção e curiosidade.
+                        </p>
+
+                    </div>
+
+                    <div class="pricing-9__features text-start">
+
+                        <h6>
+                            Possibilidades
+                        </h6>
+
+                        <ul>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Recepção de visitantes
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Eventos educacionais
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Feiras de tecnologia
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Ações institucionais
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Demonstrações
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 03 -->
+            <div class="col-xl-4 col-lg-4 col-md-6">
+
+                <div class="pricing-9__item fade-top mb-30">
+
+                    <div class="pricing-9__header">
+
+                        <h3>
+                            Inovação
+                        </h3>
+
+                        <p class="dec">
+                            Um elemento tecnológico capaz de transformar
+                            ambientes e projetos ligados à inovação.
+                        </p>
+
+                    </div>
+
+                    <div class="pricing-9__features text-start">
+
+                        <h6>
+                            Possibilidades
+                        </h6>
+
+                        <ul>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Centros de inovação
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Espaços tecnológicos
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Projetos especiais
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Instituições públicas
+                            </li>
+
+                            <li>
+                                <i class="fa-regular fa-check"></i>
+                                Ambientes corporativos
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FAQ
+     ========================================================= -->
+<section class="faq-9__area ask-question-9 p-relative overflow-hidden">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-7">
+
+                <div class="ask-question-9__faq-9">
+
+                    <div class="accordion" id="accordionExample">
+
+
+                        <!-- FAQ 01 -->
+                        <div
+                            class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated"
+                            data-wow-delay=".2s">
+
+                            <h5 class="accordion-header" id="headingOne">
+
+                                <button
+                                    class="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne"
+                                    aria-expanded="true"
+                                    aria-controls="collapseOne">
+
+                                    O que é o LittleBot?
+
+                                </button>
+
+                            </h5>
+
+                            <div
+                                id="collapseOne"
+                                class="accordion-collapse collapse show"
+                                aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+
+                                <div class="accordion-body">
+
+                                    <p>
+                                        O LittleBot é um robô interativo que
+                                        permite criar experiências envolvendo
+                                        robótica, tecnologia, comunicação e
+                                        interação com pessoas.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FAQ 02 -->
+                        <div
+                            class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated"
+                            data-wow-delay=".3s">
+
+                            <h5 class="accordion-header" id="headingTwo">
+
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo"
+                                    aria-expanded="false"
+                                    aria-controls="collapseTwo">
+
+                                    O LittleBot pode ser utilizado em escolas?
+
+                                </button>
+
+                            </h5>
+
+                            <div
+                                id="collapseTwo"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+
+                                <div class="accordion-body">
+
+                                    <p>
+                                        Sim. O ambiente educacional é uma das
+                                        aplicações mais interessantes para o
+                                        LittleBot, especialmente em iniciativas
+                                        relacionadas à robótica, tecnologia,
+                                        inovação e experiências STEM.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FAQ 03 -->
+                        <div
+                            class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated"
+                            data-wow-delay=".4s">
+
+                            <h5 class="accordion-header" id="headingThree">
+
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree"
+                                    aria-expanded="false"
+                                    aria-controls="collapseThree">
+
+                                    É possível realizar uma demonstração?
+
+                                </button>
+
+                            </h5>
+
+                            <div
+                                id="collapseThree"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+
+                                <div class="accordion-body">
+
+                                    <p>
+                                        Entre em contato com a Smart Control Brasil
+                                        para apresentar sua instituição e sua
+                                        aplicação. Nossa equipe poderá avaliar
+                                        as possibilidades de demonstração
+                                        do LittleBot.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FAQ 04 -->
+                        <div
+                            class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated"
+                            data-wow-delay=".5s">
+
+                            <h5 class="accordion-header" id="headingFour">
+
+                                <button
+                                    class="accordion-button collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour"
+                                    aria-expanded="false"
+                                    aria-controls="collapseFour">
+
+                                    Como posso levar o LittleBot para minha instituição?
+
+                                </button>
+
+                            </h5>
+
+                            <div
+                                id="collapseFour"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="headingFour"
+                                data-bs-parent="#accordionExample">
+
+                                <div class="accordion-body">
+
+                                    <p>
+                                        Envie uma mensagem para nossa equipe
+                                        informando o tipo de instituição,
+                                        objetivo da aplicação e cidade.
+                                        A Smart Control Brasil entrará em contato
+                                        para avaliar a melhor solução.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FAQ SIDE -->
+            <div class="col-lg-5">
+
+                <div class="faq-9__thumb">
+
+                    <div class="section__title-wrapper hero">
+
+                        <h2 class="section__title-wrapper-title-2 _split_text">
+                            Quer conhecer
+                            o LittleBot?
+                        </h2>
+
+                        <p class="dec">
+                            Apresente sua escola, instituição ou projeto
+                            para nossa equipe e descubra como o LittleBot
+                            pode fazer parte de uma experiência de tecnologia
+                            e inovação.
+                        </p>
+
+                    </div>
+
+                    <div class="faq-9__thumb-media">
+
+                        <img
+                            src="{% static 'institutional/imgs/service/little-bot-sobre-a-mesa.webp' %}"
+                            alt="Conheça o LittleBot">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CTA FINAL
+     ========================================================= -->
+<section class="blog-9__area section-space">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9 text-center">
+
+                <div class="section__title-wrapper hero mb-40">
+
+                    <h2 class="section__title-wrapper-title _split_text">
+                        O futuro chama atenção.<br>
+                        Quando ele anda até você, chama ainda mais.
+                    </h2>
+
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                        Leve robótica, interação e inovação para mais perto
+                        das pessoas com o LittleBot.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'institutional:contact' %}"
+                    class="rr-btn">
+
+                    Agendar demonstração
+                    <i class="fa-regular fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
