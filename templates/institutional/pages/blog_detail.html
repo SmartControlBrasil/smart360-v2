@@ -80,7 +80,7 @@
                                 </ul>
 
                                 <p class="title">{{ post.category }}</p>
-                                <p class="dec-2">{{ post.intro }}</p>
+                                <p class="dec-2">{{ post.intro|safe }}</p>
 
                                 {% if solution_link %}
                                     <p class="dec-3">Tema relacionado: <a href="{% url solution_link.url_name %}">{{ solution_link.label }}</a>.</p>
@@ -89,9 +89,24 @@
                                 {% for section in post.sections %}
                                     <h2 class="title mt-50">{{ section.heading }}</h2>
                                     {% for paragraph in section.paragraphs %}
-                                        <p class="dec-3">{{ paragraph }}</p>
+                                        <p class="dec-3">{{ paragraph|safe }}</p>
                                     {% endfor %}
+                                    {% if section.items %}
+                                        <ul class="blog__details-list">
+                                            {% for item in section.items %}
+                                                <li>{{ item }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
                                 {% endfor %}
+
+                                {% if post.faq %}
+                                    <h2 class="title mt-50">Perguntas frequentes</h2>
+                                    {% for faq in post.faq %}
+                                        <h3 class="title mt-30">{{ faq.question }}</h3>
+                                        <p class="dec-3">{{ faq.answer }}</p>
+                                    {% endfor %}
+                                {% endif %}
 
                                 <div class="blog__details-content-quite">
                                     <p class="dec">{{ post.highlight }}</p>

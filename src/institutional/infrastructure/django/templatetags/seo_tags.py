@@ -630,6 +630,23 @@ def _service_schema(context):
 
 
 def _faq_page_schema(context):
+    post = _post(context)
+    if post and post.get("faq"):
+        return {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": item["question"],
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item["answer"],
+                    },
+                }
+                for item in post["faq"]
+            ],
+        }
+
     route_name = _route_name(context)
     if route_name == "home":
         faqs = [
@@ -820,6 +837,9 @@ def _structured_data_graph(context):
     article = _article_schema(context)
     if article:
         graph.append(article)
+        faq_page = _faq_page_schema(context)
+        if faq_page:
+            graph.append(faq_page)
 
     product = _product_schema(context)
     if product:
@@ -846,7 +866,7 @@ def canonical_url(context):
 def page_title(context):
     post = _post(context)
     if post:
-        return f"{post.get('title', DEFAULT_TITLE)} | Smart Control Brasil"
+        return post.get("seo_title") or f"{post.get('title', DEFAULT_TITLE)} | Smart Control Brasil"
 
     product = _product(context)
     if product:

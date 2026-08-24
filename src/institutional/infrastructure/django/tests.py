@@ -608,7 +608,7 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, f"{post['title']} | Smart Control Brasil")
+        self.assertTitle(response, post.get("seo_title") or f"{post['title']} | Smart Control Brasil")
         self.assertMetaDescription(response, post["meta_description"])
         self.assertCanonical(
             response,
@@ -617,6 +617,76 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(html.count("<h1"), 1)
         self.assertIn(f'<h1 class="breadcrumb__title">{post["title"]}</h1>', html)
         self.assertNotContains(response, 'name="robots"')
+
+    def test_severe_environment_article_has_expanded_editorial_depth_and_faq_schema(self):
+        response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
+        html = response.content.decode()
+        post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Controladores para Ambientes Severos | Smart Control Brasil")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(
+            response,
+            "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
+        )
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "O ambiente deve fazer parte da especificação",
+            "Grau de proteção não resolve tudo sozinho",
+            "CLP: confiabilidade antes de capacidade excessiva",
+            "IHM também precisa ser especificada para o ambiente",
+            "Inversores e acionamentos",
+            "Interferência eletromagnética e instalação",
+            "Temperatura e dissipação térmica do painel",
+            "Manutenibilidade também deve entrar na especificação",
+            "Checklist para especificação",
+            "Exemplo de aplicação",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "grau de proteção",
+            "interferência eletromagnética",
+            "temperatura",
+            "CLP",
+            "IHM",
+            "Inversores",
+            "MTTR",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        self.assertIn('href="/mitsubishi-automacao-industrial/"', html)
+        self.assertIn('href="/manutencao-industrial-campo/"', html)
+        self.assertIn('href="/servicos/"', html)
+        self.assertIn("Considere, por exemplo", html)
+        self.assertIn("O checklist abaixo não substitui análise técnica", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["articleSection"], "Engenharia de Aplicação")
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
 
     def test_strategic_pages_have_single_descriptive_h1_and_clean_on_page_markers(self):
         expectations = {
@@ -1303,7 +1373,7 @@ class TechnicalSeoTests(TestCase):
                 html = response.content.decode()
 
                 self.assertEqual(response.status_code, 200)
-                self.assertTitle(response, f"{post['title']} | Smart Control Brasil")
+                self.assertTitle(response, post.get("seo_title") or f"{post['title']} | Smart Control Brasil")
                 self.assertMetaDescription(response, post["meta_description"])
                 self.assertCanonical(response, canonical)
                 self.assertEqual(self.h1_texts(response), [post["title"]])
@@ -1358,7 +1428,7 @@ class TechnicalSeoTests(TestCase):
     def test_blog_article_includes_article_social_metadata_and_post_image(self):
         response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
         post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
-        expected_title = f"{post['title']} | Smart Control Brasil"
+        expected_title = post.get("seo_title") or f"{post['title']} | Smart Control Brasil"
         expected_image = f"https://www.smartcontrolbrasil.com.br/static/{post['image']}"
 
         self.assertMetaProperty(response, "og:type", "article")

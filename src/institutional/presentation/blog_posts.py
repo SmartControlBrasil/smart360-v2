@@ -1,35 +1,121 @@
 BLOG_POSTS = {
     "selecao-controladores-ativos-alta-severidade": {
         "title": "Seleção de Controladores e Ativos para Ambientes de Alta Severidade",
+        "seo_title": "Controladores para Ambientes Severos | Smart Control Brasil",
         "category": "Engenharia de Aplicação",
         "image": "institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp",
         "alt": "Controladores e ativos industriais selecionados para ambientes de alta severidade",
-        "meta_description": "Critérios técnicos para selecionar CLPs, IHMs, inversores, sensores e componentes em ambientes industriais severos.",
-        "intro": "Ambientes de alta severidade exigem que a seleção de controladores e ativos vá além da comparação de preço ou disponibilidade imediata. A aplicação precisa considerar as condições reais de operação, o impacto de uma falha e a capacidade do equipamento manter desempenho estável ao longo do tempo.",
+        "meta_description": "Veja critérios para selecionar CLPs, IHMs, inversores e ativos de automação em ambientes severos, considerando temperatura, proteção, interferência e aplicação.",
+        "intro": "Selecionar um controlador industrial não depende apenas de capacidade de processamento, quantidade de entradas e saídas ou preço de aquisição. Em ambientes severos, a especificação precisa considerar temperatura, umidade, poeira, contaminantes, interferência eletromagnética, vibração, instalação, manutenção e disponibilidade ao longo do ciclo de vida do ativo.",
         "sections": [
             {
-                "heading": "O que caracteriza um ambiente severo",
+                "heading": "O ambiente deve fazer parte da especificação",
                 "paragraphs": [
-                    "Um ambiente de alta severidade pode combinar temperatura elevada ou muito baixa, umidade, vibração, poeira em suspensão, agentes químicos, ciclos intensos de operação e interferência eletromagnética. Em muitos casos, esses fatores aparecem juntos e aceleram desgaste, corrosão, mau contato e falhas intermitentes.",
-                    "Por isso, a análise deve observar o entorno do painel, o local de instalação dos sensores, a exposição de cabos, o regime de operação da máquina e as condições de limpeza, ventilação e manutenção.",
+                    "A seleção começa pelas condições reais de operação. Um ambiente industrial severo pode combinar temperatura elevada ou baixa, umidade, poeira em suspensão, respingos de água, óleo, névoas, agentes químicos, vibração e ciclos intensos de partida e parada. Esses fatores raramente aparecem isolados e podem acelerar corrosão, mau contato, degradação de conectores e falhas intermitentes.",
+                    "Por isso, a especificação deve observar o entorno do painel, o local de instalação da IHM, a exposição de sensores e cabos, a ventilação disponível, a proximidade com motores ou equipamentos de potência e a rotina de limpeza da área. Um equipamento instalado dentro de painel climatizado tem exigências diferentes de outro exposto em campo, próximo a calor, poeira ou lavagem.",
                 ],
             },
             {
-                "heading": "Critérios para CLPs, IHMs, inversores e sensores",
+                "heading": "Grau de proteção não resolve tudo sozinho",
                 "paragraphs": [
-                    "A seleção de CLPs, IHMs, inversores, sensores e componentes deve considerar grau de proteção IP, faixa de temperatura operacional, imunidade a ruído, materiais de invólucro, conectores, ventilação e documentação técnica. Equipamentos instalados em campo também precisam ser compatíveis com vibração, poeira, umidade e variações de alimentação.",
-                    "O grau de proteção IP ajuda a definir resistência contra poeira e água, mas não substitui a análise completa. Temperatura, condensação, presença de químicos e interferência eletromagnética podem exigir gabinetes, filtros, aterramento, proteção contra surtos e segregação adequada de potência e sinal.",
+                    "O grau de proteção IP ajuda a avaliar resistência contra ingresso de sólidos e água, mas não deve ser tratado como resposta única para ambientes severos. A exposição real precisa ser analisada junto com montagem, vedação do painel, conectores, prensa-cabos, forma de limpeza e possibilidade de condensação.",
+                    "Um invólucro com proteção física adequada não substitui avaliação térmica, não elimina riscos de condensação interna e não resolve compatibilidade eletromagnética. Também não compensa instalação inadequada, cabos mal roteados, aterramento deficiente ou falta de manutenção preventiva no painel.",
                 ],
             },
             {
-                "heading": "Confiabilidade antes do menor preço",
+                "heading": "CLP: confiabilidade antes de capacidade excessiva",
                 "paragraphs": [
-                    "Selecionar equipamentos apenas pelo menor preço pode reduzir o custo inicial e aumentar o custo total da operação. Falhas recorrentes, paradas não planejadas e baixa disponibilidade tendem a consumir rapidamente qualquer economia obtida na compra.",
-                    "Uma escolha técnica adequada equilibra robustez, mantenabilidade, reposição, suporte, disponibilidade e criticidade do processo. Esse equilíbrio reduz riscos e melhora a previsibilidade da operação.",
+                    "Na escolha de um CLP, capacidade excessiva nem sempre significa melhor aplicação. O primeiro passo é entender quantidade e tipo de I/O, sinais digitais e analógicos, necessidade de módulos especiais, expansão futura, comunicação com IHMs, inversores, supervisórios e outros controladores.",
+                    "Também entram na decisão tempo de ciclo, recursos de diagnóstico, facilidade de manutenção, disponibilidade de componentes, padrão de programação, documentação e integração futura. Famílias como MELSEC FX, iQ-F e iQ-R podem ser avaliadas conforme porte da máquina, criticidade, necessidade de expansão e arquitetura de rede. A Smart Control Brasil apresenta <a href=\"/mitsubishi-automacao-industrial/\">CLPs e sistemas de automação Mitsubishi Electric</a> dentro desse contexto de aplicação, sem reduzir a escolha a um modelo isolado.",
+                    "Em aplicações críticas, a pergunta principal não é apenas se o CLP executa a lógica hoje, mas se ele permite diagnóstico claro, reposição viável, expansão controlada e manutenção segura quando a operação precisar evoluir.",
+                ],
+            },
+            {
+                "heading": "IHM também precisa ser especificada para o ambiente",
+                "paragraphs": [
+                    "A IHM é o ponto de contato entre operação, manutenção e máquina. Por isso, sua seleção deve considerar localização, exposição, montagem, legibilidade, comunicação com o controlador, recursos de diagnóstico e facilidade de substituição.",
+                    "Quando a interface fica em campo, pode ser necessário avaliar operação com luvas, incidência de luz, presença de poeira, respingos, vibração e risco de impacto. Interfaces GOT e IHMs Mitsubishi podem ser consideradas conforme arquitetura do sistema, mas a decisão deve partir da necessidade operacional: alarmes compreensíveis, telas objetivas, parâmetros protegidos e acesso rápido ao diagnóstico.",
+                ],
+            },
+            {
+                "heading": "Inversores e acionamentos",
+                "paragraphs": [
+                    "Inversores e acionamentos devem ser escolhidos a partir da potência, característica da carga, regime de operação, frequência de partidas, necessidade de controle de torque ou velocidade, comunicação e estratégia de manutenção. A instalação influencia diretamente a confiabilidade: ventilação insuficiente, temperatura elevada e alta densidade de componentes no painel podem reduzir margem térmica.",
+                    "A parametrização também precisa ser tratada como parte da especificação. Backup de parâmetros, identificação do ativo, documentação da aplicação, diagnóstico de falhas e integração com CLP ou supervisório ajudam a reduzir tempo de parada. Inversores Mitsubishi Electric da família FR podem ser avaliados conforme aplicação, sempre junto com motor, carga, painel e condições de instalação.",
+                ],
+            },
+            {
+                "heading": "Interferência eletromagnética e instalação",
+                "paragraphs": [
+                    "Ambientes com inversores, motores, contatores, fontes chaveadas e cabos longos exigem atenção à interferência eletromagnética. Ruído elétrico pode afetar sinais analógicos, redes industriais, leituras de sensores e comunicação entre controladores.",
+                    "Boas práticas de instalação precisam ser consideradas desde o projeto: roteamento de cabos, separação entre potência e sinal, aterramento, blindagem, qualidade das conexões, organização do painel e compatibilidade entre inversores, motores e comunicação industrial. A solução adequada depende da aplicação, da arquitetura e do nível de criticidade do processo.",
+                ],
+            },
+            {
+                "heading": "Temperatura e dissipação térmica do painel",
+                "paragraphs": [
+                    "Controladores, fontes, inversores, relés, contatores e módulos de comunicação geram calor. Quanto maior a densidade de componentes, maior a importância de avaliar ventilação, troca térmica, temperatura ambiente e circulação interna do painel.",
+                    "A temperatura influencia vida útil, estabilidade e necessidade de derating quando aplicável. Filtros saturados, ventiladores parados, painéis expostos ao sol ou instalados próximos a fontes de calor podem transformar uma especificação correta em uma operação instável. A análise térmica deve ser compatível com a realidade de instalação e manutenção.",
+                ],
+            },
+            {
+                "heading": "Manutenibilidade também deve entrar na especificação",
+                "paragraphs": [
+                    "Um ativo bem especificado também precisa ser mantido com agilidade. Diagnóstico local, identificação clara, documentação atualizada, acesso aos componentes, backup de programas e parâmetros, disponibilidade de peças e histórico de intervenções reduzem tempo de manutenção e ajudam a controlar MTTR.",
+                    "Esse critério é especialmente importante em retrofit, máquinas críticas e operações com poucas janelas de parada. A especificação deve prever como a equipe irá diagnosticar falhas, substituir componentes, restaurar programas e validar o retorno da máquina. Esse trabalho se conecta diretamente a estratégias de <a href=\"/manutencao-industrial-campo/\">manutenção industrial em campo</a> e sustentação técnica.",
+                ],
+            },
+            {
+                "heading": "Checklist para especificação",
+                "paragraphs": [
+                    "O checklist abaixo não substitui análise técnica nem documentação do fabricante. Ele funciona como apoio de engenharia para organizar a conversa entre automação, manutenção, produção, integrador e comprador técnico.",
+                ],
+                "items": [
+                    "Ambiente de instalação e exposição real do equipamento.",
+                    "Temperatura ambiente, umidade, poeira, água ou contaminantes.",
+                    "Grau de proteção necessário para painel, IHM, sensores e conectores.",
+                    "Alimentação elétrica, qualidade da rede e proteção contra distúrbios.",
+                    "Quantidade, tipo e expansão futura de I/O.",
+                    "Comunicação com CLP, IHM, inversores, supervisório e sistemas externos.",
+                    "Características dos acionamentos, motores e cargas.",
+                    "Diagnóstico, backup, parametrização e documentação.",
+                    "Acesso para manutenção, reposição e disponibilidade de componentes.",
+                ],
+            },
+            {
+                "heading": "Exemplo de aplicação",
+                "paragraphs": [
+                    "Considere, por exemplo, um painel instalado próximo a equipamentos de potência, com inversores, motores e necessidade de comunicação com outros controladores. Em uma aplicação desse tipo, não basta escolher o CLP pela quantidade atual de I/O nem a IHM pelo tamanho da tela.",
+                    "A engenharia precisa avaliar ruído elétrico, roteamento de cabos, aterramento, dissipação térmica, expansão futura, backup de parâmetros dos inversores, acesso para manutenção e disponibilidade de reposição. O conjunto desses critérios tende a orientar uma arquitetura mais confiável do que decisões isoladas por preço, estoque imediato ou familiaridade com um único componente.",
+                ],
+            },
+            {
+                "heading": "Quando envolver serviços de engenharia",
+                "paragraphs": [
+                    "Quando a aplicação envolve alta criticidade, retrofit, falhas recorrentes, integração de equipamentos antigos ou necessidade de expansão, a especificação deve ser conduzida como decisão de engenharia. Nesses casos, levantar campo, revisar documentação, entender o processo e comparar alternativas reduz risco técnico antes da compra.",
+                    "A Smart Control Brasil apoia projetos de automação, integração, diagnóstico e retrofit por meio de <a href=\"/servicos/\">serviços técnicos para operações industriais</a>, preservando a decisão conforme ambiente, criticidade e objetivo da aplicação.",
                 ],
             },
         ],
-        "highlight": "A seleção técnica de controladores e ativos precisa considerar ambiente, criticidade e continuidade operacional antes do menor custo inicial.",
+        "faq": [
+            {
+                "question": "O que caracteriza um ambiente industrial severo?",
+                "answer": "Um ambiente industrial severo combina fatores como temperatura, umidade, poeira, contaminantes, vibração, interferência eletromagnética, exposição em campo e dificuldade de manutenção. A severidade depende da aplicação e de como esses fatores afetam a confiabilidade dos ativos.",
+            },
+            {
+                "question": "O grau IP é suficiente para escolher um equipamento?",
+                "answer": "Não. O grau IP ajuda a avaliar proteção física contra ingresso de sólidos e água, mas é apenas um dos critérios. Temperatura, condensação, compatibilidade eletromagnética, instalação, ventilação e manutenção também precisam ser considerados.",
+            },
+            {
+                "question": "Como escolher um CLP para uma aplicação industrial?",
+                "answer": "A escolha depende de I/O, tempo de ciclo, comunicação, expansão, diagnóstico, ambiente de instalação, disponibilidade de componentes e facilidade de manutenção. O CLP deve atender a lógica atual e permitir evolução segura da aplicação.",
+            },
+            {
+                "question": "Quando vale considerar retrofit do sistema de automação?",
+                "answer": "O retrofit deve ser considerado quando há obsolescência, falhas recorrentes, dificuldade de manutenção, falta de peças, documentação insuficiente ou necessidade de integrar a máquina a novos sistemas e indicadores.",
+            },
+        ],
+        "highlight": "A seleção técnica de controladores e ativos precisa considerar ambiente, instalação, manutenção e continuidade operacional antes do menor custo inicial.",
         "cta_text": "Solicitar diagnóstico técnico",
     },
     "convergencia-robotica-ia-firmwares-dedicados": {
