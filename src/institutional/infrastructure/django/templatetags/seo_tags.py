@@ -17,6 +17,9 @@ DEFAULT_DESCRIPTION = (
     "manutenção técnica e sistemas web."
 )
 DEFAULT_SOCIAL_IMAGE = "institutional/imgs/images/banner-6-img-1.png"
+DEFAULT_SOCIAL_IMAGE_WIDTH = 1290
+DEFAULT_SOCIAL_IMAGE_HEIGHT = 670
+DEFAULT_SOCIAL_IMAGE_ALT = "Robótica, automação e sistemas inteligentes da Smart Control Brasil"
 ORGANIZATION_LOGO = "institutional/imgs/images/header/logo-cores-03.webp"
 SOCIAL_SITE_NAME = "Smart Control Brasil"
 ORGANIZATION_EMAIL = "comercial@smartcontrolbrasil.com.br"
@@ -243,6 +246,14 @@ def _organization_schema():
         "logo": _static_public_url(ORGANIZATION_LOGO),
         "email": getattr(settings, "CONTACT_RECIPIENT_EMAIL", ORGANIZATION_EMAIL),
         "telephone": ORGANIZATION_TELEPHONE,
+        "areaServed": "Brasil",
+        "knowsAbout": [
+            "Automação Industrial",
+            "Robótica",
+            "Manutenção Industrial",
+            "Sistemas Web",
+            "Inteligência Artificial aplicada",
+        ],
     }
 
 
@@ -295,6 +306,12 @@ def _breadcrumb_items(context):
     }
     if route_name in solution_names:
         return [home, (solution_names[route_name], canonical_url(context))]
+
+    page_names = {
+        "about": "Sobre",
+    }
+    if route_name in page_names:
+        return [home, (page_names[route_name], canonical_url(context))]
 
     if post:
         return [
@@ -385,6 +402,66 @@ def _product_schema(context):
     return schema
 
 
+def _about_page_schema(context):
+    if _route_name(context) != "about":
+        return None
+
+    return {
+        "@type": "AboutPage",
+        "name": _route_metadata(context).get("title", "Empresa Smart Control Brasil"),
+        "description": _route_metadata(context).get("description", DEFAULT_DESCRIPTION),
+        "url": canonical_url(context),
+        "about": {
+            "@type": "Organization",
+            "name": SOCIAL_SITE_NAME,
+            "url": settings.PUBLIC_SITE_URL,
+        },
+        "mainEntity": {
+            "@type": "Organization",
+            "name": SOCIAL_SITE_NAME,
+            "url": settings.PUBLIC_SITE_URL,
+        },
+    }
+
+
+def _faq_page_schema(context):
+    if _route_name(context) != "home":
+        return None
+
+    faqs = [
+        (
+            "Como começa um projeto com a Smart Control Brasil?",
+            "Começamos com uma análise detalhada do cenário atual, dos gargalos da operação e das metas de retorno do projeto. A partir desse diagnóstico, definimos a melhor arquitetura técnica para atender às necessidades reais da empresa.",
+        ),
+        (
+            "Quais soluções de automação industrial são desenvolvidas?",
+            "Desenvolvemos programação de CLPs Mitsubishi Electric, integração de inversores e servoacionamentos, sistemas SCADA, interfaces IHM e redes industriais com foco em eficiência, continuidade e alta disponibilidade.",
+        ),
+        (
+            "Onde os robôs Xyron podem ser aplicados?",
+            "Os robôs móveis autônomos podem atuar em recepção corporativa, segurança, demonstrações tecnológicas, ações promocionais, educação, transporte logístico e experiências interativas em diferentes ambientes.",
+        ),
+        (
+            "A Smart Control Brasil oferece suporte após a implantação?",
+            "Sim. Oferecemos sustentação técnica, manutenção preventiva, diagnóstico de falhas, suporte especializado e expansões programadas para preservar a confiabilidade e acompanhar a evolução do sistema implantado.",
+        ),
+    ]
+    return {
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": answer,
+                },
+            }
+            for question, answer in faqs
+        ],
+    }
+
+
 def _structured_data_graph(context):
     if robots_directives(context):
         return []
@@ -392,10 +469,17 @@ def _structured_data_graph(context):
     graph = []
     if _route_name(context) == "home":
         graph.extend([_organization_schema(), _website_schema()])
+        faq_page = _faq_page_schema(context)
+        if faq_page:
+            graph.append(faq_page)
 
     breadcrumbs = _breadcrumb_items(context)
     if breadcrumbs:
         graph.append(_breadcrumb_schema(breadcrumbs))
+
+    about_page = _about_page_schema(context)
+    if about_page:
+        graph.append(about_page)
 
     article = _article_schema(context)
     if article:
@@ -462,6 +546,31 @@ def social_type(context):
 @register.simple_tag(takes_context=True)
 def social_image_url(context):
     return _post_image_url(context) or _product_image_url(context) or _robot_image_url(context) or _static_public_url(DEFAULT_SOCIAL_IMAGE)
+
+
+@register.simple_tag(takes_context=True)
+def social_image_width(context):
+    if _post(context) or _product(context) or _robot(context):
+        return ""
+    return DEFAULT_SOCIAL_IMAGE_WIDTH
+
+
+@register.simple_tag(takes_context=True)
+def social_image_height(context):
+    if _post(context) or _product(context) or _robot(context):
+        return ""
+    return DEFAULT_SOCIAL_IMAGE_HEIGHT
+
+
+@register.simple_tag(takes_context=True)
+def social_image_alt(context):
+    if _post(context):
+        return _post(context).get("alt", "")
+    if _product(context):
+        return getattr(_product(context), "name", "")
+    if _robot(context):
+        return _robot(context).get("alt", "")
+    return DEFAULT_SOCIAL_IMAGE_ALT
 
 
 @register.simple_tag(takes_context=True)

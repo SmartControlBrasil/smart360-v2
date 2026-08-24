@@ -21,9 +21,10 @@ class GetHomePage:
                 ),
                 canonical_path="/",
             ),
-            heading="Tecnologia aplicada a resultados reais",
+            heading="Automação Industrial, Robótica e Sistemas para Transformar sua Operação",
             introduction=(
-                "Automação industrial, robótica e sistemas inteligentes "
-                "desenvolvidos para aumentar eficiência e produtividade."
+                "Integramos engenharia, automação Mitsubishi Electric, robótica inteligente "
+                "Xyron, manutenção industrial e sistemas sob medida para aumentar "
+                "produtividade, confiabilidade e eficiência operacional."
             ),
         )

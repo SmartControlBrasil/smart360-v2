@@ -373,6 +373,10 @@ class TechnicalSeoTests(TestCase):
             "integração de sistemas e desenvolvimento de software para empresas e indústrias.",
         )
         self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/")
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Automação Industrial, Robótica e Sistemas para Transformar sua Operação"],
+        )
         self.assertNotContains(response, 'name="robots"')
 
     def test_home_includes_open_graph_and_twitter_card_metadata(self):
@@ -389,6 +393,13 @@ class TechnicalSeoTests(TestCase):
         self.assertMetaProperty(response, "og:url", "https://www.smartcontrolbrasil.com.br/")
         self.assertMetaProperty(response, "og:type", "website")
         self.assertMetaProperty(response, "og:image", image_url)
+        self.assertMetaProperty(response, "og:image:width", "1290")
+        self.assertMetaProperty(response, "og:image:height", "670")
+        self.assertMetaProperty(
+            response,
+            "og:image:alt",
+            "Robótica, automação e sistemas inteligentes da Smart Control Brasil",
+        )
         self.assertMetaProperty(response, "og:site_name", "Smart Control Brasil")
         self.assertMetaProperty(response, "og:locale", "pt_BR")
         self.assertMetaName(response, "twitter:card", "summary_large_image")
@@ -400,6 +411,11 @@ class TechnicalSeoTests(TestCase):
             "integração de sistemas e desenvolvimento de software para empresas e indústrias.",
         )
         self.assertMetaName(response, "twitter:image", image_url)
+        self.assertMetaName(
+            response,
+            "twitter:image:alt",
+            "Robótica, automação e sistemas inteligentes da Smart Control Brasil",
+        )
         self.assertNotIn('content="/static/', response.content.decode())
 
     def test_home_includes_organization_and_website_json_ld(self):
@@ -417,10 +433,95 @@ class TechnicalSeoTests(TestCase):
         )
         self.assertEqual(organizations[0]["email"], "comercial@smartcontrolbrasil.com.br")
         self.assertEqual(organizations[0]["telephone"], "+551151968525")
+        self.assertEqual(organizations[0]["areaServed"], "Brasil")
+        self.assertIn("Automação Industrial", organizations[0]["knowsAbout"])
+        self.assertIn("Manutenção Industrial", organizations[0]["knowsAbout"])
         self.assertEqual(len(websites), 1)
         self.assertEqual(websites[0]["name"], "Smart Control Brasil")
         self.assertEqual(websites[0]["url"], "https://www.smartcontrolbrasil.com.br")
         self.assertNotIn("SearchAction", response.content.decode())
+
+    def test_home_includes_faq_page_json_ld_only_on_home(self):
+        response = self.client.get("/")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(faq_pages), 1)
+        questions = faq_pages[0]["mainEntity"]
+        self.assertEqual(len(questions), 4)
+        self.assertEqual(questions[0]["name"], "Como começa um projeto com a Smart Control Brasil?")
+        self.assertIn("análise detalhada do cenário atual", questions[0]["acceptedAnswer"]["text"])
+
+        blog_response = self.client.get("/blog/")
+        self.assertEqual(self.graph_items(blog_response, "FAQPage"), [])
+
+    def test_home_links_are_indexable_and_not_empty_after_seo_cleanup(self):
+        response = self.client.get("/")
+        html = response.content.decode()
+
+        self.assertNotIn("href=\"#\"", html)
+        self.assertNotIn(reverse("institutional:pricing"), html)
+        self.assertNotIn(reverse("institutional:blog_details"), html)
+        self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "selecao-controladores-ativos-alta-severidade"}), html)
+        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "convergencia-robotica-ia-firmwares-dedicados"}), html)
+        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "eliminar-gargalos-autonomia-previsibilidade"}), html)
+        self.assertNotIn("form action=\"#\"", html)
+
+
+    def test_about_page_uses_metadata_h1_canonical_and_indexing(self):
+        response = self.client.get("/empresa/?utm_source=google")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Empresa de Automação, Robótica e Sistemas | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Conheça a Smart Control Brasil, empresa especializada em automação industrial, "
+            "robótica, engenharia, manutenção técnica e desenvolvimento de sistemas.",
+        )
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/empresa/")
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Smart Control Brasil — Automação, Robótica e Sistemas"],
+        )
+        self.assertNotContains(response, 'name="robots"')
+
+    def test_about_page_template_residues_and_links_are_clean(self):
+        response = self.client.get("/empresa/")
+        html = response.content.decode()
+
+        for forbidden in ("./assets/", 'alt="img not found"', 'alt="img not fount"', 'href="#"'):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+        self.assertNotIn(reverse("institutional:blog_details"), html)
+        self.assertNotIn(reverse("institutional:team"), html)
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:xyron"), html)
+        self.assertIn(reverse("institutional:mitsubishi_automacao_industrial"), html)
+        self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+        self.assertIn(reverse("institutional:blog"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "equipamentos-sistemas-para-evoluir"}), html)
+        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "inovacao-que-aparece-e-gera-valor"}), html)
+        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "informacao-precisa-para-agir-melhor"}), html)
+
+    def test_about_page_includes_breadcrumb_and_about_page_json_ld(self):
+        response = self.client.get("/empresa/")
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        about_pages = self.graph_items(response, "AboutPage")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        items = breadcrumbs[0]["itemListElement"]
+        self.assertEqual([item["position"] for item in items], [1, 2])
+        self.assertEqual(items[0]["name"], "Início")
+        self.assertEqual(items[0]["item"], "https://www.smartcontrolbrasil.com.br/")
+        self.assertEqual(items[1]["name"], "Sobre")
+        self.assertEqual(items[1]["item"], "https://www.smartcontrolbrasil.com.br/empresa/")
+        self.assertEqual(len(about_pages), 1)
+        self.assertEqual(about_pages[0]["url"], "https://www.smartcontrolbrasil.com.br/empresa/")
+        self.assertEqual(about_pages[0]["mainEntity"]["name"], "Smart Control Brasil")
 
     def test_solution_page_includes_breadcrumb_json_ld(self):
         response = self.client.get("/xyron/?utm_source=google")

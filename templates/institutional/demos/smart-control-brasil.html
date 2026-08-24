@@ -23,19 +23,17 @@
                         <div class="row align-items-center">
                             <div class="col-lg-9">
                                 <div class="banner-heading__wrapper hero">
-                                    <h1 class="banner-heading__wrapper-title _split_text">Engenharia, Inovação e Confiança <br> para Transformar sua Operação</h1>
-                                    <p class="banner-heading__wrapper-dec rr_title_anim">Combinamos experiência de mercado com tecnologias globais para entregar soluções <br>
-                                        inteligentes em automação industrial e infraestrutura corporativa.</p>
+                                    <h1 class="banner-heading__wrapper-title _split_text">{{ page.heading }}</h1>
+                                    <p class="banner-heading__wrapper-dec rr_title_anim">{{ page.introduction }}</p>
                                 </div>
                                  <div class="banner1__from-wrapper mt-60">
                                     <h6 class="banner1__from-wrapper-title">Como podemos ajudar?</h6>
                                     <div class="banner1__from-wrapper-box">
-                                        <form action="#" class="rr-subscribe-form">
-                                            <input class="form-control" type="email" name="email" placeholder="Descreva sua necessidade técnica">
-                                            <input type="hidden" name="action" value="mailchimpsubscribe">
+                                        <form id="home-contact-cta" action="{% url 'institutional:contact' %}" method="get" class="rr-subscribe-form">
+                                            <input class="form-control" type="text" name="necessidade" placeholder="Descreva sua necessidade técnica">
                                             <div class="clearfix"></div>
                                         </form>
-                                        <button class="rr-btn"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                                        <button type="submit" form="home-contact-cta" class="rr-btn"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
                                     </div>
                                  </div>
                             </div>
@@ -47,7 +45,6 @@
   <figcaption class="balao-fala-robo">
     Qual solução inteligente da Xyron você recomenda para a nossa infraestrutura?
   </figcaption>
-</figure>
 </figure>
                                 </div>
                             </div>
@@ -79,9 +76,7 @@
                                 </div>
                                 <div class="about__thumb-2">
                                     <div class="about__thumb return">
-                                        <img src="{% static 'institutional/imgs/home/linha-xyron-robotica.webp' %}" alt="Familia de robos da Xyron robótica,contendo robôs para limpeza, recepção, transporte e segurança." loading="lazy">
-                                        
-</figure>
+                                        <img src="{% static 'institutional/imgs/home/linha-xyron-robotica.webp' %}" alt="Família de robôs Xyron Robotics para limpeza, recepção, transporte e segurança" loading="lazy">
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +119,7 @@
                                         <ul>
                                             <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Automação Industrial Mitsubishi</li>
                                             <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Inovação e Tecnologia Xyron</li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Conectividade e Telemetria IoT</li>
+                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção industrial em campo</a></li>
                                         </ul>
                                     </div>
                                     <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Engenharia <i class="fa-solid fa-angle-right"></i></a>
@@ -208,7 +203,7 @@
                     <div class="my_row">
                         <div class="pricing_card">
                             <div class="card_top">
-                                <img src="{% static 'institutional/imgs/images/pricing-img-1.png' %}" alt="imf not found" loading="lazy">
+                                <img src="{% static 'institutional/imgs/images/pricing-img-1.png' %}" alt="Diagnóstico técnico para projetos de automação e robótica" loading="lazy">
                             </div>
                             <div class="card_middle card_middle-1">
                                 <ul>
@@ -227,7 +222,7 @@
                             <div class="pricing-card-inner-wrap">
                                 <h3 class="title">Diagnóstico</h3>
                                 <div class="pricing-card-price">
-                                    <h2 class="mb-0" data-yearly="$<span>79</span> <span>/year</span>" data-monthly="$<span>53</span> <span>/month</span>"><span>01</span> <span>/etapa</span></h2>
+                                    <p class="mb-0" style="font-family: var(--rr-ff-heading); font-weight: var(--rr-fw-bold); color: var(--rr-heading-primary); font-size: 60px; line-height: 62px;"><span>01</span> <span>/etapa</span></p>
                                 </div>
                                 <p class="dec">Análise dos gargalos da operação <br> e metas de retorno do projeto.</p>
                             </div>
@@ -242,7 +237,7 @@
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:pricing' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +245,7 @@
                             <div class="pricing-card-inner-wrap">
                                 <h3 class="title">Desenvolvimento</h3>
                                 <div class="pricing-card-price color-theme-primary price-bg">
-                                    <h2 class="mb-0" data-yearly="$<span>89</span> <span>/year</span>" data-monthly="$<span>78</span> <span>/month</span>"><span>02</span> <span>/etapa</span></h2>
+                                    <p class="mb-0" style="font-family: var(--rr-ff-heading); font-weight: var(--rr-fw-bold); color: var(--rr-heading-primary); font-size: 60px; line-height: 62px;"><span>02</span> <span>/etapa</span></p>
                                 </div>
                                 <p class="dec">Programação, integração e montagem <br> com testes rigorosos em bancada.</p>
                             </div>
@@ -265,7 +260,7 @@
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:pricing' %}" class="rr-btn btn-white pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-white pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -273,7 +268,7 @@
                             <div class="pricing-card-inner-wrap">
                                 <h3 class="title">Sustentação</h3>
                                 <div class="pricing-card-price color-theme-primary price-bg">
-                                    <h2 class="mb-0" data-yearly="$<span>99</span> <span>/year</span>" data-monthly="$<span>82</span> <span>/month</span>"><span>03</span> <span>/etapa</span></h2>
+                                    <p class="mb-0" style="font-family: var(--rr-ff-heading); font-weight: var(--rr-fw-bold); color: var(--rr-heading-primary); font-size: 60px; line-height: 62px;"><span>03</span> <span>/etapa</span></p>
                                 </div>
                                 <p class="dec">Suporte especializado, manutenção <br> preventiva e expansões programadas.</p>
                             </div>
@@ -288,7 +283,7 @@
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:pricing' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -334,7 +329,7 @@
                                     <div class="testimonial__item-author">
                                         <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><a href="#">Princípio 1</a></h5>
+                                            <h5 class="title"><span>Princípio 1</span></h5>
                                             <span>Engenharia Consultiva</span>
                                         </div>
                                     </div>
@@ -349,7 +344,7 @@
                                     <div class="testimonial__item-author">
                                         <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><a href="#">Princípio 2</a></h5>
+                                            <h5 class="title"><span>Princípio 2</span></h5>
                                             <span>Integração Fluida</span>
                                         </div>
                                     </div>
@@ -364,7 +359,7 @@
                                     <div class="testimonial__item-author">
                                         <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><a href="#">Princípio 3</a></h5>
+                                            <h5 class="title"><span>Princípio 3</span></h5>
                                             <span>Inovação Prática</span>
                                         </div>
                                     </div>
@@ -379,7 +374,7 @@
                                     <div class="testimonial__item-author">
                                         <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><a href="#">Princípio 4</a></h5>
+                                            <h5 class="title"><span>Princípio 4</span></h5>
                                             <span>Decisão por Dados</span>
                                         </div>
                                     </div>
@@ -394,7 +389,7 @@
                                     <div class="testimonial__item-author">
                                         <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><a href="#">Smart Control Brasil</a></h5>
+                                            <h5 class="title"><span>Smart Control Brasil</span></h5>
                                             <span>Engenharia e Tecnologia</span>
                                         </div>
                                     </div>
@@ -508,7 +503,7 @@
                                                 <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                             </div>
                                             <div class="text">
-                                                <h6 class="title"><a href="#">Equipe Smart Control Brasil</a></h6>
+                                                <h6 class="title"><span>Equipe Smart Control Brasil</span></h6>
                                                 <span class="position">Artigo Técnico</span>
                                             </div>
                                         </div>
@@ -519,7 +514,7 @@
                                             <img src="{% static 'institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp' %}" alt="Controladores industriais em ambiente severo" width="380" height="260" loading="lazy">
                                         </div>
                                     </div>
-                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Seleção de Controladores e Ativos <br> para Ambientes de Alta Severidade</a></h4>
+                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='selecao-controladores-ativos-alta-severidade' %}">Seleção de Controladores e Ativos <br> para Ambientes de Alta Severidade</a></h4>
                                 </div>
                             </div>
                         </div>
@@ -532,7 +527,7 @@
                                                 <img src="{% static 'institutional/imgs/icon/blog-man-icon-2.png' %}" alt="">
                                             </div>
                                             <div class="text">
-                                                <h6 class="title"><a href="#">Equipe Smart Control Brasil</a></h6>
+                                                <h6 class="title"><span>Equipe Smart Control Brasil</span></h6>
                                                 <span class="position">Artigo Técnico</span>
                                             </div>
                                         </div>
@@ -543,7 +538,7 @@
                                             <img src="{% static 'institutional/imgs/blog/convergencia-entre-robotica-ia-e-firmwares.webp' %}" alt="Robótica e inteligência artificial aplicada">
                                         </div>
                                     </div>
-                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">A Convergência entre Robótica, <br> IA e Firmwares Dedicados</a></h4>
+                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='convergencia-robotica-ia-firmwares-dedicados' %}">A Convergência entre Robótica, <br> IA e Firmwares Dedicados</a></h4>
                                 </div>
                             </div>
                         </div>
@@ -555,7 +550,7 @@
                                             <img src="{% static 'institutional/imgs/icon/blog-man-icon-3.png' %}" alt="">
                                         </div>
                                         <div class="text">
-                                            <h6 class="title"><a href="#">Equipe Smart Control Brasil</a></h6>
+                                            <h6 class="title"><span>Equipe Smart Control Brasil</span></h6>
                                             <span class="position">Engenharia Consultiva</span>
                                         </div>
                                     </div>
@@ -566,7 +561,7 @@
                                         <img src="{% static 'institutional/imgs/blog/automatizando-processos.webp' %}" alt="Automação de processos industriais">
                                     </div>      
                                 </div>
-                                <h4 class="blog__item-title"><a href="{% url 'institutional:blog_details' %}">Como Eliminar Gargalos com <br> Autonomia e Previsibilidade</a></h4>
+                                <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='eliminar-gargalos-autonomia-previsibilidade' %}">Como Eliminar Gargalos com <br> Autonomia e Previsibilidade</a></h4>
                             </div>
                         </div>
                     </div>
