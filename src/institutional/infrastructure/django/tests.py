@@ -1610,6 +1610,102 @@ class TechnicalSeoTests(TestCase):
         self.assertIn('href="/blog/eliminar-gargalos-autonomia-previsibilidade/"', maintenance_html)
         self.assertIn('href="/blog/historico-indicadores-decisoes-consistentes/"', maintenance_html)
 
+    def test_industrial_data_article_has_expanded_depth_links_and_faq_schema(self):
+        response = self.client.get("/blog/informacao-precisa-para-agir-melhor/")
+        html = response.content.decode()
+        post = BLOG_POSTS["informacao-precisa-para-agir-melhor"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/informacao-precisa-para-agir-melhor/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Dados Industriais: Da Coleta à Decisão Operacional")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "De onde vêm os dados industriais",
+            "Coletar não basta: é preciso contextualizar",
+            "Arquitetura do fluxo de informação",
+            "Integração entre OT e sistemas digitais",
+            "APIs como ponte entre sistemas",
+            "Banco de dados e histórico",
+            "Dashboards diferentes para usuários diferentes",
+            "Alarmes úteis versus excesso de alarmes",
+            "Evento, alarme e indicador não são a mesma coisa",
+            "Rastreabilidade",
+            "Da reação para a decisão baseada em evidências",
+            "Inteligência artificial entra depois da base de dados",
+            "Exemplo hipotético",
+            "Checklist para transformar dados em informação útil",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "dados industriais",
+            "CLP",
+            "dashboard",
+            "APIs",
+            "Python",
+            "Django",
+            "rastreabilidade",
+            "histórico",
+            "indicadores",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/sistemas-websites-python/"',
+            'href="/mitsubishi-automacao-industrial/"',
+            'href="/manutencao-industrial-campo/"',
+            'href="/blog/historico-indicadores-decisoes-consistentes/"',
+            'href="/blog/menos-retrabalho-rastreabilidade-retrofit/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("Dado não é informação", html)
+        self.assertIn("Esse exemplo é hipotético", html)
+        self.assertContains(response, "<li>Qual decisão precisa ser tomada com essa informação?</li>")
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Integração Inteligente")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
+        systems = self.client.get("/sistemas-websites-python/")
+        self.assertEqual(systems.status_code, 200)
+        self.assertContains(systems, 'href="/blog/informacao-precisa-para-agir-melhor/"')
+        self.assertContains(systems, 'href="/blog/equipamentos-sistemas-para-evoluir/"')
+
     def test_legacy_blog_routes_redirect_to_indexable_urls(self):
         blog_list = self.client.get("/blog/lista/")
         blog_details = self.client.get("/blog/detalhes/")
