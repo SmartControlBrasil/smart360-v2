@@ -25,12 +25,12 @@
                         <div class="col-lg-7">
                             <div class="banner2__content p-relative">
                                 <div class="banner-heading__wrapper hero">
-                                    <h1 class="banner-heading__wrapper-title-2 _split_text">Sistemas e Websites <br> Inteligentes em Python.</h1>
-                                    <p class="banner-heading__wrapper-dec rr_title_anim">Desenvolvemos plataformas web, portais e sistemas personalizados com banco de dados, <br> automações, integrações e inteligência artificial aplicada ao seu negócio.</p>
+                                    <h1 class="banner-heading__wrapper-title-2 _split_text">Sistemas Web, Websites <br> e Soluções em Python</h1>
+                                    <p class="banner-heading__wrapper-dec rr_title_anim">Desenvolvemos sistemas web, websites empresariais e aplicações sob medida em Python e Django, <br> integrando processos, dados e automações para transformar necessidades operacionais em soluções digitais.</p>
                                 </div>
                                 <div class="banner2__btn-wrapper">
                                     <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".4s" href="{% url 'institutional:contact' %}">Solicitar orçamento</a>
-                                    <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".6s" href="{% url 'institutional:contact' %}">Falar com a equipe <i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".6s" href="{% url 'institutional:services' %}">Ver serviços <i class="fa-solid fa-angle-right"></i></a>
                                 </div>
                                 <div class="banner2__content-message">
                                     <div class="icon">
@@ -73,11 +73,11 @@
                     <div class="row align-items-center">
                         <div class="col-lg-8">
                             <h2 class="section__title-wrapper-title _split_text">Sistemas Django para processos empresariais e integrações</h2>
-                            <p>Projetos em Python e Django podem organizar dados, integrar rotinas, criar portais, dashboards e automações sob medida. A solução parte do processo real da empresa, não apenas de uma tela pronta.</p>
+                            <p>Projetos em Python e Django podem organizar dados, integrar rotinas, criar portais, dashboards e automações sob medida. A solução parte do processo real da empresa, não apenas de uma tela pronta. Conheça também a <a href="{% url 'institutional:about' %}">Smart Control Brasil</a> e nossa abordagem de engenharia aplicada.</p>
                         </div>
                         <div class="col-lg-4 text-lg-end">
                             <a class="rr-btn" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Integrar automação industrial <i class="fa-solid fa-angle-right"></i></a>
-                            <a class="rr-btn btn-transparent mt-15" href="{% url 'institutional:contact' %}">Solicitar diagnóstico digital <i class="fa-solid fa-angle-right"></i></a>
+                            <a class="rr-btn btn-transparent mt-15" href="{% url 'institutional:manutencao_industrial_campo' %}">Digitalizar manutenção <i class="fa-solid fa-angle-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
             </section>
         
             <!--aifunction-->
-            <section class="aifunction__area overflow-hidden section-space body-2-bg">
+            <section id="integracoes" class="aifunction__area overflow-hidden section-space body-2-bg">
                 <div class="container">
                     <div class="row">
                         <div class="aifunction__title-wrap hero">
@@ -207,7 +207,8 @@
                                         <div class="services-provided__tab-content-media">
                                             <img src="{% static 'institutional/imgs/images/portal-web.webp' %}" alt="Portal web empresarial">
                                             <div class="services-provided__tab-content-media-content">
-                                                <h4>Portais Web</h4>
+                                                <h4 id="portais">Portais Web Empresariais</h4>
+                                                <p>Áreas restritas, usuários, permissões, documentos e fluxos internos em um ambiente centralizado.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +218,8 @@
                                         <div class="services-provided__tab-content-media">
                                             <img src="{% static 'institutional/imgs/images/dashboard-smart.webp' %}" alt="Dashboard web com indicadores">
                                             <div class="services-provided__tab-content-media-content">
-                                                <h4>Dashboards</h4>
+                                                <h4 id="dashboards">Dashboards e Indicadores</h4>
+                                                <p>Indicadores operacionais, filtros, históricos e visualização de dados para apoiar decisões.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -227,7 +229,8 @@
                                         <div class="services-provided__tab-content-media">
                                             <img src="{% static 'institutional/imgs/images/livia-em-acao.webp' %}" alt="Assistente virtual Lívia em operação">
                                             <div class="services-provided__tab-content-media-content">
-                                                <h4>Automação</h4>
+                                                <h4 id="automacao-digital">Automação de Processos Digitais</h4>
+                                                <p>Workflows, notificações, integrações e rotinas automatizadas para reduzir tarefas manuais.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +240,8 @@
                                         <div class="services-provided__tab-content-media">
                                             <img src="{% static 'institutional/imgs/images/ia-aplicada.webp' %}" alt="Inteligência artificial aplicada a sistemas">
                                             <div class="services-provided__tab-content-media-content">
-                                                <h4>IA Aplicada</h4>
+                                                <h4 id="ia-aplicada">Inteligência Artificial Aplicada</h4>
+                                                <p>Assistentes, busca inteligente, classificação, geração de conteúdo e análise de dados quando fizer sentido.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -299,10 +303,10 @@
                         <div class="col-lg-6">
                             <div class="aigenerator__content">
                                 <div class="section__title-wrapper hero">
-                                    <h6 class="aigenerator__content-subtitle _split_text">Desenvolvimento-inteligente</h6>
+                                    <h6 id="python-django" class="aigenerator__content-subtitle _split_text">Desenvolvimento inteligente</h6>
                                     <h2 class="section__title-wrapper-title-2 mt-10 rr_title_anim">Python, Banco de Dados <br> e Inteligência Artificial</h2>
-                                    <p class="section__title-wrapper-dec-2 mt-10 rr_title_anim">Criamos aplicações web completas para centralizar informações, automatizar tarefas <br>
-                                        integrar dados e apoiar decisões com inteligência artificial.</p>
+                                    <p class="section__title-wrapper-dec-2 mt-10 rr_title_anim">Criamos aplicações web completas com Python, Django, PostgreSQL, APIs, HTML, CSS e JavaScript para centralizar informações, automatizar tarefas <br>
+                                        integrar dados e apoiar decisões com inteligência artificial. Veja também como <a href="{% url 'institutional:blog_detail' 'equipamentos-sistemas-para-evoluir' %}">equipamentos e sistemas podem evoluir juntos</a>.</p>
                                 </div>
                                 <div class="aigenerator__content-revive-box hero">
                                     <p class="text _split_text">Sistemas personalizados, integrações, dados e IA</p>
@@ -434,8 +438,8 @@
                                     <img src="{% static 'institutional/imgs/images/dedicated-img-1.png' %}" alt="">
                                 </div>
                                 <div class="dedicated__item-content">
-                                    <a class="text" href="{% url 'institutional:contact' %}">Inteligência Artificial</a>
-                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                    <a class="text" href="#ia-aplicada">Inteligência Artificial</a>
+                                    <a class="icon" href="#ia-aplicada" aria-label="Ver inteligência artificial aplicada"><i class="fa-light fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -445,8 +449,8 @@
                                     <img src="{% static 'institutional/imgs/images/dedicated-img-2.png' %}" alt="">
                                 </div>
                                 <div class="dedicated__item-content">
-                                    <a class="text" href="{% url 'institutional:contact' %}">PostgreSQL</a>
-                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                    <a class="text" href="#python-django">PostgreSQL</a>
+                                    <a class="icon" href="#python-django" aria-label="Ver Python Django e banco de dados"><i class="fa-light fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -456,8 +460,8 @@
                                     <img src="{% static 'institutional/imgs/images/dedicated-img-3.png' %}" alt="">
                                 </div>
                                 <div class="dedicated__item-content">
-                                    <a class="text" href="{% url 'institutional:contact' %}">APIs e Integrações</a>
-                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                    <a class="text" href="#integracoes">APIs e Integrações</a>
+                                    <a class="icon" href="#integracoes" aria-label="Ver APIs e integrações"><i class="fa-light fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -467,8 +471,8 @@
                                     <img src="{% static 'institutional/imgs/images/dedicated-img-4.png' %}" alt="">
                                 </div>
                                 <div class="dedicated__item-content">
-                                    <a class="text" href="{% url 'institutional:contact' %}">Python e Django</a>
-                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                    <a class="text" href="#python-django">Python e Django</a>
+                                    <a class="icon" href="#python-django" aria-label="Ver Python e Django"><i class="fa-light fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -478,8 +482,8 @@
                                     <img src="{% static 'institutional/imgs/images/dedicated-img-5.png' %}" alt="">
                                 </div>
                                 <div class="dedicated__item-content">
-                                    <a class="text" href="{% url 'institutional:contact' %}">Dashboards</a>
-                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                    <a class="text" href="#dashboards">Dashboards</a>
+                                    <a class="icon" href="#dashboards" aria-label="Ver dashboards"><i class="fa-light fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -489,8 +493,8 @@
                                     <img src="{% static 'institutional/imgs/images/dedicated-img-6.png' %}" alt="">
                                 </div>
                                 <div class="dedicated__item-content">
-                                    <a class="text" href="{% url 'institutional:contact' %}">Automação</a>
-                                    <a class="icon" href="#"><i class="fa-light fa-eye"></i></a>
+                                    <a class="text" href="#automacao-digital">Automação</a>
+                                    <a class="icon" href="#automacao-digital" aria-label="Ver automação digital"><i class="fa-light fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -561,7 +565,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -570,14 +574,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Cada solução é estruturada conforme o processo, os usuários, os dados e as integrações necessárias para a operação.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Arquitetura sob medida <span>Processos e usuários</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -586,7 +590,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -595,14 +599,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Utilizamos Python e Django para desenvolver aplicações escaláveis, organizadas e preparadas para evolução contínua.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Python e Django <span>Base técnica evolutiva</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -611,7 +615,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -620,14 +624,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Sistemas podem conectar formulários, bancos de dados, APIs e rotinas internas para reduzir tarefas manuais.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Integração de processos <span>Fluxos conectados</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -636,7 +640,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -645,14 +649,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Estruturamos informações para facilitar consultas, indicadores, rastreabilidade e tomada de decisão.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Dados organizados <span>Indicadores e rastreabilidade</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -661,7 +665,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -670,14 +674,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Interfaces são desenvolvidas com foco em clareza, facilidade de uso e aderência à rotina operacional.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Experiência do usuário <span>Clareza na rotina</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -686,7 +690,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -695,14 +699,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">A arquitetura pode ser preparada para receber novos módulos, usuários, integrações e funcionalidades.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Evolução contínua <span>Novos módulos e integrações</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -711,7 +715,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -720,14 +724,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Integramos sistemas, serviços externos e aplicações por meio de APIs e fluxos de dados controlados.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">APIs e integrações <span>Dados controlados</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -736,7 +740,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -745,14 +749,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Processos repetitivos podem ser automatizados para reduzir retrabalho e melhorar produtividade.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">Automação digital <span>Menos retrabalho</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -761,7 +765,7 @@
                                         <img src="{% static 'institutional/imgs/icon/testimonial-icon-5.png' %}" alt="">
                                     </div>
                                     <div class="testimonial-2__item-text">
-                                        <div class="testimonial-2__item-icon">
+                                        <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
                                                 <li><i class="fa-solid fa-star"></i></li>
                                                 <li><i class="fa-solid fa-star"></i></li>
@@ -770,14 +774,14 @@
                                                 <li><i class="fa-solid fa-star"></i></li>
                                             </ul>
                                         </div>
-                                        <p class="testimonial-2__item-dec">Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, facilidade de uso e evolução contínua do sistema.</p>
+                                        <p class="testimonial-2__item-dec">Recursos de inteligência artificial podem ser incorporados quando agregam valor real ao processo e à experiência do usuário.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
                                             <div class="icon">
                                                 <img src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
                                             </div>
-                                            <h3 class="title">Smart Control Brasil <span>Desenvolvimento de sistemas</span></h3>
+                                            <h3 class="title">IA aplicada <span>Valor real no processo</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -885,7 +889,7 @@
                                         <span class="date"><i class="fa-sharp fa-solid fa-code"></i>Python</span>
                                         <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-database"></i>Banco de dados</a>
                                     </div>
-                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">Sistemas personalizados para <br> organizar sua operação</a></h3>
+                                    <h3 class="title"><a href="{% url 'institutional:services' %}">Sistemas personalizados para <br> organizar sua operação</a></h3>
                                     <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
                                  </div>
                             </div>
@@ -903,7 +907,7 @@
                                         <span class="date"><i class="fa-sharp fa-solid fa-display"></i>Responsivo</span>
                                         <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-gears"></i>Integrado</a>
                                     </div>
-                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">Websites inteligentes conectados <br> aos objetivos da empresa</a></h3>
+                                    <h3 class="title"><a href="{% url 'institutional:about' %}">Websites inteligentes conectados <br> aos objetivos da empresa</a></h3>
                                     <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
                                  </div>
                             </div>
@@ -921,7 +925,7 @@
                                         <span class="date"><i class="fa-sharp fa-solid fa-brain"></i>IA aplicada</span>
                                         <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-chart-line"></i>Automação</a>
                                     </div>
-                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">Inteligência artificial integrada <br> aos seus sistemas e dados</a></h3>
+                                    <h3 class="title"><a href="{% url 'institutional:blog_detail' 'equipamentos-sistemas-para-evoluir' %}">Inteligência artificial integrada <br> aos seus sistemas e dados</a></h3>
                                     <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
                                  </div>
                             </div>

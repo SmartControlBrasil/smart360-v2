@@ -535,21 +535,74 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(items[1]["name"], "Xyron Robotics")
         self.assertEqual(items[1]["item"], "https://www.smartcontrolbrasil.com.br/xyron/")
 
-    def test_services_has_unique_title_description_and_queryless_canonical(self):
+    def test_services_has_seo_content_links_and_schemas(self):
         response = self.client.get("/servicos/?utm_source=google&utm_campaign=x&gclid=abc")
+        html = response.content.decode()
 
         self.assertEqual(response.status_code, 200)
         self.assertTitle(response, "Serviços de Automação Industrial, Robótica e Software | Smart Control Brasil")
         self.assertMetaDescription(
             response,
-            "Conheça os serviços da Smart Control Brasil em automação industrial, robótica, "
-            "manutenção técnica, retrofit, integração de sistemas e desenvolvimento web.",
+            "Conheça os serviços da Smart Control Brasil em automação industrial, robótica Xyron, "
+            "manutenção industrial e desenvolvimento de sistemas sob medida.",
         )
         self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/servicos/")
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Serviços de Automação, Robótica, Manutenção e Sistemas"],
+        )
         self.assertNotContains(response, "utm_source")
         self.assertNotContains(response, "utm_campaign")
         self.assertNotContains(response, "gclid")
         self.assertNotContains(response, 'name="robots"')
+
+        for expected in (
+            "Automação Industrial",
+            "Robótica Inteligente",
+            "Manutenção Industrial",
+            "Sistemas e Soluções Digitais",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for forbidden in (
+            "Seken",
+            "Incessantly",
+            "Fast Content Creation",
+            "AI Generated Outcomes",
+            "Transaction Portals",
+            "Bilingual and beyond",
+            "Assistance Platform",
+            "Common Questions",
+            "Fusce interdum",
+            "Sed interdum",
+            "Mattis eros",
+            'href="#"',
+            'alt="fast-content-img',
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        self.assertIn(reverse("institutional:about"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(reverse("institutional:mitsubishi_automacao_industrial"), html)
+        self.assertIn(reverse("institutional:xyron"), html)
+        self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+        services = self.graph_items(response, "Service")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        items = breadcrumbs[0]["itemListElement"]
+        self.assertEqual([item["name"] for item in items], ["Início", "Serviços"])
+        self.assertEqual(items[1]["item"], "https://www.smartcontrolbrasil.com.br/servicos/")
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(len(faq_pages[0]["mainEntity"]), 4)
+        self.assertEqual(faq_pages[0]["mainEntity"][0]["name"], "Quais serviços a Smart Control Brasil oferece?")
+        self.assertEqual(len(services), 1)
+        self.assertIn("Manutenção Industrial", services[0]["serviceType"])
 
     def test_blog_article_uses_title_metadata_h1_and_canonical(self):
         response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
@@ -572,7 +625,7 @@ class TechnicalSeoTests(TestCase):
             "/xyron/": "Xyron Robotics",
             "/mitsubishi-automacao-industrial/": "Mitsubishi Automação Industrial",
             "/manutencao-industrial-campo/": "Manutenção Industrial",
-            "/sistemas-websites-python/": "Sistemas e Websites",
+            "/sistemas-websites-python/": "Sistemas Web, Websites e Soluções em Python",
         }
         forbidden = (
             'alt="image"',
@@ -635,11 +688,15 @@ class TechnicalSeoTests(TestCase):
                 self.assertCanonical(response, canonical)
                 self.assertMetaProperty(response, "og:url", canonical)
                 self.assertMetaProperty(response, "og:type", "website")
-                self.assertMetaProperty(
-                    response,
-                    "og:image",
+                expected_images = {
+                    "/manutencao-industrial-campo/": "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/retrofite-painel-eletronico.webp",
+                    "/mitsubishi-automacao-industrial/": "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/clp-e-acionanentos.webp",
+                }
+                expected_image = expected_images.get(
+                    path,
                     "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/banner-6-img-1.png",
                 )
+                self.assertMetaProperty(response, "og:image", expected_image)
                 self.assertMetaProperty(response, "og:site_name", "Smart Control Brasil")
                 self.assertMetaProperty(response, "og:locale", "pt_BR")
                 self.assertMetaName(response, "twitter:card", "summary_large_image")
@@ -676,20 +733,20 @@ class TechnicalSeoTests(TestCase):
             (
                 "/mitsubishi-automacao-industrial/",
                 "Automação Industrial Mitsubishi Electric | Smart Control Brasil",
-                "Soluções de automação industrial Mitsubishi Electric com CLPs, IHMs, inversores, "
-                "integração, engenharia e suporte técnico especializado.",
+                "Automação industrial Mitsubishi Electric com CLPs, IHMs, inversores, "
+                "servoacionamentos, integração, retrofit, comissionamento e suporte técnico.",
             ),
             (
                 "/manutencao-industrial-campo/",
                 "Manutenção Industrial e Assistência Técnica | Smart Control Brasil",
-                "Manutenção industrial, diagnóstico, assistência técnica em campo, automação, "
-                "eletrônica e suporte especializado para máquinas e equipamentos.",
+                "Manutenção industrial e assistência técnica em campo com diagnóstico, "
+                "preventiva, corretiva, comissionamento, retrofit, automação e painéis elétricos.",
             ),
             (
                 "/sistemas-websites-python/",
-                "Sistemas Web e Desenvolvimento Python | Smart Control Brasil",
-                "Desenvolvimento de sistemas web, plataformas empresariais, automações e soluções "
-                "em Python e Django para digitalização de processos.",
+                "Sistemas Web, Websites e Desenvolvimento Python | Smart Control Brasil",
+                "Desenvolvimento de sistemas web, websites empresariais, plataformas, integrações "
+                "e soluções em Python e Django para digitalização de processos.",
             ),
         )
 
@@ -699,6 +756,291 @@ class TechnicalSeoTests(TestCase):
 
                 self.assertTitle(response, expected_title)
                 self.assertMetaDescription(response, expected_description)
+
+    def test_sistemas_websites_python_landing_has_content_links_schemas_and_no_fake_reviews(self):
+        response = self.client.get("/sistemas-websites-python/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Sistemas Web, Websites e Desenvolvimento Python | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Desenvolvimento de sistemas web, websites empresariais, plataformas, integrações "
+            "e soluções em Python e Django para digitalização de processos.",
+        )
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/")
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Sistemas Web, Websites e Soluções em Python"],
+        )
+
+        for expected in (
+            "Python",
+            "Django",
+            "Sistemas Web",
+            "Websites",
+            "Portais",
+            "Dashboards",
+            "APIs",
+            "Inteligência Artificial",
+            "PostgreSQL",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for anchor in (
+            "#python-django",
+            "#portais",
+            "#dashboards",
+            "#automacao-digital",
+            "#ia-aplicada",
+            "#integracoes",
+        ):
+            with self.subTest(anchor=anchor):
+                self.assertIn(f'id="{anchor[1:]}"', html)
+
+        self.assertNotIn('href="#"', html)
+        repeated = (
+            "Desenvolvemos soluções digitais com foco em processos reais, organização dos dados, "
+            "facilidade de uso e evolução contínua do sistema."
+        )
+        self.assertNotIn(repeated, html)
+        self.assertEqual(html.count('class="testimonial-2__item-dec"'), 9)
+        self.assertIn("Arquitetura sob medida", html)
+        self.assertIn("APIs e integrações", html)
+        self.assertIn("IA aplicada", html)
+
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:about"), html)
+        self.assertIn(reverse("institutional:mitsubishi_automacao_industrial"), html)
+        self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "equipamentos-sistemas-para-evoluir"},
+            ),
+            html,
+        )
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+        services = self.graph_items(response, "Service")
+        reviews = self.graph_items(response, "Review")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Sistemas Web e Desenvolvimento Python"],
+        )
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(len(faq_pages[0]["mainEntity"]), 4)
+        self.assertEqual(
+            faq_pages[0]["mainEntity"][0]["name"],
+            "Vocês desenvolvem sistemas totalmente personalizados?",
+        )
+        self.assertEqual(len(services), 1)
+        self.assertEqual(services[0]["name"], "Desenvolvimento de Sistemas Web e Soluções em Python")
+        self.assertIn("Aplicações Django", services[0]["serviceType"])
+        self.assertNotIn("areaServed", services[0])
+        self.assertEqual(reviews, [])
+        self.assertEqual(aggregate_ratings, [])
+
+    def test_mitsubishi_landing_has_technical_content_links_schemas_and_clean_links(self):
+        response = self.client.get("/mitsubishi-automacao-industrial/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Automação Industrial Mitsubishi Electric | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Automação industrial Mitsubishi Electric com CLPs, IHMs, inversores, "
+            "servoacionamentos, integração, retrofit, comissionamento e suporte técnico.",
+        )
+        self.assertCanonical(
+            response,
+            "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
+        )
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Mitsubishi Automação Industrial: Controle, Movimento e Dados"],
+        )
+
+        for expected in (
+            "Mitsubishi Electric",
+            "CLP",
+            "IHM",
+            "Inversores",
+            "Servo",
+            "MELFA",
+            "Automação Industrial",
+            "MELSEC",
+            "GX Works",
+            "CC-Link",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for anchor in ("#clps", "#ihms", "#inversores", "#motion", "#melfa", "#supervisao"):
+            with self.subTest(anchor=anchor):
+                self.assertIn(f'id="{anchor[1:]}"', html)
+                self.assertIn(f'href="{anchor}"', html)
+
+        for forbidden in (
+            'href="#"',
+            "project_details",
+            'href="/servicos/detalhes/"',
+            "distribuidor oficial",
+            "revendedor autorizado",
+            "integrador certificado",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+        self.assertIn(reverse("institutional:about"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "selecao-controladores-ativos-alta-severidade"},
+            ),
+            html,
+        )
+
+        self.assertMetaProperty(
+            response,
+            "og:image",
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/clp-e-acionanentos.webp",
+        )
+        self.assertMetaProperty(response, "og:image:width", "220")
+        self.assertMetaProperty(response, "og:image:height", "260")
+        self.assertMetaProperty(response, "og:image:alt", "CLP Mitsubishi Electric em aplicação de automação")
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+        services = self.graph_items(response, "Service")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Mitsubishi Automação Industrial"],
+        )
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(len(faq_pages[0]["mainEntity"]), 5)
+        self.assertEqual(
+            faq_pages[0]["mainEntity"][0]["name"],
+            "A Smart Control Brasil vende componentes Mitsubishi Electric?",
+        )
+        self.assertEqual(len(services), 1)
+        self.assertEqual(services[0]["name"], "Automação Industrial Mitsubishi Electric")
+        self.assertIn("Programação de CLP", services[0]["serviceType"])
+        self.assertNotIn("areaServed", services[0])
+
+    def test_manutencao_industrial_landing_has_content_links_schemas_and_social_image(self):
+        response = self.client.get("/manutencao-industrial-campo/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Manutenção Industrial e Assistência Técnica | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Manutenção industrial e assistência técnica em campo com diagnóstico, "
+            "preventiva, corretiva, comissionamento, retrofit, automação e painéis elétricos.",
+        )
+        self.assertCanonical(
+            response,
+            "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
+        )
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Manutenção Industrial e Assistência Técnica em Campo"],
+        )
+
+        for expected in (
+            "Manutenção Industrial",
+            "Assistência Técnica",
+            "manutenção preventiva",
+            "corretiva",
+            "Painéis Elétricos",
+            "automação industrial",
+            "Confiabilidade",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        tab_titles = (
+            "Manutenção de sistemas",
+            "Manutenção de máquinas",
+            "Manutenção e retrofit",
+            "Diagnóstico de",
+            "Manutenção orientada",
+        )
+        for title in tab_titles:
+            with self.subTest(tab_title=title):
+                self.assertIn(title, html)
+        self.assertEqual(len(set(tab_titles)), 5)
+
+        repeated_title = "Manutenção industrial <br> com diagnóstico e confiabilidade"
+        self.assertNotIn(repeated_title, html)
+        for forbidden in (
+            'alt="not found"',
+            'alt="fast-content-img"',
+            'alt="latest-blog-img"',
+            'href="/camara-climatica/"',
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:mitsubishi_automacao_industrial"), html)
+        self.assertIn(reverse("institutional:about"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "reducao-paradas-inesperadas-planejamento-tecnico"},
+            ),
+            html,
+        )
+
+        self.assertMetaProperty(
+            response,
+            "og:image",
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/retrofite-painel-eletronico.webp",
+        )
+        self.assertMetaProperty(response, "og:image:width", "930")
+        self.assertMetaProperty(response, "og:image:height", "470")
+        self.assertMetaProperty(response, "og:image:alt", "Retrofit de painel eletrônico industrial")
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+        services = self.graph_items(response, "Service")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Manutenção Industrial"],
+        )
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(len(faq_pages[0]["mainEntity"]), 4)
+        self.assertEqual(faq_pages[0]["mainEntity"][0]["name"], "Vocês fazem manutenção de robôs Xyron?")
+        self.assertEqual(len(services), 1)
+        self.assertEqual(services[0]["name"], "Manutenção Industrial e Assistência Técnica em Campo")
+        self.assertIn("Manutenção preventiva", services[0]["serviceType"])
+        self.assertNotIn("areaServed", services[0])
 
     def test_strategic_solution_social_metadata_uses_existing_seo_values(self):
         expectations = (
@@ -723,6 +1065,127 @@ class TechnicalSeoTests(TestCase):
                 self.assertMetaProperty(response, "og:url", expected_url)
                 self.assertMetaProperty(response, "og:type", "website")
                 self.assertMetaName(response, "twitter:title", expected_title)
+
+    def test_xyron_hub_has_clean_links_semantic_cards_and_structured_data(self):
+        response = self.client.get("/xyron/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Robôs Inteligentes Xyron Robotics | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Conheça as soluções de robótica inteligente da Xyron Robotics para educação, "
+            "atendimento, interação e aplicações profissionais com a Smart Control Brasil.",
+        )
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Xyron Robotics — Robótica Inteligente para Segurança, Educação e Empresas"],
+        )
+
+        for expected in (
+            "Xyron Robotics",
+            "robótica inteligente",
+            "educação",
+            "atendimento",
+            "segurança",
+            "serviços",
+            "aplicações profissionais",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for forbidden in (
+            'href="#"',
+            "testimonials",
+            "team_details",
+            "blog_details",
+            "Demosntração",
+            "demo Images",
+            "data-count",
+            "Inscrever-se",
+            "Digite seu e-mail",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        self.assertEqual(html.count('class="services-7__title"'), 9)
+        self.assertEqual(html.count('<h3 class="services-7__title">'), 9)
+        self.assertNotIn('<h2 class="services-7__title">', html)
+        self.assertIn("Linha Xyron Robotics", html)
+
+        for robot in XYRON_ROBOT_PAGES:
+            with self.subTest(robot=robot["slug"]):
+                self.assertIn(reverse(f"institutional:{robot['view']}"), html)
+
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "convergencia-robotica-ia-firmwares-dedicados"},
+            ),
+            html,
+        )
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+        services = self.graph_items(response, "Service")
+        item_lists = self.graph_items(response, "ItemList")
+        products = self.graph_items(response, "Product")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics"],
+        )
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(len(faq_pages[0]["mainEntity"]), 5)
+        self.assertEqual(faq_pages[0]["mainEntity"][0]["name"], "Quais tipos de robôs a Xyron oferece?")
+        self.assertEqual(len(services), 1)
+        self.assertEqual(services[0]["name"], "Soluções de Robótica Xyron Robotics")
+        self.assertIn("Robótica educacional", services[0]["serviceType"])
+        self.assertEqual(services[0]["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertNotIn("areaServed", services[0])
+        self.assertEqual(len(item_lists), 1)
+        self.assertEqual(len(item_lists[0]["itemListElement"]), len(XYRON_ROBOT_PAGES))
+        self.assertEqual(
+            [item["name"] for item in item_lists[0]["itemListElement"]],
+            [robot["name"] for robot in XYRON_ROBOT_PAGES],
+        )
+        self.assertEqual(products, [])
+
+    def test_xyron_robot_pages_include_product_schema_without_commercial_claims(self):
+        for robot in XYRON_ROBOT_PAGES:
+            path = f"/xyron/{robot['slug']}/"
+            canonical = f"https://www.smartcontrolbrasil.com.br{path}"
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                products = self.graph_items(response, "Product")
+                offers = self.graph_items(response, "Offer")
+                aggregate_offers = self.graph_items(response, "AggregateOffer")
+                reviews = self.graph_items(response, "Review")
+                aggregate_ratings = self.graph_items(response, "AggregateRating")
+
+                self.assertEqual(len(products), 1)
+                product = products[0]
+                self.assertEqual(product["name"], robot["name"])
+                self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+                self.assertEqual(product["description"], robot["description"])
+                self.assertEqual(product["url"], canonical)
+                self.assertEqual(product["image"], f"https://www.smartcontrolbrasil.com.br{static(robot['image'])}")
+                self.assertNotIn("offers", product)
+                self.assertNotIn("aggregateRating", product)
+                self.assertNotIn("review", product)
+                self.assertEqual(offers, [])
+                self.assertEqual(aggregate_offers, [])
+                self.assertEqual(reviews, [])
+                self.assertEqual(aggregate_ratings, [])
 
     def test_xyron_robot_pages_have_single_h1_metadata_breadcrumb_and_sitemap(self):
         sitemap_urls = self.sitemap_urls()
