@@ -1410,6 +1410,106 @@ class TechnicalSeoTests(TestCase):
 
         self.assertEqual(len(set(highlights)), len(BLOG_POSTS))
 
+    def test_blog_detail_does_not_render_python_dict_artifacts_and_keeps_legitimate_lists(self):
+        for slug in BLOG_POSTS:
+            with self.subTest(slug=slug):
+                response = self.client.get(f"/blog/{slug}/")
+                html = response.content.decode()
+
+                self.assertEqual(response.status_code, 200)
+                self.assertNotIn("('heading',", html)
+                self.assertNotIn("('paragraphs',", html)
+                self.assertNotIn("dict_items", html)
+
+        checklist = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
+        self.assertContains(checklist, "<li>Ambiente de instalação e exposição real do equipamento.</li>")
+
+    def test_robotics_ai_firmware_article_has_expanded_depth_links_and_faq_schema(self):
+        response = self.client.get("/blog/convergencia-robotica-ia-firmwares-dedicados/")
+        html = response.content.decode()
+        post = BLOG_POSTS["convergencia-robotica-ia-firmwares-dedicados"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/convergencia-robotica-ia-firmwares-dedicados/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Robótica, IA e Firmware Dedicado | Smart Control Brasil")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "A arquitetura de um sistema robótico moderno",
+            "Firmware dedicado: a camada que conversa com o hardware",
+            "Por que processamento local importa",
+            "Inteligência artificial na robótica",
+            "Visão computacional e sensores",
+            "Comunicação entre robô e sistemas externos",
+            "Robótica conectada não significa dependência total da nuvem",
+            "Onde a Xyron Robotics entra nesse cenário",
+            "Aplicações práticas da convergência",
+            "Exemplo arquitetural hipotético",
+            "Segurança, disponibilidade e confiabilidade",
+            "Integração precisa nascer da aplicação",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "firmware",
+            "inteligência artificial",
+            "sensores",
+            "processamento local",
+            "integração",
+            "Xyron Robotics",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/xyron/"',
+            'href="/xyron/littlebot/"',
+            'href="/xyron/orbit/"',
+            'href="/xyron/neo-bot/"',
+            'href="/sistemas-websites-python/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/servicos/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("Esse exemplo é hipotético", html)
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Automação Industrial e Transformação Digital")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
     def test_legacy_blog_routes_redirect_to_indexable_urls(self):
         blog_list = self.client.get("/blog/lista/")
         blog_details = self.client.get("/blog/detalhes/")

@@ -91,9 +91,9 @@
                                     {% for paragraph in section.paragraphs %}
                                         <p class="dec-3">{{ paragraph|safe }}</p>
                                     {% endfor %}
-                                    {% if section.items %}
+                                    {% if section.items_list %}
                                         <ul class="blog__details-list">
-                                            {% for item in section.items %}
+                                            {% for item in section.items_list %}
                                                 <li>{{ item }}</li>
                                             {% endfor %}
                                         </ul>
