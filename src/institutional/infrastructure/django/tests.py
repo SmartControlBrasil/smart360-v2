@@ -34,8 +34,6 @@ class InstitutionalRoutesTests(TestCase):
         "services",
         "service_details",
         "blog",
-        "blog_list",
-        "blog_details",
         "team",
         "team_details",
         "projects",
@@ -1242,6 +1240,121 @@ class TechnicalSeoTests(TestCase):
         self.assertContains(blog, 'href="/mitsubishi-automacao-industrial/"')
         self.assertContains(blog, 'href="/contato/"')
 
+    def test_blog_hub_has_descriptive_h1_breadcrumb_blog_schema_and_item_list(self):
+        response = self.client.get("/blog/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Blog de Automação Industrial, Robótica e Tecnologia | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Artigos técnicos sobre automação industrial, robótica, manutenção, "
+            "integração de dados, sistemas web e engenharia aplicada.",
+        )
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/blog/")
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Blog de Automação Industrial, Robótica e Tecnologia"],
+        )
+        self.assertNotIn("fa-calendar-days", html)
+        self.assertIn("fa-tags", html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        blogs = self.graph_items(response, "Blog")
+        item_lists = self.graph_items(response, "ItemList")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Blog"],
+        )
+        self.assertEqual(len(blogs), 1)
+        self.assertEqual(blogs[0]["url"], "https://www.smartcontrolbrasil.com.br/blog/")
+        self.assertEqual(blogs[0]["publisher"]["name"], "Smart Control Brasil")
+        self.assertEqual(len(item_lists), 1)
+        self.assertEqual(len(item_lists[0]["itemListElement"]), len(BLOG_POSTS))
+        self.assertEqual(
+            [item["name"] for item in item_lists[0]["itemListElement"]],
+            [post["title"] for post in BLOG_POSTS.values()],
+        )
+
+    def test_blog_articles_use_blogposting_schema_links_highlights_and_related_posts(self):
+        landing_paths = {
+            "selecao-controladores-ativos-alta-severidade": reverse("institutional:mitsubishi_automacao_industrial"),
+            "convergencia-robotica-ia-firmwares-dedicados": reverse("institutional:xyron"),
+            "eliminar-gargalos-autonomia-previsibilidade": reverse("institutional:manutencao_industrial_campo"),
+            "informacao-precisa-para-agir-melhor": reverse("institutional:sistemas_websites_python"),
+            "equipamentos-sistemas-para-evoluir": reverse("institutional:sistemas_websites_python"),
+            "inovacao-que-aparece-e-gera-valor": reverse("institutional:xyron"),
+            "reducao-paradas-inesperadas-planejamento-tecnico": reverse("institutional:manutencao_industrial_campo"),
+            "historico-indicadores-decisoes-consistentes": reverse("institutional:manutencao_industrial_campo"),
+            "menos-retrabalho-rastreabilidade-retrofit": reverse("institutional:manutencao_industrial_campo"),
+        }
+        highlights = []
+
+        for slug, post in BLOG_POSTS.items():
+            path = f"/blog/{slug}/"
+            canonical = f"https://www.smartcontrolbrasil.com.br{path}"
+            with self.subTest(slug=slug):
+                response = self.client.get(path)
+                html = response.content.decode()
+
+                self.assertEqual(response.status_code, 200)
+                self.assertTitle(response, f"{post['title']} | Smart Control Brasil")
+                self.assertMetaDescription(response, post["meta_description"])
+                self.assertCanonical(response, canonical)
+                self.assertEqual(self.h1_texts(response), [post["title"]])
+                self.assertIn(f'src="{static(post["image"])}"', html)
+                self.assertIn(post["highlight"], html)
+                self.assertIn(landing_paths[slug], html)
+                self.assertNotIn(reverse("institutional:blog_details"), html)
+                self.assertNotIn(reverse("institutional:blog_list"), html)
+                highlights.append(post["highlight"])
+
+                blog_posts = self.graph_items(response, "BlogPosting")
+                articles = self.graph_items(response, "Article")
+                breadcrumbs = self.graph_items(response, "BreadcrumbList")
+
+                self.assertEqual(articles, [])
+                self.assertEqual(len(blog_posts), 1)
+                blog_posting = blog_posts[0]
+                self.assertEqual(blog_posting["headline"], post["title"])
+                self.assertEqual(blog_posting["description"], post["meta_description"])
+                self.assertEqual(blog_posting["url"], canonical)
+                self.assertEqual(blog_posting["mainEntityOfPage"], canonical)
+                self.assertEqual(blog_posting["articleSection"], post["category"])
+                self.assertEqual(blog_posting["image"], f"https://www.smartcontrolbrasil.com.br/static/{post['image']}")
+                self.assertEqual(blog_posting["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+                self.assertNotIn("datePublished", blog_posting)
+                self.assertNotIn("dateModified", blog_posting)
+                self.assertEqual(len(breadcrumbs), 1)
+                self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+
+                related_hrefs = re.findall(r'class="sidebar-post_thumb" href="([^"]+)"|href="([^"]+)" class="sidebar-post_thumb"', html)
+                related_urls = {first or second for first, second in related_hrefs}
+                self.assertLessEqual(len(related_urls), 3)
+                self.assertNotIn(path, related_urls)
+
+        self.assertEqual(len(set(highlights)), len(BLOG_POSTS))
+
+    def test_legacy_blog_routes_redirect_to_indexable_urls(self):
+        blog_list = self.client.get("/blog/lista/")
+        blog_details = self.client.get("/blog/detalhes/")
+
+        self.assertEqual(blog_list.status_code, 301)
+        self.assertEqual(blog_list["Location"], reverse("institutional:blog"))
+        self.assertEqual(blog_details.status_code, 301)
+        self.assertEqual(
+            blog_details["Location"],
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "selecao-controladores-ativos-alta-severidade"},
+            ),
+        )
+
     def test_blog_article_includes_article_social_metadata_and_post_image(self):
         response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
         post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
@@ -1260,33 +1373,6 @@ class TechnicalSeoTests(TestCase):
         self.assertMetaName(response, "twitter:title", expected_title)
         self.assertMetaName(response, "twitter:description", post["meta_description"])
         self.assertMetaName(response, "twitter:image", expected_image)
-
-    def test_blog_article_includes_article_and_breadcrumb_json_ld(self):
-        response = self.client.get("/blog/selecao-controladores-ativos-alta-severidade/")
-        post = BLOG_POSTS["selecao-controladores-ativos-alta-severidade"]
-
-        articles = self.graph_items(response, "Article")
-        breadcrumbs = self.graph_items(response, "BreadcrumbList")
-
-        self.assertEqual(len(articles), 1)
-        article = articles[0]
-        self.assertEqual(article["headline"], post["title"])
-        self.assertEqual(article["description"], post["meta_description"])
-        self.assertEqual(
-            article["url"],
-            "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
-        )
-        self.assertEqual(article["image"], f"https://www.smartcontrolbrasil.com.br/static/{post['image']}")
-        self.assertEqual(article["author"], {"@type": "Organization", "name": "Smart Control Brasil"})
-        self.assertEqual(article["publisher"]["@type"], "Organization")
-        self.assertEqual(article["publisher"]["name"], "Smart Control Brasil")
-        self.assertNotIn("datePublished", article)
-        self.assertNotIn("dateModified", article)
-        self.assertEqual(len(breadcrumbs), 1)
-        items = breadcrumbs[0]["itemListElement"]
-        self.assertEqual([item["position"] for item in items], [1, 2, 3])
-        self.assertEqual(items[1]["name"], "Blog")
-        self.assertEqual(items[2]["item"], article["url"])
 
     def test_noindex_page_does_not_render_json_ld(self):
         response = self.client.get("/livia/")

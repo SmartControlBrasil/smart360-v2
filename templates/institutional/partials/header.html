@@ -118,33 +118,6 @@
                                         {% endcomment %}
 
 
-                                        {% comment %}
-                                        <li class="has-dropdown {% if current in 'blog blog_list blog_details' %}active{% endif %}">
-                                            <a href="{% url 'institutional:blog' %}">
-                                                Blog
-                                            </a>
-
-                                            <ul class="submenu">
-                                                <li class="{% if current == 'blog' %}active{% endif %}">
-                                                    <a href="{% url 'institutional:blog' %}">
-                                                        Grade do blog
-                                                    </a>
-                                                </li>
-
-                                                <li class="{% if current == 'blog_list' %}active{% endif %}">
-                                                    <a href="{% url 'institutional:blog_list' %}">
-                                                        Lista do blog
-                                                    </a>
-                                                </li>
-
-                                                <li class="{% if current == 'blog_details' %}active{% endif %}">
-                                                    <a href="{% url 'institutional:blog_details' %}">
-                                                        Detalhes do blog
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        {% endcomment %}
 
 
                                         {% comment %}

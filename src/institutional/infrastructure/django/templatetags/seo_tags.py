@@ -8,6 +8,7 @@ from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
+from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 
 
@@ -327,6 +328,7 @@ def _breadcrumb_items(context):
     page_names = {
         "about": "Sobre",
         "services": "Serviços",
+        "blog": "Blog",
     }
     if route_name in page_names:
         return [home, (page_names[route_name], canonical_url(context))]
@@ -355,14 +357,16 @@ def _article_schema(context):
         return None
 
     schema = {
-        "@type": "Article",
+        "@type": "BlogPosting",
         "headline": post.get("title", ""),
         "description": post.get("meta_description", ""),
         "url": canonical_url(context),
+        "mainEntityOfPage": canonical_url(context),
+        "articleSection": post.get("category", ""),
         "image": _post_image_url(context) or social_image_url(context),
         "author": {
             "@type": "Organization",
-            "name": SOCIAL_SITE_NAME,
+            "name": "Equipe Smart Control Brasil",
         },
         "publisher": {
             "@type": "Organization",
@@ -374,6 +378,43 @@ def _article_schema(context):
         },
     }
     return {key: value for key, value in schema.items() if value}
+
+
+def _blog_schema(context):
+    if _route_name(context) != "blog":
+        return None
+
+    return {
+        "@type": "Blog",
+        "name": _route_metadata(context).get("title", "Blog Smart Control Brasil"),
+        "description": _route_metadata(context).get("description", DEFAULT_DESCRIPTION),
+        "url": canonical_url(context),
+        "publisher": {
+            "@type": "Organization",
+            "name": SOCIAL_SITE_NAME,
+            "url": settings.PUBLIC_SITE_URL,
+        },
+    }
+
+
+def _blog_item_list_schema(context):
+    if _route_name(context) != "blog":
+        return None
+
+    return {
+        "@type": "ItemList",
+        "name": "Artigos técnicos Smart Control Brasil",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": position,
+                "name": post["title"],
+                "url": _site_url(reverse("institutional:blog_detail", kwargs={"slug": slug})),
+                "description": post.get("meta_description", ""),
+            }
+            for position, (slug, post) in enumerate(BLOG_POSTS.items(), start=1)
+        ],
+    }
 
 
 def _product_description(product):
@@ -748,6 +789,14 @@ def _structured_data_graph(context):
     about_page = _about_page_schema(context)
     if about_page:
         graph.append(about_page)
+
+    blog_schema = _blog_schema(context)
+    if blog_schema:
+        graph.append(blog_schema)
+
+    blog_item_list = _blog_item_list_schema(context)
+    if blog_item_list:
+        graph.append(blog_item_list)
 
     service = _service_schema(context)
     if service:

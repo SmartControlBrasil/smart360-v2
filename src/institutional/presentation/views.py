@@ -25,10 +25,30 @@ logger = logging.getLogger(__name__)
 
 
 BLOG_SOLUTION_LINKS = {
+    "selecao-controladores-ativos-alta-severidade": {
+        "url_name": "institutional:mitsubishi_automacao_industrial",
+        "label": "automação industrial Mitsubishi",
+        "summary": "Veja soluções Mitsubishi Electric para CLPs, IHMs, inversores e integração industrial.",
+    },
     "convergencia-robotica-ia-firmwares-dedicados": {
         "url_name": "institutional:xyron",
         "label": "robótica inteligente Xyron",
         "summary": "Veja como a Smart Control Brasil aplica robótica inteligente em soluções Xyron.",
+    },
+    "eliminar-gargalos-autonomia-previsibilidade": {
+        "url_name": "institutional:manutencao_industrial_campo",
+        "label": "manutenção industrial e confiabilidade",
+        "summary": "Conecte gargalos, previsibilidade e rotina técnica a uma estratégia de manutenção industrial.",
+    },
+    "informacao-precisa-para-agir-melhor": {
+        "url_name": "institutional:sistemas_websites_python",
+        "label": "sistemas web, APIs e dashboards",
+        "summary": "Transforme dados operacionais em sistemas, integrações e dashboards sob medida.",
+    },
+    "equipamentos-sistemas-para-evoluir": {
+        "url_name": "institutional:sistemas_websites_python",
+        "label": "sistemas Python e Django",
+        "summary": "Conheça sistemas empresariais e integrações digitais sob medida.",
     },
     "inovacao-que-aparece-e-gera-valor": {
         "url_name": "institutional:xyron",
@@ -40,17 +60,54 @@ BLOG_SOLUTION_LINKS = {
         "label": "manutenção industrial em campo",
         "summary": "Conecte o planejamento técnico a um atendimento de manutenção industrial.",
     },
-    "selecao-controladores-ativos-alta-severidade": {
-        "url_name": "institutional:mitsubishi_automacao_industrial",
-        "label": "automação industrial Mitsubishi",
-        "summary": "Veja soluções Mitsubishi Electric para CLPs, IHMs, inversores e integração industrial.",
+    "historico-indicadores-decisoes-consistentes": {
+        "url_name": "institutional:manutencao_industrial_campo",
+        "label": "manutenção orientada por indicadores",
+        "summary": "Organize histórico, indicadores e prioridades dentro de uma estratégia de manutenção industrial.",
     },
-    "equipamentos-sistemas-para-evoluir": {
-        "url_name": "institutional:sistemas_websites_python",
-        "label": "sistemas Python e Django",
-        "summary": "Conheça sistemas empresariais e integrações digitais sob medida.",
+    "menos-retrabalho-rastreabilidade-retrofit": {
+        "url_name": "institutional:manutencao_industrial_campo",
+        "label": "manutenção, retrofit e levantamento técnico",
+        "summary": "Use documentação, rastreabilidade e diagnóstico para preparar intervenções e retrofit com menor risco.",
     },
 }
+
+
+def _post_terms(post):
+    text = " ".join(
+        [
+            post.get("title", ""),
+            post.get("category", ""),
+            post.get("meta_description", ""),
+            post.get("intro", ""),
+        ]
+        + [section.get("heading", "") for section in post.get("sections", [])]
+    ).lower()
+    punctuation = ".,;:!?()[]{}\"'"
+    terms = [term.strip(punctuation) for term in text.split()]
+    return {term for term in terms if len(term) > 4}
+
+
+def _related_blog_posts(slug, limit=3):
+    current = BLOG_POSTS[slug]
+    current_terms = _post_terms(current)
+    current_solution = BLOG_SOLUTION_LINKS.get(slug, {}).get("url_name")
+    scored_posts = []
+
+    for position, (related_slug, related_post) in enumerate(BLOG_POSTS.items()):
+        if related_slug == slug:
+            continue
+
+        score = 0
+        if related_post.get("category") == current.get("category"):
+            score += 100
+        if BLOG_SOLUTION_LINKS.get(related_slug, {}).get("url_name") == current_solution:
+            score += 50
+        score += len(current_terms & _post_terms(related_post))
+        scored_posts.append((-score, position, {"slug": related_slug, **related_post}))
+
+    scored_posts.sort()
+    return [post for _, _, post in scored_posts[:limit]]
 
 
 
@@ -254,7 +311,7 @@ def blog(request):
 
 
 def blog_list(request):
-    return render(request, "institutional/pages/blog_list.html")
+    return redirect("institutional:blog", permanent=True)
 
 
 def blog_detail(request, slug):
@@ -262,11 +319,7 @@ def blog_detail(request, slug):
     if post is None:
         raise Http404("Artigo tecnico nao encontrado.")
 
-    related_posts = [
-        {"slug": related_slug, **related_post}
-        for related_slug, related_post in BLOG_POSTS.items()
-        if related_slug != slug
-    ][:3]
+    related_posts = _related_blog_posts(slug)
 
     solution_link = BLOG_SOLUTION_LINKS.get(slug)
 
@@ -282,7 +335,11 @@ def blog_detail(request, slug):
 
 
 def blog_details(request):
-    return blog_detail(request, "selecao-controladores-ativos-alta-severidade")
+    return redirect(
+        "institutional:blog_detail",
+        slug="selecao-controladores-ativos-alta-severidade",
+        permanent=True,
+    )
 
 
 def team(request):

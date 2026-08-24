@@ -29,6 +29,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "A seleção técnica de controladores e ativos precisa considerar ambiente, criticidade e continuidade operacional antes do menor custo inicial.",
         "cta_text": "Solicitar diagnóstico técnico",
     },
     "convergencia-robotica-ia-firmwares-dedicados": {
@@ -61,6 +62,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Robótica, IA e firmware dedicado geram mais valor quando trabalham como partes de uma arquitetura integrada e segura.",
         "cta_text": "Conversar sobre robótica e automação",
     },
     "eliminar-gargalos-autonomia-previsibilidade": {
@@ -93,6 +95,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Gargalos operacionais ficam mais fáceis de tratar quando dados, padronização e automação sustentam decisões de rotina.",
         "cta_text": "Solicitar avaliação do processo",
     },
     "informacao-precisa-para-agir-melhor": {
@@ -125,6 +128,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Informação útil nasce quando dados de máquinas, sensores e sistemas recebem contexto suficiente para orientar ação técnica.",
         "cta_text": "Solicitar integração de dados industriais",
     },
     "equipamentos-sistemas-para-evoluir": {
@@ -157,6 +161,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Modernização tecnológica deve unir equipamento, integração, documentação e sustentação para reduzir riscos ao longo do ciclo de vida.",
         "cta_text": "Solicitar diagnóstico de modernização",
     },
     "inovacao-que-aparece-e-gera-valor": {
@@ -189,6 +194,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Inovação aplicada precisa aparecer para o usuário e, ao mesmo tempo, resolver um problema real da operação.",
         "cta_text": "Conhecer soluções robóticas",
     },
     "reducao-paradas-inesperadas-planejamento-tecnico": {
@@ -221,6 +227,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Reduzir paradas inesperadas depende de criticidade, histórico técnico, planejamento e execução disciplinada das intervenções.",
         "cta_text": "Solicitar diagnóstico de manutenção",
     },
     "historico-indicadores-decisoes-consistentes": {
@@ -253,6 +260,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Histórico organizado transforma manutenção e gestão de ativos em decisões comparáveis, rastreáveis e menos subjetivas.",
         "cta_text": "Estruturar gestão de ativos",
     },
     "menos-retrabalho-rastreabilidade-retrofit": {
@@ -285,6 +293,7 @@ BLOG_POSTS = {
                 ],
             },
         ],
+        "highlight": "Rastreabilidade técnica e documentação confiável reduzem retrabalho e criam base mais segura para retrofit industrial.",
         "cta_text": "Solicitar levantamento técnico e retrofit",
     },
 }

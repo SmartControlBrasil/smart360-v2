@@ -1,9 +1,6 @@
 {% extends 'institutional/base.html' %}
 {% load static %}
 
-{% block title %}{{ post.title }} | Smart Control Brasil{% endblock %}
-{% block meta_description %}{{ post.meta_description }}{% endblock %}
-
 {% block content %}
 <!-- breadcrumb area start -->
              <section class="breadcrumb__before p-relative">
@@ -85,15 +82,19 @@
                                 <p class="title">{{ post.category }}</p>
                                 <p class="dec-2">{{ post.intro }}</p>
 
+                                {% if solution_link %}
+                                    <p class="dec-3">Tema relacionado: <a href="{% url solution_link.url_name %}">{{ solution_link.label }}</a>.</p>
+                                {% endif %}
+
                                 {% for section in post.sections %}
-                                    <h3 class="title mt-50">{{ section.heading }}</h3>
+                                    <h2 class="title mt-50">{{ section.heading }}</h2>
                                     {% for paragraph in section.paragraphs %}
                                         <p class="dec-3">{{ paragraph }}</p>
                                     {% endfor %}
                                 {% endfor %}
 
                                 <div class="blog__details-content-quite">
-                                    <p class="dec">A melhor decisão técnica nasce do entendimento da aplicação, dos riscos e dos objetivos de operação. A Smart Control Brasil apoia esse diagnóstico com visão de engenharia, automação, manutenção e integração.</p>
+                                    <p class="dec">{{ post.highlight }}</p>
                                     <div class="icon">
                                         <img src="{% static 'institutional/imgs/icon/blog-details-icon-1.png' %}" alt="">
                                     </div>
