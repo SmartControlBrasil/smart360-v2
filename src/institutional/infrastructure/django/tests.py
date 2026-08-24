@@ -1510,6 +1510,106 @@ class TechnicalSeoTests(TestCase):
             [item["answer"] for item in post["faq"]],
         )
 
+    def test_operational_bottlenecks_article_has_expanded_depth_links_and_faq_schema(self):
+        response = self.client.get("/blog/eliminar-gargalos-autonomia-previsibilidade/")
+        html = response.content.decode()
+        post = BLOG_POSTS["eliminar-gargalos-autonomia-previsibilidade"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/eliminar-gargalos-autonomia-previsibilidade/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Gargalos Operacionais: Como Identificar e Reduzir")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "O que é um gargalo operacional",
+            "Comece pelo fluxo, não pela máquina",
+            "Como identificar o verdadeiro gargalo",
+            "Indicadores que ajudam a localizar perdas",
+            "Manutenção pode ser causa ou consequência do gargalo",
+            "Quando automação ajuda a reduzir gargalos",
+            "Padronização antes de automatização",
+            "Capacidade e restrição precisam ser analisadas juntas",
+            "Setup e mudanças frequentes",
+            "Dados transformam reação em previsibilidade",
+            "Checklist para investigar um gargalo",
+            "Exemplo hipotético: uma linha com três etapas",
+            "Melhorar o gargalo pode deslocá-lo",
+            "Da reação para uma operação previsível",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "gargalo operacional",
+            "tempo de ciclo",
+            "disponibilidade",
+            "MTBF",
+            "MTTR",
+            "automação",
+            "manutenção",
+            "previsibilidade",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/manutencao-industrial-campo/"',
+            'href="/blog/reducao-paradas-inesperadas-planejamento-tecnico/"',
+            'href="/blog/historico-indicadores-decisoes-consistentes/"',
+            'href="/sistemas-websites-python/"',
+            'href="/mitsubishi-automacao-industrial/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("autonomia operacional significa", html)
+        self.assertIn("Não se trata de robôs autônomos", html)
+        self.assertIn("Mapeamento do Fluxo de Valor", html)
+        self.assertIn("Teoria das Restrições", html)
+        self.assertIn("SMED", html)
+        self.assertIn("Considere uma linha fictícia", html)
+        self.assertContains(response, "<li>Onde a fila se forma e por quanto tempo ela permanece?</li>")
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Eficiência Operacional")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
+        maintenance = self.client.get("/manutencao-industrial-campo/")
+        maintenance_html = maintenance.content.decode()
+        self.assertEqual(maintenance.status_code, 200)
+        self.assertIn('href="/blog/eliminar-gargalos-autonomia-previsibilidade/"', maintenance_html)
+        self.assertIn('href="/blog/historico-indicadores-decisoes-consistentes/"', maintenance_html)
+
     def test_legacy_blog_routes_redirect_to_indexable_urls(self):
         blog_list = self.client.get("/blog/lista/")
         blog_details = self.client.get("/blog/detalhes/")
