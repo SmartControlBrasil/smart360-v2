@@ -51,7 +51,7 @@
                         <div class="commerce-thumb-list" aria-label="Galeria de imagens do produto">
                             {% for image in product.images.all %}
                                 {% if image.image %}
-                                    <div class="commerce-thumb-item"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" loading="lazy"></div>
+                                    <div class="commerce-thumb-item"><img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" loading="lazy" decoding="async"></div>
                                 {% endif %}
                             {% endfor %}
                         </div>

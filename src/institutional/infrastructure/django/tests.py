@@ -175,6 +175,25 @@ class InstitutionalRoutesTests(TestCase):
         self.assertNotContains(response, "Opulent Citadel")
         self.assertNotContains(response, "Trickster Toadstool")
 
+    def test_livia_widget_is_deferred(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode("utf-8")
+
+        self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
+        self.assertRegex(
+            html,
+            r"<script[^>]+defer[^>]+src=\"https://livia\.smartcontrolbrasil\.com\.br/widget\.js\"",
+        )
+
+    def test_lazy_images_use_async_decoding(self):
+        response = self.client.get(reverse("institutional:home"))
+        lazy_images = re.findall(r"<img[^>]+loading=\"lazy\"[^>]*>", response.content.decode("utf-8"))
+
+        self.assertGreater(len(lazy_images), 0)
+        for image in lazy_images:
+            with self.subTest(image=image):
+                self.assertIn("decoding=\"async\"", image)
+
     def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
         expected_labels = (
@@ -460,7 +479,7 @@ class TechnicalSeoTests(TestCase):
             response,
             'institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp',
         )
-        self.assertContains(response, 'width="380" height="260" loading="lazy"')
+        self.assertContains(response, 'width="380" height="260" loading="lazy" decoding="async"')
 
     def test_home_uses_metadata_title_description_and_canonical(self):
         response = self.client.get("/")

@@ -71,7 +71,7 @@
                                         <div class="blog__item-thumb-2 blog__item-thumb-1">
                                             <div class="blog__item-thumb return">
                                                 <a href="{% url 'institutional:blog_detail' post.slug %}">
-                                                    <img src="{% static post.image %}" alt="{{ post.alt }}" loading="lazy">
+                                                    <img src="{% static post.image %}" alt="{{ post.alt }}" loading="lazy" decoding="async">
                                                 </a>
                                             </div>
                                         </div>

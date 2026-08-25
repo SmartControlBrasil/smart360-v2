@@ -283,6 +283,7 @@ class CommercePublicViewsTests(TestCase):
         image_tag = html[html.rfind("<img", 0, image_start):html.find(">", image_start) + 1]
 
         self.assertIn('loading="lazy"', image_tag)
+        self.assertIn('decoding="async"', image_tag)
 
     def test_product_detail_prioritizes_primary_image_and_lazies_thumbnails(self):
         ProductImage.objects.create(
@@ -307,7 +308,9 @@ class CommercePublicViewsTests(TestCase):
         self.assertIn('fetchpriority="high"', main_tag)
         self.assertNotIn('loading="lazy"', main_tag)
         self.assertIn('class="commerce-thumb-item"><img', html)
-        self.assertIn('loading="lazy"', html[html.find('class="commerce-thumb-item"'):])
+        thumbnail_html = html[html.find('class="commerce-thumb-item"'):]
+        self.assertIn('loading="lazy"', thumbnail_html)
+        self.assertIn('decoding="async"', thumbnail_html)
 
 
     def test_product_detail_social_metadata_uses_primary_image(self):
