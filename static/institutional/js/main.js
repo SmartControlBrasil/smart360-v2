@@ -1,5 +1,17 @@
 (function ($) {
   "use strict";
+
+  function createSwiper(selector, options) {
+    if (typeof Swiper === "undefined" || !document.querySelector(selector)) {
+      return null;
+    }
+    return new window.Swiper(selector, options);
+  }
+
+  function pluginAvailable(name) {
+    return typeof window[name] !== "undefined";
+  }
+
   var windowOn = $(window);
 
 
@@ -44,13 +56,15 @@
             });
           }
         
-          resourcesHubMasonry();
+          if ($('.resources-hub__masonry').length && typeof $.fn.masonry === "function") {
+            resourcesHubMasonry();
+          }
 
 
     let odometerWaypointInitialized = false;
 
     function initOdometerWaypoint() {
-        if (odometerWaypointInitialized || !$('.odometer').length) {
+        if (odometerWaypointInitialized || !$('.odometer').length || typeof $.fn.waypoint !== "function") {
             return;
         }
 
@@ -120,7 +134,7 @@
     //GSAP START
 
     // Check if any elements with the class ".end" exist
-        if (document.querySelector('.end')) {
+        if (document.querySelector('.end') && pluginAvailable("gsap") && pluginAvailable("SplitText") && pluginAvailable("chroma")) {
             // 31. Folks animation
             let endTl = gsap.timeline({
                 repeat: -1,
@@ -357,11 +371,13 @@
   /*======================================
 	Mobile Menu Js
 	========================================*/
+  if ($("#mobile-menu").length && $.fn.meanmenu) {
   $("#mobile-menu").meanmenu({
     meanMenuContainer: ".mobile-menu",
     meanScreenWidth: "1199",
     meanExpand: ['<i class="fa-regular fa-angle-right"></i>'],
   });
+  }
 
   /*======================================
 	Sidebar Toggle
@@ -435,6 +451,7 @@
   /*======================================
 	MagnificPopup image view
 	========================================*/
+  if ($.fn.magnificPopup && ($(".popup-image").length || $(".popup-video").length)) {
   $(".popup-image").magnificPopup({
     type: "image",
     gallery: {
@@ -448,12 +465,13 @@
   $(".popup-video").magnificPopup({
     type: "iframe",
   });
+  }
 
 
   /*======================================
 	Wow Js
 	========================================*/
-    if ($('.wow').length) {
+    if ($('.wow').length && typeof WOW !== "undefined") {
         var wow = new WOW({
             boxClass: 'wow', // animated element css class (default is wow)
             animateClass: 'animated', // animation css class (default is animated)
@@ -516,7 +534,7 @@
   ========================================*/
 
     // seken testimonial__carousel
-    var swiperProject = new Swiper(".testimonial__carousel", {
+    var swiperProject = createSwiper(".testimonial__carousel", {
         slidesPerView: 4,
         spaceBetween: 20,
         loop: true,
@@ -545,7 +563,7 @@
         },
     });
     // hero-10-slide js  --------
-    var swiper = new Swiper(".hero-10-slide-active", {
+    var swiper = createSwiper(".hero-10-slide-active", {
         slidesPerView: 5.5,
         spaceBetween: 30,
         loop: true,
@@ -579,7 +597,7 @@
         },
     });
     // seken testimonial-6__carousel
-    var swiperProject = new Swiper(".testimonial-6__carousel", {
+    var swiperProject = createSwiper(".testimonial-6__carousel", {
         slidesPerView: 4,
         spaceBetween: 20,
         loop: true,
@@ -612,7 +630,7 @@
     });
 
     //  brands-10 js start ----------
-    var swiper = new Swiper(".brands-10-active", {
+    var swiper = createSwiper(".brands-10-active", {
         slidesPerView: 'auto',
         spaceBetween: 80,
         freemode: true,
@@ -653,7 +671,7 @@
     });
 
     // support-10 slide js ----------
-    var swiper = new Swiper(".support-slider-actives", {
+    var swiper = createSwiper(".support-slider-actives", {
         slidesPerView: 'auto',
         spaceBetween: 10,
         freemode: true,
@@ -692,7 +710,7 @@
     });
 
     // testimonial-10 js  ----------
-    var swiper = new Swiper(".testimonial-10-active", {
+    var swiper = createSwiper(".testimonial-10-active", {
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,
@@ -714,7 +732,7 @@
     });
 
     // seken testimonial-4__carousel
-    var swiperProject = new Swiper(".testimonial-4__slider", {
+    var swiperProject = createSwiper(".testimonial-4__slider", {
         slidesPerView: 1,
         spaceBetween: 50,
         loop: true,
@@ -734,7 +752,7 @@
         },
     });
     // blog-list__slider
-    var swiperProject = new Swiper(".blog-list__slider", {
+    var swiperProject = createSwiper(".blog-list__slider", {
         slidesPerView: 1,
         // spaceBetween: 50,
         loop: true,
@@ -777,7 +795,7 @@
     // seken Show more review button end
 
       //seken rr__latest-blog H3
-      var swiper = new Swiper(".rr__latest-blog", {
+      var swiper = createSwiper(".rr__latest-blog", {
         slidesPerView: 3,
         autoplay: true,
         speed: 600,
@@ -803,7 +821,7 @@
         },
       });
       //seken review-9__slider H9
-      var swiper = new Swiper(".review-9__slider", {
+      var swiper = createSwiper(".review-9__slider", {
         slidesPerView: 3,
         autoplay: true,
         speed: 600,
@@ -830,7 +848,7 @@
       });
 
       //seken blog-4-slider H4
-      var swiper = new Swiper(".blog-4-slider", {
+      var swiper = createSwiper(".blog-4-slider", {
         slidesPerView: 3,
         autoplay: true,
         speed: 600,
@@ -857,7 +875,7 @@
       });
 
       //seken testi-slider H3
-      var testimonials = new Swiper(".testi-slider", {
+      var testimonials = createSwiper(".testi-slider", {
         slidesPerView: 1,
         slidesPerGroup: 1,
         spaceBetween: 0,
@@ -871,7 +889,7 @@
     });
 
     //seken rrseken__fast-content H5
-    var swiper = new Swiper(".rrseken__fast-content", {
+    var swiper = createSwiper(".rrseken__fast-content", {
         slidesPerView: 4,
         spaceBetween: 30,
         loop: true,
@@ -896,7 +914,7 @@
     });
 
     //seken testimonial-5__slide H5
-    var swiper = new Swiper(".testimonial-5__slide", {
+    var swiper = createSwiper(".testimonial-5__slide", {
         slidesPerView: 2,
         spaceBetween: 30,
         loop: true,
@@ -921,7 +939,7 @@
     });
 
     //seken blog-5__slider H5
-    var swiper = new Swiper(".blog-5__slider", {
+    var swiper = createSwiper(".blog-5__slider", {
         slidesPerView: 3,
         spaceBetween: 30,
         loop: true,
@@ -942,6 +960,7 @@
         },
     });
 
+    if ($.fn.isotope && $('.grid').length) {
     $('.grid').isotope({
         itemSelector: '.grid-item',
         percentPosition: true,
@@ -951,8 +970,8 @@
         }
     })
 
-    //seken aifunction-slide H2
-    var swiper = new Swiper(".aifunction-slide", {
+    }
+    var swiper = createSwiper(".aifunction-slide", {
     slidesPerView: 4,
     spaceBetween: 30,
     loop: true,
@@ -978,7 +997,7 @@
     });
 
     //seken related-products-slide shop-details
-    var swiper = new Swiper(".related-products", {
+    var swiper = createSwiper(".related-products", {
     slidesPerView: 4,
     spaceBetween: 30,
     loop: true,
@@ -997,7 +1016,7 @@
     },
     });
     // SEKEN blog__slider-6
-    var swiper = new Swiper(".latest-trends__item", {
+    var swiper = createSwiper(".latest-trends__item", {
         slidesPerView: 3,
         loop: true,
         autoplay: true,
@@ -1033,7 +1052,7 @@
         },
       });
     //seken hero-4-slider H4
-    var swiper = new Swiper(".hero-4-slider", {
+    var swiper = createSwiper(".hero-4-slider", {
     slidesPerView: 6,
     spaceBetween: 30,
     loop: true,
@@ -1068,7 +1087,7 @@
     });
 
     //Swiper Slider For Shop
-    var swiper = new Swiper(".product-gallary-thumb", {
+    var swiper = createSwiper(".product-gallary-thumb", {
         spaceBetween: 10,
         slidesPerView: 5,
         freeMode: true,
@@ -1076,7 +1095,7 @@
         direction: 'vertical',
     });
     
-    var swiper2 = new Swiper(".product-gallary", {
+    var swiper2 = createSwiper(".product-gallary", {
         spaceBetween: 10,
         loop: true,
         navigation: {
@@ -1139,6 +1158,7 @@
     }
     // Easy Pie Chart
     const piechart = document.querySelectorAll(".piechart");
+    if (typeof Waypoint !== "undefined" && piechart.length) {
     piechart.forEach(function (el) {
         const waypoint = new Waypoint({
             element: el,
@@ -1165,6 +1185,7 @@
             triggerOnce: true,
         });
     });
+    }
 
       // Project Style3
     if ($(".slider_hover__item li").length) {
@@ -1204,10 +1225,14 @@
     });
 
     // $('.lan-select select, .nice-select-select select').niceSelect();
+    if (($('.take-appointment-3__form-input-select select, .lan-select select, .nice-select-select select').length) && $.fn.niceSelect) {
     $('.take-appointment-3__form-input-select select, .lan-select select, .nice-select-select select').niceSelect();
+    }
+    if ($('#getting-started').length && $.fn.countdown) {
     $('#getting-started').countdown('2025/01/01', function(event) {
         $(this).html(event.strftime(' <div><span>%D</span></div>  <div><span>%H</span></div> <div><span>%M</span></div> <div><span>%S</span></div>'));
       });
+    }
 
 
       /*** lastNobullet */
@@ -1336,7 +1361,7 @@
             },
         };
 
-        var swiper = new Swiper(".banner-4__active", sliderOptions);
+        var swiper = createSwiper(".banner-4__active", sliderOptions);
     });
     
     // Progress Item 7
@@ -1414,7 +1439,7 @@
         });
     }
     // seken testimonial-8__carousel
-    var swiperProject1 = new Swiper(".testimonial-8__slider", {
+    var swiperProject1 = createSwiper(".testimonial-8__slider", {
         slidesPerView: 2,
         spaceBetween: 30,
         loop: true,
@@ -1447,7 +1472,7 @@
         },
     });
     //seken blog-8__slider H5
-    var swiper = new Swiper(".blog-8__slider", {
+    var swiper = createSwiper(".blog-8__slider", {
         slidesPerView: 3,
         spaceBetween: 30,
         loop: true,
@@ -1486,7 +1511,7 @@
         });
     }
 
-    var swiper1 = new Swiper(".about-us-7__slider-1", {
+    var swiper1 = createSwiper(".about-us-7__slider-1", {
         direction: "vertical",
         slidesPerView: "auto",
         spaceBetween: 10,
@@ -1498,7 +1523,7 @@
             disableOnInteraction: !1
         }
     }),
-        swiper4 = new Swiper(".about-us-7__slider-2", {
+        swiper4 = createSwiper(".about-us-7__slider-2", {
             direction: "vertical",
             spaceBetween: 10,
             speed: 8e3,
@@ -1510,7 +1535,7 @@
                 disableOnInteraction: !1
             }
         }),
-        swiper3 = new Swiper(".about-us-7__slider-3", {
+        swiper3 = createSwiper(".about-us-7__slider-3", {
             direction: "vertical",
             spaceBetween: 10,
             speed: 13e3,
@@ -1524,7 +1549,7 @@
         });
 
     //seken brand-7__silder H7
-    var swiper = new Swiper(".brand-7__silder", {
+    var swiper = createSwiper(".brand-7__silder", {
         slidesPerView: 6,
         spaceBetween: 30,
         loop: true,
@@ -1555,7 +1580,7 @@
         },
     });
     //seken secure-refined-silder H7
-    var swiper = new Swiper(".secure-refined-silder", {
+    var swiper = createSwiper(".secure-refined-silder", {
         slidesPerView: 4,
         spaceBetween: 30,
         loop: true,
@@ -1587,7 +1612,7 @@
     });
 
     // seken testimonial-7__silder
-    var testimonial = new Swiper(".testimonial-7__silder", {
+    var testimonial = createSwiper(".testimonial-7__silder", {
         slidesPerView: 4,
         spaceBetween: 20,
         loop: true,
@@ -1621,7 +1646,7 @@
     });
 
     //design-services-7__silder
-    var design_services = new Swiper(".design-services-7__silder", {
+    var design_services = createSwiper(".design-services-7__silder", {
         slidesPerView: 1,
         spaceBetween: 0,
         loop: true,

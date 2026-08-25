@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block extra_head %}
@@ -19,7 +20,7 @@
                         <div class="breadcrumb__menu">
                             <nav>
                                 <ul>
-                                    <li><span><a href="{% url 'institutional:home' %}"><img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                    <li><span><a href="{% url 'institutional:home' %}"><img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
                                     <li><span><a href="{% url 'commerce:shop' %}">Loja</a></span></li>
                                     <li><span><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></span></li>
                                     <li class="active"><span>{{ product.name }}</span></li>
@@ -43,7 +44,7 @@
                             {% if primary and primary.image %}
                                 <div class="gallary-item"><img src="{{ primary.image.url }}" alt="{{ primary.alt_text|default:product.name }}" loading="eager" fetchpriority="high"></div>
                             {% else %}
-                                <div class="gallary-item"><img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="{{ product.name }}" loading="eager" fetchpriority="high"></div>
+                                <div class="gallary-item"><img {% image_dimensions 'institutional/imgs/images/project-details-img-1.png' %} src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="{{ product.name }}" loading="eager" fetchpriority="high"></div>
                             {% endif %}
                         {% endwith %}
                     </div>

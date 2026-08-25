@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -147,7 +148,7 @@
 
                 <div class="about-9__thumb">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/orbit-banner-01.webp' %}
                         src="{% static 'institutional/imgs/service/orbit-banner-01.webp' %}"
                         alt="Robô Orbit em patrulhamento de segurança"
                         loading="lazy" decoding="async">
@@ -228,7 +229,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-1.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}"
                                     alt="Presença contínua">
 
@@ -252,7 +253,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-2.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}"
                                     alt="Monitoramento">
 
@@ -276,7 +277,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-3.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}"
                                     alt="Experiência tecnológica">
 
@@ -300,7 +301,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-4.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}"
                                     alt="Apoio operacional">
 
@@ -359,7 +360,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/orbit-infografico.webp' %}
                         src="{% static 'institutional/imgs/service/orbit-infografico.webp' %}"
                         alt="Condomínios - Orbit Bot / Patrol Bot"
                         loading="lazy" decoding="async">
@@ -384,7 +385,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/orbit-aeroporto.webp' %}
                         src="{% static 'institutional/imgs/service/orbit-aeroporto.webp' %}"
                         alt="Empresas - Orbit Bot / Patrol Bot"
                         loading="lazy" decoding="async">
@@ -409,7 +410,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/orbit-novidade.webp' %}
                         src="{% static 'institutional/imgs/service/orbit-novidade.webp' %}"
                         alt="Áreas corporativas - Orbit Bot / Patrol Bot"
                         loading="lazy" decoding="async">
@@ -434,7 +435,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/orbit-fazendoŕonda.webp' %}
                         src="{% static 'institutional/imgs/service/orbit-fazendoŕonda.webp' %}"
                         alt="Grandes áreas - Orbit Bot / Patrol Bot"
                         loading="lazy" decoding="async">
@@ -459,7 +460,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/orbit-fazendoŕonda.webp' %}
                         src="{% static 'institutional/imgs/service/orbit-fazendoŕonda.webp' %}"
                         alt="Rondas assistidas - Orbit Bot / Patrol Bot"
                         loading="lazy" decoding="async">
@@ -813,7 +814,7 @@
 
                     <div class="faq-9__thumb-media">
 
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/service/orbit-fazendoŕonda.webp' %}
                             src="{% static 'institutional/imgs/service/orbit-fazendoŕonda.webp' %}"
                             alt="Robô Orbit em patrulhamento de segurança"
                             loading="lazy" decoding="async">

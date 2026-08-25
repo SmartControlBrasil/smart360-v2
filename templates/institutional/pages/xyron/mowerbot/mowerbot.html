@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -83,7 +84,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="about-9__thumb">
-                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Ícone do MowerBot" loading="lazy" decoding="async">
+                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Ícone do MowerBot" loading="lazy" decoding="async">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -128,7 +129,7 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="service-9__item mb-30">
                             <div class="service-9__item-icon">
-                                <img src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}" alt="Operação por controle remoto">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-1.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}" alt="Operação por controle remoto">
                             </div>
                             <h4 class="title">Operação por controle remoto</h4>
                             <p class="dec">
@@ -140,7 +141,7 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="service-9__item mb-30">
                             <div class="service-9__item-icon">
-                                <img src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}" alt="Aplicação externa">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-2.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}" alt="Aplicação externa">
                             </div>
                             <h4 class="title">Aplicação externa</h4>
                             <p class="dec">
@@ -152,7 +153,7 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="service-9__item mb-30">
                             <div class="service-9__item-icon">
-                                <img src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}" alt="Terrenos e taludes">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-3.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}" alt="Terrenos e taludes">
                             </div>
                             <h4 class="title">Terrenos e taludes</h4>
                             <p class="dec">
@@ -164,7 +165,7 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="service-9__item mb-30">
                             <div class="service-9__item-icon">
-                                <img src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}" alt="Planejamento operacional">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-4.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}" alt="Planejamento operacional">
                             </div>
                             <h4 class="title">Planejamento operacional</h4>
                             <p class="dec">
@@ -195,7 +196,7 @@
         <div class="row mb-minus-30">
             <div class="col-md-4 col-sm-6">
                 <div class="product-9__item mb-30">
-                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Terrenos irregulares - MowerBot" loading="lazy" decoding="async">
+                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Terrenos irregulares - MowerBot" loading="lazy" decoding="async">
                     <div class="product-9__item-content">
                         <h3 class="title">Terrenos irregulares</h3>
                         <p class="dec">
@@ -207,7 +208,7 @@
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="product-9__item mb-30">
-                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Taludes - MowerBot" loading="lazy" decoding="async">
+                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Taludes - MowerBot" loading="lazy" decoding="async">
                     <div class="product-9__item-content">
                         <h3 class="title">Taludes</h3>
                         <p class="dec">
@@ -219,7 +220,7 @@
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="product-9__item mb-30">
-                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Praças - MowerBot" loading="lazy" decoding="async">
+                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Praças - MowerBot" loading="lazy" decoding="async">
                     <div class="product-9__item-content">
                         <h3 class="title">Praças</h3>
                         <p class="dec">
@@ -231,7 +232,7 @@
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="product-9__item mb-30">
-                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Grandes áreas externas - MowerBot" loading="lazy" decoding="async">
+                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Grandes áreas externas - MowerBot" loading="lazy" decoding="async">
                     <div class="product-9__item-content">
                         <h3 class="title">Grandes áreas externas</h3>
                         <p class="dec">
@@ -374,7 +375,7 @@
                         <p class="dec">Fale com a equipe da Smart Control Brasil para avaliar a aplicação mais adequada.</p>
                     </div>
                     <div class="faq-9__thumb-media">
-                        <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Ícone do MowerBot" loading="lazy" decoding="async">
+                        <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Ícone do MowerBot" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>

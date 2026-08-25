@@ -1,4 +1,4 @@
-{% load static %}
+{% load static institutional_media %}
 <footer class="footer-before">
     <section class="footer__area footer-1 pt-90 heading-bg overflow-hidden position-relative z-1">
         <div class="container">
@@ -17,14 +17,14 @@
                 <div class="col-lg-5 col-md-6 col-sm-6">
                     <div class="footer__widget footer__left-item-1">
                         <div class="footer__item">
-                            <div class="footer__item-icon"><img src="{% static 'institutional/imgs/icon/footer-icon-1.png' %}" alt="Contato" loading="lazy" decoding="async"></div>
+                            <div class="footer__item-icon"><img {% image_dimensions 'institutional/imgs/icon/footer-icon-1.png' %} src="{% static 'institutional/imgs/icon/footer-icon-1.png' %}" alt="Contato" loading="lazy" decoding="async"></div>
                             <div class="footer__item-text">
                                 <span>Telefone:</span>
                                 <h5 class="title"><a href="tel:+551151968525">(11) 5196-8525</a></h5>
                             </div>
                         </div>
                         <div class="footer__item mt-20">
-                            <div class="footer__item-icon"><img src="{% static 'institutional/imgs/icon/footer-icon-1.png' %}" alt="E-mail" loading="lazy" decoding="async"></div>
+                            <div class="footer__item-icon"><img {% image_dimensions 'institutional/imgs/icon/footer-icon-1.png' %} src="{% static 'institutional/imgs/icon/footer-icon-1.png' %}" alt="E-mail" loading="lazy" decoding="async"></div>
                             <div class="footer__item-text">
                                 <span>E-mail:</span>
                                 <h5 class="title"><a href="mailto:comercial@smartcontrolbrasil.com.br">comercial@smartcontrolbrasil.com.br</a></h5>

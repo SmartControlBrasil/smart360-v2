@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -13,7 +14,7 @@
         <div class="banner10__shapes-shape-6"></div>
 
         <div class="banner10__shapes-shape-7">
-            <img
+            <img {% image_dimensions 'institutional/imgs/shapes/banner-10-shape-1.png' %}
                 src="{% static 'institutional/imgs/shapes/banner-10-shape-1.png' %}"
                 alt="Automação industrial Mitsubishi Electric"
             >
@@ -81,7 +82,7 @@
                 <div class="swiper-wrapper rr-slide-transtion">
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-1.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-1.png' %}"
                                 alt="Automação industrial"
                             >
@@ -90,7 +91,7 @@
 
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-2.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-2.png' %}"
                                 alt="Controle industrial"
                             >
@@ -99,7 +100,7 @@
 
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-3.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-3.png' %}"
                                 alt="Acionamentos industriais"
                             >
@@ -108,7 +109,7 @@
 
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-4.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-4.png' %}"
                                 alt="Motion control"
                             >
@@ -117,7 +118,7 @@
 
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-5.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-5.png' %}"
                                 alt="Robótica industrial"
                             >
@@ -126,7 +127,7 @@
 
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-6.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-6.png' %}"
                                 alt="Supervisão industrial"
                             >
@@ -135,7 +136,7 @@
 
                     <div class="swiper-slide rr-brand-slide-element">
                         <div class="brands-image">
-                            <img
+                            <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-7.png' %}
                                 src="{% static 'institutional/imgs/brands/brands-10-img-7.png' %}"
                                 alt="Dados industriais"
                             >
@@ -245,7 +246,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div id="clps" class="product-10__item mb-30">
                     <div class="product-10__item-icon product-10__item-icon-1">
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-1.png' %}
                             src="{% static 'institutional/imgs/icon/prdouct-10-icon-1.png' %}"
                             alt="CLPs Mitsubishi"
                         >
@@ -271,7 +272,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div id="ihms" class="product-10__item mb-30">
                     <div class="product-10__item-icon product-10__item-icon-1">
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-2.png' %}
                             src="{% static 'institutional/imgs/icon/prdouct-10-icon-2.png' %}"
                             alt="IHMs Mitsubishi"
                         >
@@ -297,7 +298,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div id="inversores" class="product-10__item mb-30">
                     <div class="product-10__item-icon product-10__item-icon-1">
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-3.png' %}
                             src="{% static 'institutional/imgs/icon/prdouct-10-icon-3.png' %}"
                             alt="Inversores Mitsubishi"
                         >
@@ -323,7 +324,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div id="motion" class="product-10__item mb-30">
                     <div class="product-10__item-icon product-10__item-icon-1">
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-4.png' %}
                             src="{% static 'institutional/imgs/icon/prdouct-10-icon-4.png' %}"
                             alt="Servoacionamentos Mitsubishi"
                         >
@@ -349,7 +350,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div id="melfa" class="product-10__item mb-30">
                     <div class="product-10__item-icon product-10__item-icon-1">
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-5.png' %}
                             src="{% static 'institutional/imgs/icon/prdouct-10-icon-5.png' %}"
                             alt="Robôs industriais MELFA"
                         >
@@ -375,7 +376,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div id="supervisao" class="product-10__item mb-30">
                     <div class="product-10__item-icon product-10__item-icon-1">
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-6.png' %}
                             src="{% static 'institutional/imgs/icon/prdouct-10-icon-6.png' %}"
                             alt="Supervisórios e dados industriais"
                         >

@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -11,19 +12,19 @@
                         <div class="breadcrumb__shapes-shape-3"></div>
                         <div class="breadcrumb__shapes-shape-4"></div>
                         <div class="breadcrumb__shapes-shape-5 upDown">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="img not found">
                         </div>
                         <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="img not found">
                         </div>
                         <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="img not found">
                         </div>
                         <div class="breadcrumb__shapes-shape-8 leftRight">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="img not found">
                         </div>
                         <div class="breadcrumb__shapes-shape-9">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="img not found">
                         </div>
                     </div>
                     <div class="container">
@@ -36,7 +37,7 @@
                                     <div class="breadcrumb__menu">
                                         <nav>
                                             <ul>
-                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="img not found">Home</a></span></li>
                                                 <li class="active"><span>Shop Details</span></li>
                                             </ul>
                                         </nav>
@@ -57,27 +58,27 @@
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-1.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-sm-img-1.png' %} src="{% static 'institutional/imgs/images/project-details-sm-img-1.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-2.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-sm-img-2.png' %} src="{% static 'institutional/imgs/images/project-details-sm-img-2.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-3.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-sm-img-3.png' %} src="{% static 'institutional/imgs/images/project-details-sm-img-3.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-4.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-sm-img-4.png' %} src="{% static 'institutional/imgs/images/project-details-sm-img-4.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="thumb-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-sm-img-5.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-sm-img-5.png' %} src="{% static 'institutional/imgs/images/project-details-sm-img-5.png' %}" alt="shop">
                                             </div>
                                         </div>
                                     </div>
@@ -86,27 +87,27 @@
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
                                             <div class="gallary-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-img-1.png' %} src="{% static 'institutional/imgs/images/project-details-img-1.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="gallary-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-img-2.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-img-2.png' %} src="{% static 'institutional/imgs/images/project-details-img-2.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="gallary-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-img-3.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-img-3.png' %} src="{% static 'institutional/imgs/images/project-details-img-3.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="gallary-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-img-4.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-img-4.png' %} src="{% static 'institutional/imgs/images/project-details-img-4.png' %}" alt="shop">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="gallary-item">
-                                                <img src="{% static 'institutional/imgs/images/project-details-img-5.png' %}" alt="shop">
+                                                <img {% image_dimensions 'institutional/imgs/images/project-details-img-5.png' %} src="{% static 'institutional/imgs/images/project-details-img-5.png' %}" alt="shop">
                                             </div>
                                         </div>
                                     </div>
@@ -228,7 +229,7 @@
                                         <div class="review-list">
                                             <div class="review-item">
                                                 <div class="review-thumb">
-                                                    <img src="{% static 'institutional/imgs/images/review-list-1.jpg' %}" alt="img">
+                                                    <img {% image_dimensions 'institutional/imgs/images/review-list-1.jpg' %} src="{% static 'institutional/imgs/images/review-list-1.jpg' %}" alt="img">
                                                 </div>
                                                 <div class="content">
                                                     <div class="content-top">
@@ -246,7 +247,7 @@
                                             </div>
                                             <div class="review-item">
                                                 <div class="review-thumb">
-                                                    <img src="{% static 'institutional/imgs/images/review-list-2.jpg' %}" alt="img">
+                                                    <img {% image_dimensions 'institutional/imgs/images/review-list-2.jpg' %} src="{% static 'institutional/imgs/images/review-list-2.jpg' %}" alt="img">
                                                 </div>
                                                 <div class="content">
                                                     <div class="content-top">
@@ -335,7 +336,7 @@
                                     <div class="swiper-slide">
                                         <div class="product-4__item fade-top mb-30">
                                             <div class="product-4__item-thumb">
-                                                <img src="{% static 'institutional/imgs/project/product-img-1.png' %}" alt="img not found">
+                                                <img {% image_dimensions 'institutional/imgs/project/product-img-1.png' %} src="{% static 'institutional/imgs/project/product-img-1.png' %}" alt="img not found">
                                             </div>
                                             <div class="product-4__content">
                                                 <div class="product-4__content-wrap">
@@ -362,7 +363,7 @@
                                     <div class="swiper-slide">
                                         <div class="product-4__item fade-top mb-30">
                                             <div class="product-4__item-thumb">
-                                                <img src="{% static 'institutional/imgs/project/product-img-3.png' %}" alt="img not found">
+                                                <img {% image_dimensions 'institutional/imgs/project/product-img-3.png' %} src="{% static 'institutional/imgs/project/product-img-3.png' %}" alt="img not found">
                                             </div>
                                             <div class="product-4__content">
                                                 <div class="product-4__content-wrap">
@@ -389,7 +390,7 @@
                                     <div class="swiper-slide">
                                         <div class="product-4__item fade-top mb-30">
                                             <div class="product-4__item-thumb">
-                                                <img src="{% static 'institutional/imgs/project/product-img-4.png' %}" alt="img not found">
+                                                <img {% image_dimensions 'institutional/imgs/project/product-img-4.png' %} src="{% static 'institutional/imgs/project/product-img-4.png' %}" alt="img not found">
                                             </div>
                                             <div class="product-4__content">
                                                 <div class="product-4__content-wrap">
@@ -416,7 +417,7 @@
                                     <div class="swiper-slide">
                                         <div class="product-4__item fade-top mb-30">
                                             <div class="product-4__item-thumb">
-                                                <img src="{% static 'institutional/imgs/project/product-img-5.png' %}" alt="img not found">
+                                                <img {% image_dimensions 'institutional/imgs/project/product-img-5.png' %} src="{% static 'institutional/imgs/project/product-img-5.png' %}" alt="img not found">
                                             </div>
                                             <div class="product-4__content">
                                                 <div class="product-4__content-wrap">

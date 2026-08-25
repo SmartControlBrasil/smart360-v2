@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -11,19 +12,19 @@
                     <div class="banner-7__shapes-shape banner-7__shapes-shape-4"></div>
                     <div class="banner-7__shapes-shape banner-7__shapes-shape-5"></div>
                     <div class="shape banner-7__shapes-shape-6 leftRight">
-                        <img src="{% static 'institutional/imgs/shapes/header-7-shape-01.png' %}" alt="">
+                        <img {% image_dimensions 'institutional/imgs/shapes/header-7-shape-01.png' %} src="{% static 'institutional/imgs/shapes/header-7-shape-01.png' %}" alt="">
                     </div>
                     <div class="shape banner-7__shapes-shape-7 d-none d-xl-block">
-                        <img src="{% static 'institutional/imgs/shapes/header-7-shape-02.png' %}" alt="">
+                        <img {% image_dimensions 'institutional/imgs/shapes/header-7-shape-02.png' %} src="{% static 'institutional/imgs/shapes/header-7-shape-02.png' %}" alt="">
                     </div>
                     <div class="shape banner-7__shapes-shape-8 d-none d-md-block">
-                        <img src="{% static 'institutional/imgs/shapes/header-7-shape-03.png' %}" alt="">
+                        <img {% image_dimensions 'institutional/imgs/shapes/header-7-shape-03.png' %} src="{% static 'institutional/imgs/shapes/header-7-shape-03.png' %}" alt="">
                     </div>
                     <div class="shape banner-7__shapes-shape-9 d-none d-xl-block">
-                        <img src="{% static 'institutional/imgs/shapes/header-7-shape-04.png' %}" alt="">
+                        <img {% image_dimensions 'institutional/imgs/shapes/header-7-shape-04.png' %} src="{% static 'institutional/imgs/shapes/header-7-shape-04.png' %}" alt="">
                     </div>
                     <div class="shape banner-7__shapes-shape-10 d-none d-md-block">
-                        <img src="{% static 'institutional/imgs/shapes/header-7-shape-05.png' %}" alt="">
+                        <img {% image_dimensions 'institutional/imgs/shapes/header-7-shape-05.png' %} src="{% static 'institutional/imgs/shapes/header-7-shape-05.png' %}" alt="">
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -107,37 +108,37 @@
                                     <div class="swiper-wrapper align-items-center">
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-6.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-6.png' %} src="{% static 'institutional/imgs/brands/brand-6.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-7.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-7.png' %} src="{% static 'institutional/imgs/brands/brand-7.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-8.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-8.png' %} src="{% static 'institutional/imgs/brands/brand-8.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-9.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-9.png' %} src="{% static 'institutional/imgs/brands/brand-9.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-10.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-10.png' %} src="{% static 'institutional/imgs/brands/brand-10.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-11.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-11.png' %} src="{% static 'institutional/imgs/brands/brand-11.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-12.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-12.png' %} src="{% static 'institutional/imgs/brands/brand-12.png' %}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -179,17 +180,17 @@
                                         <div class="swiper-wrapper">
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/orbit-visao-hd.webp' %}" alt="Robô Orbit com visão em alta definição">
+                                                    <img {% image_dimensions 'institutional/imgs/about/orbit-visao-hd.webp' %} src="{% static 'institutional/imgs/about/orbit-visao-hd.webp' %}" alt="Robô Orbit com visão em alta definição">
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/relay-bot-servindo-mesas.webp' %}" alt="Robô de atendimento servindo mesas">
+                                                    <img {% image_dimensions 'institutional/imgs/about/relay-bot-servindo-mesas.webp' %} src="{% static 'institutional/imgs/about/relay-bot-servindo-mesas.webp' %}" alt="Robô de atendimento servindo mesas">
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/budy-bot-em-apresentacao.webp' %}" alt="Buddy Bot em apresentação">
+                                                    <img {% image_dimensions 'institutional/imgs/about/budy-bot-em-apresentacao.webp' %} src="{% static 'institutional/imgs/about/budy-bot-em-apresentacao.webp' %}" alt="Buddy Bot em apresentação">
                                                 </div>
                                             </div>
                                         </div>
@@ -198,17 +199,17 @@
                                         <div class="swiper-wrapper">
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/robot-connectbot-ajudando-na-rececao.webp' %}" alt="Robô de recepção em atendimento">
+                                                    <img {% image_dimensions 'institutional/imgs/about/robot-connectbot-ajudando-na-rececao.webp' %} src="{% static 'institutional/imgs/about/robot-connectbot-ajudando-na-rececao.webp' %}" alt="Robô de recepção em atendimento">
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/duno-bot-fazendo-limpeza-de-sala-de-escritorio.webp' %}" alt="Robô HygiBot / Dune Bot realizando limpeza">
+                                                    <img {% image_dimensions 'institutional/imgs/about/duno-bot-fazendo-limpeza-de-sala-de-escritorio.webp' %} src="{% static 'institutional/imgs/about/duno-bot-fazendo-limpeza-de-sala-de-escritorio.webp' %}" alt="Robô HygiBot / Dune Bot realizando limpeza">
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/med-bot-auxiliando-em-diagnostico-medico.webp' %}" alt="Robô assistivo em apoio médico">
+                                                    <img {% image_dimensions 'institutional/imgs/about/med-bot-auxiliando-em-diagnostico-medico.webp' %} src="{% static 'institutional/imgs/about/med-bot-auxiliando-em-diagnostico-medico.webp' %}" alt="Robô assistivo em apoio médico">
                                                 </div>
                                             </div>
                                         </div>
@@ -217,17 +218,17 @@
                                         <div class="swiper-wrapper">
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}" alt="Little Bot em ambiente educacional" >
+                                                    <img {% image_dimensions 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %} src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}" alt="Little Bot em ambiente educacional" >
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/med-bot-detalhes.webp' %}" alt="Little Bot em ambiente educacional" >
+                                                    <img {% image_dimensions 'institutional/imgs/about/med-bot-detalhes.webp' %} src="{% static 'institutional/imgs/about/med-bot-detalhes.webp' %}" alt="Little Bot em ambiente educacional" >
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="about-us-7__slider-1__item">
-                                                    <img src="{% static 'institutional/imgs/about/neo-bot-detalhes.webp' %}" alt="Little Bot em ambiente educacional" >
+                                                    <img {% image_dimensions 'institutional/imgs/about/neo-bot-detalhes.webp' %} src="{% static 'institutional/imgs/about/neo-bot-detalhes.webp' %}" alt="Little Bot em ambiente educacional" >
                                                 </div>
                                             </div>
                                         </div>
@@ -260,7 +261,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-01.png' %}" alt="LIRO Little Bot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-01.png' %} src="{% static 'institutional/imgs/icon/services-7-01.png' %}" alt="LIRO Little Bot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_littlebot' %}">
@@ -277,7 +278,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-02.png' %}" alt="Orbit Bot Patrol Bot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-02.png' %} src="{% static 'institutional/imgs/icon/services-7-02.png' %}" alt="Orbit Bot Patrol Bot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_orbit' %}">
@@ -294,7 +295,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Neo Bot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="Neo Bot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_neo_bot' %}">
@@ -314,7 +315,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Waiter Bot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Waiter Bot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_waiter_bot' %}">
@@ -331,7 +332,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-05.png' %}" alt="HygiBot Dune Bot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-05.png' %} src="{% static 'institutional/imgs/icon/services-7-05.png' %}" alt="HygiBot Dune Bot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_hygibot_dune_bot' %}">
@@ -348,7 +349,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-06.png' %}" alt="Buddy Bot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-06.png' %} src="{% static 'institutional/imgs/icon/services-7-06.png' %}" alt="Buddy Bot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_buddy_bot' %}">
@@ -368,7 +369,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-01.png' %}" alt="CareBot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-01.png' %} src="{% static 'institutional/imgs/icon/services-7-01.png' %}" alt="CareBot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_carebot' %}">
@@ -385,7 +386,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-02.png' %}" alt="HostBot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-02.png' %} src="{% static 'institutional/imgs/icon/services-7-02.png' %}" alt="HostBot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_hostbot' %}">
@@ -402,7 +403,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <div class="services-7__item mb-30 fade-top">
                                 <div class="services-7__icon">
-                                    <img src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="MowerBot">
+                                    <img {% image_dimensions 'institutional/imgs/icon/services-7-03.png' %} src="{% static 'institutional/imgs/icon/services-7-03.png' %}" alt="MowerBot">
                                 </div>
                                 <h3 class="services-7__title">
                                     <a href="{% url 'institutional:xyron_mowerbot' %}">
@@ -433,7 +434,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial-7__item">
                                     <div class="testimonial-7__media">
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}
                                             src="{% static 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}"
                                             alt="Escolas e instituições de ensino"
                                         >
@@ -455,7 +456,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial-7__item">
                                     <div class="testimonial-7__media">
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/images/neo-recepcao-corporativa.webp' %}
                                             src="{% static 'institutional/imgs/images/neo-recepcao-corporativa.webp' %}"
                                             alt="Neo Bot em recepção corporativa"
                                         >
@@ -477,7 +478,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial-7__item">
                                     <div class="testimonial-7__media">
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/images/orbir-centro-comercial.webp' %}
                                             src="{% static 'institutional/imgs/images/orbir-centro-comercial.webp' %}"
                                             alt="Robô Orbit em centro comercial"
                                         >
@@ -500,7 +501,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial-7__item">
                                     <div class="testimonial-7__media">
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/images/duno-limpando-galpao.webp' %}
                                             src="{% static 'institutional/imgs/images/duno-limpando-galpao.webp' %}"
                                             alt="HygiBot / Dune Bot em limpeza de galpão"
                                         >
@@ -522,7 +523,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial-7__item">
                                     <div class="testimonial-7__media">
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/images/connect-bot-recepcao.webp' %}
                                             src="{% static 'institutional/imgs/images/connect-bot-recepcao.webp' %}"
                                             alt="Robô de recepção em evento corporativo"
                                         >
@@ -619,9 +620,9 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="secure-refined__card overflow-hidden">
-                                <img class="shape" src="{% static 'institutional/imgs/shapes/secure-refined-shape.png' %}" alt="">
+                                <img {% image_dimensions 'institutional/imgs/shapes/secure-refined-shape.png' %} class="shape" src="{% static 'institutional/imgs/shapes/secure-refined-shape.png' %}" alt="">
                                 <div class="secure-refined__icon mb-30 mb-xs-15">
-                                    <img src="{% static 'institutional/imgs/images/secure-refined-1.png' %}" alt="Solução Xyron para segurança e monitoramento">
+                                    <img {% image_dimensions 'institutional/imgs/images/secure-refined-1.png' %} src="{% static 'institutional/imgs/images/secure-refined-1.png' %}" alt="Solução Xyron para segurança e monitoramento">
                                 </div>
             
                                 <h3 class="text-white title _split_text mb-25">Tecnologia Aplicada com Propósito</h3>
@@ -637,37 +638,37 @@
                                     <div class="swiper-wrapper align-items-center">
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-6.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-6.png' %} src="{% static 'institutional/imgs/brands/brand-6.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-7.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-7.png' %} src="{% static 'institutional/imgs/brands/brand-7.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-8.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-8.png' %} src="{% static 'institutional/imgs/brands/brand-8.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-9.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-9.png' %} src="{% static 'institutional/imgs/brands/brand-9.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-10.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-10.png' %} src="{% static 'institutional/imgs/brands/brand-10.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-11.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-11.png' %} src="{% static 'institutional/imgs/brands/brand-11.png' %}" alt="">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="secure-refined__logo">
-                                                <img src="{% static 'institutional/imgs/brands/brand-12.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/brands/brand-12.png' %} src="{% static 'institutional/imgs/brands/brand-12.png' %}" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -792,7 +793,7 @@
                         <div class="col-lg-5">
                             <div class="faq-7__content__right">
                                 <div class="faq-7__thumb">
-                                    <img src="{% static 'institutional/imgs/images/familia-xyron-robotic.webp' %}" alt="Família de robôs Xyron Robotics">
+                                    <img {% image_dimensions 'institutional/imgs/images/familia-xyron-robotic.webp' %} src="{% static 'institutional/imgs/images/familia-xyron-robotic.webp' %}" alt="Família de robôs Xyron Robotics">
                                 </div>
                                 <div class="faq-7__content">
                                     <h2 class="faq-7__content__title">Ainda tem alguma dúvida sobre as soluções Xyron?</h2>
@@ -843,7 +844,7 @@
                                             </div>
             
                                             <div class="icon">
-                                                <img
+                                                <img {% image_dimensions 'institutional/imgs/bg-img/design-services-7-quite.png' %}
                                                     src="{% static 'institutional/imgs/bg-img/design-services-7-quite.png' %}"
                                                     alt="Robótica integrada"
                                                 >
@@ -887,7 +888,7 @@
             
                                     <div class="design-services-7__author">
             
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/bg-img/neo-bot-em-acao.webp' %}
                                             src="{% static 'institutional/imgs/bg-img/neo-bot-em-acao.webp' %}"
                                             alt="Neo Bot em operação"
                                         >
@@ -937,7 +938,7 @@
                                             </div>
             
                                             <div class="icon">
-                                                <img
+                                                <img {% image_dimensions 'institutional/imgs/bg-img/design-services-7-quite.png' %}
                                                     src="{% static 'institutional/imgs/bg-img/design-services-7-quite.png' %}"
                                                     alt="Inspeção autônoma"
                                                 >
@@ -981,7 +982,7 @@
             
                                     <div class="design-services-7__author">
             
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/bg-img/orbit-bot-em-ronda.webp' %}
                                             src="{% static 'institutional/imgs/bg-img/orbit-bot-em-ronda.webp' %}"
                                             alt="Robô Orbit realizando inspeção autônoma"
                                         >
@@ -1031,7 +1032,7 @@
                                             </div>
             
                                             <div class="icon">
-                                                <img
+                                                <img {% image_dimensions 'institutional/imgs/bg-img/design-services-7-quite.png' %}
                                                     src="{% static 'institutional/imgs/bg-img/design-services-7-quite.png' %}"
                                                     alt="Segurança inteligente"
                                                 >
@@ -1075,7 +1076,7 @@
             
                                     <div class="design-services-7__author">
             
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/bg-img/budy-bot-em-atento.webp' %}
                                             src="{% static 'institutional/imgs/bg-img/budy-bot-em-atento.webp' %}"
                                             alt="Buddy Bot em aplicação de inspeção e segurança"
                                         >
@@ -1125,7 +1126,7 @@
                                             </div>
             
                                             <div class="icon">
-                                                <img
+                                                <img {% image_dimensions 'institutional/imgs/bg-img/design-services-7-quite.png' %}
                                                     src="{% static 'institutional/imgs/bg-img/design-services-7-quite.png' %}"
                                                     alt="Navegação autônoma"
                                                 >
@@ -1169,7 +1170,7 @@
             
                                     <div class="design-services-7__author">
             
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/bg-img/relay-bot-entregando-pedidos.webp' %}
                                             src="{% static 'institutional/imgs/bg-img/relay-bot-entregando-pedidos.webp' %}"
                                             alt="Robô de entrega com navegação autônoma"
                                         >
@@ -1219,7 +1220,7 @@
                                             </div>
             
                                             <div class="icon">
-                                                <img
+                                                <img {% image_dimensions 'institutional/imgs/bg-img/design-services-7-quite.png' %}
                                                     src="{% static 'institutional/imgs/bg-img/design-services-7-quite.png' %}"
                                                     alt="Dados operacionais"
                                                 >
@@ -1263,7 +1264,7 @@
             
                                     <div class="design-services-7__author">
             
-                                        <img
+                                        <img {% image_dimensions 'institutional/imgs/bg-img/duno-bot-em-limpeza-mercado.webp' %}
                                             src="{% static 'institutional/imgs/bg-img/duno-bot-em-limpeza-mercado.webp' %}"
                                             alt="HygiBot / Dune Bot em limpeza automatizada"
                                         >
@@ -1331,7 +1332,7 @@
                             <div class="lates-update__wrapper">
                                 <div class="lates-update__item">
                                     <div class="lates-update__media">
-                                        <img src="{% static 'institutional/imgs/blog/blog-liro.webp' %}" alt="Robô Liro da Xyron Robotics">
+                                        <img {% image_dimensions 'institutional/imgs/blog/blog-liro.webp' %} src="{% static 'institutional/imgs/blog/blog-liro.webp' %}" alt="Robô Liro da Xyron Robotics">
                                     </div>
                                     <div class="lates-update__content">
                                         <span>Educação</span>
@@ -1346,7 +1347,7 @@
                                 </div>
                                 <div class="lates-update__item">
                                     <div class="lates-update__media">
-                                        <img src="{% static 'institutional/imgs/blog/blog-orbit.webp' %}" alt="Robô Orbit da Xyron Robotics">
+                                        <img {% image_dimensions 'institutional/imgs/blog/blog-orbit.webp' %} src="{% static 'institutional/imgs/blog/blog-orbit.webp' %}" alt="Robô Orbit da Xyron Robotics">
                                     </div>
                                     <div class="lates-update__content">
                                         <span>Segurança</span>
@@ -1361,7 +1362,7 @@
                                 </div>
                                 <div class="lates-update__item">
                                     <div class="lates-update__media">
-                                        <img src="{% static 'institutional/imgs/blog/blog-duno.webp' %}" alt="HygiBot / Dune Bot da Xyron Robotics">
+                                        <img {% image_dimensions 'institutional/imgs/blog/blog-duno.webp' %} src="{% static 'institutional/imgs/blog/blog-duno.webp' %}" alt="HygiBot / Dune Bot da Xyron Robotics">
                                     </div>
                                     <div class="lates-update__content">
                                         <span>Operação</span>

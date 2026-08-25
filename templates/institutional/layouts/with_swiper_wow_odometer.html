@@ -1,0 +1,12 @@
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load frontend_assets %}
+
+{% block vendor_css %}
+    {{ block.super }}
+    {% vendor_styles 'odometer' %}
+{% endblock %}
+
+{% block vendor_js %}
+    {{ block.super }}
+    {% vendor_scripts 'odometer' %}
+{% endblock %}

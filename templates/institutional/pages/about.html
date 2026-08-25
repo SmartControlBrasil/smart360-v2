@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -11,19 +12,19 @@
                         <div class="breadcrumb__shapes-shape-3"></div>
                         <div class="breadcrumb__shapes-shape-4"></div>
                         <div class="breadcrumb__shapes-shape-5 upDown">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-8 leftRight">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-9">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
                         </div>
                     </div>
                     <div class="container">
@@ -36,7 +37,7 @@
                                     <div class="breadcrumb__menu">
                                         <nav aria-label="Breadcrumb">
                                             <ul>
-                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
                                                 <li class="active"><span> Sobre</span></li>
                                             </ul>
                                         </nav>
@@ -78,7 +79,7 @@
                         </div>
                         <div class="about__searching-box">
                             <div class="text">
-                                <img src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="Equipamentos, softwares, robótica e automação com visão de engenharia.">
+                                <img {% image_dimensions 'institutional/imgs/icon/about-icon-1.png' %} src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="Equipamentos, softwares, robótica e automação com visão de engenharia.">
                                 <p>Equipamentos, softwares, robótica e automação com visão de engenharia.</p>
                             </div>
                             <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Sobre sua Solução <i class="fa-solid fa-angle-right"></i></a>
@@ -97,10 +98,10 @@
                                         <img src="{% static 'institutional/imgs/images/braco-robotico.webp' %}" alt="Braço robótico em aplicação industrial" width="440" height="570" loading="lazy" decoding="async">
                                     </div>
                                     <div class="choose-us__thumb-img-2">
-                                        <img src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="">
+                                        <img {% image_dimensions 'institutional/imgs/images/choose-img-2.png' %} src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="">
                                     </div>
                                     <div class="choose-us__thumb-img-3">
-                                        <img src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="">
+                                        <img {% image_dimensions 'institutional/imgs/images/choose-img-3.png' %} src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -112,9 +113,9 @@
                                     <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil combina experiência técnica, integração de sistemas, <br> robótica aplicada e assistência em campo para entregar tecnologia coerente <br> com a realidade de cada operação.</p>
                                     <div class="choose-us__list-item">
                                         <ul>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Automação Mitsubishi Electric</a></li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:xyron' %}">Robótica e inovação Xyron</a></li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas, IoT e dados</a></li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Automação Mitsubishi Electric</a></li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:xyron' %}">Robótica e inovação Xyron</a></li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas, IoT e dados</a></li>
                                         </ul>
                                     </div>
                                     <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:contact' %}">Fale com Nossa Equipe <i class="fa-solid fa-angle-right"></i></a>
@@ -134,7 +135,7 @@
                         <div class="further-2__shapes-shape-3"></div>
                         <div class="further-2__shapes-shape-4"></div>
                         <div class="further-2__shapes-shape-5">
-                            <img src="{% static 'institutional/imgs/shapes/further-2-shape-1.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/further-2-shape-1.png' %} src="{% static 'institutional/imgs/shapes/further-2-shape-1.png' %}" alt="">
                         </div>
                     </div>
                     <div class="container">
@@ -148,7 +149,7 @@
                                     <div class="further-2__content-btn-wrap">
                                         <div class="button">
                                             <div class="icon">
-                                                <img src="{% static 'institutional/imgs/icon/further-icon-1.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/further-icon-1.png' %} src="{% static 'institutional/imgs/icon/further-icon-1.png' %}" alt="">
                                             </div>
                                             <div class="text">
                                                 <span>Conheça nossas</span>
@@ -157,7 +158,7 @@
                                         </div>
                                         <div class="button button-2">
                                             <div class="icon">
-                                                <img src="{% static 'institutional/imgs/icon/further-icon-2.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/further-icon-2.png' %} src="{% static 'institutional/imgs/icon/further-icon-2.png' %}" alt="">
                                             </div>
                                             <div class="text">
                                                 <span>Fale com nossa</span>
@@ -190,31 +191,31 @@
                     </div>
                     <div class="row marketing justify-content-center align-items-center text-center"> 
                         <div class="rr__marketing-4-item fade-top  mt-35 mr-35">
-                            <a href="{% url 'institutional:services' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-1.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:services' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-1.png' %} src="{% static 'institutional/imgs/images/marketing-icon-1.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-2.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-2.png' %} src="{% static 'institutional/imgs/images/marketing-icon-2.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top rr__marketing-4-padding mt-35 mr-35">
-                            <a href="{% url 'institutional:xyron' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-3.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:xyron' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-3.png' %} src="{% static 'institutional/imgs/images/marketing-icon-3.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:manutencao_industrial_campo' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-4.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:manutencao_industrial_campo' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-4.png' %} src="{% static 'institutional/imgs/images/marketing-icon-4.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top rr__marketing-4-item-2 mt-35">
-                            <a href="{% url 'institutional:sistemas_websites_python' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-5.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:sistemas_websites_python' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-5.png' %} src="{% static 'institutional/imgs/images/marketing-icon-5.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:blog' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-6.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:blog' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-6.png' %} src="{% static 'institutional/imgs/images/marketing-icon-6.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:contact' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-7.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:contact' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-7.png' %} src="{% static 'institutional/imgs/images/marketing-icon-7.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:services' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-8.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:services' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-8.png' %} src="{% static 'institutional/imgs/images/marketing-icon-8.png' %}" alt=""></a>
                         </div> 
                         <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:xyron' %}"><img src="{% static 'institutional/imgs/images/marketing-icon-9.png' %}" alt=""></a>
+                            <a href="{% url 'institutional:xyron' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-9.png' %} src="{% static 'institutional/imgs/images/marketing-icon-9.png' %}" alt=""></a>
                         </div> 
                     </div>
                 </div>
@@ -263,7 +264,7 @@
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
-                                            <img src="{% static 'institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp' %}" alt="Equipamentos e sistemas industriais para modernização tecnológica" loading="lazy" decoding="async">
+                                            <img {% image_dimensions 'institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp' %} src="{% static 'institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp' %}" alt="Equipamentos e sistemas industriais para modernização tecnológica" loading="lazy" decoding="async">
                                         </div>
                                     </div>
                                     <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='equipamentos-sistemas-para-evoluir' %}">Equipamentos e Sistemas <br> para Evoluir</a></h4>
@@ -284,7 +285,7 @@
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
-                                            <img src="{% static 'institutional/imgs/blog/inovacao-que-aparece.webp' %}" alt="Robótica aplicada gerando valor operacional" loading="lazy" decoding="async">
+                                            <img {% image_dimensions 'institutional/imgs/blog/inovacao-que-aparece.webp' %} src="{% static 'institutional/imgs/blog/inovacao-que-aparece.webp' %}" alt="Robótica aplicada gerando valor operacional" loading="lazy" decoding="async">
                                         </div>
                                     </div>
                                     <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='inovacao-que-aparece-e-gera-valor' %}">Inovação que Aparece <br> e Gera Valor</a></h4>
@@ -304,7 +305,7 @@
                                 </div>
                                 <div class="blog__item-thumb-2">
                                     <div class="blog__item-thumb return">
-                                        <img src="{% static 'institutional/imgs/blog/informacao-precisa.webp' %}" alt="Dados industriais integrados para decisões operacionais" loading="lazy" decoding="async">
+                                        <img {% image_dimensions 'institutional/imgs/blog/informacao-precisa.webp' %} src="{% static 'institutional/imgs/blog/informacao-precisa.webp' %}" alt="Dados industriais integrados para decisões operacionais" loading="lazy" decoding="async">
                                     </div>
                                 </div>
                                 <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='informacao-precisa-para-agir-melhor' %}">Informação Mais Precisa <br> para Agir Melhor</a></h4>

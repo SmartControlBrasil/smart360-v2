@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -9,11 +10,11 @@
             <div class="breadcrumb__shapes-shape-2"></div>
             <div class="breadcrumb__shapes-shape-3"></div>
             <div class="breadcrumb__shapes-shape-4"></div>
-            <div class="breadcrumb__shapes-shape-5 upDown"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt=""></div>
-            <div class="breadcrumb__shapes-shape-6 line-to-bottom-360"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt=""></div>
-            <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt=""></div>
-            <div class="breadcrumb__shapes-shape-8 leftRight"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt=""></div>
-            <div class="breadcrumb__shapes-shape-9"><img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-5 upDown"><img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-6 line-to-bottom-360"><img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l"><img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-8 leftRight"><img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt=""></div>
+            <div class="breadcrumb__shapes-shape-9"><img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt=""></div>
         </div>
         <div class="container">
             <div class="row align-items-center justify-content-between">
@@ -25,7 +26,7 @@
                         <div class="breadcrumb__menu">
                             <nav aria-label="breadcrumb">
                                 <ul>
-                                    <li><span><a href="{% url 'institutional:home' %}"><img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                    <li><span><a href="{% url 'institutional:home' %}"><img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
                                     <li class="active"><span>404</span></li>
                                 </ul>
                             </nav>

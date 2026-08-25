@@ -1,4 +1,4 @@
-{% load static seo_tags %}
+{% load static seo_tags institutional_media %}
 <!doctype html>
 <html class="no-js" lang="pt-BR">
 
@@ -73,26 +73,10 @@
         rel="stylesheet"
     >
 
-    <!-- Vendor CSS -->
+    <!-- Vendor CSS (global) -->
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/bootstrap.min.css' %}"
-    >
-    <link
-        rel="stylesheet"
-        href="{% static 'institutional/css/vendor/animate.min.css' %}"
-    >
-    <link
-        rel="stylesheet"
-        href="{% static 'institutional/css/vendor/odometer.min.css' %}"
-    >
-    <link
-        rel="stylesheet"
-        href="{% static 'institutional/css/plugins/swiper.min.css' %}"
-    >
-    <link
-        rel="stylesheet"
-        href="{% static 'institutional/css/vendor/magnific-popup.css' %}"
     >
     <link
         rel="stylesheet"
@@ -106,6 +90,8 @@
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/custom-font.css' %}"
     >
+
+    {% block vendor_css %}{% endblock %}
 
     <!-- Main CSS -->
     <link
@@ -169,13 +155,11 @@
         <span id="scroll-percentage-value"></span>
     </div>
 
-    <!-- Vendor JS -->
+    <!-- Vendor JS (global) -->
     <script defer src="{% static 'institutional/js/vendor/jquery-3.7.1.min.js' %}"></script>
     <script defer src="{% static 'institutional/js/vendor/chroma.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/waypoints.min.js' %}"></script>
     <script defer src="{% static 'institutional/js/vendor/bootstrap.bundle.min.js' %}"></script>
     <script defer src="{% static 'institutional/js/plugins/meanmenu.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/swiper.min.js' %}"></script>
 
     <!-- GSAP -->
     <script defer src="{% static 'institutional/js/plugins/gsap.js' %}"></script>
@@ -184,17 +168,7 @@
     <script defer src="{% static 'institutional/js/plugins/ScrollTrigger.js' %}"></script>
     <script defer src="{% static 'institutional/js/plugins/SplitText.js' %}"></script>
 
-    <!-- Plugins -->
-    <script defer src="{% static 'institutional/js/plugins/wow.js' %}"></script>
-    <script defer src="{% static 'institutional/js/vendor/magnific-popup.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/vendor/type.js' %}"></script>
-    <script defer src="{% static 'institutional/js/vendor/vanilla-tilt.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/nice-select.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/vendor/odometer.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/parallax-scroll.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/jquery.countdown.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/isotope-docs.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/vendor/ajax-form.js' %}"></script>
+    {% block vendor_js %}{% endblock %}
 
     <!-- Main JS -->
     <script defer src="{% static 'institutional/js/main.js' %}"></script>

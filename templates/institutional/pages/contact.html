@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -16,35 +17,35 @@
             <div class="breadcrumb__shapes-shape-4"></div>
 
             <div class="breadcrumb__shapes-shape-5 upDown">
-                <img
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}
                     src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}"
                     alt=""
                 >
             </div>
 
             <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                <img
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}
                     src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}"
                     alt=""
                 >
             </div>
 
             <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                <img
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}
                     src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}"
                     alt=""
                 >
             </div>
 
             <div class="breadcrumb__shapes-shape-8 leftRight">
-                <img
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}
                     src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}"
                     alt=""
                 >
             </div>
 
             <div class="breadcrumb__shapes-shape-9">
-                <img
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}
                     src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}"
                     alt=""
                 >
@@ -67,7 +68,7 @@
                                     <li>
                                         <span>
                                             <a href="{% url 'institutional:home' %}">
-                                                <img
+                                                <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %}
                                                     src="{% static 'institutional/imgs/icon/home-icon.png' %}"
                                                     alt=""
                                                 >
@@ -98,7 +99,7 @@
 
             <div class="col-lg-6 col-md-6">
                 <div class="contact__media">
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/images/contato.webp' %}
                         src="{% static 'institutional/imgs/images/contato.webp' %}"
                         alt="Equipe da Smart Control Brasil pronta para atender"
                         loading="lazy" decoding="async"

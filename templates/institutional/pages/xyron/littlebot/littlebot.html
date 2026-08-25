@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -227,19 +228,19 @@
     <div class="about-9__shapes">
 
         <div class="about-9__shapes-shape-1">
-            <img
+            <img {% image_dimensions 'institutional/imgs/shapes/about-9-shape-2.png' %}
                 src="{% static 'institutional/imgs/shapes/about-9-shape-2.png' %}"
                 alt="">
         </div>
 
         <div class="about-9__shapes-shape-2">
-            <img
+            <img {% image_dimensions 'institutional/imgs/shapes/about-9-shape-3.png' %}
                 src="{% static 'institutional/imgs/shapes/about-9-shape-3.png' %}"
                 alt="">
         </div>
 
         <div class="about-9__shapes-shape-3">
-            <img
+            <img {% image_dimensions 'institutional/imgs/shapes/about-9-shape-4.png' %}
                 src="{% static 'institutional/imgs/shapes/about-9-shape-4.png' %}"
                 alt="">
         </div>
@@ -254,13 +255,13 @@
 
                 <div class="about-9__thumb">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}
                         src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}"
                         alt="LIRO / Little Bot interagindo com crianças">
 
                     <div class="about-9__thumb-shape-1">
 
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/shapes/about-9-shape-1.png' %}
                             src="{% static 'institutional/imgs/shapes/about-9-shape-1.png' %}"
                             alt="">
 
@@ -392,7 +393,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-1.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}"
                                     alt="Interação">
 
@@ -420,7 +421,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-2.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}"
                                     alt="Educação tecnológica">
 
@@ -462,7 +463,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-3.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}"
                                     alt="Engajamento">
 
@@ -490,7 +491,7 @@
 
                             <div class="service-9__item-icon">
 
-                                <img
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-4.png' %}
                                     src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}"
                                     alt="Inovação">
 
@@ -521,7 +522,7 @@
 
                 <div class="service-9__thumb mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}
                         src="{% static 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}"
                         alt="Experiência com LIRO / Little Bot">
 
@@ -583,7 +584,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}
                         src="{% static 'institutional/imgs/about/criancas-brincando-com-little-bot.webp' %}"
                         alt="LIRO / Little Bot em escolas">
 
@@ -609,7 +610,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/blog/blog-liro.webp' %}
                         src="{% static 'institutional/imgs/blog/blog-liro.webp' %}"
                         alt="LIRO / Little Bot em eventos">
 
@@ -635,7 +636,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}
                         src="{% static 'institutional/imgs/images/liro-inovacao-que-ensina.webp' %}"
                         alt="LIRO / Little Bot em ambientes de inovação">
 
@@ -661,7 +662,7 @@
 
                 <div class="product-9__item mb-30">
 
-                    <img
+                    <img {% image_dimensions 'institutional/imgs/service/little-bot-sobre-a-mesa.webp' %}
                         src="{% static 'institutional/imgs/service/little-bot-sobre-a-mesa.webp' %}"
                         alt="Projetos educacionais com LIRO / Little Bot">
 
@@ -1293,7 +1294,7 @@
 
                     <div class="faq-9__thumb-media">
 
-                        <img
+                        <img {% image_dimensions 'institutional/imgs/service/little-bot-sobre-a-mesa.webp' %}
                             src="{% static 'institutional/imgs/service/little-bot-sobre-a-mesa.webp' %}"
                             alt="Conheça o LIRO / Little Bot">
 

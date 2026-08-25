@@ -115,6 +115,13 @@
   max-height: 204px;
 }
 
+.content img[width][height],
+.blog__item-thumb img[width][height],
+.breadcrumb__shapes img[width][height] {
+  height: auto;
+  max-width: 100%;
+}
+
 .author-about-block__content {
   margin-top: 20px;
 }

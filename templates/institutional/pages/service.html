@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -11,19 +12,19 @@
                         <div class="breadcrumb__shapes-shape-3"></div>
                         <div class="breadcrumb__shapes-shape-4"></div>
                         <div class="breadcrumb__shapes-shape-5 upDown">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-8 leftRight">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-9">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
                         </div>
                     </div>
                     <div class="container">
@@ -36,7 +37,7 @@
                                     <div class="breadcrumb__menu">
                                         <nav aria-label="Breadcrumb">
                                             <ul>
-                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
                                                 <li class="active"><span>Serviços</span></li>
                                             </ul>
                                         </nav>
@@ -73,9 +74,9 @@
                                     <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil integra engenharia, automação industrial, robótica, manutenção <br> e sistemas digitais para desenvolver soluções alinhadas às necessidades reais <br> de cada operação.</p>
                                     <div class="choose-us__list-item">
                                         <ul>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Automação industrial com tecnologias Mitsubishi Electric</li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Robótica inteligente para atendimento, educação e operações</li>
-                                            <li class="rr_title_anim"><img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Engenharia, manutenção e sistemas sob medida</li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Automação industrial com tecnologias Mitsubishi Electric</li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Robótica inteligente para atendimento, educação e operações</li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Engenharia, manutenção e sistemas sob medida</li>
                                         </ul>
                                     </div>
                                     <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Empresa <i class="fa-solid fa-angle-right"></i></a>
@@ -107,7 +108,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-1">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-1.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-1.png' %} src="{% static 'institutional/imgs/icon/fast-content-1.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Automação Industrial</h5>
@@ -121,7 +122,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-2">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-2.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-2.png' %} src="{% static 'institutional/imgs/icon/fast-content-2.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Robótica Inteligente</h5>
@@ -135,7 +136,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-3">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-3.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-3.png' %} src="{% static 'institutional/imgs/icon/fast-content-3.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Manutenção Industrial</h5>
@@ -149,7 +150,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-4">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-4.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-4.png' %} src="{% static 'institutional/imgs/icon/fast-content-4.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Sistemas e Soluções Digitais</h5>

@@ -683,11 +683,16 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
         scripts = (
             "institutional/js/vendor/jquery-3.7.1.min.js",
+            "institutional/js/vendor/chroma.min.js",
+            "institutional/js/vendor/bootstrap.bundle.min.js",
             "institutional/js/plugins/meanmenu.min.js",
-            "institutional/js/plugins/swiper.min.js",
             "institutional/js/plugins/gsap.js",
             "institutional/js/plugins/ScrollSmoother.js",
-            "institutional/js/vendor/magnific-popup.min.js",
+            "institutional/js/plugins/ScrollToPlugin.js",
+            "institutional/js/plugins/ScrollTrigger.js",
+            "institutional/js/plugins/SplitText.js",
+            "institutional/js/plugins/swiper.min.js",
+            "institutional/js/plugins/wow.js",
             "institutional/js/main.js",
         )
 
@@ -4321,6 +4326,200 @@ class AuthorPortraitTests(TestCase):
                 "git",
                 "diff",
                 "HEAD",
+                "--",
+                "src/institutional/presentation/",
+                "templates/",
+                "static/",
+                "config/",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).resolve().parents[4],
+        )
+        added_lines = [
+            line[1:].lower()
+            for line in result.stdout.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        ]
+        added_text = "\n".join(added_lines)
+        for term in FORBIDDEN_CLIMATE_TERMS:
+            with self.subTest(term=term):
+                self.assertNotIn(term.lower(), added_text)
+
+
+class FrontendPerformanceTests(TestCase):
+    CORE_SCRIPT_MARKERS = (
+        "institutional/js/vendor/jquery-3.7.1.min.js",
+        "institutional/js/vendor/bootstrap.bundle.min.js",
+        "institutional/js/main.js",
+        "institutional/js/plugins/gsap.js",
+    )
+    REMOVED_GLOBAL_SCRIPT_MARKERS = (
+        "institutional/js/vendor/magnific-popup.min.js",
+        "institutional/js/vendor/type.js",
+        "institutional/js/plugins/nice-select.min.js",
+        "institutional/js/plugins/parallax-scroll.js",
+        "institutional/js/plugins/jquery.countdown.min.js",
+        "institutional/js/plugins/isotope-docs.min.js",
+        "institutional/js/vendor/ajax-form.js",
+    )
+
+    def script_sources(self, response):
+        html = response.content.decode()
+        return re.findall(r'<script[^>]+src="([^"]+)"', html)
+
+    def stylesheet_hrefs(self, response):
+        html = response.content.decode()
+        return re.findall(r'<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"', html)
+
+    def content_images(self, response):
+        html = response.content.decode()
+        tags = re.findall(r"<img\b[^>]*>", html, flags=re.I)
+        content_images = []
+        for tag in tags:
+            alt_match = re.search(r'alt="([^"]*)"', tag)
+            alt = alt_match.group(1) if alt_match else None
+            if alt == "":
+                continue
+            content_images.append(tag)
+        return content_images
+
+    def test_core_assets_remain_on_contact_page(self):
+        response = self.client.get(reverse("institutional:contact"))
+        sources = self.script_sources(response)
+        for marker in self.CORE_SCRIPT_MARKERS:
+            with self.subTest(marker=marker):
+                self.assertTrue(any(marker in source for source in sources))
+
+    def test_removed_plugins_are_not_loaded_globally(self):
+        response = self.client.get(reverse("institutional:contact"))
+        sources = self.script_sources(response)
+        for marker in self.REMOVED_GLOBAL_SCRIPT_MARKERS:
+            with self.subTest(marker=marker):
+                self.assertFalse(any(marker in source for source in sources))
+
+    def test_swiper_and_wow_load_only_on_interactive_pages(self):
+        home_sources = self.script_sources(self.client.get(reverse("institutional:home")))
+        contact_sources = self.script_sources(self.client.get(reverse("institutional:contact")))
+
+        self.assertTrue(any("swiper.min.js" in source for source in home_sources))
+        self.assertTrue(any("wow.js" in source for source in home_sources))
+        self.assertFalse(any("swiper.min.js" in source for source in contact_sources))
+        self.assertFalse(any("wow.js" in source for source in contact_sources))
+
+    def test_odometer_assets_load_only_on_manutencao_page(self):
+        manutencao_css = self.stylesheet_hrefs(
+            self.client.get(reverse("institutional:manutencao_industrial_campo"))
+        )
+        contact_css = self.stylesheet_hrefs(self.client.get(reverse("institutional:contact")))
+        self.assertTrue(any("odometer.min.css" in href for href in manutencao_css))
+        self.assertFalse(any("odometer.min.css" in href for href in contact_css))
+
+    def test_vanilla_tilt_loads_only_on_sistemas_python_page(self):
+        sistemas_sources = self.script_sources(
+            self.client.get(reverse("institutional:sistemas_websites_python"))
+        )
+        contact_sources = self.script_sources(self.client.get(reverse("institutional:contact")))
+        self.assertTrue(any("vanilla-tilt.js" in source for source in sistemas_sources))
+        self.assertFalse(any("vanilla-tilt.js" in source for source in contact_sources))
+
+    def test_google_analytics_and_livia_widget_remain_configured(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+        self.assertIn('src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"', html)
+        self.assertIn('async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"', html)
+        self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
+        self.assertIn('data-tenant="smart-control-brasil"', html)
+
+    def test_main_js_keeps_defer_and_vendor_order_before_main(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+        jquery_index = html.find("institutional/js/vendor/jquery-3.7.1.min.js")
+        gsap_index = html.find("institutional/js/plugins/gsap.js")
+        main_index = html.find("institutional/js/main.js")
+        self.assertIn('defer src="/static/institutional/js/main.js"', html)
+        self.assertNotEqual(jquery_index, -1)
+        self.assertNotEqual(gsap_index, -1)
+        self.assertNotEqual(main_index, -1)
+        self.assertLess(jquery_index, main_index)
+        self.assertLess(gsap_index, main_index)
+
+    def test_home_keeps_single_high_priority_image(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+        high_priority_images = re.findall(
+            r'<img\b[^>]*fetchpriority="high"[^>]*>',
+            html,
+            flags=re.I,
+        )
+        self.assertEqual(len(high_priority_images), 1)
+        self.assertIn('loading="eager"', high_priority_images[0])
+
+    def test_content_images_include_intrinsic_dimensions_on_key_pages(self):
+        pages = (
+            reverse("institutional:home"),
+            reverse("institutional:about"),
+            reverse("institutional:blog"),
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "selecao-controladores-ativos-alta-severidade"},
+            ),
+        )
+        for path in pages:
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                for tag in self.content_images(response):
+                    self.assertRegex(tag, r'\bwidth=(?:\"|\&quot;)\d+(?:\"|\&quot;)', msg=tag)
+                    self.assertRegex(tag, r'\bheight=(?:\"|\&quot;)\d+(?:\"|\&quot;)', msg=tag)
+
+    def test_author_portrait_keeps_300_by_340_dimensions(self):
+        response = self.client.get(
+            reverse("institutional:author_detail", kwargs={"slug": MARCELO_CUSTODIO.slug})
+        )
+        html = response.content.decode()
+        self.assertIn('width="300"', html)
+        self.assertIn('height="340"', html)
+        self.assertIn("institutional/imgs/team/marcelo.png", html)
+
+    def test_marcelo_png_is_tracked_as_regular_file(self):
+        result = subprocess.run(
+            ["git", "ls-files", "-s", "static/institutional/imgs/team/marcelo.png"],
+            check=True,
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).resolve().parents[4],
+        )
+        self.assertTrue(result.stdout.startswith("100644 "))
+
+    def test_legacy_redirects_and_real_404_remain_after_frontend_changes(self):
+        legacy_response = self.client.get("/faq/")
+        self.assertEqual(legacy_response.status_code, 301)
+        missing_response = self.client.get("/pagina-legada-inexistente-teste/")
+        self.assertEqual(missing_response.status_code, 404)
+        self.assertContains(
+            missing_response,
+            '<meta name="robots" content="noindex,follow">',
+            status_code=404,
+        )
+
+    def test_structured_data_remains_present_on_author_page(self):
+        response = self.client.get(
+            reverse("institutional:author_detail", kwargs={"slug": MARCELO_CUSTODIO.slug})
+        )
+        self.assertContains(response, '"@type":"Person"')
+        self.assertContains(response, '"@type":"ProfilePage"')
+        self.assertContains(
+            response,
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/team/marcelo.png",
+        )
+
+    def test_stage18_diff_does_not_add_forbidden_climate_terms(self):
+        result = subprocess.run(
+            [
+                "git",
+                "diff",
+                "114e1cbee4dd4aeb55a56482a1c6855b8d1c7185",
                 "--",
                 "src/institutional/presentation/",
                 "templates/",

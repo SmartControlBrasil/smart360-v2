@@ -1,0 +1,7 @@
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load frontend_assets %}
+
+{% block vendor_js %}
+    {{ block.super }}
+    {% vendor_scripts 'vanilla_tilt' %}
+{% endblock %}

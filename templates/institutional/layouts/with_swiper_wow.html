@@ -1,0 +1,12 @@
+{% extends 'institutional/layouts/with_swiper.html' %}
+{% load frontend_assets %}
+
+{% block vendor_css %}
+    {{ block.super }}
+    {% vendor_styles 'wow' %}
+{% endblock %}
+
+{% block vendor_js %}
+    {{ block.super }}
+    {% vendor_scripts 'wow' %}
+{% endblock %}

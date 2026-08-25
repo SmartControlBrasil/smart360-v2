@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -11,19 +12,19 @@
                         <div class="breadcrumb__shapes-shape-3"></div>
                         <div class="breadcrumb__shapes-shape-4"></div>
                         <div class="breadcrumb__shapes-shape-5 upDown">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-8 leftRight">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
                         </div>
                         <div class="breadcrumb__shapes-shape-9">
-                            <img src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
+                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
                         </div>
                     </div>
                     <div class="container">
@@ -36,7 +37,7 @@
                                     <div class="breadcrumb__menu">
                                         <nav>
                                             <ul>
-                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
                                                 <li class="active"><span>Blog</span></li>
                                             </ul>
                                         </nav>
@@ -71,7 +72,7 @@
                                         <div class="blog__item-thumb-2 blog__item-thumb-1">
                                             <div class="blog__item-thumb return">
                                                 <a href="{% url 'institutional:blog_detail' post.slug %}">
-                                                    <img src="{% static post.image %}" alt="{{ post.alt }}" loading="lazy" decoding="async">
+                                                    <img src="{% static post.image %}" {% image_dimensions post.image %} alt="{{ post.alt }}" loading="lazy" decoding="async">
                                                 </a>
                                             </div>
                                         </div>

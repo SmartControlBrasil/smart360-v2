@@ -1,4 +1,5 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow_odometer.html' %}
+{% load institutional_media %}
 {% load static %}
 
 {% block content %}
@@ -54,7 +55,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-1">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-1.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-1.png' %} src="{% static 'institutional/imgs/icon/fast-content-1.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Preventiva e Corretiva</h5>
@@ -68,7 +69,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-2">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-2.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-2.png' %} src="{% static 'institutional/imgs/icon/fast-content-2.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Diagnóstico e Comissionamento</h5>
@@ -82,7 +83,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-3">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-3.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-3.png' %} src="{% static 'institutional/imgs/icon/fast-content-3.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>Retrofit Industrial</h5>
@@ -96,7 +97,7 @@
                                     <div class="swiper-slide">
                                         <div class="rrseken__fast-content-item">
                                             <div class="rrseken__fast-content-img rrseken__fast-content-img-4">
-                                                <img src="{% static 'institutional/imgs/icon/fast-content-4.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/fast-content-4.png' %} src="{% static 'institutional/imgs/icon/fast-content-4.png' %}" alt="">
                                             </div>
                                             <div class="rrseken__fast-content-text">
                                                 <h5>TPM e Confiabilidade</h5>
@@ -128,15 +129,15 @@
                         <div class="col-12">
                             <div class="rr-project-tab__nav-tabs d-flex text-center align-items-center justify-content-center">
                                 <nav class="nav" id="nav-tab" role="tablist">
-                                    <button class="nav-link" id="morning-tab" data-bs-toggle="tab" data-bs-target="#morning-food" type="button" role="tab" aria-controls="morning-food" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-1.png' %}" alt=""> Refrigeração</button>
+                                    <button class="nav-link" id="morning-tab" data-bs-toggle="tab" data-bs-target="#morning-food" type="button" role="tab" aria-controls="morning-food" aria-selected="false" tabindex="-1"><img {% image_dimensions 'institutional/imgs/icon/tab-1.png' %} src="{% static 'institutional/imgs/icon/tab-1.png' %}" alt=""> Refrigeração</button>
         
-                                    <button class="nav-link active" id="nav-lunch-tab" data-bs-toggle="tab" data-bs-target="#nav-lunch" type="button" role="tab" aria-controls="nav-lunch" aria-selected="true"><img src="{% static 'institutional/imgs/icon/tab-2.png' %}" alt=""> Equipamentos</button>
+                                    <button class="nav-link active" id="nav-lunch-tab" data-bs-toggle="tab" data-bs-target="#nav-lunch" type="button" role="tab" aria-controls="nav-lunch" aria-selected="true"><img {% image_dimensions 'institutional/imgs/icon/tab-2.png' %} src="{% static 'institutional/imgs/icon/tab-2.png' %}" alt=""> Equipamentos</button>
         
-                                    <button class="nav-link" id="nav-dinner-tab" data-bs-toggle="tab" data-bs-target="#nav-dinner" type="button" role="tab" aria-controls="nav-dinner" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-4.png' %}" alt=""> Painéis Elétricos</button>
+                                    <button class="nav-link" id="nav-dinner-tab" data-bs-toggle="tab" data-bs-target="#nav-dinner" type="button" role="tab" aria-controls="nav-dinner" aria-selected="false" tabindex="-1"><img {% image_dimensions 'institutional/imgs/icon/tab-4.png' %} src="{% static 'institutional/imgs/icon/tab-4.png' %}" alt=""> Painéis Elétricos</button>
         
-                                    <button class="nav-link" id="nav-fast-food-tab" data-bs-toggle="tab" data-bs-target="#nav-fast-food" type="button" role="tab" aria-controls="nav-fast-food" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-3.png' %}" alt=""> Automação</button>
+                                    <button class="nav-link" id="nav-fast-food-tab" data-bs-toggle="tab" data-bs-target="#nav-fast-food" type="button" role="tab" aria-controls="nav-fast-food" aria-selected="false" tabindex="-1"><img {% image_dimensions 'institutional/imgs/icon/tab-3.png' %} src="{% static 'institutional/imgs/icon/tab-3.png' %}" alt=""> Automação</button>
         
-                                    <button class="nav-link" id="nav-beverage-tab" data-bs-toggle="tab" data-bs-target="#nav-beverage" type="button" role="tab" aria-controls="nav-beverage" aria-selected="false" tabindex="-1"><img src="{% static 'institutional/imgs/icon/tab-5.png' %}" alt=""> Confiabilidade</button>
+                                    <button class="nav-link" id="nav-beverage-tab" data-bs-toggle="tab" data-bs-target="#nav-beverage" type="button" role="tab" aria-controls="nav-beverage" aria-selected="false" tabindex="-1"><img {% image_dimensions 'institutional/imgs/icon/tab-5.png' %} src="{% static 'institutional/imgs/icon/tab-5.png' %}" alt=""> Confiabilidade</button>
                                 </nav>
                             </div>
                         </div>
@@ -164,7 +165,7 @@
                                             <div class="rr-project-tab__right">
                                                 <div class="rr-project-tab__item">
                                                     <div class="rr-project-tab__item-media">
-                                                        <img src="{% static 'institutional/imgs/images/refrigeration-system.webp' %}" class="img-fluid" alt="Sistema de refrigeração industrial em manutenção" loading="lazy" decoding="async">
+                                                        <img {% image_dimensions 'institutional/imgs/images/refrigeration-system.webp' %} src="{% static 'institutional/imgs/images/refrigeration-system.webp' %}" class="img-fluid" alt="Sistema de refrigeração industrial em manutenção" loading="lazy" decoding="async">
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,7 +195,7 @@
                                             <div class="rr-project-tab__right">
                                                 <div class="rr-project-tab__item fade-top">
                                                     <div class="rr-project-tab__item-media">
-                                                        <img src="{% static 'institutional/imgs/images/equipamento-refrigerado.webp' %}" class="img-fluid" alt="Equipamento industrial para inspeção técnica" loading="lazy" decoding="async">
+                                                        <img {% image_dimensions 'institutional/imgs/images/equipamento-refrigerado.webp' %} src="{% static 'institutional/imgs/images/equipamento-refrigerado.webp' %}" class="img-fluid" alt="Equipamento industrial para inspeção técnica" loading="lazy" decoding="async">
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,7 +225,7 @@
                                             <div class="rr-project-tab__right">
                                                 <div class="rr-project-tab__item fade-top">
                                                     <div class="rr-project-tab__item-media">
-                                                        <img src="{% static 'institutional/imgs/images/painel-eletrico.webp' %}" class="img-fluid" alt="Painel elétrico industrial para manutenção e retrofit" loading="lazy" decoding="async">
+                                                        <img {% image_dimensions 'institutional/imgs/images/painel-eletrico.webp' %} src="{% static 'institutional/imgs/images/painel-eletrico.webp' %}" class="img-fluid" alt="Painel elétrico industrial para manutenção e retrofit" loading="lazy" decoding="async">
                                                     </div>
                                                 </div>
                                             </div>
@@ -254,7 +255,7 @@
                                             <div class="rr-project-tab__right">
                                                 <div class="rr-project-tab__item fade-top">
                                                     <div class="rr-project-tab__item-media">
-                                                        <img src="{% static 'institutional/imgs/images/automation-system.webp' %}" class="img-fluid" alt="Sistema de automação industrial para diagnóstico técnico" loading="lazy" decoding="async">
+                                                        <img {% image_dimensions 'institutional/imgs/images/automation-system.webp' %} src="{% static 'institutional/imgs/images/automation-system.webp' %}" class="img-fluid" alt="Sistema de automação industrial para diagnóstico técnico" loading="lazy" decoding="async">
                                                     </div>
                                                 </div>
                                             </div>
@@ -284,7 +285,7 @@
                                             <div class="rr-project-tab__right">
                                                 <div class="rr-project-tab__item fade-top">
                                                     <div class="rr-project-tab__item-media">
-                                                        <img src="{% static 'institutional/imgs/images/dashboard-smart-system.webp' %}" class="img-fluid" alt="Dashboard técnico para indicadores de confiabilidade" loading="lazy" decoding="async">
+                                                        <img {% image_dimensions 'institutional/imgs/images/dashboard-smart-system.webp' %} src="{% static 'institutional/imgs/images/dashboard-smart-system.webp' %}" class="img-fluid" alt="Dashboard técnico para indicadores de confiabilidade" loading="lazy" decoding="async">
                                                     </div>
                                                 </div>
                                             </div>
@@ -353,7 +354,7 @@
                                                 <div class="testimonial-5__wrapper mt-30">
                                                     <div class="testimonial-5__author">
                                                         <div class="testimonial-5__author-img">
-                                                            <img src="{% static 'institutional/imgs/icon/testimonial-icon-8.png' %}" alt="">
+                                                            <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-8.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-8.png' %}" alt="">
                                                         </div>
                                                         <div class="testimonial-5__author-text">
                                                             <h6>Indicadores de Manutenção</h6>
@@ -361,7 +362,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="testimonial-5__quite-img">
-                                                        <img src="{% static 'institutional/imgs/icon/quote.png' %}" alt="">
+                                                        <img {% image_dimensions 'institutional/imgs/icon/quote.png' %} src="{% static 'institutional/imgs/icon/quote.png' %}" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -381,7 +382,7 @@
                                                 <div class="testimonial-5__wrapper mt-30 mb-50">
                                                     <div class="testimonial-5__author">
                                                         <div class="testimonial-5__author-img">
-                                                            <img src="{% static 'institutional/imgs/icon/testimonial-icon-9.png' %}" alt="">
+                                                            <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-9.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-9.png' %}" alt="">
                                                         </div>
                                                         <div class="testimonial-5__author-text">
                                                             <h6>Manutenção Planejada</h6>
@@ -389,7 +390,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="testimonial-5__quite-img">
-                                                        <img src="{% static 'institutional/imgs/icon/quote.png' %}" alt="">
+                                                        <img {% image_dimensions 'institutional/imgs/icon/quote.png' %} src="{% static 'institutional/imgs/icon/quote.png' %}" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -409,7 +410,7 @@
                                                 <div class="testimonial-5__wrapper mt-30">
                                                     <div class="testimonial-5__author">
                                                         <div class="testimonial-5__author-img">
-                                                            <img src="{% static 'institutional/imgs/icon/testimonial-icon-10.png' %}" alt="">
+                                                            <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-10.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-10.png' %}" alt="">
                                                         </div>
                                                         <div class="testimonial-5__author-text">
                                                             <h6>Histórico e Confiabilidade</h6>
@@ -417,7 +418,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="testimonial-5__quite-img">
-                                                        <img src="{% static 'institutional/imgs/icon/quote.png' %}" alt="">
+                                                        <img {% image_dimensions 'institutional/imgs/icon/quote.png' %} src="{% static 'institutional/imgs/icon/quote.png' %}" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -521,10 +522,10 @@
                         <div class="col-lg-7">
                             <div class="faq-5__thumb">
                                 <div class="faq-5__thumb-media faq-5__thumb-media-1 return">
-                                    <img src="{% static 'institutional/imgs/images/faq-projeto-autocad.webp' %}" alt="Projeto técnico em AutoCAD">
+                                    <img {% image_dimensions 'institutional/imgs/images/faq-projeto-autocad.webp' %} src="{% static 'institutional/imgs/images/faq-projeto-autocad.webp' %}" alt="Projeto técnico em AutoCAD">
                                 </div>
                                 <div class="faq-5__thumb-media faq-5__thumb-media-2 return">
-                                    <img src="{% static 'institutional/imgs/images/faq-projeto-eletronico.webp' %}" alt="Projeto eletrônico industrial">
+                                    <img {% image_dimensions 'institutional/imgs/images/faq-projeto-eletronico.webp' %} src="{% static 'institutional/imgs/images/faq-projeto-eletronico.webp' %}" alt="Projeto eletrônico industrial">
                                 </div>
                             </div>
                         </div>
@@ -617,22 +618,22 @@
                                     <div class="circle circle1">
                                         <div class="coin_wrap">
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-1.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-1.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-1.png' %}" alt="">
                                             </div>
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-3.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-3.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-3.png' %}" alt="">
                                             </div>
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-6.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-6.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-6.png' %}" alt="">
                                             </div>
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-8.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-8.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-8.png' %}" alt="">
                                             </div>
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-9.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-9.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-9.png' %}" alt="">
                                             </div>
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-10.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-10.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-10.png' %}" alt="">
                                             </div>
                                             
                                         </div>
@@ -640,27 +641,27 @@
                                     <div class="circle circle2">
                                         <div class="coin_wrap">
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-2.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-2.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-2.png' %}" alt="">
                                             </div>
                                             
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-4.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-4.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-4.png' %}" alt="">
                                             </div>
         
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-5.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-5.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-5.png' %}" alt="">
                                             </div>
         
                                             <div class="dot"></div>
         
                                             <div class="coin">
-                                                <img src="{% static 'institutional/imgs/icon/marketing-5-icon-7.png' %}" alt="">
+                                                <img {% image_dimensions 'institutional/imgs/icon/marketing-5-icon-7.png' %} src="{% static 'institutional/imgs/icon/marketing-5-icon-7.png' %}" alt="">
                                             </div>
                                             
                                         </div>
                                     </div>
                                     <div class="circle_center">
-                                        <img src="{% static 'institutional/imgs/icon/marketing-icon-logo.png' %}" alt="">
+                                        <img {% image_dimensions 'institutional/imgs/icon/marketing-icon-logo.png' %} src="{% static 'institutional/imgs/icon/marketing-icon-logo.png' %}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -690,7 +691,7 @@
                                     <div class="swiper-slide">
                                         <div class="blog-5__item">
                                             <div class="blog-5__img">
-                                                <img src="{% static 'institutional/imgs/blog/blog-parada-programada.webp' %}" alt="Planejamento de manutenção industrial para redução de paradas">
+                                                <img {% image_dimensions 'institutional/imgs/blog/blog-parada-programada.webp' %} src="{% static 'institutional/imgs/blog/blog-parada-programada.webp' %}" alt="Planejamento de manutenção industrial para redução de paradas">
                                             </div>
                                             <div class="blog-5__text">
                                                 <span class="cta"><i class="fa-sharp fa-light fa-screwdriver-wrench"></i> Manutenção planejada</span>
@@ -704,7 +705,7 @@
                                     <div class="swiper-slide">
                                         <div class="blog-5__item">
                                             <div class="blog-5__img">
-                                                <img src="{% static 'institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp' %}" alt="Histórico e indicadores de manutenção para gestão de ativos">
+                                                <img {% image_dimensions 'institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp' %} src="{% static 'institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp' %}" alt="Histórico e indicadores de manutenção para gestão de ativos">
                                             </div>
                                             <div class="blog-5__text">
                                                 <span class="cta"><i class="fa-sharp fa-light fa-chart-line"></i> Confiabilidade</span>
@@ -718,7 +719,7 @@
                                     <div class="swiper-slide">
                                         <div class="blog-5__item">
                                             <div class="blog-5__img">
-                                                <img src="{% static 'institutional/imgs/blog/blog-sem-retrabalho.webp' %}" alt="Documentação e rastreabilidade para retrofit industrial">
+                                                <img {% image_dimensions 'institutional/imgs/blog/blog-sem-retrabalho.webp' %} src="{% static 'institutional/imgs/blog/blog-sem-retrabalho.webp' %}" alt="Documentação e rastreabilidade para retrofit industrial">
                                             </div>
                                             <div class="blog-5__text">
                                                 <span class="cta"><i class="fa-sharp fa-light fa-gears"></i> Melhoria contínua</span>
