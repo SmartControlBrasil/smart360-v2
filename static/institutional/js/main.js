@@ -256,7 +256,13 @@
      let heroes = document.querySelectorAll(".hero");
      
      heroes.forEach(hero => {
-       let split = new SplitText(hero.querySelector("._split_text"), { type: "chars, words" }),
+       const splitTarget = hero.querySelector("._split_text");
+
+       if (!splitTarget) {
+         return;
+       }
+
+       let split = new SplitText(splitTarget, { type: "chars, words" }),
            tl = gsap.timeline({
            scrollTrigger: {
              trigger: hero,
