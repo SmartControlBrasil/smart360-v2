@@ -1709,6 +1709,118 @@ class TechnicalSeoTests(TestCase):
         self.assertIn('href="/blog/eliminar-gargalos-autonomia-previsibilidade/"', maintenance_html)
         self.assertIn('href="/blog/historico-indicadores-decisoes-consistentes/"', maintenance_html)
 
+    def test_unplanned_stops_article_has_expanded_depth_links_and_faq_schema(self):
+        response = self.client.get("/blog/reducao-paradas-inesperadas-planejamento-tecnico/")
+        html = response.content.decode()
+        post = BLOG_POSTS["reducao-paradas-inesperadas-planejamento-tecnico"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/reducao-paradas-inesperadas-planejamento-tecnico/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Redução de Paradas e Planejamento de Manutenção | Smart Control Brasil")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "Parada inesperada não é apenas falha de equipamento",
+            "Corretiva, preventiva e preditiva têm papéis diferentes",
+            "Criticidade define prioridade",
+            "Histórico de falhas é uma das melhores fontes de decisão",
+            "MTBF: frequência entre falhas",
+            "MTTR: capacidade de restaurar o equipamento",
+            "MTBF e MTTR devem ser analisados juntos",
+            "Planejamento e programação de manutenção",
+            "Ordem de serviço precisa gerar informação",
+            "Pequenas paradas também importam",
+            "Quando automação participa da solução",
+            "Sistemas e dados ajudam a sair da manutenção reativa",
+            "TPM, RCM e modos de falha como apoio",
+            "Exemplo hipotético",
+            "Plano de ação deve atacar causa e recorrência",
+            "Checklist para reduzir paradas inesperadas",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "MTBF",
+            "MTTR",
+            "criticidade",
+            "manutenção preventiva",
+            "preditiva",
+            "planejamento",
+            "programação",
+            "confiabilidade",
+            "disponibilidade",
+            "TPM",
+            "RCM",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "MTBF = tempo de operação / número de falhas",
+            "MTTR = tempo total de reparo / número de reparos",
+            "disponibilidade ≈ MTBF / (MTBF + MTTR)",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/manutencao-industrial-campo/"',
+            'href="/blog/eliminar-gargalos-autonomia-previsibilidade/"',
+            'href="/blog/historico-indicadores-decisoes-consistentes/"',
+            'href="/sistemas-websites-python/"',
+            'href="/blog/informacao-precisa-para-agir-melhor/"',
+            'href="/mitsubishi-automacao-industrial/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("Esse exemplo é hipotético", html)
+        self.assertContains(response, "<li>Quais ativos são críticos?</li>")
+        self.assertContains(response, "Solicitar diagnóstico de manutenção")
+        self.assertNotIn("reduz custos em", html)
+        self.assertNotIn("retorno em", html)
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Engenharia de Manutenção")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
+        maintenance = self.client.get("/manutencao-industrial-campo/")
+        maintenance_html = maintenance.content.decode()
+        self.assertEqual(maintenance.status_code, 200)
+        self.assertIn('href="/blog/reducao-paradas-inesperadas-planejamento-tecnico/"', maintenance_html)
+        self.assertIn('alt="Planejamento de manutenção industrial para redução de paradas"', maintenance_html)
+
     def test_industrial_data_article_has_expanded_depth_links_and_faq_schema(self):
         response = self.client.get("/blog/informacao-precisa-para-agir-melhor/")
         html = response.content.decode()

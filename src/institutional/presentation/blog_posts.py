@@ -672,36 +672,158 @@ BLOG_POSTS = {
         "cta_text": "Conversar sobre uma aplicação de robótica",
     },
     "reducao-paradas-inesperadas-planejamento-tecnico": {
-        "title": "Redução de Paradas Inesperadas e Melhor Planejamento Técnico",
+        "title": "Paradas Inesperadas: Como Reduzir com Planejamento",
+        "seo_title": "Redução de Paradas e Planejamento de Manutenção | Smart Control Brasil",
         "category": "Engenharia de Manutenção",
         "image": "institutional/imgs/blog/blog-parada-programada.webp",
         "alt": "Planejamento técnico para reduzir paradas inesperadas em ativos industriais",
-        "meta_description": "Como manutenção corretiva, preventiva e preditiva influenciam paradas, planejamento, MTBF e MTTR.",
-        "intro": "Paradas inesperadas afetam produção, segurança, qualidade e custo. Reduzi-las exige planejamento técnico, conhecimento da criticidade dos ativos e uso consistente do histórico de falhas.",
+        "meta_description": "Veja como reduzir paradas inesperadas com criticidade, manutenção preventiva, histórico de falhas e indicadores como MTBF e MTTR.",
+        "intro": "Uma parada inesperada raramente deve ser tratada apenas como equipamento parou, reparar e voltar a produzir. O ciclo útil passa por falha, registro, análise, causa, criticidade, ação, planejamento e acompanhamento. O objetivo é reduzir recorrência, impacto e incerteza operacional.",
         "sections": [
             {
-                "heading": "Corretiva, preventiva e preditiva",
+                "heading": "Parada inesperada não é apenas falha de equipamento",
                 "paragraphs": [
-                    "A manutenção corretiva responde à falha após sua ocorrência. A preventiva atua por intervalos definidos, reduzindo risco quando há previsibilidade de desgaste. A preditiva usa sinais, medições e tendências para indicar intervenção antes da falha funcional.",
-                    "Nenhuma abordagem resolve tudo sozinha. O plano mais consistente combina estratégias conforme criticidade, custo, segurança e impacto operacional.",
+                    "A causa pode estar em falha mecânica, elétrica, automação, alimentação, ajuste, operação, processo, qualidade, setup, ambiente ou documentação inadequada. Assumir que tudo é manutenção pode esconder causas de processo e repetir corretivas no mesmo sintoma.",
+                    "A primeira decisão é separar o que parou, por que parou, quanto tempo ficou indisponível e qual condição permitiu a volta. O registro reduz dependência de memória.",
                 ],
             },
             {
-                "heading": "Planejamento e programação",
+                "heading": "Corretiva, preventiva e preditiva têm papéis diferentes",
                 "paragraphs": [
-                    "Planejar manutenção envolve definir escopo, recursos, peças, mão de obra, ferramentas, procedimentos e janela de parada. Programar é organizar a execução no momento adequado, com menor impacto possível para a operação.",
-                    "A disponibilidade de peças e informações técnicas é decisiva. Sem isso, uma parada planejada pode se transformar em uma parada longa e improdutiva.",
+                    "A corretiva pode ser emergencial, após uma falha, ou planejada, quando uma anomalia conhecida é tratada em janela definida. Alguns ativos de baixa criticidade podem aceitar corretiva planejada sem comprometer o processo.",
+                    "A preventiva atua por tempo, ciclos, condição definida ou recomendação técnica. A preditiva observa condição e tendência. Nenhuma é sempre superior; a estratégia depende de criticidade, modo de falha, custo, detectabilidade e impacto.",
                 ],
             },
             {
-                "heading": "Indicadores de confiabilidade",
+                "heading": "Criticidade define prioridade",
                 "paragraphs": [
-                    "MTBF e MTTR ajudam a medir, respectivamente, o tempo médio entre falhas e o tempo médio para reparo. Eles orientam prioridades, mas precisam ser interpretados junto com criticidade, recorrência e impacto.",
-                    "Com histórico organizado e critérios técnicos, a manutenção deixa de reagir a urgências e passa a antecipar necessidades com mais previsibilidade.",
+                    "Criticidade organiza prioridades quando tudo parece urgente. Segurança, produção, qualidade, meio ambiente, tempo de recuperação, redundância, peças e frequência de falha ajudam a classificar onde agir primeiro.",
+                    "Uma classificação ABC pode ser exemplo simples: A para alta criticidade, B para intermediária e C para baixa. Não é universal, mas ajuda PCM, manutenção e produção a priorizar.",
+                ],
+            },
+            {
+                "heading": "Histórico de falhas é uma das melhores fontes de decisão",
+                "paragraphs": [
+                    "Um bom histórico registra data, ativo, modo de falha, sintoma, causa, ação, tempo parado, peça, responsável e resultado. Sem isso, a equipe percebe a falha, mas não enxerga recorrência, causa provável ou custo de indisponibilidade.",
+                    "O tema se conecta diretamente ao artigo sobre <a href=\"/blog/historico-indicadores-decisoes-consistentes/\">histórico organizado e indicadores para decisões consistentes</a>. Registro simples e contínuo é melhor do que planilha perfeita que ninguém alimenta.",
+                ],
+            },
+            {
+                "heading": "MTBF: frequência entre falhas",
+                "paragraphs": [
+                    "MTBF significa tempo médio entre falhas em ativos reparáveis. De forma conceitual, MTBF = tempo de operação / número de falhas. Um MTBF maior normalmente indica maior intervalo médio entre falhas, mas não representa garantia de que a próxima falha está distante.",
+                    "O indicador só faz sentido com dados consistentes e contexto do ativo. Comparar MTBF de regimes diferentes pode distorcer decisões. O melhor uso é acompanhar tendência e recorrência.",
+                ],
+            },
+            {
+                "heading": "MTTR: capacidade de restaurar o equipamento",
+                "paragraphs": [
+                    "MTTR indica tempo médio para reparo ou restauração. Como conceito, MTTR = tempo total de reparo / número de reparos. Ele também revela diagnóstico, acesso, documentação, peças, ferramentas, treinamento, backup e parametrização.",
+                    "Reduzir MTTR pode exigir desenhos atualizados, sobressalentes, padronização, acesso seguro, backups e procedimento claro.",
+                ],
+            },
+            {
+                "heading": "MTBF e MTTR devem ser analisados juntos",
+                "paragraphs": [
+                    "Um ativo pode falhar pouco, mas demorar para voltar por falta de peça ou diagnóstico. Outro pode falhar muito e retornar rápido. As ações são diferentes: contingência no primeiro caso, causa e recorrência no segundo.",
+                    "A disponibilidade depende de tempo funcionando, falhas e recuperação. Em contexto simplificado, pode-se usar disponibilidade ≈ MTBF / (MTBF + MTTR), sem dispensar análise de processo, turnos, gargalos e impacto real.",
+                ],
+            },
+            {
+                "heading": "Planejamento e programação de manutenção",
+                "paragraphs": [
+                    "Planejamento define o que fazer, como fazer, peças, ferramentas, recursos, documentação e riscos. Programação define quando, quem executa, janela, prioridade e sequência.",
+                    "Quando planejamento e programação se misturam, a equipe corre para executar sem peça, sem escopo e sem tempo adequado. A consequência é parada longa, retrabalho e registro pobre para decisões futuras. Serviços de <a href=\"/manutencao-industrial-campo/\">manutenção industrial em campo</a> devem nascer dessa preparação.",
+                ],
+            },
+            {
+                "heading": "Ordem de serviço precisa gerar informação",
+                "paragraphs": [
+                    "A OS não deve ser apenas comprovante de execução. Ela registra falha, causa, tempo, recurso, material, ação, condição final e pendências. Esses dados alimentam confiabilidade, estoque e planos preventivos.",
+                    "Uma OS bem preenchida transforma intervenção em aprendizado. Uma OS genérica não ajuda a reduzir a próxima parada.",
+                ],
+            },
+            {
+                "heading": "Pequenas paradas também importam",
+                "paragraphs": [
+                    "Microparadas repetitivas acumulam perda, instabilidade e pressão sobre a equipe. Quando não viram OS, continuam invisíveis para o planejamento.",
+                    "Esse ponto se conecta ao artigo sobre <a href=\"/blog/eliminar-gargalos-autonomia-previsibilidade/\">eliminação de gargalos com autonomia e previsibilidade</a>. Gargalos, setups e ajustes recorrentes precisam entrar no histórico para que a manutenção não atue apenas nas falhas mais barulhentas.",
+                ],
+            },
+            {
+                "heading": "Quando automação participa da solução",
+                "paragraphs": [
+                    "Paradas podem envolver CLP, IHM, sensores, inversores, comunicação, painéis, lógica ou parametrização. Às vezes a falha parece mecânica, mas nasce de sinal instável ou diagnóstico fraco.",
+                    "Quando a causa passa por controle e acionamento, soluções de <a href=\"/mitsubishi-automacao-industrial/\">automação industrial Mitsubishi</a> podem entrar no contexto de modernização, com CLPs, IHMs, inversores e integração. A decisão deve partir da causa, não da vontade de trocar componentes.",
+                ],
+            },
+            {
+                "heading": "Sistemas e dados ajudam a sair da manutenção reativa",
+                "paragraphs": [
+                    "Histórico, dashboards, indicadores, alertas e integração tornam a manutenção menos dependente de urgência. Sistemas consolidam OS, paradas, ativos, peças, evidências e tendências.",
+                    "Quando o processo exige visibilidade, <a href=\"/sistemas-websites-python/\">sistemas web, APIs e dashboards</a> podem apoiar o fluxo de dados. O artigo sobre <a href=\"/blog/informacao-precisa-para-agir-melhor/\">informação precisa para agir melhor</a> aprofunda como dados operacionais precisam virar informação útil.",
+                ],
+            },
+            {
+                "heading": "TPM, RCM e modos de falha como apoio",
+                "paragraphs": [
+                    "TPM, ou Total Productive Maintenance, envolve operação, manutenção e melhoria contínua para elevar eficiência e confiabilidade. RCM, ou Manutenção Centrada em Confiabilidade, ajuda a selecionar políticas conforme função, falhas, consequências e criticidade.",
+                    "A análise de modos de falha pergunta como o ativo pode falhar, por que falha e qual consequência aparece. O essencial é priorizar ações com critério.",
+                ],
+            },
+            {
+                "heading": "Exemplo hipotético",
+                "paragraphs": [
+                    "Considere um equipamento com paradas curtas várias vezes por semana. A investigação começa pelo histórico: quando ocorre, sintoma, duração, intervenção e ação de restauração. Depois, a equipe observa MTBF, MTTR e modo de falha.",
+                    "O problema pode estar em sensor instável, conector, parametrização, desgaste ou setup. Se a ação apenas religar o sistema, a função volta, mas a causa permanece. Esse exemplo é hipotético e não promete ganho percentual.",
+                ],
+            },
+            {
+                "heading": "Plano de ação deve atacar causa e recorrência",
+                "paragraphs": [
+                    "Restaurar função é colocar o ativo para operar novamente. Evitar recorrência é entender por que a falha voltou e qual ação reduz a chance de repetição. Nem toda corretiva precisa virar projeto de melhoria, mas falhas recorrentes pedem análise.",
+                    "O plano deve definir ação, responsável, prazo, peça, risco, evidência esperada e acompanhamento. Sem isso, a manutenção fica presa a ciclos de urgência que retornam depois.",
+                ],
+            },
+            {
+                "heading": "Checklist para reduzir paradas inesperadas",
+                "paragraphs": [
+                    "Um checklist ajuda a organizar a primeira avaliação. Ele não é norma, mas apoia a conversa entre manutenção, produção, PCM, automação e gestão.",
+                ],
+                "items_list": [
+                    "Quais ativos são críticos?",
+                    "Quais falhas mais se repetem?",
+                    "O histórico está sendo registrado?",
+                    "MTBF está piorando?",
+                    "MTTR está elevado?",
+                    "Existem peças críticas disponíveis?",
+                    "Documentação e backups estão atualizados?",
+                    "A manutenção preventiva está adequada?",
+                    "Existem microparadas não registradas?",
+                    "A operação participa da identificação de anomalias?",
+                    "A causa foi eliminada ou apenas o sintoma?",
                 ],
             },
         ],
-        "highlight": "Reduzir paradas inesperadas depende de criticidade, histórico técnico, planejamento e execução disciplinada das intervenções.",
+        "faq": [
+            {
+                "question": "Qual a diferença entre manutenção corretiva, preventiva e preditiva?",
+                "answer": "A corretiva atua após uma falha ou anomalia, podendo ser emergencial ou planejada. A preventiva segue tempo, ciclos ou recomendações técnicas. A preditiva acompanha condição e tendência para indicar intervenção antes da falha funcional.",
+            },
+            {
+                "question": "Como calcular MTBF e MTTR?",
+                "answer": "Em ativos reparáveis, MTBF pode ser entendido como tempo de operação dividido pelo número de falhas. MTTR é o tempo total de reparo dividido pelo número de reparos. Ambos exigem dados consistentes e contexto do ativo.",
+            },
+            {
+                "question": "Como definir quais equipamentos devem receber prioridade de manutenção?",
+                "answer": "A prioridade deve considerar criticidade, segurança, impacto na produção, qualidade, meio ambiente, frequência de falha, tempo de recuperação, redundância e disponibilidade de peças.",
+            },
+            {
+                "question": "Como reduzir paradas inesperadas na prática?",
+                "answer": "Registre falhas, classifique ativos críticos, analise causa e recorrência, escolha a estratégia adequada, planeje recursos e acompanhe MTBF, MTTR e disponibilidade.",
+            },
+        ],
+        "highlight": "Reduzir paradas inesperadas exige histórico confiável, criticidade, estratégia de manutenção, planejamento e acompanhamento por indicadores de confiabilidade.",
         "cta_text": "Solicitar diagnóstico de manutenção",
     },
     "historico-indicadores-decisoes-consistentes": {
