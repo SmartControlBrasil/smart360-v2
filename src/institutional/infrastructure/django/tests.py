@@ -169,6 +169,12 @@ class InstitutionalRoutesTests(TestCase):
         self.assertEqual(shop.status_code, 200)
         self.assertEqual(legacy_details.status_code, 200)
 
+    def test_legacy_shop_details_does_not_render_known_demo_product_names(self):
+        response = self.client.get("/loja/detalhes/")
+
+        self.assertNotContains(response, "Opulent Citadel")
+        self.assertNotContains(response, "Trickster Toadstool")
+
     def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
         expected_labels = (
