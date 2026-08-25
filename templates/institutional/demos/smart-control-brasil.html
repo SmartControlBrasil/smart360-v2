@@ -33,7 +33,15 @@
                                             <input class="form-control" type="text" name="necessidade" placeholder="Descreva sua necessidade técnica">
                                             <div class="clearfix"></div>
                                         </form>
-                                        <button type="submit" form="home-contact-cta" class="rr-btn"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                                        <button
+                                            type="submit"
+                                            form="home-contact-cta"
+                                            class="rr-btn"
+                                            data-track-event="click_primary_cta"
+                                            data-track-location="home_hero"
+                                            data-track-label="Solicitar contato">
+                                            <i class="fa-solid fa-paper-plane"></i> Solicitar contato
+                                        </button>
                                     </div>
                                  </div>
                             </div>
@@ -86,7 +94,12 @@
                                 <img src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="">
                                 <p>Precisa modernizar sua operação?</p>
                             </div>
-                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Conosco <i class="fa-solid fa-angle-right"></i></a>
+                            <a
+                                class="rr-btn"
+                                href="{% url 'institutional:contact' %}"
+                                data-track-event="click_primary_cta"
+                                data-track-location="home_about"
+                                data-track-label="Fale conosco">Fale Conosco <i class="fa-solid fa-angle-right"></i></a>
                         </div>
                     </div>
                 </div>

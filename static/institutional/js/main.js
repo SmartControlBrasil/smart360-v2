@@ -71,6 +71,47 @@
         initOdometerWaypoint();
     });
 
+
+    function pushTrackingEvent(eventName, payload) {
+        if (!eventName) {
+            return;
+        }
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push($.extend({
+            event: eventName,
+            page_path: window.location.pathname
+        }, payload || {}));
+    }
+
+    $('[data-track-on-load="true"][data-track-event]').each(function () {
+        var element = $(this);
+        pushTrackingEvent(element.data('track-event'), {
+            cta_location: element.data('track-location') || undefined,
+            cta_label: element.data('track-label') || $.trim(element.text()) || undefined
+        });
+    });
+
+    $(document).on('click', '[data-track-event]:not([data-track-on-load="true"])', function () {
+        var element = $(this);
+        pushTrackingEvent(element.data('track-event'), {
+            cta_location: element.data('track-location') || undefined,
+            cta_label: element.data('track-label') || $.trim(element.text()) || undefined
+        });
+    });
+
+    $(document).on('click', 'a[href*="wa.me"], a[href*="whatsapp"]', function () {
+        pushTrackingEvent('click_whatsapp');
+    });
+
+    $(document).on('click', 'a[href^="tel:"]', function () {
+        pushTrackingEvent('click_phone');
+    });
+
+    $(document).on('click', 'a[href^="mailto:"]', function () {
+        pushTrackingEvent('click_email');
+    });
+
     $(".preloader-close").on("click", function () {
         $('#preloader').fadeOut(300);
         initOdometerWaypoint();
@@ -1187,26 +1228,6 @@
         lastNobullet();
     });
 
-    $('#contact__form').submit(function(event) {
-        event.preventDefault();
-        var form = $(this);
-        $('.loading-form').show();
-
-        setTimeout(function() { 
-            $.ajax({
-            type: form.attr('method'),
-            url: form.attr('action'),
-            data: form.serialize()
-            }).done(function(data) {
-                $('.loading-form').hide();
-                $('.contact__form').append('<p class="success-message mt-3 mb-0">Your message has been sent successfully.</p>');
-            }).fail(function(data) {
-                $('.loading-form').hide();
-                $('.contact__form').append('<p class="error-message mt-3 mb-0">Something went wrong. Please try again later.</p>');
-
-            });
-        }, 1000);
-      });
 
     $('#showlogin').on('click', function () {
         $('#checkout-login').slideToggle(400);

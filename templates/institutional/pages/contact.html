@@ -153,6 +153,13 @@
                                 <div
                                     class="alert alert-{{ message.tags|default:'info' }}"
                                     role="alert"
+                                    aria-live="polite"
+                                    {% if "success" in message.tags %}
+                                        data-track-event="generate_lead"
+                                        data-track-on-load="true"
+                                        data-track-location="contact_form"
+                                        data-track-label="Solicitação enviada"
+                                    {% endif %}
                                 >
                                     {{ message }}
                                 </div>

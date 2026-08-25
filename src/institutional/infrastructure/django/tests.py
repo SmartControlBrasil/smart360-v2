@@ -360,6 +360,112 @@ class ContactFormTests(TestCase):
         self.assertNotContains(response, "Traceback")
         self.assertNotContains(response, "smtp unavailable")
 
+    def test_contact_form_uses_traditional_post_without_ajax_success_mask(self):
+        main_js = Path("static/institutional/js/main.js").read_text()
+
+        self.assertNotIn("$('#contact__form').submit", main_js)
+        self.assertNotIn("Your message has been sent successfully.", main_js)
+        self.assertNotIn("Something went wrong. Please try again later.", main_js)
+
+    def test_contact_invalid_post_shows_portuguese_error_without_generate_lead(self):
+        data = {**self.valid_data, "email": "email-invalido"}
+
+        response = self.client.post(self.url, data)
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertIn("Revise os dados informados e tente novamente.", html)
+        self.assertNotIn('data-track-event="generate_lead"', html)
+
+    def test_contact_success_tracks_generate_lead_only_after_real_success(self):
+        response = self.client.post(self.url, self.valid_data, follow=True)
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Solicitação enviada com sucesso. Nossa equipe entrará em contato.", html)
+        self.assertIn('data-track-event="generate_lead"', html)
+        self.assertIn('data-track-on-load="true"', html)
+        self.assertIn('data-track-location="contact_form"', html)
+
+    def test_contact_smtp_failure_does_not_track_generate_lead(self):
+        with patch(
+            "src.institutional.presentation.views.EmailMessage.send",
+            side_effect=SMTPException("smtp unavailable"),
+        ):
+            response = self.client.post(self.url, self.valid_data)
+
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertIn("Não foi possível enviar sua solicitação agora.", html)
+        self.assertNotIn('data-track-event="generate_lead"', html)
+
+
+class ConversionTrackingTests(TestCase):
+    def test_header_primary_cta_points_to_contact(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+
+        self.assertIn('data-track-location="header"', html)
+        self.assertIn('data-track-label="Solicitar orçamento"', html)
+        self.assertIn(f'href="{reverse("institutional:contact")}"', html)
+        self.assertIn("Solicitar orçamento", html)
+        self.assertNotIn("Ver Produtos", html)
+
+    def test_home_primary_cta_has_clear_copy_and_tracking(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+
+        self.assertIn("Solicitar contato", html)
+        self.assertIn('data-track-location="home_hero"', html)
+        self.assertIn('data-track-event="click_primary_cta"', html)
+
+    def test_services_ctas_are_specific(self):
+        response = self.client.get(reverse("institutional:services"))
+        html = response.content.decode()
+
+        for expected in (
+            "Ver automação Mitsubishi",
+            "Conhecer robôs Xyron",
+            "Solicitar manutenção",
+            "Planejar solução",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+    def test_littlebot_audio_section_has_followup_cta(self):
+        response = self.client.get(reverse("institutional:xyron_littlebot"))
+        html = response.content.decode()
+
+        self.assertIn('data-track-location="littlebot_audio"', html)
+        self.assertIn("Agendar demonstração", html)
+        self.assertIn("robo-liro-inclusao-neurodivergentes.m4a", html)
+
+    def test_tracking_script_pushes_expected_events_without_pii(self):
+        main_js = Path("static/institutional/js/main.js").read_text()
+
+        for event_name in (
+            "click_whatsapp",
+            "click_phone",
+            "click_email",
+        ):
+            with self.subTest(event_name=event_name):
+                self.assertIn(event_name, main_js)
+
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+
+        self.assertIn("[data-track-event]", main_js)
+        self.assertIn("window.dataLayer = window.dataLayer || []", main_js)
+        self.assertIn("page_path: window.location.pathname", main_js)
+        self.assertIn('data-track-event="click_primary_cta"', html)
+        self.assertNotIn("telefone:", main_js)
+        self.assertNotIn("email:", main_js)
+        self.assertNotIn("mensagem:", main_js)
+
 
 @override_settings(ALLOWED_HOSTS=["testserver", "smartcontrolbrasil.com.br"])
 class TechnicalSeoTests(TestCase):
