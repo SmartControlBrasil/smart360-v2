@@ -401,36 +401,140 @@ BLOG_POSTS = {
         "cta_text": "Solicitar integração de dados industriais",
     },
     "equipamentos-sistemas-para-evoluir": {
-        "title": "Equipamentos e Sistemas para Evoluir",
+        "title": "Modernização Industrial: Quando Fazer Retrofit ou Substituir?",
+        "seo_title": "Retrofit e Modernização Industrial | Smart Control Brasil",
         "category": "Soluções Tecnológicas",
         "image": "institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp",
         "alt": "Equipamentos e sistemas industriais para modernização tecnológica",
-        "meta_description": "Critérios para modernização tecnológica, seleção de equipamentos, integração, suporte e análise de retorno.",
-        "intro": "Evoluir tecnologicamente não significa substituir tudo. A modernização deve começar pela necessidade real da operação, avaliando riscos, ganhos esperados, compatibilidade e capacidade de manutenção ao longo do ciclo de vida.",
+        "meta_description": "Veja como avaliar retrofit, substituição e integração de equipamentos e sistemas considerando ciclo de vida, manutenção, dados e retorno da modernização.",
+        "intro": "Modernização industrial não é simplesmente trocar um equipamento antigo por um novo. Em muitos casos, a evolução real está em revisar arquitetura elétrica, comando, sensores, acionamentos, redes, supervisão, documentação e integração digital. A escolha entre manter, fazer retrofit ou substituir deve considerar risco, custo total, vida útil, manutenção, disponibilidade e capacidade de evolução futura.",
         "sections": [
             {
-                "heading": "Seleção orientada à necessidade",
+                "heading": "O primeiro passo é entender por que modernizar",
                 "paragraphs": [
-                    "A seleção de equipamentos deve considerar desempenho requerido, ambiente de instalação, interfaces disponíveis, suporte, reposição, documentação e integração com sistemas existentes. Um equipamento tecnicamente superior pode ser inadequado se não conversa com o processo ou com a equipe que irá mantê-lo.",
-                    "Também é importante avaliar escalabilidade. A solução escolhida hoje deve permitir expansão, coleta de dados, ajustes de processo e futuras integrações sem exigir retrabalho excessivo.",
+                    "Antes de escolher marca, modelo ou tecnologia, a operação precisa responder qual problema será resolvido. A motivação pode ser obsolescência, dificuldade de reposição, paradas recorrentes, baixa segurança, ausência de dados ou limitação para integrar a máquina a sistemas corporativos.",
+                    "Quando o objetivo é claro, a modernização deixa de ser uma compra isolada e passa a ser uma decisão técnica. Isso evita investimentos avançados na aparência, mas fracos em confiabilidade.",
                 ],
             },
             {
-                "heading": "Retrofit ou substituição completa",
+                "heading": "Retrofit ou substituição completa?",
                 "paragraphs": [
-                    "O retrofit pode ser a melhor alternativa quando a base mecânica da máquina ainda é válida e o problema está em comando, acionamento, segurança, instrumentação ou supervisão. Já a substituição completa pode fazer sentido quando limitações estruturais tornam a modernização pouco eficiente.",
-                    "A decisão deve considerar custo total, tempo de parada, disponibilidade de peças, impacto na produção, riscos técnicos e suporte futuro.",
+                    "O retrofit costuma fazer sentido quando a base mecânica ainda é robusta e os maiores problemas estão em comando, acionamento, instrumentação, segurança, interface ou coleta de dados. Atualizar CLPs, inversores, IHMs, sensores, painéis e lógica de controle pode prolongar a vida útil do ativo com menor interrupção.",
+                    "A substituição completa tende a ser mais adequada quando a estrutura limita produtividade, segurança, precisão, acesso a peças ou conformidade técnica. Se a máquina já não atende ao processo, modernizar apenas o controle pode mascarar o problema.",
                 ],
             },
             {
-                "heading": "Retorno e sustentação",
+                "heading": "Matriz de decisão para modernização",
                 "paragraphs": [
-                    "A análise de retorno precisa olhar além do investimento inicial. Redução de paradas, menor retrabalho, manutenção mais simples, dados confiáveis e aumento de disponibilidade são ganhos relevantes quando medidos com critério.",
-                    "Uma modernização bem conduzida entrega tecnologia, mas também documentação, treinamento, suporte e condições para a operação evoluir com segurança.",
+                    "Uma decisão consistente compara alternativas pelos mesmos critérios. Manter, fazer retrofit ou substituir deve ser analisado por impacto produtivo, risco de parada, disponibilidade de peças, manutenção, segurança e integração.",
+                    "A matriz organiza discussões entre produção, manutenção, engenharia, compras e gestão para que a escolha não dependa apenas do menor preço inicial ou da urgência causada por uma falha recente.",
+                ],
+                "items_list": [
+                    "Criticidade do equipamento para a produção e para a segurança.",
+                    "Histórico de falhas, tempo médio de reparo e dificuldade de diagnóstico.",
+                    "Disponibilidade de componentes, suporte técnico e documentação.",
+                    "Possibilidade de integrar dados, alarmes e indicadores aos sistemas da empresa.",
+                    "Tempo de parada necessário para cada alternativa.",
+                ],
+            },
+            {
+                "heading": "Obsolescência não é apenas idade",
+                "paragraphs": [
+                    "Um equipamento antigo pode continuar eficiente quando é bem documentado, possui peças disponíveis e atende ao processo com segurança. Por outro lado, uma máquina relativamente recente pode gerar risco se depende de software fechado, componentes sem suporte ou conhecimento concentrado em poucas pessoas.",
+                    "Por isso, obsolescência deve ser avaliada pelo ciclo de vida do ativo: manutenção, reposição, diagnóstico, documentação e possibilidade de evoluir sem retrabalho excessivo.",
+                ],
+            },
+            {
+                "heading": "Controle e automação na modernização",
+                "paragraphs": [
+                    "Boa parte dos projetos de retrofit passa pelo sistema de controle. Atualizar CLPs, redes industriais, IHMs e acionamentos melhora estabilidade e diagnóstico. Em aplicações críticas, a seleção do controlador também deve considerar ambiente, severidade, expansões futuras e suporte, como discutido no artigo sobre <a href=\"/blog/selecao-controladores-ativos-alta-severidade/\">seleção de controladores para ativos de alta severidade</a>.",
+                    "A integração com soluções de <a href=\"/mitsubishi-automacao-industrial/\">automação industrial Mitsubishi</a>, quando adequada ao projeto, permite padronizar arquitetura, documentação e manutenção. O objetivo não é trocar tecnologia por moda, mas aumentar confiabilidade e facilitar a sustentação do equipamento ao longo do tempo.",
+                ],
+            },
+            {
+                "heading": "Manutenção deve participar da decisão",
+                "paragraphs": [
+                    "A manutenção conhece sintomas que nem sempre aparecem no orçamento: falhas intermitentes, parametrizações antigas, falta de desenhos, painéis sem identificação e peças trocadas apenas após longas paradas.",
+                    "Incluir manutenção desde o diagnóstico reduz risco de uma solução tecnicamente bonita, mas difícil de sustentar. Serviços de <a href=\"/manutencao-industrial-campo/\">manutenção industrial em campo</a> ajudam a mapear condições reais do ativo, enquanto práticas de rastreabilidade como as discutidas em <a href=\"/blog/menos-retrabalho-rastreabilidade-retrofit/\">menos retrabalho com rastreabilidade em retrofit</a> fortalecem histórico, padronização e aprendizagem operacional.",
+                ],
+            },
+            {
+                "heading": "Modernizar equipamento sem modernizar informação pode limitar o resultado",
+                "paragraphs": [
+                    "Uma máquina modernizada que continua isolada pode entregar estabilidade local, mas ainda deixar a gestão sem visibilidade. Quando dados de produção, paradas, alarmes, receitas, lotes e manutenção ficam presos no painel, a tomada de decisão continua dependente de anotações manuais e interpretações tardias.",
+                    "Por isso, a camada digital precisa entrar no escopo quando o processo exige rastreabilidade, dashboards, integração com ERP, APIs ou histórico confiável. Sistemas em <a href=\"/sistemas-websites-python/\">Python e Django</a> podem conectar operação, manutenção e gestão, complementando a lógica apresentada em <a href=\"/blog/informacao-precisa-para-agir-melhor/\">dados industriais que viram informação para decisão</a>.",
+                ],
+            },
+            {
+                "heading": "Integração deve ser planejada para o ciclo de vida",
+                "paragraphs": [
+                    "Projetos de modernização ganham valor quando nascem preparados para manutenção, expansão e auditoria. Isso inclui documentação elétrica atualizada, lista de componentes, backup de programas, parametrizações, endereçamento de rede, padrão de nomenclatura, telas de operação e registros de teste.",
+                    "A integração também precisa respeitar responsabilidades. O CLP controla o processo; o sistema supervisório apoia operação e diagnóstico; a aplicação digital organiza dados, usuários, relatórios e fluxos de decisão.",
+                ],
+            },
+            {
+                "heading": "TCO: olhar além do preço de compra",
+                "paragraphs": [
+                    "O custo total de propriedade, ou TCO, inclui aquisição, instalação, parada de produção, treinamento, peças, suporte, energia, manutenção, documentação e futuras expansões. Uma solução mais barata na compra pode ser cara se aumenta dependência técnica ou dificulta diagnóstico.",
+                    "Uma substituição completa pode ser justificável quando reduz riscos acumulados. O ponto é comparar alternativas pelo custo ao longo do ciclo de vida, não apenas pela proposta inicial.",
+                ],
+            },
+            {
+                "heading": "Payback não deve ser analisado isoladamente",
+                "paragraphs": [
+                    "Payback ajuda a organizar a conversa financeira, mas não deve ser o único critério. Modernização industrial envolve riscos que nem sempre cabem em uma conta simples, como segurança, perda de conhecimento técnico, falta de peças, impacto em clientes, conformidade e confiabilidade dos dados.",
+                    "A análise mais madura combina retorno estimado, menos paradas, qualidade, menor retrabalho, manutenção mais simples e decisões com mais evidência.",
+                ],
+            },
+            {
+                "heading": "Exemplo hipotético",
+                "paragraphs": [
+                    "Considere uma máquina com boa estrutura mecânica, mas com painel antigo, sensores sem padronização, IHM limitada e falhas difíceis de diagnosticar. A produção sofre com paradas curtas, a manutenção depende de tentativa e erro e a gestão não consegue enxergar motivos de parada por turno.",
+                    "Nesse cenário hipotético, substituir a máquina inteira pode ser desnecessário. Um retrofit com revisão do painel, novo controlador, instrumentação, telas de diagnóstico, documentação e registro de eventos pode resolver o problema principal. Se a base mecânica estivesse desgastada, a substituição completa seria mais coerente.",
+                ],
+            },
+            {
+                "heading": "Modernização em etapas",
+                "paragraphs": [
+                    "Nem toda modernização precisa acontecer de uma vez. Com restrição de parada, é possível dividir o projeto em diagnóstico, documentação, correções críticas, controle, instrumentação, integração de dados e treinamento.",
+                    "O cuidado é não transformar etapas em improvisos permanentes. Cada fase deve entregar documentação, responsáveis claros e plano de continuidade.",
+                ],
+            },
+            {
+                "heading": "Checklist para avaliar uma modernização",
+                "paragraphs": [
+                    "Antes de aprovar retrofit ou substituição, vale usar um checklist técnico e operacional. Ele ajuda a alinhar expectativas e evita que a decisão seja guiada apenas pela urgência do momento.",
+                ],
+                "items_list": [
+                    "Qual problema motiva a mudança?",
+                    "O equipamento ainda atende ao processo produtivo?",
+                    "Quais componentes estão obsoletos ou sem suporte?",
+                    "Quanto tempo de parada cada alternativa exige?",
+                    "A manutenção terá documentação, treinamento e peças disponíveis?",
+                    "Quais dados precisam ser coletados e integrados?",
+                    "Como serão medidos disponibilidade, qualidade, retrabalho e retorno?",
                 ],
             },
         ],
-        "highlight": "Modernização tecnológica deve unir equipamento, integração, documentação e sustentação para reduzir riscos ao longo do ciclo de vida.",
+        "faq": [
+            {
+                "question": "Quando vale a pena fazer retrofit?",
+                "answer": "O retrofit vale a pena quando a base do equipamento ainda atende ao processo e os principais problemas estão em controle, acionamento, instrumentação, segurança, documentação ou integração.",
+            },
+            {
+                "question": "Qual a diferença entre retrofit e substituição completa?",
+                "answer": "No retrofit, partes do equipamento são modernizadas para recuperar confiabilidade, desempenho ou integração. Na substituição completa, o ativo é trocado quando há limitação mecânica, baixa segurança, falta de suporte ou incapacidade produtiva.",
+            },
+            {
+                "question": "Como avaliar o retorno de uma modernização industrial?",
+                "answer": "A avaliação deve considerar custo total de propriedade, redução de paradas, manutenção mais simples, disponibilidade, qualidade, retrabalho, segurança, dados confiáveis e expansão.",
+            },
+            {
+                "question": "Uma modernização pode incluir integração com sistemas e dados?",
+                "answer": "Sim. Muitos projetos combinam automação, sensores, CLPs, IHMs, APIs, bancos de dados, dashboards e sistemas web para transformar eventos em informação útil.",
+            },
+        ],
+        "highlight": "Modernização industrial consistente combina retrofit, substituição, manutenção, automação e integração digital conforme risco, ciclo de vida e retorno esperado.",
         "cta_text": "Solicitar diagnóstico de modernização",
     },
     "inovacao-que-aparece-e-gera-valor": {

@@ -1706,6 +1706,102 @@ class TechnicalSeoTests(TestCase):
         self.assertContains(systems, 'href="/blog/informacao-precisa-para-agir-melhor/"')
         self.assertContains(systems, 'href="/blog/equipamentos-sistemas-para-evoluir/"')
 
+    def test_equipment_systems_modernization_article_has_expanded_depth_links_and_faq_schema(self):
+        response = self.client.get("/blog/equipamentos-sistemas-para-evoluir/")
+        html = response.content.decode()
+        post = BLOG_POSTS["equipamentos-sistemas-para-evoluir"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/equipamentos-sistemas-para-evoluir/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Retrofit e Modernização Industrial | Smart Control Brasil")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "O primeiro passo é entender por que modernizar",
+            "Retrofit ou substituição completa?",
+            "Matriz de decisão para modernização",
+            "Obsolescência não é apenas idade",
+            "Controle e automação na modernização",
+            "Manutenção deve participar da decisão",
+            "Modernizar equipamento sem modernizar informação pode limitar o resultado",
+            "Integração deve ser planejada para o ciclo de vida",
+            "TCO: olhar além do preço de compra",
+            "Payback não deve ser analisado isoladamente",
+            "Exemplo hipotético",
+            "Modernização em etapas",
+            "Checklist para avaliar uma modernização",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "modernização",
+            "retrofit",
+            "obsolescência",
+            "ciclo de vida",
+            "TCO",
+            "automação",
+            "integração",
+            "manutenção",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/manutencao-industrial-campo/"',
+            'href="/mitsubishi-automacao-industrial/"',
+            'href="/sistemas-websites-python/"',
+            'href="/blog/informacao-precisa-para-agir-melhor/"',
+            'href="/blog/selecao-controladores-ativos-alta-severidade/"',
+            'href="/blog/menos-retrabalho-rastreabilidade-retrofit/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("Considere uma máquina", html)
+        self.assertContains(response, "<li>Qual problema motiva a mudança?</li>")
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Soluções Tecnológicas")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
+        systems = self.client.get("/sistemas-websites-python/")
+        systems_html = systems.content.decode()
+        self.assertEqual(systems.status_code, 200)
+        self.assertContains(systems, 'href="/blog/equipamentos-sistemas-para-evoluir/"')
+        self.assertIn("Modernização de Equipamentos", systems_html)
+        self.assertNotIn("Inteligência artificial integrada <br> aos seus sistemas e dados", systems_html)
+
     def test_legacy_blog_routes_redirect_to_indexable_urls(self):
         blog_list = self.client.get("/blog/lista/")
         blog_details = self.client.get("/blog/detalhes/")
