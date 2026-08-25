@@ -160,10 +160,6 @@ ROUTE_METADATA = {
 
 NOINDEX_ROUTE_NAMES = {
     "smart_control_brasil",
-    "livia",
-    "camaras_climaticas",
-    "ai_video_interaction_platform",
-    "ai_web_solutions_startups",
     "blog_list",
     "blog_details",
     "login",

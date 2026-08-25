@@ -25,12 +25,8 @@ class InstitutionalRoutesTests(TestCase):
     routes = (
         "home",
         "sistemas_websites_python",
-        "livia",
-        "camaras_climaticas",
         "manutencao_industrial_campo",
-        "ai_video_interaction_platform",
         "xyron",
-        "ai_web_solutions_startups",
         "mitsubishi_automacao_industrial",
         "about",
         "services",
@@ -73,6 +69,14 @@ class InstitutionalRoutesTests(TestCase):
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
             ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
+            ("/blog/lista/", reverse("institutional:blog")),
+            (
+                "/blog/detalhes/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "selecao-controladores-ativos-alta-severidade"},
+                ),
+            ),
             (
                 "/blog/automacao-industrial-conectada-gestao/",
                 reverse(
@@ -101,6 +105,14 @@ class InstitutionalRoutesTests(TestCase):
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
             ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
+            ("/blog/lista/", reverse("institutional:blog")),
+            (
+                "/blog/detalhes/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "selecao-controladores-ativos-alta-severidade"},
+                ),
+            ),
             (
                 "/blog/automacao-industrial-conectada-gestao/",
                 reverse(
@@ -134,6 +146,14 @@ class InstitutionalRoutesTests(TestCase):
             "/checkout/",
             "/faq/",
             "/modelos/404/",
+            "/ai-video-interaction-platform/",
+            "/ai-web-solutions-startups/",
+            "/robotica-educacional/",
+            "/robo-seguranca-condominios/",
+            "/camara-climatica/",
+            "/engenharia-serralheria-industrial/",
+            "/livia/",
+            "/camaras-climaticas/",
         )
 
         for removed_path in removed_paths:
@@ -3407,18 +3427,18 @@ class TechnicalSeoTests(TestCase):
         self.assertNotIn("Inteligência artificial integrada <br> aos seus sistemas e dados", systems_html)
 
     def test_legacy_blog_routes_redirect_to_indexable_urls(self):
-        blog_list = self.client.get("/blog/lista/")
-        blog_details = self.client.get("/blog/detalhes/")
+        blog_list = self.client.get("/blog/lista/?utm_source=legacy")
+        blog_details = self.client.get("/blog/detalhes/?utm_source=legacy")
 
         self.assertEqual(blog_list.status_code, 301)
-        self.assertEqual(blog_list["Location"], reverse("institutional:blog"))
+        self.assertEqual(blog_list["Location"], f"{reverse('institutional:blog')}?utm_source=legacy")
         self.assertEqual(blog_details.status_code, 301)
         self.assertEqual(
             blog_details["Location"],
-            reverse(
-                "institutional:blog_detail",
-                kwargs={"slug": "selecao-controladores-ativos-alta-severidade"},
-            ),
+            f"{reverse(
+                'institutional:blog_detail',
+                kwargs={'slug': 'selecao-controladores-ativos-alta-severidade'},
+            )}?utm_source=legacy",
         )
 
     def test_blog_article_includes_article_social_metadata_and_post_image(self):
@@ -3439,18 +3459,6 @@ class TechnicalSeoTests(TestCase):
         self.assertMetaName(response, "twitter:title", expected_title)
         self.assertMetaName(response, "twitter:description", post["meta_description"])
         self.assertMetaName(response, "twitter:image", expected_image)
-
-    def test_noindex_page_does_not_render_json_ld(self):
-        response = self.client.get("/livia/")
-
-        self.assertEqual(self.structured_data(response), [])
-
-    def test_experimental_demo_route_still_has_noindex_follow(self):
-        response = self.client.get("/livia/")
-
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<meta name="robots" content="noindex,follow">')
-        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/livia/")
 
     def test_sitemap_returns_public_https_urls_without_noindex_pages(self):
         urls = self.sitemap_urls()

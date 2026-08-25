@@ -222,20 +222,8 @@ def sistemas_websites_python(request):
     return render(request, "institutional/demos/sistemas-websites-python.html")
 
 
-def livia(request):
-    return render(request, "institutional/demos/livia.html")
-
-
-def camaras_climaticas(request):
-    return render(request, "institutional/demos/camaras-climaticas.html")
-
-
 def manutencao_industrial_campo(request):
     return render(request, "institutional/demos/manutencao-industrial-campo.html")
-
-
-def ai_video_interaction_platform(request):
-    return render(request, "institutional/demos/ai-video-interaction-platform.html")
 
 
 def xyron(request):
@@ -290,30 +278,6 @@ def xyron_mowerbot(request):
     return _render_xyron_robot(request, "mowerbot")
 
 
-def robotica_educacional(request):
-    return render(request, "institutional/landing/robotica-educacional.html")
-
-
-def robo_seguranca_condominios(request):
-    return render(request, "institutional/landing/robo-seguranca-condominios.html")
-
-
-def disabled_commercial_landing(request):
-    raise Http404("Landing page temporariamente desabilitada.")
-
-
-def camara_climatica(request):
-    return render(request, "institutional/landing/camara-climatica.html")
-
-
-def ai_web_solutions_startups(request):
-    return render(request, "institutional/demos/ai-web-solutions-startups.html")
-
-
-def engenharia_serralheria_industrial(request):
-    return render(request, "institutional/demos/engenharia-serralheria-industrial.html")
-
-
 def mitsubishi_automacao_industrial(request):
     return render(request, "institutional/demos/mitsubishi-automacao-industrial.html")
 
@@ -335,7 +299,7 @@ def blog(request):
 
 
 def blog_list(request):
-    return redirect("institutional:blog", permanent=True)
+    return _permanent_redirect_to_route(request, "institutional:blog")
 
 
 def blog_detail(request, slug):
@@ -359,10 +323,10 @@ def blog_detail(request, slug):
 
 
 def blog_details(request):
-    return redirect(
+    return _permanent_redirect_to_route(
+        request,
         "institutional:blog_detail",
         slug="selecao-controladores-ativos-alta-severidade",
-        permanent=True,
     )
 
 

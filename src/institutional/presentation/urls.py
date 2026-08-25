@@ -23,17 +23,10 @@ urlpatterns = [
         views.sistemas_websites_python,
         name="sistemas_websites_python",
     ),
-    path("livia/", views.livia, name="livia"),
-    path("camaras-climaticas/", views.camaras_climaticas, name="camaras_climaticas"),
     path(
         "manutencao-industrial-campo/",
         views.manutencao_industrial_campo,
         name="manutencao_industrial_campo",
-    ),
-    path(
-        "ai-video-interaction-platform/",
-        views.ai_video_interaction_platform,
-        name="ai_video_interaction_platform",
     ),
     path("xyron/", views.xyron, name="xyron"),
     path("xyron/littlebot/", views.xyron_littlebot, name="xyron_littlebot"),
@@ -45,27 +38,6 @@ urlpatterns = [
     path("xyron/carebot/", views.xyron_carebot, name="xyron_carebot"),
     path("xyron/hostbot/", views.xyron_hostbot, name="xyron_hostbot"),
     path("xyron/mowerbot/", views.xyron_mowerbot, name="xyron_mowerbot"),
-    path(
-        "robotica-educacional/",
-        views.disabled_commercial_landing,
-        name="robotica_educacional",
-    ),
-    path(
-        "robo-seguranca-condominios/",
-        views.disabled_commercial_landing,
-        name="robo_seguranca_condominios",
-    ),
-    path("camara-climatica/", views.disabled_commercial_landing, name="camara_climatica"),
-    path(
-        "ai-web-solutions-startups/",
-        views.ai_web_solutions_startups,
-        name="ai_web_solutions_startups",
-    ),
-    path(
-        "engenharia-serralheria-industrial/",
-        views.disabled_commercial_landing,
-        name="engenharia_serralheria_industrial",
-    ),
     path(
         "mitsubishi-automacao-industrial/",
         views.mitsubishi_automacao_industrial,
