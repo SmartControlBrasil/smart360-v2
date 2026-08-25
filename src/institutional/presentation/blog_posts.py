@@ -556,14 +556,14 @@ BLOG_POSTS = {
             {
                 "heading": "Onde a robótica aplicada pode gerar valor",
                 "paragraphs": [
-                    "Na educação, robôs podem aproximar estudantes de tecnologia e apoiar experiências interativas. Em recepção e atendimento, podem orientar visitantes e apresentar informações. Em segurança e monitoramento, podem apoiar patrulhamento e observação de rotinas. Em serviços, podem assumir ciclos repetitivos, como limpeza ou apoio operacional.",
+                    "Na educação, robôs podem aproximar estudantes de tecnologia e apoiar experiências interativas. Em recepção e atendimento, podem orientar visitantes e apresentar informações; em aplicações de host, o <a href=\"/xyron/hostbot/\">HostBot</a> aparece no ecossistema Xyron como opção voltada a recepção, eventos e comunicação visual. Em segurança e monitoramento, podem apoiar patrulhamento e observação de rotinas. Em serviços, podem assumir ciclos repetitivos, como limpeza ou apoio operacional.",
                     "Essas aplicações não significam substituição automática de pessoas. Em muitos projetos, o valor está em liberar a equipe de tarefas repetitivas, padronizar pontos do atendimento, ampliar disponibilidade ou gerar dados para acompanhar a operação.",
                 ],
             },
             {
                 "heading": "Xyron Robotics como ecossistema de aplicações",
                 "paragraphs": [
-                    "A <a href=\"/xyron/\">linha de robôs Xyron Robotics</a> reúne soluções para diferentes contextos. O <a href=\"/xyron/littlebot/\">LIRO / Little Bot</a> está associado no projeto a robótica educacional e interação; o <a href=\"/xyron/neo-bot/\">Neo Bot</a> aparece como solução de recepção e atendimento; o <a href=\"/xyron/orbit/\">Orbit Bot</a> é apresentado para patrulhamento e segurança; e o <a href=\"/xyron/hygibot-dune-bot/\">HygiBot / Dune Bot</a> é descrito para limpeza autônoma em grandes áreas.",
+                    "A <a href=\"/xyron/\">linha de robôs Xyron Robotics</a> reúne soluções para diferentes contextos. O <a href=\"/xyron/littlebot/\">LIRO / Little Bot</a> está associado no projeto a robótica educacional e interação; o <a href=\"/xyron/neo-bot/\">Neo Bot</a> aparece como solução de recepção e atendimento; o <a href=\"/xyron/orbit/\">Orbit Bot</a> é apresentado para patrulhamento e segurança; o <a href=\"/xyron/hygibot-dune-bot/\">HygiBot / Dune Bot</a> é descrito para limpeza autônoma em grandes áreas; o <a href=\"/xyron/mowerbot/\">MowerBot</a> é apresentado para corte de grama por controle remoto em áreas externas; o <a href=\"/xyron/buddy-bot/\">Buddy Bot</a> aparece como robô quadrúpede para inspeção e segurança; e o <a href=\"/xyron/carebot/\">CareBot</a> fica associado a aplicações assistivas em saúde e atendimento.",
                     "O ponto não é transformar o artigo em catálogo. Esses exemplos mostram que cada aplicação exige critérios próprios: público, ambiente, rotina, infraestrutura, responsáveis, manutenção e medição.",
                 ],
             },
@@ -827,69 +827,288 @@ BLOG_POSTS = {
         "cta_text": "Solicitar diagnóstico de manutenção",
     },
     "historico-indicadores-decisoes-consistentes": {
-        "title": "Histórico Organizado e Indicadores para Decisões Mais Consistentes",
+        "title": "Histórico e Indicadores para Decisões na Gestão de Ativos",
+        "seo_title": "Gestão de Ativos: Histórico e Indicadores para Decisão | Smart Control Brasil",
         "category": "Gestão de Ativos",
         "image": "institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp",
         "alt": "Histórico organizado de ativos e indicadores para decisões de manutenção",
-        "meta_description": "Importância de registros, ordens de serviço, custos, indicadores e recorrência para gestão de ativos.",
-        "intro": "A gestão de ativos ganha consistência quando falhas, intervenções, peças, custos e tempos de indisponibilidade deixam de depender da memória das pessoas e passam a formar um histórico confiável.",
+        "meta_description": "Veja como estruturar histórico de manutenção, ordens de serviço e indicadores como MTBF, MTTR, backlog e custos para apoiar decisões sobre ativos.",
+        "intro": "Registro não é histórico. Uma anotação como troca de sensor é dado isolado; associada ao ativo, data, falha, tempo parado, causa, peça e recorrência, compõe histórico útil. A gestão de ativos transforma dado, registro, histórico, indicador e informação em decisões mais consistentes.",
         "sections": [
             {
-                "heading": "O que registrar",
+                "heading": "O que um histórico de manutenção precisa responder",
                 "paragraphs": [
-                    "Registros de falhas, ordens de serviço, peças substituídas, tempo de indisponibilidade, sintomas, causa provável, ação executada e responsável técnico formam a base para análises futuras.",
-                    "O registro deve ser simples o suficiente para ser usado na rotina e completo o suficiente para apoiar decisões. Informação incompleta dificulta análise de recorrência e comparação de alternativas.",
+                    "Um bom histórico responde o que falhou, quando, quantas vezes, em qual ativo, qual causa, quanto tempo ficou parado, como foi corrigido, qual peça foi usada, se voltou a ocorrer, quanto custou e se há padrão.",
+                    "Essas respostas reduzem subjetividade. A equipe deixa de decidir pela última urgência e passa a enxergar recorrência, impacto, criticidade e tendência.",
                 ],
             },
             {
-                "heading": "Indicadores de manutenção",
+                "heading": "O que registrar em uma ordem de serviço",
                 "paragraphs": [
-                    "Indicadores como disponibilidade, recorrência de falhas, custo por ativo, tempo de atendimento, backlog e MTTR ajudam a enxergar padrões. Eles também mostram quais ativos consomem mais esforço técnico ou oferecem maior risco ao processo.",
-                    "Quando os indicadores são acompanhados de contexto, deixam de ser apenas números e passam a indicar prioridade de ação.",
+                    "A ordem de serviço pode registrar ativo, local, data e hora, sintoma, modo de falha, causa, atividade executada, tempo de parada, tempo de reparo, peças, responsável, condição final e observações. Não é obrigação legal universal; é referência para histórico utilizável.",
+                    "Uma OS preenchida apenas com equipamento reparado fecha a ordem, mas quase não alimenta conhecimento técnico. Alimentar o histórico deixa rastro para diagnóstico, orçamento, confiabilidade e decisão sobre o ativo.",
                 ],
             },
             {
-                "heading": "Reparar, modernizar ou substituir",
+                "heading": "Padronização dos registros",
                 "paragraphs": [
-                    "Decidir entre reparar, modernizar ou substituir exige comparar histórico, custo de manutenção, disponibilidade de peças, risco de obsolescência e impacto operacional. Sem dados, essa decisão tende a ficar subjetiva.",
-                    "Um histórico organizado cria base para planejamento técnico, orçamento mais realista e evolução dos ativos com menor risco.",
+                    "Dados livres demais dificultam análise. Motor queimado, troca motor, motor ruim e falha motor podem representar a mesma ocorrência, mas aparecem como eventos diferentes quando não há padrão mínimo.",
+                    "Padronizar ativos, falhas, causas, atividades e componentes ajuda a encontrar padrões sem taxonomia rígida. A rotina deve ser simples de usar e consistente para comparar.",
+                ],
+            },
+            {
+                "heading": "Indicadores devem responder perguntas",
+                "paragraphs": [
+                    "Indicador não existe apenas para ter dashboard. MTBF pergunta com que frequência o ativo falha. MTTR mostra o tempo de restauração. Backlog indica trabalho pendente. Disponibilidade mostra tempo apto a operar. Custo por ativo revela gastos. Recorrência mostra falhas que voltam.",
+                    "Se o indicador não apoia decisão, vira ruído. A pergunta vem antes do gráfico: qual dado reduz incerteza?",
+                ],
+            },
+            {
+                "heading": "MTBF e MTTR no contexto do ativo",
+                "paragraphs": [
+                    "Para ativos reparáveis, MTBF = tempo de operação / número de falhas. MTTR = tempo total de reparo / quantidade de reparos. O primeiro ajuda a observar frequência; o segundo revela capacidade de recuperação, incluindo diagnóstico, acesso, peças, documentação, conhecimento e parametrização.",
+                    "Esses conceitos são aprofundados no artigo sobre <a href=\"/blog/reducao-paradas-inesperadas-planejamento-tecnico/\">redução de paradas inesperadas e planejamento de manutenção</a>. Aqui, o ponto central é garantir que os dados usados nos indicadores sejam confiáveis e comparáveis.",
+                ],
+            },
+            {
+                "heading": "Backlog, custos e recorrência",
+                "paragraphs": [
+                    "Backlog é o volume de trabalho pendente. Ele deve ser visto por quantidade, prioridade, criticidade, recursos e idade das pendências, sem valor ideal universal. Backlog em ativo crítico pesa mais que pendência simples.",
+                    "Custos por ativo incluem peças, mão de obra, serviços, parada, modernizações e intervenções recorrentes. Já recorrência mostra falhas que voltam por causa não eliminada, especificação inadequada, instalação, operação, ambiente, obsolescência ou problema sistêmico. Esse olhar se conecta à discussão sobre <a href=\"/blog/eliminar-gargalos-autonomia-previsibilidade/\">gargalos, autonomia e previsibilidade operacional</a>.",
+                ],
+            },
+            {
+                "heading": "Indicadores sem contexto podem enganar",
+                "paragraphs": [
+                    "Um MTBF pode melhorar porque o ativo produziu menos. O MTTR pode cair porque reparos complexos foram terceirizados e ficaram fora do registro. Custos podem diminuir porque manutenção foi postergada. Esses exemplos não são casos reais; são alertas de interpretação.",
+                    "Por isso, indicador precisa de contexto: volume produzido, regime, criticidade, mudanças no processo, peças e qualidade do registro. Sem isso, o número parece objetivo, mas pode conduzir mal.",
+                ],
+            },
+            {
+                "heading": "Histórico ajuda a separar sintoma de padrão",
+                "paragraphs": [
+                    "Um evento isolado pede restauração. A recorrência sugere padrão. O padrão gera hipótese. A hipótese orienta análise. A análise sustenta decisão. Essa sequência torna a confiabilidade mais prática e menos dependente de intuição.",
+                    "Quando a mesma falha aparece em turnos, operadores, lotes ou condições ambientais semelhantes, o histórico ajuda a investigar causa. A pergunta deixa de ser quem conserta agora e passa a ser por que isso continua voltando.",
+                ],
+            },
+            {
+                "heading": "Criticidade precisa entrar na análise",
+                "paragraphs": [
+                    "Dois ativos com o mesmo número de falhas podem ter prioridades diferentes. Segurança, produção, qualidade, meio ambiente, redundância, tempo de recuperação, custo e disponibilidade de peças mudam o peso de cada ocorrência.",
+                    "Uma classificação ABC pode apoiar a priorização por criticidade, desde que seja usada como orientação, não como regra cega. RCM, ou Manutenção Centrada em Confiabilidade, também contribui ao relacionar função do ativo, falhas, consequências e política de manutenção.",
+                ],
+            },
+            {
+                "heading": "CMMS, sistemas e dados",
+                "paragraphs": [
+                    "Um CMMS ou sistema de gestão da manutenção pode centralizar ativos, OS, planos, histórico, peças e indicadores. A ferramenta ajuda, mas não corrige registros ruins.",
+                    "Dependendo da necessidade, históricos e indicadores podem aparecer em <a href=\"/sistemas-websites-python/\">sistemas web, APIs e dashboards</a>, com relatórios e integrações. O artigo sobre <a href=\"/blog/informacao-precisa-para-agir-melhor/\">dados industriais e informação para decisão</a> aprofunda essa passagem de dado operacional para informação útil.",
+                ],
+            },
+            {
+                "heading": "Reparar, modernizar ou substituir?",
+                "paragraphs": [
+                    "Reparar faz sentido quando o ativo continua tecnicamente adequado e o problema é pontual. Modernizar é mais coerente quando a estrutura principal ainda é válida, mas há obsolescência, limitações de automação, diagnóstico, integração ou dados. Substituir pode fazer sentido quando risco, peças, suporte ou arquitetura tornam a manutenção pouco sustentável.",
+                    "A decisão não deve ser automática. O histórico mostra custo acumulado, recorrência, disponibilidade e tendência. Para aprofundar modernização, veja <a href=\"/blog/equipamentos-sistemas-para-evoluir/\">equipamentos e sistemas para evoluir</a>; para documentação e retrofit, veja <a href=\"/blog/menos-retrabalho-rastreabilidade-retrofit/\">rastreabilidade como base para retrofit</a>.",
+                ],
+            },
+            {
+                "heading": "TCO na gestão do ativo",
+                "paragraphs": [
+                    "TCO, ou Total Cost of Ownership, ajuda a olhar custo total no ciclo de vida: aquisição, operação, manutenção, peças, suporte, parada e atualização. Não é fórmula rígida; é comparação madura.",
+                    "Um ativo barato hoje pode ficar caro se concentra paradas críticas. Retrofit pode reduzir obsolescência sem trocar toda a estrutura; substituição pode fazer sentido quando manter exige esforço crescente.",
+                ],
+            },
+            {
+                "heading": "Matriz textual de decisão",
+                "paragraphs": [
+                    "A matriz relaciona indicador ou evidência, pergunta e possível decisão. Falha recorrente pergunta se a causa foi eliminada. MTTR crescente aponta diagnóstico, peças e documentação. Custo crescente com obsolescência pede avaliar modernização. Baixa criticidade pode justificar manter a estratégia atual.",
+                    "Essa matriz não decide sozinha. Ela vincula reparar, modernizar ou substituir a evidência, impacto e risco.",
+                ],
+            },
+            {
+                "heading": "Exemplo hipotético",
+                "paragraphs": [
+                    "Considere dois ativos semelhantes. O ativo A tem poucas falhas de alto impacto. O ativo B tem várias falhas pequenas, custos recorrentes e backlog. Contar falhas faria o B parecer pior, mas o A pode exigir prioridade por criticidade.",
+                    "A análise correta compara frequência, impacto, tempo parado, custo, criticidade, recorrência e obsolescência. Esse exemplo é hipotético e não usa valores reais.",
+                ],
+            },
+            {
+                "heading": "Checklist para organizar histórico e indicadores",
+                "paragraphs": [
+                    "Um checklist simples ajuda a avaliar se a base de dados já sustenta decisões. Ele não é norma, mas aponta lacunas antes que indicadores virem apenas números bonitos.",
+                ],
+                "items_list": [
+                    "Ativos estão identificados de forma única?",
+                    "Ordens de serviço têm padrão?",
+                    "Falha e causa são diferenciadas?",
+                    "Tempo parado e tempo de reparo são registrados?",
+                    "Peças são associadas ao ativo?",
+                    "Falhas recorrentes podem ser encontradas?",
+                    "MTBF e MTTR usam dados confiáveis?",
+                    "Backlog está priorizado?",
+                    "Custos são associados aos ativos?",
+                    "Criticidade está definida?",
+                    "Decisões de retrofit ou substituição usam evidência?",
                 ],
             },
         ],
-        "highlight": "Histórico organizado transforma manutenção e gestão de ativos em decisões comparáveis, rastreáveis e menos subjetivas.",
+        "faq": [
+            {
+                "question": "O que deve ser registrado em uma ordem de serviço?",
+                "answer": "Uma OS útil registra ativo, data, sintoma, modo de falha, causa, ação, tempos, peças, responsável, condição final e observações.",
+            },
+            {
+                "question": "Quais indicadores de manutenção são mais importantes?",
+                "answer": "Depende do objetivo. MTBF, MTTR, disponibilidade, backlog, recorrência e custos por ativo são comuns quando respondem perguntas reais.",
+            },
+            {
+                "question": "Como o histórico ajuda a decidir entre reparar, modernizar ou substituir?",
+                "answer": "O histórico mostra recorrência, custo, tempo parado, criticidade, peças e tendência, reduzindo decisões subjetivas sobre manter, modernizar ou substituir.",
+            },
+            {
+                "question": "Qual a diferença entre gestão de ativos e manutenção reativa?",
+                "answer": "Manutenção reativa responde à falha. Gestão de ativos usa histórico, criticidade, custos, risco e indicadores para planejar intervenções e tomar decisões ao longo do ciclo de vida.",
+            },
+        ],
+        "highlight": "Histórico de manutenção só gera valor quando transforma registros padronizados em indicadores, contexto e decisões práticas sobre ativos.",
         "cta_text": "Estruturar gestão de ativos",
     },
     "menos-retrabalho-rastreabilidade-retrofit": {
-        "title": "Menos Retrabalho, Mais Rastreabilidade e Base para Retrofit",
+        "title": "Retrofit Industrial: Menos Retrabalho e Mais Rastreabilidade",
+        "seo_title": "Retrofit Industrial: Documentação, Backup e Rastreabilidade | Smart Control Brasil",
         "category": "Retrofit Industrial",
         "image": "institutional/imgs/blog/blog-sem-retrabalho.webp",
         "alt": "Rastreabilidade técnica e documentação como base para retrofit industrial",
-        "meta_description": "Como documentação, backups e rastreabilidade reduzem retrabalho e preparam máquinas para retrofit.",
-        "intro": "Retrabalho técnico muitas vezes nasce antes da intervenção: documentação incompleta, alterações sem registro, programas sem backup e falta de padronização criam incerteza sempre que a máquina precisa ser ajustada.",
+        "meta_description": "Veja como documentação, backups de CLP e IHM, rastreabilidade e levantamento técnico reduzem retrabalho e criam base segura para retrofit.",
+        "intro": "Retrabalho técnico muitas vezes começa antes da execução, quando faltam informação, backup e rastreabilidade. Diagrama desatualizado, programa sem versão, parâmetro sem registro, cabo sem identificação ou alteração não documentada levam a um fluxo ruim: intervenção, descoberta improvisada, tentativa, correção e nova tentativa. O fluxo estruturado começa por levantamento, documentação, backup, análise, planejamento, execução e atualização do histórico.",
         "sections": [
             {
-                "heading": "Causas comuns de retrabalho",
+                "heading": "O que é retrabalho técnico",
                 "paragraphs": [
-                    "Diagramas desatualizados, parâmetros não registrados, alterações emergenciais sem validação, ausência de versão de programa e identificação inadequada de cabos e componentes aumentam o tempo de diagnóstico.",
-                    "Cada intervenção passa a depender de redescobrir o que já deveria estar documentado. Isso eleva risco de erro, tempo de parada e custo técnico.",
+                    "Retrabalho é repetição de esforço causada por informação incompleta, diagnóstico incorreto, documentação inadequada, alteração sem rastreabilidade, configuração perdida ou intervenção sem planejamento. Ele não deve ser tratado apenas como erro humano; muitas vezes nasce de um ambiente técnico sem base confiável.",
+                    "Em manutenção e automação, retrabalho aparece quando a equipe precisa redescobrir ligações, versões, parâmetros e lógica de funcionamento a cada parada. Isso aumenta risco de erro, tempo de diagnóstico e dependência de pessoas específicas.",
                 ],
             },
             {
-                "heading": "Backup e rastreabilidade de alterações",
+                "heading": "Levantamento técnico antes de alterar",
                 "paragraphs": [
-                    "Backups de CLPs, IHMs, inversores e equipamentos devem ser organizados por ativo, versão, data, responsável e motivo da alteração. A rastreabilidade permite saber o que mudou, por que mudou e como retornar a uma condição anterior quando necessário.",
-                    "Padronizar programas, diagramas e nomenclaturas também facilita suporte, treinamento e transferência de conhecimento entre equipes.",
+                    "Antes de alterar máquina, painel ou sistema de automação, o levantamento técnico cria uma fotografia do estado atual. Ele pode incluir identificação do equipamento, arquitetura existente, painel, alimentação, dispositivos, sinais, controladores, interfaces, acionamentos, comunicação, versões e documentação disponível.",
+                    "Esse levantamento não precisa virar burocracia universal. O objetivo é entender o que existe, o que está confiável, o que está incerto e quais pontos oferecem risco para a intervenção. Serviços de <a href=\"/manutencao-industrial-campo/\">manutenção industrial em campo</a> ganham qualidade quando partem dessa leitura real do ativo.",
                 ],
             },
             {
-                "heading": "Base técnica para retrofit",
+                "heading": "Documentação as-built",
                 "paragraphs": [
-                    "O levantamento técnico da máquina cria uma fotografia confiável do estado atual: arquitetura, interfaces, sinais, limitações, riscos e oportunidades de melhoria.",
-                    "Com essa base, o retrofit deixa de ser uma aposta e passa a ser um projeto com escopo, prioridades e riscos conhecidos. O resultado é menos retrabalho e mais segurança em futuras intervenções.",
+                    "Documentação as-built representa a condição realmente encontrada ou implantada, não apenas o projeto idealizado no início. Em automação e painéis, pode incluir diagramas elétricos, arquitetura, identificação de componentes, lista de sinais, conexões, versões e alterações realizadas.",
+                    "Quando o as-built está ausente, qualquer intervenção começa com dúvida. A equipe não sabe se o desenho corresponde ao campo, se uma ligação foi alterada, se o programa ativo é o mesmo arquivado ou se a parametrização atual foi registrada.",
+                ],
+            },
+            {
+                "heading": "Lista de I/O e sinais de campo",
+                "paragraphs": [
+                    "A I/O list, ou lista de entradas e saídas, ajuda a relacionar sinal físico, endereço, dispositivo, função e condição de campo. Ela é especialmente útil quando há CLP, sensores, atuadores, intertravamentos, alarmes e interfaces de operação.",
+                    "Não se trata de criar um padrão obrigatório para todo projeto. A lista deve ajudar a equipe a entender o processo, testar sinais, localizar falhas e planejar mudanças com menos tentativa e erro.",
+                ],
+            },
+            {
+                "heading": "Backup de CLP e IHM",
+                "paragraphs": [
+                    "Backups de CLP e IHM são críticos porque guardam lógica, telas, parâmetros, receitas quando aplicável, versão, data e identificação do equipamento. Em projetos com <a href=\"/mitsubishi-automacao-industrial/\">automação industrial Mitsubishi</a>, essa organização também apoia diagnóstico, modernização e continuidade operacional.",
+                    "Backup não é só copiar um arquivo. Um backup útil precisa permitir saber de qual equipamento veio, quando foi coletado, qual versão representa, se corresponde ao estado atual e qual ferramenta ou software é necessário para restaurar ou comparar.",
+                ],
+            },
+            {
+                "heading": "Versionamento de software e parâmetros",
+                "paragraphs": [
+                    "O versionamento não significa obrigar todo CLP ou IHM a seguir Git. Significa registrar versão anterior, versão nova, motivo, responsável, data e mudança realizada. Esse cuidado permite entender por que uma lógica foi alterada e qual condição ficou ativa depois da intervenção.",
+                    "Parâmetros também fazem parte da configuração. Inversores, servos, controladores, instrumentos e dispositivos configuráveis podem depender de ajustes que não aparecem no desenho elétrico. Substituir hardware sem conhecer parâmetros pode gerar novo retrabalho.",
+                ],
+            },
+            {
+                "heading": "Rastreabilidade das alterações",
+                "paragraphs": [
+                    "Uma alteração rastreável responde o que mudou, por que mudou, quando, quem executou, qual versão ficou ativa e qual efeito era esperado. Essa trilha evita discussões baseadas em memória e ajuda a retornar à condição anterior quando tecnicamente viável.",
+                    "A rastreabilidade se conecta ao tema de <a href=\"/blog/historico-indicadores-decisoes-consistentes/\">histórico e indicadores para gestão de ativos</a>. Sem registro de mudança, o histórico fica incompleto e a próxima decisão técnica começa novamente do zero.",
+                ],
+            },
+            {
+                "heading": "Documentação e paradas inesperadas",
+                "paragraphs": [
+                    "Boa documentação reduz tempo de diagnóstico, localização, entendimento, parametrização e recuperação. Quando peças, programas e versões estão identificados, a equipe perde menos tempo confirmando informações básicas durante a parada.",
+                    "Isso não permite prometer redução quantitativa universal, mas cria base para reduzir impacto. O artigo sobre <a href=\"/blog/reducao-paradas-inesperadas-planejamento-tecnico/\">redução de paradas inesperadas</a> aprofunda como histórico, MTBF, MTTR e planejamento ajudam a tratar recorrência e recuperação.",
+                ],
+            },
+            {
+                "heading": "Quando o levantamento revela necessidade de modernização",
+                "paragraphs": [
+                    "O levantamento pode revelar obsolescência, falta de documentação, componentes sem suporte, painéis muito alterados, arquitetura difícil de manter ou limitações de integração. Nesses casos, corrigir apenas o sintoma pode manter a operação presa ao mesmo risco.",
+                    "Retrofit não começa pela compra. Começa por entender o estado atual e decidir o que manter, alterar, substituir e integrar. A discussão sobre <a href=\"/blog/equipamentos-sistemas-para-evoluir/\">modernização de equipamentos e sistemas</a> aprofunda a escolha entre retrofit e substituição.",
+                ],
+            },
+            {
+                "heading": "Retrofit por etapas",
+                "paragraphs": [
+                    "Um fluxo conceitual pode seguir levantamento, backup, documentação, análise de riscos e obsolescência, definição de arquitetura, planejamento da intervenção, execução, testes, atualização as-built e registro final. Não é procedimento obrigatório, mas ajuda a reduzir improviso.",
+                    "Em ambientes severos, a seleção ou substituição de controladores também deve considerar ambiente, suporte, expansão e criticidade. Esse ponto se conecta ao artigo sobre <a href=\"/blog/selecao-controladores-ativos-alta-severidade/\">seleção de controladores e ativos de alta severidade</a>.",
+                ],
+            },
+            {
+                "heading": "Integração de dados também precisa ser documentada",
+                "paragraphs": [
+                    "Quando existem APIs, bancos, dashboards, sistemas web ou comunicação com aplicações externas, as interfaces digitais também fazem parte da arquitetura. Endereços, responsáveis, campos, eventos, periodicidade e dependências precisam ser conhecidos.",
+                    "Essa documentação evita que a modernização resolva o painel, mas quebre o fluxo de informação. Soluções de <a href=\"/sistemas-websites-python/\">sistemas web, APIs e dashboards</a> e o artigo sobre <a href=\"/blog/informacao-precisa-para-agir-melhor/\">informação precisa para agir melhor</a> complementam essa visão.",
+                ],
+            },
+            {
+                "heading": "Exemplo hipotético",
+                "paragraphs": [
+                    "Considere uma máquina com CLP, IHM e inversores que passou por muitas alterações ao longo dos anos. O diagrama é antigo, o programa não tem versão identificada, parâmetros não estão documentados, cabos foram alterados e o histórico é incompleto.",
+                    "Iniciar retrofit direto pela troca de componentes aumenta risco. A abordagem mais segura é levantar o campo, coletar backups, comparar com a documentação, identificar diferenças, planejar a intervenção, executar o retrofit e atualizar o as-built. Esse exemplo é hipotético e não usa cliente real.",
+                ],
+            },
+            {
+                "heading": "Checklist antes de iniciar um retrofit",
+                "paragraphs": [
+                    "Um checklist simples ajuda a organizar o início do trabalho. Ele não é norma, mas reduz pontos cegos antes de alterar hardware, software ou configuração.",
+                ],
+                "items_list": [
+                    "Equipamento está corretamente identificado?",
+                    "Documentação atual corresponde ao campo?",
+                    "Existem diagramas disponíveis?",
+                    "CLP possui backup identificado?",
+                    "IHM possui projeto ou backup?",
+                    "Parâmetros de inversores estão registrados?",
+                    "Versões são conhecidas?",
+                    "Lista de I/O está atualizada?",
+                    "Alterações anteriores estão documentadas?",
+                    "Peças críticas estão identificadas?",
+                    "Interfaces de comunicação são conhecidas?",
+                    "Riscos de parada foram avaliados?",
+                    "Existe plano de retorno quando aplicável?",
+                    "O as-built será atualizado após a intervenção?",
                 ],
             },
         ],
-        "highlight": "Rastreabilidade técnica e documentação confiável reduzem retrabalho e criam base mais segura para retrofit industrial.",
+        "faq": [
+            {
+                "question": "O que deve ser documentado antes de um retrofit?",
+                "answer": "Devem ser levantados equipamento, arquitetura, painéis, sinais, controladores, interfaces, versões, diagramas, parâmetros, backups disponíveis, alterações anteriores e riscos principais da intervenção.",
+            },
+            {
+                "question": "Como organizar backups de CLP e IHM?",
+                "answer": "Um backup útil deve indicar equipamento, data, versão, responsável, ferramenta necessária e se representa o estado atual. Também deve ser possível localizar e restaurar o arquivo quando tecnicamente viável.",
+            },
+            {
+                "question": "O que é documentação as-built?",
+                "answer": "As-built é a documentação que representa a condição realmente encontrada ou implantada, incluindo diagramas, componentes, conexões, sinais, versões e alterações realizadas conforme a aplicação.",
+            },
+            {
+                "question": "Quando um levantamento técnico indica que é melhor modernizar ou substituir?",
+                "answer": "Quando aparecem obsolescência, falta de suporte, documentação inconsistente, arquitetura difícil de manter, limitações de integração ou risco crescente, o levantamento pode indicar modernização ou substituição como alternativa mais segura.",
+            },
+        ],
+        "highlight": "Retrofit industrial com menos retrabalho começa por levantamento técnico, backups identificáveis, documentação as-built e rastreabilidade das alterações.",
         "cta_text": "Solicitar levantamento técnico e retrofit",
     },
 }

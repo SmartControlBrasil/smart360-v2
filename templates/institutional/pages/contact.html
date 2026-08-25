@@ -57,7 +57,7 @@
                     <div class="breadcrumb__content">
                         <div class="breadcrumb__title-wrapper">
                             <h1 class="breadcrumb__title">
-                                Entre em Contato
+                                Contato e Orçamento em Automação Industrial e Robótica
                             </h1>
                         </div>
 
@@ -119,9 +119,19 @@
                         </h2>
 
                         <p>
-                            Envie as informações da sua necessidade. Nossa equipe
-                            analisará o projeto e entrará em contato para entender
-                            os detalhes técnicos e comerciais.
+                            Envie informações sobre sua necessidade em
+                            <a href="{% url 'institutional:services' %}">automação industrial</a>,
+                            <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Mitsubishi Electric</a>,
+                            <a href="{% url 'institutional:xyron' %}">robótica Xyron</a>,
+                            <a href="{% url 'institutional:manutencao_industrial_campo' %}">manutenção industrial e retrofit</a>,
+                            integração de dados ou
+                            <a href="{% url 'institutional:sistemas_websites_python' %}">sistemas web em Python/Django</a>.
+                        </p>
+                        <p>
+                            Use a mensagem para contextualizar equipamento, processo,
+                            sistema, sintoma técnico ou objetivo comercial. Assim, a
+                            equipe consegue avaliar o assunto com mais clareza antes
+                            do retorno.
                         </p>
                         <p>
                             Telefone:
@@ -130,6 +140,11 @@
                             E-mail:
                             <a href="mailto:comercial@smartcontrolbrasil.com.br">comercial@smartcontrolbrasil.com.br</a>
                         </p>
+                        <address>
+                            Localização:<br>
+                            R. Agnaldo Alves Silva - Jardim Maristela<br>
+                            Itapevi - SP, 06663-160
+                        </address>
                     </div>
 
                     {% if messages %}
@@ -319,6 +334,50 @@
 </section>
 <!-- contact area end -->
 
+
+
+
+<!-- contact faq start -->
+<section class="faq__area ask-question p-relative overflow-hidden section-space-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper">
+                    <span class="section__subtitle">
+                        Dúvidas frequentes
+                    </span>
+
+                    <h2 class="section__title-wrapper-title">
+                        Dúvidas frequentes sobre o contato
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-20">
+            <div class="col-lg-6">
+                <h3>Quais serviços posso solicitar pelo formulário?</h3>
+                <p>O formulário pode ser usado para assuntos relacionados a automação industrial, robótica, manutenção industrial e sistemas web, conforme as soluções apresentadas no site.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h3>Posso solicitar atendimento para manutenção e retrofit?</h3>
+                <p>Sim. Você pode descrever necessidades de manutenção industrial, diagnóstico técnico, retrofit, comissionamento ou apoio em equipamentos e sistemas existentes.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h3>Posso falar sobre projetos de automação Mitsubishi Electric ou robótica Xyron?</h3>
+                <p>Sim. O formulário pode ser usado para contato comercial ou técnico sobre soluções de automação Mitsubishi Electric e robótica Xyron apresentadas pela Smart Control Brasil.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h3>Quais informações ajudam na análise de uma solicitação técnica?</h3>
+                <p>Descreva o tipo de equipamento ou projeto, a necessidade principal, sintomas observados em casos de manutenção, localização da aplicação e documentos ou fotos que possam ser descritos na mensagem.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contact faq end -->
 
 <!-- contact map start -->
 <section class="contact-map section-space-bottom">

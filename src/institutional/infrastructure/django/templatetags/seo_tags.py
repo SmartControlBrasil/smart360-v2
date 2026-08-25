@@ -27,6 +27,34 @@ ORGANIZATION_LOGO = "institutional/imgs/images/header/logo-cores-03.webp"
 SOCIAL_SITE_NAME = "Smart Control Brasil"
 ORGANIZATION_EMAIL = "comercial@smartcontrolbrasil.com.br"
 ORGANIZATION_TELEPHONE = "+551151968525"
+ORGANIZATION_ID = "https://www.smartcontrolbrasil.com.br/#organization"
+ORGANIZATION_ADDRESS = {
+    "@type": "PostalAddress",
+    "streetAddress": "R. Agnaldo Alves Silva - Jardim Maristela",
+    "addressLocality": "Itapevi",
+    "addressRegion": "SP",
+    "postalCode": "06663-160",
+    "addressCountry": "BR",
+}
+
+CONTACT_PAGE_FAQS = [
+    (
+        "Quais serviços posso solicitar pelo formulário?",
+        "O formulário pode ser usado para assuntos relacionados a automação industrial, robótica, manutenção industrial e sistemas web, conforme as soluções apresentadas no site.",
+    ),
+    (
+        "Posso solicitar atendimento para manutenção e retrofit?",
+        "Sim. Você pode descrever necessidades de manutenção industrial, diagnóstico técnico, retrofit, comissionamento ou apoio em equipamentos e sistemas existentes.",
+    ),
+    (
+        "Posso falar sobre projetos de automação Mitsubishi Electric ou robótica Xyron?",
+        "Sim. O formulário pode ser usado para contato comercial ou técnico sobre soluções de automação Mitsubishi Electric e robótica Xyron apresentadas pela Smart Control Brasil.",
+    ),
+    (
+        "Quais informações ajudam na análise de uma solicitação técnica?",
+        "Descreva o tipo de equipamento ou projeto, a necessidade principal, sintomas observados em casos de manutenção, localização da aplicação e documentos ou fotos que possam ser descritos na mensagem.",
+    ),
+]
 
 ROUTE_METADATA = {
     "home": {
@@ -258,12 +286,14 @@ def _site_url(path="/"):
 
 def _organization_schema():
     return {
+        "@id": ORGANIZATION_ID,
         "@type": "Organization",
         "name": SOCIAL_SITE_NAME,
         "url": settings.PUBLIC_SITE_URL,
         "logo": _static_public_url(ORGANIZATION_LOGO),
         "email": getattr(settings, "CONTACT_RECIPIENT_EMAIL", ORGANIZATION_EMAIL),
         "telephone": ORGANIZATION_TELEPHONE,
+        "address": ORGANIZATION_ADDRESS,
         "areaServed": "Brasil",
         "knowsAbout": [
             "Automação Industrial",
@@ -329,6 +359,7 @@ def _breadcrumb_items(context):
         "about": "Sobre",
         "services": "Serviços",
         "blog": "Blog",
+        "contact": "Contato",
     }
     if route_name in page_names:
         return [home, (page_names[route_name], canonical_url(context))]
@@ -520,6 +551,20 @@ def _about_page_schema(context):
     }
 
 
+def _contact_page_schema(context):
+    if _route_name(context) != "contact":
+        return None
+
+    return {
+        "@type": "ContactPage",
+        "name": _route_metadata(context).get("title", "Contato Smart Control Brasil"),
+        "url": canonical_url(context),
+        "description": _route_metadata(context).get("description", DEFAULT_DESCRIPTION),
+        "about": {"@id": ORGANIZATION_ID},
+        "provider": {"@id": ORGANIZATION_ID},
+    }
+
+
 def _service_schema(context):
     route_name = _route_name(context)
     if route_name == "xyron":
@@ -648,6 +693,7 @@ def _faq_page_schema(context):
         }
 
     route_name = _route_name(context)
+    robot = _robot(context)
     if route_name == "home":
         faqs = [
             (
@@ -667,6 +713,177 @@ def _faq_page_schema(context):
                 "Sim. Oferecemos sustentação técnica, manutenção preventiva, diagnóstico de falhas, suporte especializado e expansões programadas para preservar a confiabilidade e acompanhar a evolução do sistema implantado.",
             ),
         ]
+    elif robot and robot.get("key") == "carebot":
+        faqs = [
+            (
+                "O que é o CareBot?",
+                "É o robô da linha Xyron Robotics direcionado a apoio assistivo e interação em ambientes de saúde, atendimento e cuidado.",
+            ),
+            (
+                "O CareBot substitui profissionais de saúde?",
+                "Não. O CareBot não substitui médicos, enfermeiros, farmacêuticos ou outros profissionais de saúde; sua aplicação deve ser tratada como apoio assistivo e tecnológico.",
+            ),
+            (
+                "Em quais tipos de ambiente o CareBot pode ser avaliado?",
+                "Ele pode ser avaliado para residências, clínicas, hospitais, farmácias e ambientes de saúde e atendimento, conforme objetivo assistivo, infraestrutura e responsáveis locais.",
+            ),
+            (
+                "O que deve ser considerado antes de implantar uma solução robótica em saúde?",
+                "É importante avaliar finalidade, ambiente, fluxo, pessoas envolvidas, privacidade, infraestrutura, responsabilidades e integração à rotina de atendimento.",
+            ),
+        ]
+    elif robot and robot.get("key") == "hostbot":
+        faqs = [
+            (
+                "O que é o HostBot?",
+                "É o robô host da linha Xyron Robotics para recepção, eventos e comunicação visual com visitantes.",
+            ),
+            (
+                "Para quais tipos de ambiente o HostBot pode ser utilizado?",
+                "Ele pode ser avaliado para recepção, eventos, empresas, museus, galerias e bancos, conforme objetivo da experiência, fluxo de visitantes e conteúdo a apresentar.",
+            ),
+            (
+                "Qual a diferença entre HostBot e Neo Bot?",
+                "O HostBot enfatiza função host, duas telas e comunicação visual para recepção e eventos; o Neo Bot é apresentado como robô de recepção e atendimento, com diálogo multilíngue, IA e apoio à apresentação de produtos.",
+            ),
+            (
+                "O que deve ser avaliado antes de implantar um robô de recepção ou eventos?",
+                "É importante avaliar objetivo, ambiente, fluxo de pessoas, conteúdo, interação esperada, infraestrutura, responsáveis e critérios para medir a experiência.",
+            ),
+        ]
+    elif robot and robot.get("key") == "buddy_bot":
+        faqs = [
+            (
+                "O que é o Buddy Bot?",
+                "O Buddy Bot é um robô quadrúpede voltado a inspeção, segurança patrimonial, engenharia, obras e áreas de difícil acesso.",
+            ),
+            (
+                "Em quais tipos de aplicação o Buddy Bot pode ser utilizado?",
+                "Ele pode ser avaliado para inspeção, segurança patrimonial, engenharia, obras e áreas em que o acesso exige análise cuidadosa de mobilidade, ambiente e operação.",
+            ),
+            (
+                "Como um robô quadrúpede pode apoiar uma inspeção?",
+                "Ele pode servir como plataforma móvel de apoio para observação e acompanhamento de áreas compatíveis, desde que a tarefa, o ambiente e os responsáveis estejam definidos.",
+            ),
+            (
+                "O que deve ser avaliado antes de implantar um robô para inspeção?",
+                "É importante avaliar superfície, obstáculos, acesso, risco, tarefa, infraestrutura, rotina de operação e equipe responsável pelo acompanhamento.",
+            ),
+        ]
+    elif robot and robot.get("key") == "hygibot_dune_bot":
+        faqs = [
+            (
+                "O que é o HygiBot / Dune Bot?",
+                "O HygiBot / Dune Bot é uma solução de limpeza autônoma para grandes áreas, com funções de lavar, varrer, aspirar e passar pano conforme a aplicação avaliada.",
+            ),
+            (
+                "Quais tipos de limpeza o HygiBot / Dune Bot pode realizar?",
+                "A solução reúne modos de lavar, varrer, aspirar e passar pano. A escolha do modo depende do piso, do tipo de sujeira, da rotina e do ambiente.",
+            ),
+            (
+                "Em quais ambientes ele pode ser utilizado?",
+                "Ele pode ser avaliado para shoppings, indústrias, hospitais e grandes áreas. Em hospitais, a aplicação deve respeitar áreas compatíveis, protocolos locais e restrições da instituição.",
+            ),
+            (
+                "O que deve ser avaliado antes de implantar um robô de limpeza autônoma?",
+                "É importante avaliar área, piso, fluxo de pessoas, horários, obstáculos, responsáveis, frequência de limpeza e objetivo operacional. Indicadores e rotina devem orientar a decisão.",
+            ),
+        ]
+    elif robot and robot.get("key") == "waiter_bot":
+        faqs = [
+            (
+                "O que é o Waiter Bot?",
+                "O Waiter Bot é uma solução robótica para apoiar entregas internas, deslocamentos e rotinas operacionais em locais de serviço e atendimento.",
+            ),
+            (
+                "Em quais ambientes o Waiter Bot pode ser utilizado?",
+                "Ele pode ser avaliado para restaurantes, hotéis, supermercados e outros ambientes de atendimento que tenham rotinas de entrega, deslocamento interno ou apoio operacional.",
+            ),
+            (
+                "Como um robô de entrega pode apoiar uma operação de atendimento?",
+                "Ele pode apoiar o transporte de itens e a organização de deslocamentos repetitivos dentro de um fluxo definido, sem substituir a equipe responsável pelo serviço e pela interação com as pessoas.",
+            ),
+            (
+                "O que deve ser avaliado antes de implantar um Waiter Bot?",
+                "É importante avaliar o fluxo, o ambiente, o tipo de item movimentado, os pontos de origem e entrega, a circulação de pessoas e os responsáveis operacionais pelo processo.",
+            ),
+        ]
+    elif robot and robot.get("key") == "mowerbot":
+        faqs = [
+            (
+                "O que é o MowerBot?",
+                "É uma solução da linha Xyron Robotics voltada a corte de grama por controle remoto em aplicações externas compatíveis.",
+            ),
+            (
+                "O MowerBot é autônomo ou operado por controle remoto?",
+                "O posicionamento atual descreve operação por controle remoto, com um responsável conduzindo a atividade. A aplicação não deve ser tratada como promessa de operação autônoma sem acompanhamento.",
+            ),
+            (
+                "Em quais tipos de terreno o MowerBot pode ser avaliado?",
+                "O conteúdo atual cita terrenos irregulares, taludes, praças e grandes áreas externas. Cada cenário precisa de avaliação técnica de acesso, inclinação, obstáculos e rotina operacional.",
+            ),
+            (
+                "O que deve ser avaliado antes de utilizar um robô cortador de grama?",
+                "É importante avaliar tipo de terreno, inclinação, obstáculos, circulação de pessoas, área total, condições do ambiente, plano de operação e responsável pela condução remota.",
+            ),
+        ]
+    elif robot and robot.get("key") == "neo_bot":
+        faqs = [
+            (
+                "O que é o Neo Bot?",
+                "O Neo Bot é um robô de recepção e atendimento voltado a interação com visitantes, diálogo multilíngue, IA e apoio à apresentação de produtos.",
+            ),
+            (
+                "Em quais ambientes o Neo Bot pode ser usado?",
+                "Ele pode ser avaliado para recepção corporativa, atendimento, eventos, showrooms e apresentação de produtos, conforme objetivo da experiência e infraestrutura disponível.",
+            ),
+            (
+                "Como o Neo Bot pode apoiar uma recepção?",
+                "Ele pode atuar como interface tecnológica para orientar o primeiro contato, apresentar informações e apoiar a experiência do visitante, sem substituir a equipe responsável pelo atendimento.",
+            ),
+            (
+                "O Neo Bot pode ser integrado a um projeto de atendimento?",
+                "A avaliação deve começar pelo fluxo de atendimento, objetivo da interação, informações a apresentar e responsabilidades da equipe. Quando houver integração digital no projeto, ela deve ser especificada tecnicamente antes da implantação.",
+            ),
+        ]
+    elif robot and robot.get("key") == "orbit":
+        faqs = [
+            (
+                "O que é o Orbit Bot / Patrol Bot?",
+                "O Orbit Bot / Patrol Bot é um robô Xyron voltado a apoiar patrulhamento, segurança e monitoramento em grandes áreas, combinando deslocamento autônomo, visão inteligente e acompanhamento em tempo real.",
+            ),
+            (
+                "Onde o Orbit pode ser aplicado?",
+                "Ele pode ser avaliado para condomínios, empresas, áreas corporativas e ambientes extensos que precisem de apoio a rondas, presença operacional e monitoramento.",
+            ),
+            (
+                "O Orbit substitui uma equipe de segurança?",
+                "Não. O Orbit deve ser avaliado como apoio tecnológico para patrulhamento e monitoramento, e não como substituto de planejamento, protocolos ou atuação humana.",
+            ),
+            (
+                "Como avaliar uma aplicação do Orbit?",
+                "Entre em contato com a Smart Control Brasil para apresentar o ambiente, a rotina de segurança, os pontos de circulação e o objetivo da aplicação.",
+            ),
+        ]
+    elif robot and robot.get("key") == "littlebot":
+        faqs = [
+            (
+                "O que é o LIRO / Little Bot?",
+                "O LIRO / Little Bot é um robô interativo que permite criar experiências envolvendo robótica, tecnologia, comunicação e interação com pessoas.",
+            ),
+            (
+                "O LIRO / Little Bot pode ser utilizado em escolas?",
+                "Sim. O ambiente educacional é uma das aplicações mais interessantes para o LIRO / Little Bot, especialmente em iniciativas relacionadas à robótica, tecnologia, inovação e experiências STEM.",
+            ),
+            (
+                "É possível realizar uma demonstração?",
+                "Entre em contato com a Smart Control Brasil para apresentar sua instituição e sua aplicação. Nossa equipe poderá avaliar as possibilidades de demonstração do LIRO / Little Bot.",
+            ),
+            (
+                "Como posso levar o LIRO / Little Bot para minha instituição?",
+                "Envie uma mensagem para nossa equipe informando o tipo de instituição, objetivo da aplicação e cidade. A Smart Control Brasil entrará em contato para avaliar a melhor solução.",
+            ),
+        ]
     elif route_name == "xyron":
         faqs = [
             (
@@ -675,7 +892,7 @@ def _faq_page_schema(context):
             ),
             (
                 "Os robôs podem ser usados em escolas?",
-                "Sim. O LIRO / Little Bot foi criado para educação, interação, aprendizagem e apoio em ambientes escolares, familiares e especializados.",
+                "Sim. O LIRO / Little Bot foi criado para educação, interação, aprendizagem e apoio em ambientes escolares e experiências de tecnologia.",
             ),
             (
                 "A Smart Control Brasil faz a implantação?",
@@ -690,6 +907,8 @@ def _faq_page_schema(context):
                 "Entre em contato com a Smart Control Brasil para avaliar o ambiente, o objetivo da operação e a solução Xyron mais adequada.",
             ),
         ]
+    elif route_name == "contact":
+        faqs = CONTACT_PAGE_FAQS
     elif route_name == "services":
         faqs = [
             (
@@ -799,6 +1018,12 @@ def _structured_data_graph(context):
         if faq_page:
             graph.append(faq_page)
 
+    if _route_name(context) == "contact":
+        graph.append(_organization_schema())
+        contact_page = _contact_page_schema(context)
+        if contact_page:
+            graph.append(contact_page)
+
     breadcrumbs = _breadcrumb_items(context)
     if breadcrumbs:
         graph.append(_breadcrumb_schema(breadcrumbs))
@@ -824,6 +1049,7 @@ def _structured_data_graph(context):
         graph.append(xyron_item_list)
 
     if _route_name(context) in {
+        "contact",
         "services",
         "xyron",
         "manutencao_industrial_campo",
@@ -848,6 +1074,9 @@ def _structured_data_graph(context):
     robot_product = _xyron_robot_product_schema(context)
     if robot_product:
         graph.append(robot_product)
+        faq_page = _faq_page_schema(context)
+        if faq_page:
+            graph.append(faq_page)
 
     return graph
 

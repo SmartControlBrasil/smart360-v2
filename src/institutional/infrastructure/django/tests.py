@@ -15,6 +15,7 @@ from django.urls import reverse
 from src.commerce.models import Category
 from src.commerce.models import Product
 from src.institutional.presentation.blog_posts import BLOG_POSTS
+from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
@@ -465,6 +466,114 @@ class TechnicalSeoTests(TestCase):
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "convergencia-robotica-ia-firmwares-dedicados"}), html)
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "eliminar-gargalos-autonomia-previsibilidade"}), html)
         self.assertNotIn("form action=\"#\"", html)
+
+
+    def test_contact_page_has_commercial_h1_content_links_nap_and_schemas(self):
+        response = self.client.get("/contato/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        canonical = "https://www.smartcontrolbrasil.com.br/contato/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Contato e Orçamento em Automação Industrial | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Fale com a Smart Control Brasil para solicitar orçamento, diagnóstico técnico "
+            "ou atendimento comercial em automação, robótica e sistemas.",
+        )
+        self.assertCanonical(response, canonical)
+        self.assertMetaProperty(response, "og:url", canonical)
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Contato e Orçamento em Automação Industrial e Robótica"],
+        )
+
+        for expected in (
+            "Conte-nos sobre seu projeto",
+            "automação industrial",
+            "Mitsubishi Electric",
+            "robótica Xyron",
+            "manutenção industrial e retrofit",
+            "integração de dados",
+            "sistemas web em Python/Django",
+            'href="tel:+551151968525"',
+            "(11) 5196-8525",
+            'href="mailto:comercial@smartcontrolbrasil.com.br"',
+            "comercial@smartcontrolbrasil.com.br",
+            "R. Agnaldo Alves Silva - Jardim Maristela",
+            "Itapevi - SP, 06663-160",
+            "Autorizo o uso dos dados informados",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_link in (
+            reverse("institutional:services"),
+            reverse("institutional:manutencao_industrial_campo"),
+            reverse("institutional:mitsubishi_automacao_industrial"),
+            reverse("institutional:xyron"),
+            reverse("institutional:sistemas_websites_python"),
+        ):
+            with self.subTest(expected_link=expected_link):
+                self.assertIn(f'href="{expected_link}"', html)
+
+        faq_questions = [
+            "Quais serviços posso solicitar pelo formulário?",
+            "Posso solicitar atendimento para manutenção e retrofit?",
+            "Posso falar sobre projetos de automação Mitsubishi Electric ou robótica Xyron?",
+            "Quais informações ajudam na análise de uma solicitação técnica?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(f"<h3>{question}</h3>", html)
+
+        organizations = self.graph_items(response, "Organization")
+        contact_pages = self.graph_items(response, "ContactPage")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(organizations), 1)
+        organization = organizations[0]
+        self.assertEqual(organization["@id"], "https://www.smartcontrolbrasil.com.br/#organization")
+        self.assertEqual(organization["name"], "Smart Control Brasil")
+        self.assertEqual(organization["telephone"], "+551151968525")
+        self.assertEqual(organization["email"], "comercial@smartcontrolbrasil.com.br")
+        self.assertEqual(
+            organization["address"],
+            {
+                "@type": "PostalAddress",
+                "streetAddress": "R. Agnaldo Alves Silva - Jardim Maristela",
+                "addressLocality": "Itapevi",
+                "addressRegion": "SP",
+                "postalCode": "06663-160",
+                "addressCountry": "BR",
+            },
+        )
+
+        self.assertEqual(len(contact_pages), 1)
+        self.assertEqual(contact_pages[0]["url"], canonical)
+        self.assertEqual(contact_pages[0]["provider"], {"@id": organization["@id"]})
+        self.assertEqual(contact_pages[0]["about"], {"@id": organization["@id"]})
+
+        self.assertEqual(len(breadcrumbs), 1)
+        items = breadcrumbs[0]["itemListElement"]
+        self.assertEqual([item["name"] for item in items], ["Início", "Contato"])
+        self.assertEqual(items[0]["item"], "https://www.smartcontrolbrasil.com.br/")
+        self.assertEqual(items[1]["item"], canonical)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        for item in faq_entities:
+            answer = item["acceptedAnswer"]["text"]
+            self.assertIn(answer, html)
+
+        self.assertNotIn("GeoCoordinates", html)
+        self.assertNotIn("openingHours", html)
+        self.assertNotIn("AggregateRating", html)
+        self.assertNotIn("priceRange", html)
 
 
     def test_about_page_uses_metadata_h1_canonical_and_indexing(self):
@@ -1267,7 +1376,26 @@ class TechnicalSeoTests(TestCase):
                 html = response.content.decode()
 
                 self.assertEqual(response.status_code, 200)
-                self.assertEqual(self.h1_texts(response), [robot["name"]])
+                expected_h1 = robot["name"]
+                if robot["key"] == "littlebot":
+                    expected_h1 = "LIRO / Little Bot — Robô Interativo para Educação"
+                elif robot["key"] == "orbit":
+                    expected_h1 = "Orbit Bot / Patrol Bot — Robô de Patrulhamento e Segurança"
+                elif robot["key"] == "neo_bot":
+                    expected_h1 = "Neo Bot — Robô de Recepção e Atendimento"
+                elif robot["key"] == "waiter_bot":
+                    expected_h1 = "Waiter Bot — Robô de Entrega e Apoio Operacional"
+                elif robot["key"] == "hygibot_dune_bot":
+                    expected_h1 = "HygiBot / Dune Bot — Robô de Limpeza Autônoma"
+                elif robot["key"] == "buddy_bot":
+                    expected_h1 = "Buddy Bot — Robô Quadrúpede para Inspeção e Segurança"
+                elif robot["key"] == "carebot":
+                    expected_h1 = "CareBot — Robô Assistivo para Saúde e Atendimento"
+                elif robot["key"] == "hostbot":
+                    expected_h1 = "HostBot — Robô Host para Recepção e Eventos"
+                elif robot["key"] == "mowerbot":
+                    expected_h1 = "MowerBot — Robô Cortador de Grama para Áreas Externas"
+                self.assertEqual(self.h1_texts(response), [expected_h1])
                 self.assertTitle(response, title)
                 self.assertMetaDescription(response, robot["description"])
                 self.assertCanonical(response, canonical)
@@ -1292,6 +1420,980 @@ class TechnicalSeoTests(TestCase):
                 self.assertEqual([item["name"] for item in items], ["Início", "Xyron Robotics", robot["name"]])
                 self.assertEqual(items[1]["item"], "https://www.smartcontrolbrasil.com.br/xyron/")
                 self.assertEqual(items[-1]["item"], canonical)
+
+
+
+
+
+    def test_carebot_page_has_clean_copy_faq_schema_health_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/carebot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["carebot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/carebot/"
+        old_meta_description = (
+            "Robô assistivo para residências, clínicas, hospitais, farmácias e "
+            "monitoramento inteligente de indicadores de saúde."
+        )
+        meta_description = (
+            "CareBot é uma solução robótica assistiva para residências, clínicas, "
+            "hospitais, farmácias e ambientes de saúde e atendimento."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "CareBot | Robô Assistivo para Saúde e Atendimento | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["CareBot — Robô Assistivo para Saúde e Atendimento"],
+        )
+        self.assertEqual(robot["name"], "CareBot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(old_meta_description, html)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "O card também cita",
+            "O texto existente destaca",
+            "A página apresenta",
+            "Med Bot",
+            "MedBot",
+            "Medical Bot",
+            "monitoramento inteligente de indicadores de saúde",
+            "sinais vitais",
+            "pressão arterial",
+            "frequência cardíaca",
+            "saturação",
+            "glicemia",
+            "ECG",
+            "monitoramento clínico",
+            "triagem",
+            "prescrição",
+            "tratamento",
+            "telemedicina",
+            "prontuário",
+            "MedicalDevice",
+            "ANVISA",
+            "LGPD compliant",
+            "dispositivo médico",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "robótica assistiva",
+            "residências",
+            "clínicas",
+            "hospitais",
+            "farmácias",
+            "ambientes de saúde e atendimento",
+            "O CareBot não substitui médicos",
+            "privacidade",
+            "responsabilidades",
+            'href="/xyron/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/xyron/littlebot/"',
+            'href="/xyron/neo-bot/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o CareBot?",
+            "O CareBot substitui profissionais de saúde?",
+            "Em quais tipos de ambiente o CareBot pode ser avaliado?",
+            "O que deve ser considerado antes de implantar uma solução robótica em saúde?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        medical_devices = self.graph_items(response, "MedicalDevice")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "CareBot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "CareBot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("não substitui médicos", faq_entities[1]["acceptedAnswer"]["text"])
+        self.assertIn("privacidade", faq_entities[3]["acceptedAnswer"]["text"])
+        self.assertEqual(medical_devices, [])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+    def test_hostbot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/hostbot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["hostbot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/hostbot/"
+        meta_description = (
+            "Robô host com duas telas e inteligência artificial para recepção, "
+            "eventos, empresas, museus, galerias e bancos."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "HostBot | Robô Host para Recepção e Eventos | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["HostBot — Robô Host para Recepção e Eventos"],
+        )
+        self.assertEqual(robot["name"], "HostBot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "conforme descrito no card",
+            "landing institucional",
+            "não substitui o commerce",
+            "Connect Bot",
+            "ConnectBot",
+            "Host Bot",
+            "check-in",
+            "CRM",
+            "reconhecimento facial",
+            "biometria",
+            "captura de leads",
+            "sistema de filas",
+            "touchscreen",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "robô host",
+            "recepção",
+            "eventos",
+            "duas telas",
+            "inteligência artificial",
+            "comunicação visual",
+            "empresas",
+            "museus",
+            "galerias",
+            "bancos",
+            "HostBot se diferencia pela função host",
+            "Neo Bot",
+            'href="/xyron/"',
+            'href="/xyron/neo-bot/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o HostBot?",
+            "Para quais tipos de ambiente o HostBot pode ser utilizado?",
+            "Qual a diferença entre HostBot e Neo Bot?",
+            "O que deve ser avaliado antes de implantar um robô de recepção ou eventos?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "HostBot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "HostBot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("duas telas", faq_entities[2]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+    def test_buddy_bot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/buddy-bot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["buddy_bot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/buddy-bot/"
+        meta_description = (
+            "Robô quadrúpede para inspeção, segurança patrimonial, engenharia, "
+            "obras e áreas de difícil acesso."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Buddy Bot | Robô Quadrúpede para Inspeção e Segurança | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Buddy Bot — Robô Quadrúpede para Inspeção e Segurança"],
+        )
+        self.assertEqual(robot["name"], "Buddy Bot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "Nesta fase foram usados",
+            "sem inventar especificações",
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "O conteúdo atual cita",
+            "é apresentado como",
+            "Budy Bot",
+            "BuddyBot",
+            "Robot Dog",
+            "Spot",
+            "cão robô",
+            "sobe escadas",
+            "terreno irregular",
+            "câmera térmica",
+            "LiDAR",
+            "SLAM",
+            "GPS",
+            "detecção de gás",
+            "teleoperação",
+            "integração SCADA",
+            "integração CFTV",
+            "previne invasões",
+            "substitui vigilantes",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "quadrúpede",
+            "inspeção",
+            "segurança patrimonial",
+            "engenharia",
+            "obras",
+            "áreas de difícil acesso",
+            "mobilidade",
+            "sem substituir protocolos ou equipes",
+            'href="/xyron/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/xyron/orbit/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o Buddy Bot?",
+            "Em quais tipos de aplicação o Buddy Bot pode ser utilizado?",
+            "Como um robô quadrúpede pode apoiar uma inspeção?",
+            "O que deve ser avaliado antes de implantar um robô para inspeção?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "Buddy Bot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "Buddy Bot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("robô quadrúpede", faq_entities[0]["acceptedAnswer"]["text"])
+        self.assertIn("superfície", faq_entities[3]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+    def test_hygibot_dune_bot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/hygibot-dune-bot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["hygibot_dune_bot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/hygibot-dune-bot/"
+        meta_description = (
+            "Robô autônomo que lava, varre, aspira e passa pano em shoppings, "
+            "indústrias, hospitais e grandes áreas."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "HygiBot / Dune Bot | Robô de Limpeza Autônoma | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["HygiBot / Dune Bot — Robô de Limpeza Autônoma"],
+        )
+        self.assertEqual(robot["name"], "HygiBot / Dune Bot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "O conteúdo cita",
+            "A página Xyron cita",
+            "apresentado como",
+            "Duno Bot",
+            "Hygi Bot",
+            "DuneBot",
+            "desinfecção",
+            "esterilização",
+            "controle de infecção",
+            "conformidade sanitária específica.",
+            "centro cirúrgico",
+            "SLAM",
+            "LiDAR",
+            "m²/h",
+            "capacidade de tanque",
+            "retorno automático à base",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "limpeza autônoma",
+            "lavar",
+            "varrer",
+            "aspirar",
+            "passar pano",
+            "shoppings",
+            "indústrias",
+            "hospitais",
+            "grandes áreas",
+            "áreas compatíveis",
+            "protocolos locais",
+            "tipo de piso",
+            "fluxo de pessoas",
+            'href="/xyron/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/xyron/mowerbot/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o HygiBot / Dune Bot?",
+            "Quais tipos de limpeza o HygiBot / Dune Bot pode realizar?",
+            "Em quais ambientes ele pode ser utilizado?",
+            "O que deve ser avaliado antes de implantar um robô de limpeza autônoma?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "HygiBot / Dune Bot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "HygiBot / Dune Bot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("lavar, varrer, aspirar e passar pano", faq_entities[1]["acceptedAnswer"]["text"])
+        self.assertIn("protocolos locais", faq_entities[2]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+    def test_waiter_bot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/waiter-bot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["waiter_bot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/waiter-bot/"
+        meta_description = (
+            "Robô de entrega e apoio operacional para restaurantes, hotéis, "
+            "supermercados e ambientes de atendimento."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Waiter Bot | Robô de Entrega e Apoio Operacional | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Waiter Bot — Robô de Entrega e Apoio Operacional"],
+        )
+        self.assertEqual(robot["name"], "Waiter Bot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "página Xyron",
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "landing institucional",
+            "commerce",
+            "não há imagem real específica",
+            "Existe imagem específica no projeto",
+            "Aplicação indicada",
+            "Benefícios coerentes",
+            "room service",
+            "capacidade de carga",
+            "integração com PDV",
+            "integração com cozinha",
+            "recebe pedidos",
+            "substitui garçom",
+            "Robô Garçom",
+            "Relay Bot",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "entrega",
+            "apoio operacional",
+            "restaurantes",
+            "hotéis",
+            "supermercados",
+            "ambientes de atendimento",
+            "transporte de itens",
+            "sem substituir a equipe",
+            'href="/xyron/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o Waiter Bot?",
+            "Em quais ambientes o Waiter Bot pode ser utilizado?",
+            "Como um robô de entrega pode apoiar uma operação de atendimento?",
+            "O que deve ser avaliado antes de implantar um Waiter Bot?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "Waiter Bot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "Waiter Bot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("entregas internas", faq_entities[0]["acceptedAnswer"]["text"])
+        self.assertIn("sem substituir a equipe", faq_entities[2]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+    def test_neo_bot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/neo-bot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["neo_bot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/neo-bot/"
+        old_meta_description = (
+            "Robô de recepção e atendimento com diálogo multilíngue, IA, "
+            "reconhecimento facial e apresentação de produtos."
+        )
+        meta_description = (
+            "Robô de recepção e atendimento com diálogo multilíngue, IA e apoio "
+            "à apresentação de produtos em experiências corporativas."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Neo Bot | Robô de Recepção e Atendimento | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Neo Bot — Robô de Recepção e Atendimento"],
+        )
+        self.assertEqual(robot["name"], "Neo Bot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(old_meta_description, html)
+        self.assertNotIn(meta_description, body)
+        self.assertNotIn("reconhecimento facial", html.lower())
+
+        for forbidden in (
+            "página Xyron",
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "landing institucional",
+            "commerce permanece separado",
+            "Aplicação indicada",
+            "Benefícios coerentes",
+            "CRM",
+            "ERP",
+            "check-in automático",
+            "controle de acesso",
+            "leitor QR Code",
+            "NFC",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "recepção",
+            "atendimento",
+            "diálogo multilíngue",
+            "IA",
+            "apresentação de produtos",
+            "experiência do visitante",
+            "sem substituir a equipe",
+            'href="/xyron/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/xyron/hostbot/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o Neo Bot?",
+            "Em quais ambientes o Neo Bot pode ser usado?",
+            "Como o Neo Bot pode apoiar uma recepção?",
+            "O Neo Bot pode ser integrado a um projeto de atendimento?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "Neo Bot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "Neo Bot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("diálogo multilíngue", faq_entities[0]["acceptedAnswer"]["text"])
+        self.assertIn("sem substituir a equipe", faq_entities[2]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+
+    def test_mowerbot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/mowerbot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["mowerbot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/mowerbot/"
+        meta_description = (
+            "Robô cortador de grama por controle remoto para terrenos irregulares, "
+            "taludes, praças e grandes áreas externas."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "MowerBot | Robô Cortador de Grama para Áreas Externas | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["MowerBot — Robô Cortador de Grama para Áreas Externas"],
+        )
+        self.assertEqual(robot["name"], "MowerBot")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "extraídas dos textos existentes",
+            "O card cita",
+            "O card apresenta",
+            "Existe imagem específica no projeto",
+            "não há imagem real específica",
+            "página informa preço",
+            "venda direta",
+            "autônomo de jardim",
+            "opera sozinho",
+            "navegação autônoma",
+            "inclinação máxima",
+            "largura de corte",
+            "hectares/h",
+            "m²/h",
+            "retorno automático",
+            "GPS",
+            "RTK",
+            "LiDAR",
+            "SLAM",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "corte de grama",
+            "controle remoto",
+            "terrenos irregulares",
+            "taludes",
+            "praças",
+            "grandes áreas externas",
+            "operação remota",
+            "não deve ser tratada como promessa de operação autônoma",
+            'href="/xyron/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/xyron/hygibot-dune-bot/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o MowerBot?",
+            "O MowerBot é autônomo ou operado por controle remoto?",
+            "Em quais tipos de terreno o MowerBot pode ser avaliado?",
+            "O que deve ser avaliado antes de utilizar um robô cortador de grama?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "MowerBot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "MowerBot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("controle remoto", faq_entities[1]["acceptedAnswer"]["text"])
+        self.assertIn("não deve ser tratada como promessa de operação autônoma", faq_entities[1]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+
+    def test_orbit_page_has_clean_copy_faq_schema_and_contextual_links(self):
+        response = self.client.get("/xyron/orbit/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        body = html.split("<body", 1)[1]
+        robot = XYRON_ROBOT_PAGE_BY_KEY["orbit"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/orbit/"
+        meta_description = (
+            "Robô de patrulhamento e segurança para grandes áreas, com navegação autônoma, "
+            "visão inteligente e monitoramento em tempo real."
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Orbit Bot | Robô de Patrulhamento e Segurança | Smart Control Brasil")
+        self.assertMetaDescription(response, meta_description)
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Orbit Bot / Patrol Bot — Robô de Patrulhamento e Segurança"],
+        )
+        self.assertEqual(robot["name"], "Orbit Bot / Patrol Bot")
+        self.assertEqual(robot["title"], "Orbit Bot | Robô de Patrulhamento e Segurança | Smart Control Brasil")
+        self.assertEqual(robot["description"], meta_description)
+        self.assertNotIn(meta_description, body)
+
+        for forbidden in (
+            "card da página Xyron",
+            "conteúdo Xyron",
+            "Aplicação indicada no conteúdo",
+            "O conteúdo atual indica",
+            "A página apresenta o Orbit",
+            "Benefícios coerentes",
+            "substitui vigilantes",
+            "garante segurança",
+            "reconhecimento facial",
+            "câmera térmica",
+            "LiDAR",
+            "SLAM",
+            "GPS",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html)
+
+        for expected in (
+            "Xyron Robotics",
+            "patrulhamento",
+            "monitoramento",
+            "grandes áreas",
+            "navegação autônoma",
+            "visão inteligente",
+            "monitoramento em tempo real",
+            "condomínios",
+            "empresas",
+            "áreas corporativas",
+            "não como substituto",
+            'href="/xyron/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o Orbit Bot / Patrol Bot?",
+            "Onde o Orbit pode ser aplicado?",
+            "O Orbit substitui uma equipe de segurança?",
+            "Como avaliar uma aplicação do Orbit?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "Orbit Bot / Patrol Bot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "Orbit Bot / Patrol Bot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], meta_description)
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("deslocamento autônomo", faq_entities[0]["acceptedAnswer"]["text"])
+        self.assertIn("não como substituto", faq_entities[2]["acceptedAnswer"]["text"].lower())
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
+
+    def test_littlebot_page_has_faq_schema_consistent_naming_and_contextual_links(self):
+        response = self.client.get("/xyron/littlebot/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+        robot = XYRON_ROBOT_PAGE_BY_KEY["littlebot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/littlebot/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "LIRO / Little Bot | Robô Educacional Interativo | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Conheça o LIRO / Little Bot, robô interativo para educação, experiências STEM, "
+            "demonstrações e ambientes de aprendizagem e tecnologia.",
+        )
+        self.assertCanonical(response, canonical)
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["LIRO / Little Bot — Robô Interativo para Educação"],
+        )
+        self.assertEqual(robot["name"], "LIRO / Little Bot")
+        self.assertEqual(robot["title"], "LIRO / Little Bot | Robô Educacional Interativo | Smart Control Brasil")
+        self.assertNotIn("clínicas", robot["description"].lower())
+        self.assertNotIn("creches", robot["description"].lower())
+        self.assertNotIn("atendimento especializado", robot["description"].lower())
+
+        for expected in (
+            "robô interativo",
+            "robótica educacional",
+            "experiências STEM",
+            "educação",
+            "tecnologia",
+            "interação",
+            'href="/xyron/"',
+            'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
+            'href="/blog/inovacao-que-aparece-e-gera-valor/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        faq_questions = [
+            "O que é o LIRO / Little Bot?",
+            "O LIRO / Little Bot pode ser utilizado em escolas?",
+            "É possível realizar uma demonstração?",
+            "Como posso levar o LIRO / Little Bot para minha instituição?",
+        ]
+        for question in faq_questions:
+            with self.subTest(question=question):
+                self.assertIn(question, html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        products = self.graph_items(response, "Product")
+        faq_pages = self.graph_items(response, "FAQPage")
+        offers = self.graph_items(response, "Offer")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+        reviews = self.graph_items(response, "Review")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Xyron Robotics", "LIRO / Little Bot"],
+        )
+        self.assertEqual(len(products), 1)
+        product = products[0]
+        self.assertEqual(product["name"], "LIRO / Little Bot")
+        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
+        self.assertEqual(product["description"], robot["description"])
+        self.assertEqual(product["url"], canonical)
+        self.assertNotIn("offers", product)
+        self.assertNotIn("aggregateRating", product)
+        self.assertNotIn("review", product)
+
+        self.assertEqual(len(faq_pages), 1)
+        faq_entities = faq_pages[0]["mainEntity"]
+        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
+        self.assertIn("experiências envolvendo robótica", faq_entities[0]["acceptedAnswer"]["text"])
+        self.assertIn("experiências STEM", faq_entities[1]["acceptedAnswer"]["text"])
+        self.assertEqual(offers, [])
+        self.assertEqual(aggregate_ratings, [])
+        self.assertEqual(reviews, [])
+
 
     def test_internal_links_connect_home_xyron_pages_blog_and_contact(self):
         home = self.client.get("/")
@@ -1563,6 +2665,9 @@ class TechnicalSeoTests(TestCase):
             'href="/xyron/neo-bot/"',
             'href="/xyron/orbit/"',
             'href="/xyron/hygibot-dune-bot/"',
+            'href="/xyron/buddy-bot/"',
+            'href="/xyron/carebot/"',
+            'href="/xyron/hostbot/"',
             'href="/sistemas-websites-python/"',
             'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
             'href="/contato/"',
@@ -1709,6 +2814,112 @@ class TechnicalSeoTests(TestCase):
         self.assertIn('href="/blog/eliminar-gargalos-autonomia-previsibilidade/"', maintenance_html)
         self.assertIn('href="/blog/historico-indicadores-decisoes-consistentes/"', maintenance_html)
 
+    def test_asset_history_indicators_article_has_expanded_depth_links_and_faq_schema(self):
+        response = self.client.get("/blog/historico-indicadores-decisoes-consistentes/")
+        html = response.content.decode()
+        post = BLOG_POSTS["historico-indicadores-decisoes-consistentes"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/historico-indicadores-decisoes-consistentes/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Gestão de Ativos: Histórico e Indicadores para Decisão | Smart Control Brasil")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "O que um histórico de manutenção precisa responder",
+            "O que registrar em uma ordem de serviço",
+            "Padronização dos registros",
+            "Indicadores devem responder perguntas",
+            "MTBF e MTTR no contexto do ativo",
+            "Backlog, custos e recorrência",
+            "Indicadores sem contexto podem enganar",
+            "Histórico ajuda a separar sintoma de padrão",
+            "Criticidade precisa entrar na análise",
+            "CMMS, sistemas e dados",
+            "Reparar, modernizar ou substituir?",
+            "TCO na gestão do ativo",
+            "Matriz textual de decisão",
+            "Exemplo hipotético",
+            "Checklist para organizar histórico e indicadores",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "ordem de serviço",
+            "histórico",
+            "MTBF",
+            "MTTR",
+            "backlog",
+            "criticidade",
+            "gestão de ativos",
+            "modernizar",
+            "CMMS",
+            "TCO",
+            "recorrência",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/manutencao-industrial-campo/"',
+            'href="/blog/reducao-paradas-inesperadas-planejamento-tecnico/"',
+            'href="/blog/eliminar-gargalos-autonomia-previsibilidade/"',
+            'href="/blog/informacao-precisa-para-agir-melhor/"',
+            'href="/sistemas-websites-python/"',
+            'href="/blog/equipamentos-sistemas-para-evoluir/"',
+            'href="/blog/menos-retrabalho-rastreabilidade-retrofit/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("MTBF = tempo de operação / número de falhas", html)
+        self.assertIn("MTTR = tempo total de reparo / quantidade de reparos", html)
+        self.assertIn("Esse exemplo é hipotético", html)
+        self.assertContains(response, "<li>Ativos estão identificados de forma única?</li>")
+        self.assertContains(response, "Estruturar gestão de ativos")
+        self.assertNotIn("ROI", html)
+        self.assertNotIn("disponibilidade alcançada", html)
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Gestão de Ativos")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
+        maintenance = self.client.get("/manutencao-industrial-campo/")
+        maintenance_html = maintenance.content.decode()
+        self.assertEqual(maintenance.status_code, 200)
+        self.assertIn('href="/blog/historico-indicadores-decisoes-consistentes/"', maintenance_html)
+        self.assertIn('alt="Histórico e indicadores de manutenção para gestão de ativos"', maintenance_html)
+
     def test_unplanned_stops_article_has_expanded_depth_links_and_faq_schema(self):
         response = self.client.get("/blog/reducao-paradas-inesperadas-planejamento-tecnico/")
         html = response.content.decode()
@@ -1820,6 +3031,113 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(maintenance.status_code, 200)
         self.assertIn('href="/blog/reducao-paradas-inesperadas-planejamento-tecnico/"', maintenance_html)
         self.assertIn('alt="Planejamento de manutenção industrial para redução de paradas"', maintenance_html)
+
+    def test_rework_traceability_retrofit_article_has_expanded_depth_links_carousel_and_faq_schema(self):
+        response = self.client.get("/blog/menos-retrabalho-rastreabilidade-retrofit/")
+        html = response.content.decode()
+        post = BLOG_POSTS["menos-retrabalho-rastreabilidade-retrofit"]
+        canonical = "https://www.smartcontrolbrasil.com.br/blog/menos-retrabalho-rastreabilidade-retrofit/"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Retrofit Industrial: Documentação, Backup e Rastreabilidade | Smart Control Brasil")
+        self.assertMetaDescription(response, post["meta_description"])
+        self.assertCanonical(response, canonical)
+        self.assertEqual(self.h1_texts(response), [post["title"]])
+        self.assertEqual(html.count("<h1"), 1)
+        self.assertNotContains(response, 'name="robots"')
+
+        expected_sections = (
+            "O que é retrabalho técnico",
+            "Levantamento técnico antes de alterar",
+            "Documentação as-built",
+            "Lista de I/O e sinais de campo",
+            "Backup de CLP e IHM",
+            "Versionamento de software e parâmetros",
+            "Rastreabilidade das alterações",
+            "Documentação e paradas inesperadas",
+            "Quando o levantamento revela necessidade de modernização",
+            "Retrofit por etapas",
+            "Integração de dados também precisa ser documentada",
+            "Exemplo hipotético",
+            "Checklist antes de iniciar um retrofit",
+        )
+        for expected in expected_sections:
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected in (
+            "retrofit",
+            "rastreabilidade",
+            "backup",
+            "CLP",
+            "IHM",
+            "as-built",
+            "levantamento técnico",
+            "versionamento",
+            "parâmetros",
+            "I/O list",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for expected_href in (
+            'href="/manutencao-industrial-campo/"',
+            'href="/mitsubishi-automacao-industrial/"',
+            'href="/blog/historico-indicadores-decisoes-consistentes/"',
+            'href="/blog/reducao-paradas-inesperadas-planejamento-tecnico/"',
+            'href="/blog/equipamentos-sistemas-para-evoluir/"',
+            'href="/blog/selecao-controladores-ativos-alta-severidade/"',
+            'href="/sistemas-websites-python/"',
+            'href="/blog/informacao-precisa-para-agir-melhor/"',
+            'href="/contato/"',
+        ):
+            with self.subTest(expected_href=expected_href):
+                self.assertIn(expected_href, html)
+
+        self.assertIn("Esse exemplo é hipotético", html)
+        self.assertContains(response, "<li>Equipamento está corretamente identificado?</li>")
+        self.assertContains(response, "Solicitar levantamento técnico e retrofit")
+        self.assertNotIn("NR-10", html)
+        self.assertNotIn("redução percentual", html)
+        self.assertNotIn("('heading',", html)
+        self.assertNotIn("('paragraphs',", html)
+        self.assertNotIn("dict_items", html)
+
+        blog_postings = self.graph_items(response, "BlogPosting")
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(blog_postings), 1)
+        self.assertEqual(blog_postings[0]["headline"], post["title"])
+        self.assertEqual(blog_postings[0]["description"], post["meta_description"])
+        self.assertEqual(blog_postings[0]["url"], canonical)
+        self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
+        self.assertEqual(blog_postings[0]["articleSection"], "Retrofit Industrial")
+        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertNotIn("datePublished", blog_postings[0])
+        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(
+            [item["name"] for item in faq_pages[0]["mainEntity"]],
+            [item["question"] for item in post["faq"]],
+        )
+        self.assertEqual(
+            [item["acceptedAnswer"]["text"] for item in faq_pages[0]["mainEntity"]],
+            [item["answer"] for item in post["faq"]],
+        )
+
+        maintenance = self.client.get("/manutencao-industrial-campo/")
+        maintenance_html = maintenance.content.decode()
+        self.assertEqual(maintenance.status_code, 200)
+        self.assertIn('href="/blog/menos-retrabalho-rastreabilidade-retrofit/"', maintenance_html)
+        self.assertIn('alt="Documentação e rastreabilidade para retrofit industrial"', maintenance_html)
+        self.assertIn('href="/contato/" class="learn-btn">Solicitar visita', maintenance_html)
+        self.assertNotIn(
+            '<h5 class="title"><a href="/contato/">Menos retrabalho, mais rastreabilidade e base para retrofit</a></h5>',
+            maintenance_html,
+        )
 
     def test_industrial_data_article_has_expanded_depth_links_and_faq_schema(self):
         response = self.client.get("/blog/informacao-precisa-para-agir-melhor/")
