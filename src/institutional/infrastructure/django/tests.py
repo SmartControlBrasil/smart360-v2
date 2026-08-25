@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 import re
 from smtplib import SMTPException
 from unittest.mock import patch
@@ -8,6 +9,7 @@ from xml.etree import ElementTree
 
 from django.core import mail
 from django.contrib.auth import get_user_model
+from django.contrib.staticfiles import finders
 from django.test import override_settings
 from django.templatetags.static import static
 from django.test import TestCase
@@ -967,6 +969,57 @@ class TechnicalSeoTests(TestCase):
         self.assertIn('role="search"', html)
         self.assertIn('onsubmit="return false"', html)
         self.assertNotIn('name="s"', html)
+
+    def test_global_payload_does_not_load_unused_jquery_ui_datepicker(self):
+        response = self.client.get("/")
+        html = response.content.decode()
+        main_js = Path("static/institutional/js/main.js").read_text()
+
+        self.assertNotIn("jquery-ui.min.js", html)
+        self.assertNotIn("#datepicker", main_js)
+        self.assertNotIn(".datepicker(", main_js)
+
+    def test_external_demo_audio_source_is_not_referenced_in_project_sources(self):
+        searchable_roots = (
+            Path("templates"),
+            Path("src"),
+            Path("static"),
+            Path("config"),
+        )
+
+        vendor_name = "sound" + "helix"
+        vendor_domain = "www." + vendor_name + ".com"
+
+        for root in searchable_roots:
+            for source in root.rglob("*"):
+                if source.is_file() and source.suffix.lower() not in {".pyc", ".webp", ".png", ".jpg", ".jpeg", ".m4a", ".woff", ".woff2"}:
+                    with self.subTest(source=source):
+                        content = source.read_text(errors="ignore").lower()
+                        self.assertNotIn(vendor_name, content)
+                        self.assertNotIn(vendor_domain, content)
+
+    def test_littlebot_uses_local_institutional_audio(self):
+        response = self.client.get(reverse("institutional:xyron_littlebot"))
+        html = response.content.decode()
+        audio_path = "institutional/audio/robo-liro-inclusao-neurodivergentes.m4a"
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(audio_path, html)
+        self.assertIn('data-audio-src="/static/institutional/audio/robo-liro-inclusao-neurodivergentes.m4a"', html)
+        self.assertIn('aria-label="Ouvir áudio institucional sobre LIRO e inclusão"', html)
+        self.assertIn('class="audio fa-sharp fa-solid fa-play"', html)
+        self.assertNotIn("sound" + "helix", html.lower())
+        self.assertIsNotNone(finders.find(audio_path))
+
+    def test_mitsubishi_audio_template_residue_was_removed(self):
+        response = self.client.get(reverse("institutional:mitsubishi_automacao_industrial"))
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn("hero-10-slider__area", html)
+        self.assertNotIn('class="audio', html)
+        self.assertNotIn("robo-liro-inclusao-neurodivergentes", html)
+        self.assertNotIn("sound" + "helix", html.lower())
 
     def test_commercial_solution_routes_are_indexable(self):
         expected_canonicals = {

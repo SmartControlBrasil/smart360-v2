@@ -1046,27 +1046,40 @@
             swiper: swiper,
         },
     });
-    var audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+    $('.audio[data-audio-src]').on("click keydown", function(event){
+        if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
 
-    $('.audio').on("click",function(){
-    if($(this).hasClass('fa-play'))
-    {
-        $(this).removeClass('fa-play');
-        $(this).addClass('fa-pause');
-        audio.play();
-    }
-    else
-    {
-        $(this).removeClass('fa-pause');
-        $(this).addClass('fa-play');
-        audio.pause();
-    }
+        if (event.type === 'keydown') {
+            event.preventDefault();
+        }
+
+        var $button = $(this);
+        var audio = $button.data('audio-player');
+
+        if (!audio) {
+            audio = new Audio($button.data('audio-src'));
+            audio.onended = function() {
+                $button.removeClass('fa-pause');
+                $button.addClass('fa-play');
+                $button.attr('aria-label', 'Ouvir áudio institucional sobre LIRO e inclusão');
+            };
+            $button.data('audio-player', audio);
+        }
+
+        if ($button.hasClass('fa-play')) {
+            $button.removeClass('fa-play');
+            $button.addClass('fa-pause');
+            $button.attr('aria-label', 'Pausar áudio institucional sobre LIRO e inclusão');
+            audio.play();
+        } else {
+            $button.removeClass('fa-pause');
+            $button.addClass('fa-play');
+            $button.attr('aria-label', 'Ouvir áudio institucional sobre LIRO e inclusão');
+            audio.pause();
+        }
     });
-
-    audio.onended = function() {
-        $("#play-pause-button").removeClass('fa-pause');
-        $("#play-pause-button").addClass('fa-play');
-    };
     //count
     function handleQuantityButtons() {
         $('.count-wrap .minus').click(function() {
@@ -1151,10 +1164,6 @@
 
     // $('.lan-select select, .nice-select-select select').niceSelect();
     $('.take-appointment-3__form-input-select select, .lan-select select, .nice-select-select select').niceSelect();
-    $( "#datepicker" ).datepicker({
-        dateFormat: "mm/dd/yy" 
-    });
-
     $('#getting-started').countdown('2025/01/01', function(event) {
         $(this).html(event.strftime(' <div><span>%D</span></div>  <div><span>%H</span></div> <div><span>%M</span></div> <div><span>%S</span></div>'));
       });
