@@ -3,6 +3,7 @@ import re
 from smtplib import SMTPException
 from unittest.mock import patch
 from urllib.parse import urljoin
+from urllib.parse import urlsplit
 from xml.etree import ElementTree
 
 from django.core import mail
@@ -38,7 +39,6 @@ class InstitutionalRoutesTests(TestCase):
         "team",
         "team_details",
         "projects",
-        "project_details",
         "testimonials",
         "pricing",
         "login",
@@ -73,6 +73,67 @@ class InstitutionalRoutesTests(TestCase):
 
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response["Location"], reverse("institutional:home"))
+
+    def test_legacy_urls_redirect_permanently_with_expected_location_and_query(self):
+        redirects = (
+            ("/sobre/", reverse("institutional:about")),
+            (
+                "/parceiros/mitsubishi-automacao/",
+                reverse("institutional:mitsubishi_automacao_industrial"),
+            ),
+            (
+                "/parceiros/automacao-industrial-clps/",
+                reverse("institutional:mitsubishi_automacao_industrial"),
+            ),
+            ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
+            ("/projetos/detalhes/", reverse("institutional:projects")),
+            (
+                "/blog/automacao-industrial-conectada-gestao/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+        )
+
+        for source, target in redirects:
+            with self.subTest(source=source):
+                response = self.client.get(f"{source}?utm_source=legacy&ref=old")
+
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], f"{target}?utm_source=legacy&ref=old")
+
+    def test_legacy_redirect_destinations_return_200_and_do_not_loop(self):
+        redirects = (
+            ("/sobre/", reverse("institutional:about")),
+            (
+                "/parceiros/mitsubishi-automacao/",
+                reverse("institutional:mitsubishi_automacao_industrial"),
+            ),
+            (
+                "/parceiros/automacao-industrial-clps/",
+                reverse("institutional:mitsubishi_automacao_industrial"),
+            ),
+            ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
+            ("/projetos/detalhes/", reverse("institutional:projects")),
+            (
+                "/blog/automacao-industrial-conectada-gestao/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+        )
+
+        for source, target in redirects:
+            with self.subTest(source=source):
+                self.assertNotEqual(source, target)
+                response = self.client.get(source)
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], target)
+
+                destination_response = self.client.get(target)
+                self.assertEqual(destination_response.status_code, 200)
 
     def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
@@ -3404,6 +3465,18 @@ class TechnicalSeoTests(TestCase):
         self.assertFalse(any("/modelos/" in url for url in urls))
         self.assertFalse(any("localhost" in url or "127.0.0.1" in url for url in urls))
         self.assertIn("https://www.smartcontrolbrasil.com.br/loja/", urls)
+        legacy_urls = (
+            "https://www.smartcontrolbrasil.com.br/sobre/",
+            "https://www.smartcontrolbrasil.com.br/parceiros/mitsubishi-automacao/",
+            "https://www.smartcontrolbrasil.com.br/parceiros/automacao-industrial-clps/",
+            "https://www.smartcontrolbrasil.com.br/parceiros/xyron-robotics/",
+            "https://www.smartcontrolbrasil.com.br/projetos/detalhes/",
+            "https://www.smartcontrolbrasil.com.br/blog/automacao-industrial-conectada-gestao/",
+        )
+        for legacy_url in legacy_urls:
+            with self.subTest(legacy_url=legacy_url):
+                self.assertNotIn(legacy_url, urls)
+
         robot_urls = tuple(
             f"https://www.smartcontrolbrasil.com.br/xyron/{robot['slug']}/"
             for robot in XYRON_ROBOT_PAGES
@@ -3433,6 +3506,55 @@ class TechnicalSeoTests(TestCase):
                 continue
             absolute_url = urljoin("https://www.smartcontrolbrasil.com.br", path)
             self.assertNotIn(absolute_url, urls)
+
+    def test_sitemap_public_pages_do_not_render_internal_links_to_404_or_legacy_urls(self):
+        sitemap_urls = self.sitemap_urls()
+        allowed_hosts = {"smartcontrolbrasil.com.br", "www.smartcontrolbrasil.com.br", "testserver", ""}
+        ignored_prefixes = ("/static/", "/media/", "/admin/", "/painel/", "/api/")
+        legacy_paths = (
+            "/sobre/",
+            "/parceiros/mitsubishi-automacao/",
+            "/parceiros/automacao-industrial-clps/",
+            "/parceiros/xyron-robotics/",
+            "/projetos/detalhes/",
+            "/blog/automacao-industrial-conectada-gestao/",
+        )
+        checked_links = set()
+        broken_links = []
+        legacy_links = []
+
+        for sitemap_url in sitemap_urls:
+            source_path = urlsplit(sitemap_url).path or "/"
+            response = self.client.get(source_path, HTTP_HOST="smartcontrolbrasil.com.br", secure=True)
+            self.assertEqual(response.status_code, 200)
+            html = response.content.decode()
+
+            for legacy_path in legacy_paths:
+                if f'href="{legacy_path}"' in html or f"href='{legacy_path}'" in html:
+                    legacy_links.append((source_path, legacy_path))
+
+            for href in re.findall(r'<a\b[^>]*\shref=["\']([^"\']+)["\']', html, flags=re.I):
+                parsed = urlsplit(href)
+                if parsed.scheme in {"mailto", "tel", "whatsapp"}:
+                    continue
+                if parsed.netloc not in allowed_hosts:
+                    continue
+                link_path = parsed.path
+                if not link_path or link_path.startswith(ignored_prefixes):
+                    continue
+
+                request_path = link_path
+                if parsed.query:
+                    request_path = f"{request_path}?{parsed.query}"
+                checked_links.add(request_path)
+
+        for request_path in sorted(checked_links):
+            response = self.client.get(request_path, HTTP_HOST="smartcontrolbrasil.com.br", secure=True)
+            if response.status_code == 404:
+                broken_links.append(request_path)
+
+        self.assertEqual(legacy_links, [])
+        self.assertEqual(broken_links, [])
 
     def test_sitemap_includes_public_commerce_urls_dynamically(self):
         robotica = Category.objects.create(name="Robótica", slug="robotica")

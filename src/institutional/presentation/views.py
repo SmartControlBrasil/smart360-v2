@@ -122,6 +122,38 @@ def _safe_next_url(request):
     return reverse("institutional:home")
 
 
+def _permanent_redirect_to_route(request, route_name, **kwargs):
+    url = reverse(route_name, kwargs=kwargs)
+    query_string = request.META.get("QUERY_STRING")
+    if query_string:
+        url = f"{url}?{query_string}"
+    return redirect(url, permanent=True)
+
+
+def legacy_about(request):
+    return _permanent_redirect_to_route(request, "institutional:about")
+
+
+def legacy_mitsubishi_automation(request):
+    return _permanent_redirect_to_route(request, "institutional:mitsubishi_automacao_industrial")
+
+
+def legacy_xyron_robotics(request):
+    return _permanent_redirect_to_route(request, "institutional:xyron")
+
+
+def legacy_project_details(request):
+    return _permanent_redirect_to_route(request, "institutional:projects")
+
+
+def legacy_automacao_industrial_conectada_gestao(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="informacao-precisa-para-agir-melhor",
+    )
+
+
 def robots_txt(request):
     lines = [
         "User-agent: *",
