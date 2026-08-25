@@ -71,6 +71,9 @@ class InstitutionalRoutesTests(TestCase):
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
             ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
+            ("/parceiros/agraz/", reverse("institutional:services")),
+            ("/projetos/", reverse("institutional:services")),
+            ("/projetos/detalhes/", reverse("institutional:services")),
             ("/blog/lista/", reverse("institutional:blog")),
             (
                 "/blog/detalhes/",
@@ -85,6 +88,28 @@ class InstitutionalRoutesTests(TestCase):
                     "institutional:blog_detail",
                     kwargs={"slug": "informacao-precisa-para-agir-melhor"},
                 ),
+            ),
+            (
+                "/blog/dashboards-decisoes-melhores/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/iot-mudando-negocios/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/manutencao-tpm-confiabilidade-sistemas-automatizados/",
+                reverse("institutional:manutencao_industrial_campo"),
+            ),
+            (
+                "/blog/paineis-eletricos-automacao/",
+                reverse("institutional:mitsubishi_automacao_industrial"),
             ),
         )
 
@@ -107,6 +132,9 @@ class InstitutionalRoutesTests(TestCase):
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
             ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
+            ("/parceiros/agraz/", reverse("institutional:services")),
+            ("/projetos/", reverse("institutional:services")),
+            ("/projetos/detalhes/", reverse("institutional:services")),
             ("/blog/lista/", reverse("institutional:blog")),
             (
                 "/blog/detalhes/",
@@ -121,6 +149,28 @@ class InstitutionalRoutesTests(TestCase):
                     "institutional:blog_detail",
                     kwargs={"slug": "informacao-precisa-para-agir-melhor"},
                 ),
+            ),
+            (
+                "/blog/dashboards-decisoes-melhores/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/iot-mudando-negocios/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/manutencao-tpm-confiabilidade-sistemas-automatizados/",
+                reverse("institutional:manutencao_industrial_campo"),
+            ),
+            (
+                "/blog/paineis-eletricos-automacao/",
+                reverse("institutional:mitsubishi_automacao_industrial"),
             ),
         )
 
@@ -139,8 +189,6 @@ class InstitutionalRoutesTests(TestCase):
             "/servicos/detalhes/",
             "/equipe/",
             "/equipe/detalhes/",
-            "/projetos/",
-            "/projetos/detalhes/",
             "/depoimentos/",
             "/planos/",
             "/carrinho/",
@@ -1175,7 +1223,9 @@ class TechnicalSeoTests(TestCase):
                 response = self.client.get(path)
 
                 self.assertEqual(response.status_code, 404)
-                self.assertNotContains(response, '<meta property="og:type" content="website">', status_code=404)
+                self.assertTemplateUsed(response, "institutional/404.html")
+                self.assertTitle(response, "Página não encontrada | Smart Control Brasil")
+                self.assertContains(response, '<meta name="robots" content="noindex,follow">', status_code=404)
                 self.assertNotContains(response, 'BreadcrumbList', status_code=404)
 
     def test_commercial_solution_metadata_is_specific(self):
@@ -3676,8 +3726,14 @@ class TechnicalSeoTests(TestCase):
             "https://www.smartcontrolbrasil.com.br/parceiros/mitsubishi-automacao/",
             "https://www.smartcontrolbrasil.com.br/parceiros/automacao-industrial-clps/",
             "https://www.smartcontrolbrasil.com.br/parceiros/xyron-robotics/",
+            "https://www.smartcontrolbrasil.com.br/parceiros/agraz/",
+            "https://www.smartcontrolbrasil.com.br/projetos/",
             "https://www.smartcontrolbrasil.com.br/projetos/detalhes/",
             "https://www.smartcontrolbrasil.com.br/blog/automacao-industrial-conectada-gestao/",
+            "https://www.smartcontrolbrasil.com.br/blog/dashboards-decisoes-melhores/",
+            "https://www.smartcontrolbrasil.com.br/blog/iot-mudando-negocios/",
+            "https://www.smartcontrolbrasil.com.br/blog/manutencao-tpm-confiabilidade-sistemas-automatizados/",
+            "https://www.smartcontrolbrasil.com.br/blog/paineis-eletricos-automacao/",
         )
         for legacy_url in legacy_urls:
             with self.subTest(legacy_url=legacy_url):
@@ -3722,8 +3778,14 @@ class TechnicalSeoTests(TestCase):
             "/parceiros/mitsubishi-automacao/",
             "/parceiros/automacao-industrial-clps/",
             "/parceiros/xyron-robotics/",
+            "/projetos/",
             "/projetos/detalhes/",
+            "/parceiros/agraz/",
             "/blog/automacao-industrial-conectada-gestao/",
+            "/blog/dashboards-decisoes-melhores/",
+            "/blog/iot-mudando-negocios/",
+            "/blog/manutencao-tpm-confiabilidade-sistemas-automatizados/",
+            "/blog/paineis-eletricos-automacao/",
         )
         checked_links = set()
         broken_links = []
@@ -3784,12 +3846,6 @@ class TechnicalSeoTests(TestCase):
 
         expected_urls = {
             "https://www.smartcontrolbrasil.com.br/loja/",
-            "https://www.smartcontrolbrasil.com.br/loja/categoria/robotica/",
-            "https://www.smartcontrolbrasil.com.br/loja/categoria/climatizacao/",
-            "https://www.smartcontrolbrasil.com.br/loja/categoria/refrigeracao/",
-            "https://www.smartcontrolbrasil.com.br/loja/categoria/automacao-industrial/",
-            "https://www.smartcontrolbrasil.com.br/loja/produto/littlebot/",
-            "https://www.smartcontrolbrasil.com.br/loja/produto/orbit/",
             "https://www.smartcontrolbrasil.com.br/loja/produto/camara-climatica-sob-medida/",
             "https://www.smartcontrolbrasil.com.br/loja/produto/produto-futuro-ativo/",
         }
@@ -3800,6 +3856,19 @@ class TechnicalSeoTests(TestCase):
         self.assertNotIn("https://www.smartcontrolbrasil.com.br/loja/produto/produto-inativo/", urls)
         self.assertNotIn("https://www.smartcontrolbrasil.com.br/loja/produto/produto-categoria-inativa/", urls)
         self.assertNotIn("https://www.smartcontrolbrasil.com.br/loja/categoria/categoria-interna/", urls)
+        for noindex_url in (
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/robotica/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/climatizacao/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/refrigeracao/",
+            "https://www.smartcontrolbrasil.com.br/loja/categoria/automacao-industrial/",
+            "https://www.smartcontrolbrasil.com.br/loja/produto/littlebot/",
+            "https://www.smartcontrolbrasil.com.br/loja/produto/orbit/",
+        ):
+            with self.subTest(noindex_url=noindex_url):
+                self.assertNotIn(noindex_url, urls)
+
+        self.assertIn("https://www.smartcontrolbrasil.com.br/xyron/littlebot/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/xyron/orbit/", urls)
         self.assertTrue(all(url.startswith("https://www.smartcontrolbrasil.com.br/") for url in urls))
 
         product_response = self.client.get(camara_product.get_absolute_url())
@@ -3821,6 +3890,86 @@ class TechnicalSeoTests(TestCase):
         self.assertContains(response, "Disallow: /login/")
         self.assertContains(response, "Disallow: /cadastro/")
 
+
+
+    def test_shop_metadata_is_unique_indexable_and_has_item_list_json_ld(self):
+        Category.objects.create(name="Robótica", slug="robotica")
+        Product.objects.create(name="LittleBot", slug="littlebot", category=Category.objects.get(slug="robotica"), active=True)
+        Product.objects.create(name="Orbit", slug="orbit", category=Category.objects.get(slug="robotica"), active=True)
+
+        response = self.client.get(reverse("commerce:shop"))
+        html = response.content.decode()
+        item_lists = self.graph_items(response, "ItemList")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Loja de Automação, Robótica e Tecnologia | Smart Control Brasil")
+        self.assertMetaDescription(response, "Conheça soluções em automação industrial, robótica Xyron, refrigeração e equipamentos tecnológicos com atendimento técnico especializado.")
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/loja/")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(self.h1_texts(response), ["Loja"])
+        self.assertMetaProperty(response, "og:url", "https://www.smartcontrolbrasil.com.br/loja/")
+        self.assertMetaName(response, "twitter:title", "Loja de Automação, Robótica e Tecnologia | Smart Control Brasil")
+        commerce_lists = [item for item in item_lists if item.get("name") == "Produtos públicos da loja Smart Control Brasil"]
+        self.assertEqual(len(commerce_lists), 1)
+        urls = [item["url"] for item in commerce_lists[0]["itemListElement"]]
+        self.assertIn("https://www.smartcontrolbrasil.com.br/xyron/littlebot/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/xyron/orbit/", urls)
+        self.assertNotIn("offers", json.dumps(commerce_lists[0]))
+        self.assertNotIn("aggregateRating", html)
+
+    def test_commerce_categories_are_accessible_noindex_follow_and_absent_from_sitemap(self):
+        for name, slug in (
+            ("Automação Industrial", "automacao-industrial"),
+            ("Climatização", "climatizacao"),
+            ("Refrigeração", "refrigeracao"),
+            ("Robótica", "robotica"),
+        ):
+            Category.objects.create(name=name, slug=slug)
+
+        urls = self.sitemap_urls()
+
+        for slug in ("automacao-industrial", "climatizacao", "refrigeracao", "robotica"):
+            with self.subTest(slug=slug):
+                path = reverse("commerce:category", kwargs={"slug": slug})
+                response = self.client.get(path)
+                self.assertEqual(response.status_code, 200)
+                self.assertContains(response, '<meta name="robots" content="noindex,follow">')
+                self.assertCanonical(response, f"https://www.smartcontrolbrasil.com.br{path}")
+                self.assertNotIn(f"https://www.smartcontrolbrasil.com.br{path}", urls)
+
+    def test_duplicate_store_products_redirect_to_xyron_canonical_pages(self):
+        robotica = Category.objects.create(name="Robótica", slug="robotica")
+        Product.objects.create(name="LittleBot", slug="littlebot", category=robotica, active=True)
+        Product.objects.create(name="Orbit", slug="orbit", category=robotica, active=True)
+
+        redirects = (
+            (reverse("commerce:product_detail", kwargs={"slug": "littlebot"}), reverse("institutional:xyron_littlebot")),
+            (reverse("commerce:product_detail", kwargs={"slug": "orbit"}), reverse("institutional:xyron_orbit")),
+        )
+        for source, target in redirects:
+            with self.subTest(source=source):
+                response = self.client.get(f"{source}?utm_source=loja")
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], f"{target}?utm_source=loja")
+                self.assertEqual(self.client.get(target).status_code, 200)
+
+        self.assertEqual(Product.objects.filter(slug__in=["littlebot", "orbit"]).count(), 2)
+        self.assertEqual(Category.objects.filter(slug="robotica").count(), 1)
+
+    @override_settings(DEBUG=False, ALLOWED_HOSTS=["testserver", "www.smartcontrolbrasil.com.br"])
+    def test_missing_url_uses_institutional_404_template_with_real_404(self):
+        response = self.client.get("/url-inexistente-etapa-15/")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "institutional/404.html")
+        self.assertTitle(response, "Página não encontrada | Smart Control Brasil")
+        self.assertContains(response, '<meta name="robots" content="noindex,follow">', status_code=404)
+        for expected in ("Home", "Serviços", "Mitsubishi", "Xyron", "Blog", "Falar com a Smart Control"):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+        self.assertNotIn("Traceback", html)
+        self.assertNotIn("Django", html)
 
 
 class AuthenticationRoutesTests(TestCase):

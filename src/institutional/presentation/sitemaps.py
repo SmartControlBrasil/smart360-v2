@@ -5,6 +5,8 @@ from django.urls import reverse
 from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.commerce.models import Category
 from src.commerce.models import Product
+from src.commerce.seo import CANONICAL_PRODUCT_ROUTE_BY_SLUG
+from src.commerce.seo import NOINDEX_CATEGORY_SLUGS
 
 
 STATIC_PUBLIC_ROUTES = (
@@ -160,7 +162,11 @@ class CommerceCategorySitemap(Sitemap):
         return settings.PUBLIC_SITE_URL.removeprefix("https://").removeprefix("http://")
 
     def items(self):
-        return Category.objects.filter(active=True).order_by("slug")
+        return (
+            Category.objects.filter(active=True)
+            .exclude(slug__in=NOINDEX_CATEGORY_SLUGS)
+            .order_by("slug")
+        )
 
     def location(self, item):
         return item.get_absolute_url()
@@ -178,7 +184,11 @@ class CommerceProductSitemap(Sitemap):
         return settings.PUBLIC_SITE_URL.removeprefix("https://").removeprefix("http://")
 
     def items(self):
-        return Product.objects.filter(active=True, category__active=True).order_by("slug")
+        return (
+            Product.objects.filter(active=True, category__active=True)
+            .exclude(slug__in=CANONICAL_PRODUCT_ROUTE_BY_SLUG)
+            .order_by("slug")
+        )
 
     def location(self, item):
         return item.get_absolute_url()

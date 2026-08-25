@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 
 from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
+from src.commerce.seo import NOINDEX_CATEGORY_SLUGS
 
 
 register = template.Library()
@@ -214,6 +215,14 @@ def _product(context):
     return context.get("product")
 
 
+def _category(context):
+    return context.get("category")
+
+
+def _products(context):
+    return context.get("products")
+
+
 def _robot(context):
     return context.get("robot")
 
@@ -364,6 +373,17 @@ def _breadcrumb_items(context):
         items.append((product.name, canonical_url(context)))
         return items
 
+    if _app_name(context) == "commerce" and _route_name(context) == "shop":
+        return [home, ("Loja", canonical_url(context))]
+
+    category = _category(context)
+    if _app_name(context) == "commerce" and _route_name(context) == "category" and category:
+        return [
+            home,
+            ("Loja", _site_url(reverse("commerce:shop"))),
+            (category.name, canonical_url(context)),
+        ]
+
     return []
 
 
@@ -429,6 +449,29 @@ def _blog_item_list_schema(context):
                 "description": post.get("meta_description", ""),
             }
             for position, (slug, post) in enumerate(BLOG_POSTS.items(), start=1)
+        ],
+    }
+
+
+def _commerce_shop_item_list_schema(context):
+    if _app_name(context) != "commerce" or _route_name(context) != "shop":
+        return None
+
+    products = _products(context)
+    if products is None:
+        return None
+
+    return {
+        "@type": "ItemList",
+        "name": "Produtos públicos da loja Smart Control Brasil",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": position,
+                "name": product.name,
+                "url": _site_url(product.public_detail_url),
+            }
+            for position, product in enumerate(products, start=1)
         ],
     }
 
@@ -1025,6 +1068,10 @@ def _structured_data_graph(context):
     if blog_item_list:
         graph.append(blog_item_list)
 
+    commerce_item_list = _commerce_shop_item_list_schema(context)
+    if commerce_item_list:
+        graph.append(commerce_item_list)
+
     service = _service_schema(context)
     if service:
         graph.append(service)
@@ -1155,8 +1202,16 @@ def social_image_alt(context):
 
 @register.simple_tag(takes_context=True)
 def robots_directives(context):
-    if _app_name(context) == "commerce":
+    metadata = _metadata(context)
+    if metadata and getattr(metadata, "robots", None):
+        return metadata.robots
+
+    if _app_name(context) == "commerce" and _route_name(context) == "category":
+        category = _category(context)
+        if category and category.slug in NOINDEX_CATEGORY_SLUGS:
+            return "noindex,follow"
         return ""
+
     if _route_name(context) in NOINDEX_ROUTE_NAMES:
         return "noindex,follow"
     return ""

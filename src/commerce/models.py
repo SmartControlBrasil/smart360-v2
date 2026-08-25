@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import get_valid_filename
+
+from .seo import CANONICAL_PRODUCT_ROUTE_BY_SLUG
 from PIL import Image
 from PIL import UnidentifiedImageError
 
@@ -160,6 +162,13 @@ class Product(TimeStampedModel):
         return reverse("commerce:product_detail", kwargs={"slug": self.slug})
 
     @property
+    def public_detail_url(self):
+        route_name = CANONICAL_PRODUCT_ROUTE_BY_SLUG.get(self.slug)
+        if route_name:
+            return reverse(route_name)
+        return self.get_absolute_url()
+
+    @property
     def primary_image(self):
         return self.images.order_by("-is_primary", "position", "id").first()
 
@@ -219,6 +228,9 @@ class Product(TimeStampedModel):
 
     @property
     def primary_cta_url(self):
+        route_name = CANONICAL_PRODUCT_ROUTE_BY_SLUG.get(self.slug)
+        if route_name:
+            return reverse(route_name)
         return f"{reverse('institutional:contact')}?produto={self.slug}&acao={self.sale_mode}"
 
     @property

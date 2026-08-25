@@ -150,6 +150,38 @@ def legacy_automacao_industrial_conectada_gestao(request):
     )
 
 
+def legacy_projects(request):
+    return _permanent_redirect_to_route(request, "institutional:services")
+
+
+def legacy_blog_dashboards_decisoes_melhores(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="informacao-precisa-para-agir-melhor",
+    )
+
+
+def legacy_blog_iot_mudando_negocios(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="informacao-precisa-para-agir-melhor",
+    )
+
+
+def legacy_blog_manutencao_tpm(request):
+    return _permanent_redirect_to_route(request, "institutional:manutencao_industrial_campo")
+
+
+def legacy_blog_paineis_eletricos_automacao(request):
+    return _permanent_redirect_to_route(request, "institutional:mitsubishi_automacao_industrial")
+
+
+def legacy_agraz(request):
+    return _permanent_redirect_to_route(request, "institutional:services")
+
+
 def robots_txt(request):
     lines = [
         "User-agent: *",
@@ -402,3 +434,14 @@ def contact(request):
         "institutional/pages/contact.html",
         {"form": form},
     )
+
+def page_not_found(request, exception):
+    page = SimpleNamespace(
+        metadata=SimpleNamespace(
+            title="Página não encontrada | Smart Control Brasil",
+            description="A página solicitada não foi encontrada no site da Smart Control Brasil.",
+            canonical_path=request.path,
+            robots="noindex,follow",
+        )
+    )
+    return render(request, "institutional/404.html", {"page": page}, status=404)

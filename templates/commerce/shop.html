@@ -53,7 +53,7 @@
                                 <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
                                     <div class="product-4__item mb-30">
                                         <div class="product-4__item-thumb product-4__item-thumb-2">
-                                            <a href="{{ product.get_absolute_url }}">
+                                            <a href="{{ product.public_detail_url }}">
                                                 {% with image=product.primary_image %}
                                                     {% if image and image.image %}
                                                         <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.name }}" loading="lazy" decoding="async">
@@ -76,7 +76,7 @@
                                                 </div>
                                                 <h5>{{ product.category.name }}</h5>
                                             </div>
-                                            <h3 class="product-4__content-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                                            <h3 class="product-4__content-title"><a href="{{ product.public_detail_url }}">{{ product.name }}</a></h3>
                                             <p class="product-4__content-dec">{{ product.short_description|default:product.category.description|truncatechars:105 }}</p>
                                             {% if product.brand %}<p class="commerce-brand">Marca: {{ product.brand.name }}</p>{% endif %}
                                             {% if not product.public_price_label %}<p class="commerce-condition">{{ product.commercial_condition_label }}</p>{% endif %}
@@ -84,7 +84,7 @@
                                         <div class="product-4__item-cart">
                                             {% if product.public_price_label %}<h5 class="product-4__item-cart-text">{{ product.public_price_label }}</h5>{% endif %}
                                             <div class="commerce-card-actions">
-                                                <a href="{{ product.get_absolute_url }}" class="rr-btn"><i class="fa-regular fa-eye"></i>Ver detalhes</a>
+                                                <a href="{{ product.public_detail_url }}" class="rr-btn"><i class="fa-regular fa-eye"></i>Ver detalhes</a>
                                                 <a href="{{ product.primary_cta_url }}" class="rr-btn btn-transparent">{{ product.primary_cta_label }}</a>
                                                 {% if product.secondary_cta_label %}
                                                     <a href="{{ product.secondary_cta_url }}" class="rr-btn btn-transparent">{{ product.secondary_cta_label }}</a>
