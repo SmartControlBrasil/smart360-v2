@@ -142,10 +142,6 @@ def legacy_xyron_robotics(request):
     return _permanent_redirect_to_route(request, "institutional:xyron")
 
 
-def legacy_project_details(request):
-    return _permanent_redirect_to_route(request, "institutional:projects")
-
-
 def legacy_automacao_industrial_conectada_gestao(request):
     return _permanent_redirect_to_route(
         request,
@@ -330,10 +326,6 @@ def services(request):
     return render(request, "institutional/pages/service.html")
 
 
-def service_details(request):
-    return render(request, "institutional/pages/service_details.html")
-
-
 def blog(request):
     return render(
         request,
@@ -372,55 +364,6 @@ def blog_details(request):
         slug="selecao-controladores-ativos-alta-severidade",
         permanent=True,
     )
-
-
-def team(request):
-    return render(request, "institutional/pages/team.html")
-
-
-def team_details(request):
-    return render(request, "institutional/pages/team_details.html")
-
-
-def projects(request):
-    return render(request, "institutional/pages/project.html")
-
-
-def project_details(request):
-    return render(request, "institutional/pages/project_details.html")
-
-
-def testimonials(request):
-    return render(request, "institutional/pages/testimonial.html")
-
-
-def pricing(request):
-    return render(request, "institutional/pages/pricing.html")
-
-
-
-def cart(request):
-    return render(request, "institutional/pages/cart.html")
-
-
-def wishlist(request):
-    return render(request, "institutional/pages/wishlist.html")
-
-
-def checkout(request):
-    return render(request, "institutional/pages/checkout.html")
-
-
-def shop(request):
-    return render(request, "institutional/pages/shop.html")
-
-
-def shop_details(request):
-    return render(request, "institutional/pages/shop_details.html")
-
-
-def faq(request):
-    return render(request, "institutional/pages/faq.html")
 
 
 def contact(request):
@@ -495,7 +438,3 @@ def contact(request):
         "institutional/pages/contact.html",
         {"form": form},
     )
-
-
-def error_404_preview(request):
-    return render(request, "institutional/pages/error_404.html")

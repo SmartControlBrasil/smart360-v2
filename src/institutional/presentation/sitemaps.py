@@ -84,27 +84,12 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 0.9,
     },
     {
-        "name": "institutional:projects",
-        "changefreq": "monthly",
-        "priority": 0.8,
-    },
-    {
         "name": "institutional:blog",
         "changefreq": "weekly",
         "priority": 0.8,
     },
     {
         "name": "institutional:about",
-        "changefreq": "monthly",
-        "priority": 0.7,
-    },
-    {
-        "name": "institutional:testimonials",
-        "changefreq": "monthly",
-        "priority": 0.7,
-    },
-    {
-        "name": "institutional:faq",
         "changefreq": "monthly",
         "priority": 0.7,
     },

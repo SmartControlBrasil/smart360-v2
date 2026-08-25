@@ -34,23 +34,10 @@ class InstitutionalRoutesTests(TestCase):
         "mitsubishi_automacao_industrial",
         "about",
         "services",
-        "service_details",
         "blog",
-        "team",
-        "team_details",
-        "projects",
-        "testimonials",
-        "pricing",
         "login",
         "signup",
-        "cart",
-        "wishlist",
-        "checkout",
-        "shop",
-        "shop_details",
-        "faq",
         "contact",
-        "error_404_preview",
     )
 
     def test_all_institutional_routes_return_200(self):
@@ -86,7 +73,6 @@ class InstitutionalRoutesTests(TestCase):
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
             ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
-            ("/projetos/detalhes/", reverse("institutional:projects")),
             (
                 "/blog/automacao-industrial-conectada-gestao/",
                 reverse(
@@ -115,7 +101,6 @@ class InstitutionalRoutesTests(TestCase):
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
             ("/parceiros/xyron-robotics/", reverse("institutional:xyron")),
-            ("/projetos/detalhes/", reverse("institutional:projects")),
             (
                 "/blog/automacao-industrial-conectada-gestao/",
                 reverse(
@@ -134,6 +119,35 @@ class InstitutionalRoutesTests(TestCase):
 
                 destination_response = self.client.get(target)
                 self.assertEqual(destination_response.status_code, 200)
+
+    def test_removed_institutional_demo_routes_return_404(self):
+        removed_paths = (
+            "/servicos/detalhes/",
+            "/equipe/",
+            "/equipe/detalhes/",
+            "/projetos/",
+            "/projetos/detalhes/",
+            "/depoimentos/",
+            "/planos/",
+            "/carrinho/",
+            "/lista-de-desejos/",
+            "/checkout/",
+            "/faq/",
+            "/modelos/404/",
+        )
+
+        for removed_path in removed_paths:
+            with self.subTest(removed_path=removed_path):
+                response = self.client.get(removed_path)
+
+                self.assertEqual(response.status_code, 404)
+
+    def test_commerce_shop_routes_are_preserved_after_institutional_demo_cleanup(self):
+        shop = self.client.get("/loja/")
+        legacy_details = self.client.get("/loja/detalhes/")
+
+        self.assertEqual(shop.status_code, 200)
+        self.assertEqual(legacy_details.status_code, 200)
 
     def test_menu_contains_named_solution_routes(self):
         response = self.client.get(reverse("institutional:home"))
@@ -519,7 +533,7 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
 
         self.assertNotIn("href=\"#\"", html)
-        self.assertNotIn(reverse("institutional:pricing"), html)
+        self.assertNotIn("/planos/", html)
         self.assertNotIn(reverse("institutional:blog_details"), html)
         self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
         self.assertIn(reverse("institutional:contact"), html)
@@ -662,7 +676,7 @@ class TechnicalSeoTests(TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, html)
         self.assertNotIn(reverse("institutional:blog_details"), html)
-        self.assertNotIn(reverse("institutional:team"), html)
+        self.assertNotIn("/equipe/", html)
         self.assertIn(reverse("institutional:services"), html)
         self.assertIn(reverse("institutional:xyron"), html)
         self.assertIn(reverse("institutional:mitsubishi_automacao_industrial"), html)
@@ -3495,7 +3509,7 @@ class TechnicalSeoTests(TestCase):
         for disabled_url in disabled_landing_urls:
             with self.subTest(disabled_url=disabled_url):
                 self.assertNotIn(disabled_url, urls)
-        self.assertEqual(len(urls), 22 + len(BLOG_POSTS))
+        self.assertEqual(len(urls), 19 + len(BLOG_POSTS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":
