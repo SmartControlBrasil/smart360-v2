@@ -31,8 +31,13 @@
                     <div class="row">
                         <div class="col-xl-8">
                             <div class="blog__details-content hero">
-                                <p class="title">{{ author.job_title }}</p>
-                                <p class="dec-2">{{ author.post_graduation }}</p>
+                                <div class="author-profile-header d-flex flex-column flex-md-row align-items-start gap-4 mb-40">
+                                    {% include "institutional/partials/author_portrait.html" with author=author lazy=False %}
+                                    <div>
+                                        <p class="title">{{ author.job_title }}</p>
+                                        <p class="dec-2">{{ author.post_graduation }}</p>
+                                    </div>
+                                </div>
                                 <p class="dec-3">{{ author.full_bio }}</p>
 
                                 <h2 class="title mt-50">Áreas de conhecimento</h2>

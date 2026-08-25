@@ -1,0 +1,12 @@
+{% load static %}
+<figure class="author-portrait{% if modifier %} author-portrait--{{ modifier }}{% endif %}">
+    <img
+        src="{% static author.image_path %}"
+        alt="{{ author.image_alt }}"
+        width="{{ author.image_width }}"
+        height="{{ author.image_height }}"
+        class="author-portrait__image"
+        decoding="async"
+        {% if lazy %}loading="lazy"{% endif %}
+    >
+</figure>

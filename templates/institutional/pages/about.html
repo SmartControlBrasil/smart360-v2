@@ -223,12 +223,15 @@
             <section class="about__area section-space-top section-space-bottom-2">
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col-lg-12">
+                        <div class="col-lg-3 col-md-4 mb-30 mb-md-0">
+                            {% include "institutional/partials/author_portrait.html" with author=technical_author modifier="about" lazy=True %}
+                        </div>
+                        <div class="col-lg-9">
                             <div class="section__title-wrapper hero">
                                 <h2 class="section__title-wrapper-title _split_text">Responsabilidade Técnica e Editorial</h2>
-                                <p class="section__title-wrapper-dec rr_title_anim mt-20"><a href="{% url 'institutional:author_detail' slug='marcelo-custodio' %}">Marcelo Custodio</a> · Engenheiro de Controle e Automação · Pós-graduado em TPM e Inteligência Artificial.</p>
-                                <p class="section__title-wrapper-dec rr_title_anim pt-25">Marcelo Custodio é engenheiro de Controle e Automação, pós-graduado em TPM e Inteligência Artificial. Atua na integração entre automação industrial, manutenção, confiabilidade, sistemas e tecnologias aplicadas à operação.</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:author_detail' slug='marcelo-custodio' %}">Conheça o autor <i class="fa-solid fa-angle-right"></i></a>
+                                <p class="section__title-wrapper-dec rr_title_anim mt-20"><a href="{% url 'institutional:author_detail' slug=technical_author.slug %}">{{ technical_author.name }}</a> · {{ technical_author.job_title }} · {{ technical_author.post_graduation }}.</p>
+                                <p class="section__title-wrapper-dec rr_title_anim pt-25">{{ technical_author.short_bio }}</p>
+                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:author_detail' slug=technical_author.slug %}">Conheça o autor <i class="fa-solid fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>

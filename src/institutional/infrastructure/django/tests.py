@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import re
+import subprocess
 from smtplib import SMTPException
 from unittest.mock import patch
 from urllib.parse import urljoin
@@ -115,6 +116,43 @@ class InstitutionalRoutesTests(TestCase):
                 "/blog/paineis-eletricos-automacao/",
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
+            (
+                "/blog/aplicacoes-reais-robos-brasil/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "inovacao-que-aparece-e-gera-valor"},
+                ),
+            ),
+            (
+                "/blog/robotica-escolas-empresas-cidades/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "inovacao-que-aparece-e-gera-valor"},
+                ),
+            ),
+            (
+                "/blog/integrar-sensores-maquinas-sistemas/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/automacao-conectada-maquinas-sensores-sistemas/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/dados-operacionais-empresa-inteligente/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "historico-indicadores-decisoes-consistentes"},
+                ),
+            ),
+            ("/blog/pagina/2/", reverse("institutional:blog")),
+            ("/faq/", reverse("institutional:home")),
         )
 
         for source, target in redirects:
@@ -176,6 +214,43 @@ class InstitutionalRoutesTests(TestCase):
                 "/blog/paineis-eletricos-automacao/",
                 reverse("institutional:mitsubishi_automacao_industrial"),
             ),
+            (
+                "/blog/aplicacoes-reais-robos-brasil/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "inovacao-que-aparece-e-gera-valor"},
+                ),
+            ),
+            (
+                "/blog/robotica-escolas-empresas-cidades/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "inovacao-que-aparece-e-gera-valor"},
+                ),
+            ),
+            (
+                "/blog/integrar-sensores-maquinas-sistemas/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/automacao-conectada-maquinas-sensores-sistemas/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+                ),
+            ),
+            (
+                "/blog/dados-operacionais-empresa-inteligente/",
+                reverse(
+                    "institutional:blog_detail",
+                    kwargs={"slug": "historico-indicadores-decisoes-consistentes"},
+                ),
+            ),
+            ("/blog/pagina/2/", reverse("institutional:blog")),
+            ("/faq/", reverse("institutional:home")),
         )
 
         for source, target in redirects:
@@ -198,7 +273,6 @@ class InstitutionalRoutesTests(TestCase):
             "/carrinho/",
             "/lista-de-desejos/",
             "/checkout/",
-            "/faq/",
             "/modelos/404/",
             "/ai-video-interaction-platform/",
             "/ai-web-solutions-startups/",
@@ -902,7 +976,7 @@ class TechnicalSeoTests(TestCase):
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "inovacao-que-aparece-e-gera-valor"}), html)
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "informacao-precisa-para-agir-melhor"}), html)
         self.assertIn("Responsabilidade Técnica e Editorial", html)
-        self.assertIn(reverse("institutional:author_detail", kwargs={"slug": "marcelo-custodio"}), html)
+        self.assertIn(reverse("institutional:author_detail", kwargs={"slug": MARCELO_CUSTODIO.slug}), html)
 
     def test_about_page_includes_breadcrumb_and_about_page_json_ld(self):
         response = self.client.get("/empresa/")
@@ -3730,6 +3804,13 @@ class TechnicalSeoTests(TestCase):
             "https://www.smartcontrolbrasil.com.br/blog/iot-mudando-negocios/",
             "https://www.smartcontrolbrasil.com.br/blog/manutencao-tpm-confiabilidade-sistemas-automatizados/",
             "https://www.smartcontrolbrasil.com.br/blog/paineis-eletricos-automacao/",
+            "https://www.smartcontrolbrasil.com.br/blog/aplicacoes-reais-robos-brasil/",
+            "https://www.smartcontrolbrasil.com.br/blog/robotica-escolas-empresas-cidades/",
+            "https://www.smartcontrolbrasil.com.br/blog/integrar-sensores-maquinas-sistemas/",
+            "https://www.smartcontrolbrasil.com.br/blog/automacao-conectada-maquinas-sensores-sistemas/",
+            "https://www.smartcontrolbrasil.com.br/blog/dados-operacionais-empresa-inteligente/",
+            "https://www.smartcontrolbrasil.com.br/blog/pagina/2/",
+            "https://www.smartcontrolbrasil.com.br/faq/",
         )
         for legacy_url in legacy_urls:
             with self.subTest(legacy_url=legacy_url):
@@ -3990,7 +4071,19 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(people[0]["knowsAbout"], list(MARCELO_CUSTODIO.knows_about))
         self.assertEqual(people[0]["worksFor"], {"@id": "https://www.smartcontrolbrasil.com.br/#organization"})
         self.assertEqual(people[0]["url"], "https://www.smartcontrolbrasil.com.br/autor/marcelo-custodio/")
+        self.assertEqual(
+            people[0]["image"],
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/team/marcelo.png",
+        )
+        self.assertEqual(
+            profile_pages[0]["primaryImageOfPage"],
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/team/marcelo.png",
+        )
         self.assertNotIn("sameAs", people[0])
+        self.assertIn(MARCELO_CUSTODIO.image_alt, author_html)
+        self.assertIn('src="/static/institutional/imgs/team/marcelo.png"', author_html)
+        self.assertIn(f'width="{MARCELO_CUSTODIO.image_width}"', author_html)
+        self.assertIn(f'height="{MARCELO_CUSTODIO.image_height}"', author_html)
 
         for forbidden in (
             "CREA",
@@ -4016,6 +4109,15 @@ class TechnicalSeoTests(TestCase):
         self.assertIn("Atualizado em", article_html)
         self.assertIn("Sobre o autor", article_html)
         self.assertIn("Conheça o autor", article_html)
+        self.assertIn(MARCELO_CUSTODIO.image_alt, article_html)
+        self.assertIn('src="/static/institutional/imgs/team/marcelo.png"', article_html)
+
+        people = self.graph_items(article_response, "Person")
+        self.assertEqual(len(people), 1)
+        self.assertEqual(
+            people[0]["image"],
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/team/marcelo.png",
+        )
 
         updated_slug = "convergencia-robotica-ia-firmwares-dedicados"
         updated_response = self.client.get(f"/blog/{updated_slug}/")
@@ -4040,6 +4142,205 @@ class TechnicalSeoTests(TestCase):
             if BLOG_POSTS[slug].get("faq"):
                 self.assertEqual(len(faq_pages), 1)
             self.assertEqual(len(breadcrumbs), 1)
+
+
+LEGACY_SEO_REDIRECTS = (
+    (
+        "/blog/aplicacoes-reais-robos-brasil/",
+        reverse(
+            "institutional:blog_detail",
+            kwargs={"slug": "inovacao-que-aparece-e-gera-valor"},
+        ),
+    ),
+    (
+        "/blog/robotica-escolas-empresas-cidades/",
+        reverse(
+            "institutional:blog_detail",
+            kwargs={"slug": "inovacao-que-aparece-e-gera-valor"},
+        ),
+    ),
+    (
+        "/blog/integrar-sensores-maquinas-sistemas/",
+        reverse(
+            "institutional:blog_detail",
+            kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+        ),
+    ),
+    (
+        "/blog/automacao-conectada-maquinas-sensores-sistemas/",
+        reverse(
+            "institutional:blog_detail",
+            kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+        ),
+    ),
+    (
+        "/blog/dados-operacionais-empresa-inteligente/",
+        reverse(
+            "institutional:blog_detail",
+            kwargs={"slug": "historico-indicadores-decisoes-consistentes"},
+        ),
+    ),
+    ("/blog/pagina/2/", reverse("institutional:blog")),
+    ("/faq/", reverse("institutional:home")),
+)
+
+LEGACY_SEO_SOURCE_URLS = tuple(source for source, _ in LEGACY_SEO_REDIRECTS)
+
+FORBIDDEN_CLIMATE_TERMS = (
+    "câmara climática",
+    "câmaras climáticas",
+    "camara climatica",
+    "camaras climaticas",
+)
+
+
+class LegacySeoRedirectTests(TestCase):
+    def test_legacy_seo_urls_return_301_with_preserved_query_string(self):
+        for source, target in LEGACY_SEO_REDIRECTS:
+            with self.subTest(source=source):
+                response = self.client.get(f"{source}?utm_source=legacy&ref=old")
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], f"{target}?utm_source=legacy&ref=old")
+
+    def test_legacy_seo_redirect_destinations_return_200_without_loops(self):
+        for source, target in LEGACY_SEO_REDIRECTS:
+            with self.subTest(source=source):
+                self.assertNotEqual(source, target)
+                response = self.client.get(source)
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], target)
+                destination_response = self.client.get(target)
+                self.assertEqual(destination_response.status_code, 200)
+
+    def test_unknown_url_still_returns_real_404_with_noindex(self):
+        response = self.client.get("/pagina-legada-inexistente-teste/")
+        self.assertEqual(response.status_code, 404)
+        self.assertContains(response, '<meta name="robots" content="noindex,follow">', status_code=404)
+
+    def test_legacy_seo_urls_are_absent_from_sitemap(self):
+        response = self.client.get("/sitemap.xml")
+        xml = response.content.decode()
+        for legacy_url in LEGACY_SEO_SOURCE_URLS:
+            with self.subTest(legacy_url=legacy_url):
+                self.assertNotIn(f"https://www.smartcontrolbrasil.com.br{legacy_url}", xml)
+
+
+class AuthorPortraitTests(TestCase):
+    AUTHOR_IMAGE_STATIC = static("institutional/imgs/team/marcelo.png")
+    AUTHOR_IMAGE_ABSOLUTE = (
+        "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/team/marcelo.png"
+    )
+
+    def structured_data(self, response):
+        html = response.content.decode()
+        start_marker = '<script type="application/ld+json">'
+        end_marker = "</script>"
+        blocks = []
+        start = html.find(start_marker)
+        while start != -1:
+            start += len(start_marker)
+            end = html.find(end_marker, start)
+            blocks.append(json.loads(html[start:end]))
+            start = html.find(start_marker, end + len(end_marker))
+        return blocks
+
+    def graph_items(self, response, item_type=None):
+        items = []
+        for payload in self.structured_data(response):
+            graph = payload.get("@graph", [])
+            items.extend(graph if isinstance(graph, list) else [graph])
+        if item_type:
+            return [item for item in items if item.get("@type") == item_type]
+        return items
+
+    def assertPortraitMarkup(self, response, lazy_expected):
+        html = response.content.decode()
+        self.assertIn(self.AUTHOR_IMAGE_STATIC, html)
+        self.assertIn(MARCELO_CUSTODIO.image_alt, html)
+        self.assertIn(f'width="{MARCELO_CUSTODIO.image_width}"', html)
+        self.assertIn(f'height="{MARCELO_CUSTODIO.image_height}"', html)
+        portrait_match = re.search(
+            r'<figure class="author-portrait[^"]*">.*?<img[^>]+>',
+            html,
+            flags=re.S,
+        )
+        self.assertIsNotNone(portrait_match)
+        if lazy_expected:
+            self.assertIn('loading="lazy"', portrait_match.group(0))
+        else:
+            self.assertNotIn('loading="lazy"', portrait_match.group(0))
+
+    def test_author_page_displays_portrait_without_lazy_loading(self):
+        response = self.client.get(
+            reverse("institutional:author_detail", kwargs={"slug": MARCELO_CUSTODIO.slug})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertPortraitMarkup(response, lazy_expected=False)
+
+    def test_article_author_blocks_display_portrait_for_all_posts(self):
+        for slug in BLOG_POSTS:
+            with self.subTest(slug=slug):
+                response = self.client.get(f"/blog/{slug}/")
+                self.assertEqual(response.status_code, 200)
+                html = response.content.decode()
+                self.assertIn("Sobre o autor", html)
+                self.assertIn(self.AUTHOR_IMAGE_STATIC, html)
+                self.assertIn(MARCELO_CUSTODIO.image_alt, html)
+
+    def test_about_page_displays_technical_author_portrait(self):
+        response = self.client.get("/empresa/")
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode()
+        self.assertIn("Responsabilidade Técnica e Editorial", html)
+        self.assertIn(self.AUTHOR_IMAGE_STATIC, html)
+        self.assertIn(MARCELO_CUSTODIO.image_alt, html)
+
+    def test_person_and_profile_page_schemas_include_author_image(self):
+        author_response = self.client.get(
+            reverse("institutional:author_detail", kwargs={"slug": MARCELO_CUSTODIO.slug})
+        )
+        people = self.graph_items(author_response, "Person")
+        profile_pages = self.graph_items(author_response, "ProfilePage")
+        self.assertEqual(people[0]["image"], self.AUTHOR_IMAGE_ABSOLUTE)
+        self.assertEqual(profile_pages[0]["primaryImageOfPage"], self.AUTHOR_IMAGE_ABSOLUTE)
+
+    def test_blogposting_keeps_author_id_and_person_image_on_articles(self):
+        slug = "selecao-controladores-ativos-alta-severidade"
+        response = self.client.get(f"/blog/{slug}/")
+        blog_postings = self.graph_items(response, "BlogPosting")
+        people = self.graph_items(response, "Person")
+        self.assertEqual(blog_postings[0]["author"], {"@id": MARCELO_CUSTODIO.json_ld_id})
+        self.assertEqual(people[0]["image"], self.AUTHOR_IMAGE_ABSOLUTE)
+        editorial = BLOG_POST_EDITORIAL[slug]
+        self.assertEqual(blog_postings[0]["datePublished"], editorial["date_published"])
+        self.assertEqual(blog_postings[0]["dateModified"], editorial["date_modified"])
+
+    def test_commit_diff_does_not_add_forbidden_climate_terms(self):
+        result = subprocess.run(
+            [
+                "git",
+                "diff",
+                "HEAD",
+                "--",
+                "src/institutional/presentation/",
+                "templates/",
+                "static/",
+                "config/",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).resolve().parents[4],
+        )
+        added_lines = [
+            line[1:].lower()
+            for line in result.stdout.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        ]
+        added_text = "\n".join(added_lines)
+        for term in FORBIDDEN_CLIMATE_TERMS:
+            with self.subTest(term=term):
+                self.assertNotIn(term.lower(), added_text)
 
 
 class AuthenticationRoutesTests(TestCase):

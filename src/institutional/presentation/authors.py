@@ -13,6 +13,10 @@ class Author:
     seo_title: str
     seo_description: str
     json_ld_id: str
+    image_path: str
+    image_alt: str
+    image_width: int
+    image_height: int
 
     @property
     def public_path(self) -> str:
@@ -48,6 +52,10 @@ MARCELO_CUSTODIO = Author(
         "e Inteligência Artificial e autor técnico da Smart Control Brasil."
     ),
     json_ld_id="https://www.smartcontrolbrasil.com.br/autor/marcelo-custodio/#person",
+    image_path="institutional/imgs/team/marcelo.png",
+    image_alt="Foto de Marcelo Custodio, engenheiro de Controle e Automação",
+    image_width=300,
+    image_height=340,
 )
 
 AUTHORS = {

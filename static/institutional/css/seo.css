@@ -86,3 +86,35 @@
     height: 58px;
   }
 }
+
+.author-portrait {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.author-portrait__image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.author-portrait--compact .author-portrait__image {
+  width: 120px;
+  max-height: 136px;
+}
+
+.author-portrait--about .author-portrait__image {
+  width: 180px;
+  max-height: 204px;
+}
+
+.author-profile-header .author-portrait__image {
+  width: 180px;
+  max-height: 204px;
+}
+
+.author-about-block__content {
+  margin-top: 20px;
+}

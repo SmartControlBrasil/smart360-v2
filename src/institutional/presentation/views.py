@@ -18,6 +18,8 @@ from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
 from src.institutional.presentation.blog_editorial import enrich_blog_post
 from src.institutional.presentation.authors import AUTHORS
+from src.institutional.presentation.authors import DEFAULT_AUTHOR_SLUG
+from src.institutional.presentation.authors import get_author
 from src.institutional.presentation.forms import ContactForm
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 
@@ -184,6 +186,54 @@ def legacy_agraz(request):
     return _permanent_redirect_to_route(request, "institutional:services")
 
 
+def legacy_blog_aplicacoes_reais_robos_brasil(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="inovacao-que-aparece-e-gera-valor",
+    )
+
+
+def legacy_blog_robotica_escolas_empresas_cidades(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="inovacao-que-aparece-e-gera-valor",
+    )
+
+
+def legacy_blog_integrar_sensores_maquinas_sistemas(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="informacao-precisa-para-agir-melhor",
+    )
+
+
+def legacy_blog_automacao_conectada_maquinas_sensores_sistemas(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="informacao-precisa-para-agir-melhor",
+    )
+
+
+def legacy_blog_dados_operacionais_empresa_inteligente(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="historico-indicadores-decisoes-consistentes",
+    )
+
+
+def legacy_blog_pagina_2(request):
+    return _permanent_redirect_to_route(request, "institutional:blog")
+
+
+def legacy_faq(request):
+    return _permanent_redirect_to_route(request, "institutional:home")
+
+
 def robots_txt(request):
     lines = [
         "User-agent: *",
@@ -317,7 +367,11 @@ def mitsubishi_automacao_industrial(request):
 
 
 def about(request):
-    return render(request, "institutional/pages/about.html")
+    return render(
+        request,
+        "institutional/pages/about.html",
+        {"technical_author": get_author(DEFAULT_AUTHOR_SLUG)},
+    )
 
 
 def services(request):

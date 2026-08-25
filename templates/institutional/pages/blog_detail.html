@@ -119,11 +119,16 @@
                                     </div>
                                 {% endif %}
 
-                                <div class="blog__details-content-quite mt-30">
+                                <div class="blog__details-content-quite mt-30 author-about-block">
                                     <h2 class="title">Sobre o autor</h2>
-                                    <p class="dec-3"><strong>{{ post.author_name }}</strong> · {{ post.author_job_title }}</p>
-                                    <p class="dec-3">{{ post.author_short_bio }}</p>
-                                    <p class="dec-3"><a href="{% url post.author_url_name slug=post.author_slug %}">Conheça o autor</a></p>
+                                    <div class="author-about-block__content d-flex flex-column flex-md-row align-items-start gap-4">
+                                        {% include "institutional/partials/author_portrait.html" with author=post.author_profile modifier="compact" lazy=True %}
+                                        <div>
+                                            <p class="dec-3"><strong>{{ post.author_name }}</strong> · {{ post.author_job_title }}</p>
+                                            <p class="dec-3">{{ post.author_short_bio }}</p>
+                                            <p class="dec-3"><a href="{% url post.author_url_name slug=post.author_slug %}">Conheça o autor</a></p>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="blog__details-bottom d-flex flex-column flex-md-row justify-content-md-between">

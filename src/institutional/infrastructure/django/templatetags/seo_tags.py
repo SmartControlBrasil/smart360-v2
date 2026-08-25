@@ -411,8 +411,15 @@ def _breadcrumb_items(context):
     return []
 
 
+def _author_image_url(author):
+    image_path = getattr(author, "image_path", "")
+    if not image_path:
+        return ""
+    return _static_public_url(image_path)
+
+
 def _person_schema(author):
-    return {
+    schema = {
         "@id": author.json_ld_id,
         "@type": "Person",
         "name": author.name,
@@ -422,6 +429,10 @@ def _person_schema(author):
         "url": _site_url(author.public_path),
         "worksFor": {"@id": ORGANIZATION_ID},
     }
+    image_url = _author_image_url(author)
+    if image_url:
+        schema["image"] = image_url
+    return schema
 
 
 def _author_profile_page_schema(context):
@@ -429,13 +440,17 @@ def _author_profile_page_schema(context):
     if _route_name(context) != "author_detail" or not author:
         return None
 
-    return {
+    profile = {
         "@type": "ProfilePage",
         "name": author.seo_title,
         "description": author.seo_description,
         "url": canonical_url(context),
         "mainEntity": {"@id": author.json_ld_id},
     }
+    image_url = _author_image_url(author)
+    if image_url:
+        profile["primaryImageOfPage"] = image_url
+    return profile
 
 
 def _article_schema(context):

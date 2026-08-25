@@ -91,6 +91,33 @@ urlpatterns = [
         views.legacy_blog_paineis_eletricos_automacao,
         name="legacy_blog_paineis_eletricos_automacao",
     ),
+    path(
+        "blog/aplicacoes-reais-robos-brasil/",
+        views.legacy_blog_aplicacoes_reais_robos_brasil,
+        name="legacy_blog_aplicacoes_reais_robos_brasil",
+    ),
+    path(
+        "blog/robotica-escolas-empresas-cidades/",
+        views.legacy_blog_robotica_escolas_empresas_cidades,
+        name="legacy_blog_robotica_escolas_empresas_cidades",
+    ),
+    path(
+        "blog/integrar-sensores-maquinas-sistemas/",
+        views.legacy_blog_integrar_sensores_maquinas_sistemas,
+        name="legacy_blog_integrar_sensores_maquinas_sistemas",
+    ),
+    path(
+        "blog/automacao-conectada-maquinas-sensores-sistemas/",
+        views.legacy_blog_automacao_conectada_maquinas_sensores_sistemas,
+        name="legacy_blog_automacao_conectada_maquinas_sensores_sistemas",
+    ),
+    path(
+        "blog/dados-operacionais-empresa-inteligente/",
+        views.legacy_blog_dados_operacionais_empresa_inteligente,
+        name="legacy_blog_dados_operacionais_empresa_inteligente",
+    ),
+    path("blog/pagina/2/", views.legacy_blog_pagina_2, name="legacy_blog_pagina_2"),
+    path("faq/", views.legacy_faq, name="legacy_faq"),
     path("blog/<slug:slug>/", views.blog_detail, name="blog_detail"),
     path("autor/<slug:slug>/", views.author_detail, name="author_detail"),
     path("contato/", views.contact, name="contact"),

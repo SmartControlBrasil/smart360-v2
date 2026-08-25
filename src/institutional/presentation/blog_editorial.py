@@ -97,6 +97,7 @@ def enrich_blog_post(slug, post):
         "author_short_bio": author.short_bio,
         "author_url_name": "institutional:author_detail",
         "author_url_kwargs": {"slug": author.slug},
+        "author_profile": author,
         "date_published_display": format_date_br(date_published),
         "date_modified_display": format_date_br(date_modified),
         "dates_differ": date_published != date_modified,
