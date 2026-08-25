@@ -1,0 +1,51 @@
+{% load institutional_media %}
+{% load static %}
+<section class="faq__area ask-question p-relative overflow-hidden section-space-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section__title-wrapper hero mb-40">
+                    <h2 class="section__title-wrapper-title _split_text">Perguntas Frequentes</h2>
+                </div>
+                <div class="ask-question__faq">
+                    <div class="accordion" id="pillarFaqAccordion">
+                        {% for question, answer in pillar.faqs %}
+                        <div class="accordion-item ask-question__faq-item faq__item">
+                            <h3 class="accordion-header" id="pillarFaqHeading{{ forloop.counter }}">
+                                <button
+                                    class="accordion-button{% if not forloop.first %} collapsed{% endif %}"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#pillarFaqCollapse{{ forloop.counter }}"
+                                    aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                    aria-controls="pillarFaqCollapse{{ forloop.counter }}">
+                                    {{ question }}
+                                </button>
+                            </h3>
+                            <div
+                                id="pillarFaqCollapse{{ forloop.counter }}"
+                                class="accordion-collapse collapse{% if forloop.first %} show{% endif %}"
+                                aria-labelledby="pillarFaqHeading{{ forloop.counter }}"
+                                data-bs-parent="#pillarFaqAccordion">
+                                <div class="accordion-body">
+                                    <p>{{ answer }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ask-question__thumb">
+                    <img
+                        {% image_dimensions pillar.hero_image.path %}
+                        src="{% static pillar.hero_image.path %}"
+                        alt="{{ pillar.hero_image.alt }}"
+                        loading="lazy"
+                        decoding="async">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

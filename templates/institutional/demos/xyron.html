@@ -166,9 +166,9 @@
                                     operações que precisam ampliar a capacidade das equipes.</p>
             
                                 <div class="about-us-7__btn-box mt-50 mb-xs-30">
-                                    <a class="rr-btn" href="{% url 'institutional:xyron_littlebot' %}">Robótica educacional</a>
-                                    <a class="rr-btn" href="{% url 'institutional:xyron_orbit' %}">Robô de segurança</a>
-                                    <a class="rr-btn" href="{% url 'institutional:sistemas_websites_python' %}">Software e integração</a>
+                                    <a class="rr-btn" href="{% url 'institutional:robotica_educacional' %}">Robótica educacional</a>
+                                    <a class="rr-btn" href="{% url 'institutional:robos_seguranca_patrimonial' %}">Segurança patrimonial</a>
+                                    <a class="rr-btn" href="{% url 'institutional:robos_limpeza_profissional' %}">Limpeza profissional</a>
                                 </div>
                             </div>
                         </div>
@@ -234,6 +234,44 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="design-services-7__area overflow-hidden body-2-bg section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section__title-wrapper text-center hero mb-50">
+                                <h2 class="section__title-wrapper-title _split_text">Soluções por Intenção de Busca</h2>
+                                <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                                    Três páginas orientam a avaliação de robótica educacional, limpeza profissional e segurança patrimonial antes de avançar para produtos específicos da linha Xyron.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-minus-30">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="services-7__item mb-30">
+                                <h3 class="services-7__title"><a href="{% url 'institutional:robotica_educacional' %}">Robótica Educacional</a></h3>
+                                <p class="services-7__dec">Soluções para escolas, instituições de ensino, eventos e experiências interativas com robótica e inteligência artificial.</p>
+                                <a class="rr-btn btn-white mt-20" href="{% url 'institutional:robotica_educacional' %}">Ver solução <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="services-7__item mb-30">
+                                <h3 class="services-7__title"><a href="{% url 'institutional:robos_limpeza_profissional' %}">Robôs de Limpeza Profissional</a></h3>
+                                <p class="services-7__dec">Automação de limpeza para indústrias, hospitais, shoppings e grandes áreas com avaliação técnica e operação assistida.</p>
+                                <a class="rr-btn btn-white mt-20" href="{% url 'institutional:robos_limpeza_profissional' %}">Ver solução <i class="fa-solid fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="services-7__item mb-30">
+                                <h3 class="services-7__title"><a href="{% url 'institutional:robos_seguranca_patrimonial' %}">Robôs de Segurança Patrimonial</a></h3>
+                                <p class="services-7__dec">Patrulhamento autônomo, vigilância móvel e inspeção de grandes áreas com Orbit Bot e Buddy Bot.</p>
+                                <a class="rr-btn btn-white mt-20" href="{% url 'institutional:robos_seguranca_patrimonial' %}">Ver solução <i class="fa-solid fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,8 @@ from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.institutional.presentation.authors import DEFAULT_AUTHOR_SLUG
 from src.institutional.presentation.authors import get_author
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
+from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
+from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.commerce.seo import NOINDEX_CATEGORY_SLUGS
 
 
@@ -247,6 +249,10 @@ def _robot(context):
     return context.get("robot")
 
 
+def _pillar(context):
+    return context.get("pillar")
+
+
 def _absolute_public_url(path):
     if not path:
         return ""
@@ -284,6 +290,14 @@ def _robot_image_url(context):
     robot = _robot(context)
     if robot and robot.get("image"):
         return _static_public_url(robot["image"])
+    return ""
+
+
+def _pillar_image_url(context):
+    pillar = _pillar(context)
+    hero_image = pillar.get("hero_image") if pillar else None
+    if hero_image and hero_image.get("path"):
+        return _static_public_url(hero_image["path"])
     return ""
 
 
@@ -359,6 +373,10 @@ def _breadcrumb_items(context):
             ("Xyron Robotics", _site_url(reverse("institutional:xyron"))),
             (robot.get("name", "Robô Xyron"), canonical_url(context)),
         ]
+
+    pillar = _pillar(context)
+    if pillar:
+        return [home, (pillar["breadcrumb_label"], canonical_url(context))]
 
     solution_names = {
         "xyron": "Xyron Robotics",
@@ -623,6 +641,50 @@ def _xyron_robot_item_list_schema(context):
     }
 
 
+def _web_page_schema(context):
+    pillar = _pillar(context)
+    if not pillar:
+        return None
+
+    metadata = _metadata(context)
+    title = getattr(metadata, "title", None) or pillar["title"]
+    description = getattr(metadata, "description", None) or pillar["description"]
+    schema = {
+        "@type": "WebPage",
+        "name": title,
+        "description": description,
+        "url": canonical_url(context),
+    }
+    image_url = _pillar_image_url(context)
+    if image_url:
+        schema["primaryImageOfPage"] = image_url
+    return schema
+
+
+def _xyron_pillar_item_list_schema(context):
+    pillar = _pillar(context)
+    if not pillar:
+        return None
+
+    return {
+        "@type": "ItemList",
+        "name": f"Produtos relacionados — {pillar['breadcrumb_label']}",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": position,
+                "name": XYRON_ROBOT_PAGE_BY_KEY[robot_key]["name"],
+                "url": _site_url(
+                    reverse(
+                        f"institutional:{XYRON_ROBOT_PAGE_BY_KEY[robot_key]['view']}"
+                    )
+                ),
+            }
+            for position, robot_key in enumerate(pillar["related_robots"], start=1)
+        ],
+    }
+
+
 def _about_page_schema(context):
     if _route_name(context) != "about":
         return None
@@ -661,6 +723,25 @@ def _contact_page_schema(context):
 
 def _service_schema(context):
     route_name = _route_name(context)
+    pillar = _pillar(context)
+    if pillar:
+        return {
+            "@type": "Service",
+            "name": pillar["service_name"],
+            "description": pillar["description"],
+            "url": canonical_url(context),
+            "provider": {
+                "@type": "Organization",
+                "name": SOCIAL_SITE_NAME,
+                "url": settings.PUBLIC_SITE_URL,
+            },
+            "brand": {
+                "@type": "Brand",
+                "name": "Xyron Robotics",
+            },
+            "serviceType": list(pillar["service_type"]),
+        }
+
     if route_name == "xyron":
         return {
             "@type": "Service",
@@ -783,6 +864,23 @@ def _faq_page_schema(context):
                     },
                 }
                 for item in post["faq"]
+            ],
+        }
+
+    pillar = _pillar(context)
+    if pillar and pillar.get("faqs"):
+        return {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": question,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": answer,
+                    },
+                }
+                for question, answer in pillar["faqs"]
             ],
         }
 
@@ -1153,9 +1251,22 @@ def _structured_data_graph(context):
     if service:
         graph.append(service)
 
+    web_page = _web_page_schema(context)
+    if web_page:
+        graph.append(web_page)
+
     xyron_item_list = _xyron_robot_item_list_schema(context)
     if xyron_item_list:
         graph.append(xyron_item_list)
+
+    pillar_item_list = _xyron_pillar_item_list_schema(context)
+    if pillar_item_list:
+        graph.append(pillar_item_list)
+
+    if _pillar(context):
+        faq_page = _faq_page_schema(context)
+        if faq_page:
+            graph.append(faq_page)
 
     if _route_name(context) in {
         "contact",
@@ -1258,6 +1369,7 @@ def social_image_url(context):
         _post_image_url(context)
         or _product_image_url(context)
         or _robot_image_url(context)
+        or _pillar_image_url(context)
         or _route_social_image_url(context)
         or _static_public_url(DEFAULT_SOCIAL_IMAGE)
     )
@@ -1267,6 +1379,9 @@ def social_image_url(context):
 def social_image_width(context):
     if _post(context) or _product(context) or _robot(context):
         return ""
+    pillar = _pillar(context)
+    if pillar:
+        return pillar["hero_image"]["width"]
     return _route_metadata(context).get("social_image_width", DEFAULT_SOCIAL_IMAGE_WIDTH)
 
 
@@ -1274,6 +1389,9 @@ def social_image_width(context):
 def social_image_height(context):
     if _post(context) or _product(context) or _robot(context):
         return ""
+    pillar = _pillar(context)
+    if pillar:
+        return pillar["hero_image"]["height"]
     return _route_metadata(context).get("social_image_height", DEFAULT_SOCIAL_IMAGE_HEIGHT)
 
 
@@ -1285,6 +1403,9 @@ def social_image_alt(context):
         return getattr(_product(context), "name", "")
     if _robot(context):
         return _robot(context).get("alt", "")
+    pillar = _pillar(context)
+    if pillar:
+        return pillar["hero_image"]["alt"]
     return _route_metadata(context).get("social_image_alt", DEFAULT_SOCIAL_IMAGE_ALT)
 
 

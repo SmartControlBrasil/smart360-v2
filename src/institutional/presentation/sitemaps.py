@@ -24,6 +24,21 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 0.9,
     },
     {
+        "name": "institutional:robotica_educacional",
+        "changefreq": "weekly",
+        "priority": 0.88,
+    },
+    {
+        "name": "institutional:robos_limpeza_profissional",
+        "changefreq": "weekly",
+        "priority": 0.88,
+    },
+    {
+        "name": "institutional:robos_seguranca_patrimonial",
+        "changefreq": "weekly",
+        "priority": 0.88,
+    },
+    {
         "name": "institutional:xyron_littlebot",
         "changefreq": "weekly",
         "priority": 0.85,

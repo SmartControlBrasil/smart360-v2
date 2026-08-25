@@ -1,0 +1,122 @@
+{% extends 'institutional/base.html' %}
+{% load institutional_media %}
+{% load static %}
+
+{% block content %}
+<section class="breadcrumb__before p-relative">
+    <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12">
+                    <div class="breadcrumb__content">
+                        <div class="breadcrumb__title-wrapper">
+                            <h1 class="breadcrumb__title">{{ pillar.h1 }}</h1>
+                        </div>
+                        <div class="breadcrumb__menu">
+                            <nav aria-label="Breadcrumb">
+                                <ul>
+                                    <li><span><a href="{% url 'institutional:home' %}"><img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                    <li class="active"><span>{{ pillar.breadcrumb_label }}</span></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="choose-us__area section-space">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="choose-us__thumb">
+                    <img
+                        src="{% static pillar.hero_image.path %}"
+                        alt="{{ pillar.hero_image.alt }}"
+                        width="{{ pillar.hero_image.width }}"
+                        height="{{ pillar.hero_image.height }}"
+                        loading="eager"
+                        fetchpriority="high"
+                        decoding="async">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section__title-wrapper hero">
+                    <h2 class="section__title-wrapper-title _split_text">Robô doméstico x limpeza profissional</h2>
+                    <p class="section__title-wrapper-dec mt-20">Robôs domésticos atendem ambientes residenciais e rotinas menores. Soluções de limpeza profissional são avaliadas para grandes áreas, circulação intensa, pisos específicos e operação B2B que exige planejamento, critérios técnicos e operação assistida.</p>
+                    <p class="mt-20">Esta página orienta a avaliação de aplicações. Para detalhes do equipamento, veja o <a href="{% url 'institutional:xyron_hygibot_dune_bot' %}">HygiBot / Dune Bot</a> e o hub <a href="{% url 'institutional:xyron' %}">Xyron Robotics</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-9__area section-space light-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="section__title-wrapper-title _split_text mb-30">Automação de rotinas de limpeza</h2>
+                <p>Robôs autônomos de limpeza profissional podem apoiar rotinas repetitivas em instalações amplas. Conforme a documentação do equipamento e a análise do ambiente, modos como varrição, aspiração, lavagem e passagem de pano devem ser avaliados caso a caso.</p>
+                <h3 class="mt-30 mb-15">Ambientes de aplicação</h3>
+                <ul>
+                    <li>Indústrias e áreas operacionais amplas</li>
+                    <li>Hospitais e instalações de saúde</li>
+                    <li>Shoppings e centros comerciais</li>
+                    <li>Instalações com grande circulação e áreas extensas</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section__title-wrapper-title _split_text mb-30">Avaliação técnica e operação assistida</h2>
+                <p>Antes de implantar, analise piso, layout, obstáculos, horários, fluxo de pessoas e integração com a equipe responsável pela limpeza. A operação deve ser acompanhada com critérios claros, treinamento e suporte.</p>
+                <p class="mt-20">Veja também como a <a href="{% url 'institutional:services' %}">Smart Control Brasil estrutura serviços</a> em robótica e o artigo sobre <a href="{% url 'institutional:blog_detail' 'convergencia-robotica-ia-firmwares-dedicados' %}">robótica, IA e firmware dedicado</a>.</p>
+                <div class="mt-30">
+                    <img
+                        {% image_dimensions 'institutional/imgs/about/duno-bot-fazendo-limpeza-de-sala-de-escritorio.webp' %}
+                        src="{% static 'institutional/imgs/about/duno-bot-fazendo-limpeza-de-sala-de-escritorio.webp' %}"
+                        alt="Robô de limpeza autônoma em sala corporativa"
+                        loading="lazy"
+                        decoding="async">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-9__area section-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h3>Critérios de seleção</h3>
+                <p>Tipo de piso, área, circulação, modos de limpeza compatíveis, rotina existente e forma de acompanhar a operação.</p>
+            </div>
+            <div class="col-lg-4">
+                <h3>Planejamento de implantação</h3>
+                <p>Defina rotas, horários, responsáveis, treinamento inicial e pontos de contato para suporte.</p>
+            </div>
+            <div class="col-lg-4">
+                <h3>HygiBot / Dune Bot</h3>
+                <p>O <a href="{% url 'institutional:xyron_hygibot_dune_bot' %}">HygiBot / Dune Bot</a> é apresentado para limpeza autônoma em shoppings, indústrias, hospitais e grandes áreas, conforme documentação do produto.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'institutional/partials/pillar_related_products.html' %}
+{% include 'institutional/partials/pillar_faq.html' %}
+
+<section class="blog-9__area section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 text-center">
+                <div class="section__title-wrapper hero mb-40">
+                    <h2 class="section__title-wrapper-title _split_text">Solicite avaliação técnica</h2>
+                    <p class="section__title-wrapper-dec mt-15">Descreva o ambiente, a rotina de limpeza e o objetivo operacional para avaliar robôs de limpeza profissional.</p>
+                </div>
+                <a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar avaliação técnica <i class="fa-regular fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

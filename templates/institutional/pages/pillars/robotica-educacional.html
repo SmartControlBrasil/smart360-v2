@@ -1,0 +1,141 @@
+{% extends 'institutional/base.html' %}
+{% load institutional_media %}
+{% load static %}
+
+{% block content %}
+<section class="breadcrumb__before p-relative">
+    <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+        <div class="breadcrumb__shapes">
+            <div class="breadcrumb__shapes-shape-1"></div>
+            <div class="breadcrumb__shapes-shape-2"></div>
+            <div class="breadcrumb__shapes-shape-3"></div>
+            <div class="breadcrumb__shapes-shape-4"></div>
+            <div class="breadcrumb__shapes-shape-5 upDown">
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12">
+                    <div class="breadcrumb__content">
+                        <div class="breadcrumb__title-wrapper">
+                            <h1 class="breadcrumb__title">{{ pillar.h1 }}</h1>
+                        </div>
+                        <div class="breadcrumb__menu">
+                            <nav aria-label="Breadcrumb">
+                                <ul>
+                                    <li><span><a href="{% url 'institutional:home' %}"><img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                    <li class="active"><span>{{ pillar.breadcrumb_label }}</span></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="choose-us__area section-space">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="choose-us__media-wrapper">
+                    <div class="choose-us__thumb">
+                        <div class="choose-us__thumb-img return">
+                            <img
+                                src="{% static pillar.hero_image.path %}"
+                                alt="{{ pillar.hero_image.alt }}"
+                                width="{{ pillar.hero_image.width }}"
+                                height="{{ pillar.hero_image.height }}"
+                                loading="eager"
+                                fetchpriority="high"
+                                decoding="async">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-us__content-wrap">
+                    <div class="section__title-wrapper hero">
+                        <h2 class="section__title-wrapper-title _split_text">O que é robótica educacional</h2>
+                        <p class="section__title-wrapper-dec mt-20">Robótica educacional aproxima estudantes, professores e visitantes da tecnologia por meio de experiências práticas que combinam movimento, sensores, comunicação, programação e interação. Não existe um único formato: escolas e instituições podem trabalhar com kits de construção, atividades de programação, laboratórios maker ou robôs interativos prontos, conforme objetivo pedagógico e infraestrutura disponível.</p>
+                        <p class="mt-20">Esta página orienta a avaliação de soluções educacionais. Para conhecer o equipamento específico da linha Xyron, veja o <a href="{% url 'institutional:xyron_littlebot' %}">LIRO / Little Bot</a> e o hub <a href="{% url 'institutional:xyron' %}">Xyron Robotics</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-9__area section-space light-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section__title-wrapper hero mb-30">
+                    <h2 class="section__title-wrapper-title _split_text">Aplicações no ambiente de aprendizagem</h2>
+                </div>
+                <p>Robótica educacional pode aparecer em salas de aula, laboratórios, feiras de ciência, eventos institucionais, espaços de inovação e demonstrações abertas ao público. O foco costuma ser participação, curiosidade, exploração guiada e contato com conceitos de tecnologia aplicada.</p>
+                <h3 class="mt-30 mb-15">Diferentes abordagens</h3>
+                <ul>
+                    <li><strong>Kits de construção:</strong> montagem e experimentação estruturada.</li>
+                    <li><strong>Programação:</strong> lógica, sequências e resolução de problemas.</li>
+                    <li><strong>Robôs interativos prontos:</strong> comunicação, movimento e experiências com inteligência artificial.</li>
+                    <li><strong>Experiências híbridas:</strong> combinação de conteúdo, interação e mediação humana.</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="section__title-wrapper hero mb-30">
+                    <h2 class="section__title-wrapper-title _split_text">Papel do professor e da instituição</h2>
+                </div>
+                <p>A tecnologia não substitui a mediação pedagógica. Professores, coordenadores e responsáveis definem contexto, conduzem a experiência, orientam perguntas e acompanham o uso do equipamento. Robótica educacional funciona melhor quando existe alinhamento entre objetivo, espaço, público e forma de operação.</p>
+                <p class="mt-20">Para ampliar o entendimento sobre robótica aplicada, leia também o artigo <a href="{% url 'institutional:blog_detail' 'inovacao-que-aparece-e-gera-valor' %}">Inovação que Aparece e Gera Valor</a> e a convergência entre <a href="{% url 'institutional:blog_detail' 'convergencia-robotica-ia-firmwares-dedicados' %}">robótica, IA e firmware dedicado</a>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-9__area section-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper text-center hero mb-50">
+                    <h2 class="section__title-wrapper-title _split_text">Como avaliar, implantar e dar suporte</h2>
+                    <p class="section__title-wrapper-dec mt-15">Antes de ampliar uma solução, vale estruturar diagnóstico, projeto-piloto, treinamento e acompanhamento técnico.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h3>Diagnóstico e projeto-piloto</h3>
+                <p>Defina público, objetivo, espaço, infraestrutura, forma de uso e critérios para avaliar a experiência em um piloto controlado.</p>
+            </div>
+            <div class="col-lg-4">
+                <h3>Implantação e treinamento</h3>
+                <p>Organize responsáveis, rotina de operação, orientações de uso e apoio para que a equipe conduza a experiência com segurança e clareza.</p>
+            </div>
+            <div class="col-lg-4">
+                <h3>Suporte técnico</h3>
+                <p>Conte com orientação comercial e técnica da Smart Control Brasil para entender opções da linha <a href="{% url 'institutional:xyron' %}">Xyron Robotics</a> e solicitar demonstração do <a href="{% url 'institutional:xyron_littlebot' %}">LIRO / Little Bot</a>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'institutional/partials/pillar_related_products.html' %}
+{% include 'institutional/partials/pillar_faq.html' %}
+
+<section class="blog-9__area section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 text-center">
+                <div class="section__title-wrapper hero mb-40">
+                    <h2 class="section__title-wrapper-title _split_text">Agende uma demonstração</h2>
+                    <p class="section__title-wrapper-dec mt-15">Converse com a Smart Control Brasil sobre robótica educacional para escolas, instituições de ensino, eventos e espaços de inovação.</p>
+                </div>
+                <a href="{% url 'institutional:contact' %}" class="rr-btn">Agendar demonstração <i class="fa-regular fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

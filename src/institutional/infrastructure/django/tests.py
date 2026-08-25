@@ -25,6 +25,7 @@ from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.institutional.presentation.blog_posts import BLOG_POSTS_LIST
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
+from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
 
@@ -276,7 +277,6 @@ class InstitutionalRoutesTests(TestCase):
             "/modelos/404/",
             "/ai-video-interaction-platform/",
             "/ai-web-solutions-startups/",
-            "/robotica-educacional/",
             "/robo-seguranca-condominios/",
             "/camara-climatica/",
             "/engenharia-serralheria-industrial/",
@@ -1306,7 +1306,6 @@ class TechnicalSeoTests(TestCase):
         disabled_paths = (
             "/engenharia-serralheria-industrial/",
             "/camara-climatica/",
-            "/robotica-educacional/",
             "/robo-seguranca-condominios/",
         )
 
@@ -1711,8 +1710,8 @@ class TechnicalSeoTests(TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, html)
 
-        self.assertEqual(html.count('class="services-7__title"'), 9)
-        self.assertEqual(html.count('<h3 class="services-7__title">'), 9)
+        self.assertEqual(html.count('class="services-7__title"'), 12)
+        self.assertEqual(html.count('<h3 class="services-7__title">'), 12)
         self.assertNotIn('<h2 class="services-7__title">', html)
         self.assertIn("Linha Xyron Robotics", html)
 
@@ -1721,6 +1720,9 @@ class TechnicalSeoTests(TestCase):
                 self.assertIn(reverse(f"institutional:{robot['view']}"), html)
 
         self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:robotica_educacional"), html)
+        self.assertIn(reverse("institutional:robos_limpeza_profissional"), html)
+        self.assertIn(reverse("institutional:robos_seguranca_patrimonial"), html)
         self.assertIn(reverse("institutional:sistemas_websites_python"), html)
         self.assertIn(reverse("institutional:contact"), html)
         self.assertIn(
@@ -2824,10 +2826,13 @@ class TechnicalSeoTests(TestCase):
 
         self.assertContains(home, 'href="/mitsubishi-automacao-industrial/"')
         self.assertContains(home, 'href="/xyron/"')
+        self.assertContains(home, 'href="/robos-de-seguranca-patrimonial/"')
         self.assertContains(home, 'href="/sistemas-websites-python/"')
         for robot in XYRON_ROBOT_PAGES:
             self.assertContains(xyron, f'href="/xyron/{robot["slug"]}/"')
-        self.assertNotContains(xyron, 'href="/robotica-educacional/"')
+        self.assertContains(xyron, 'href="/robotica-educacional/"')
+        self.assertContains(xyron, 'href="/robos-de-limpeza-profissional/"')
+        self.assertContains(xyron, 'href="/robos-de-seguranca-patrimonial/"')
         self.assertNotContains(xyron, 'href="/robo-seguranca-condominios/"')
         self.assertNotContains(manutencao, 'href="/camara-climatica/"')
         self.assertContains(blog, 'href="/mitsubishi-automacao-industrial/"')
@@ -3830,16 +3835,24 @@ class TechnicalSeoTests(TestCase):
                 self.assertIn(robot_url, urls)
                 self.assertEqual(urls.count(robot_url), 1)
 
+        pillar_urls = tuple(
+            f"https://www.smartcontrolbrasil.com.br{pillar['path']}"
+            for pillar in XYRON_PILLAR_PAGES
+        )
+        for pillar_url in pillar_urls:
+            with self.subTest(pillar_url=pillar_url):
+                self.assertIn(pillar_url, urls)
+                self.assertEqual(urls.count(pillar_url), 1)
+
         disabled_landing_urls = (
             "https://www.smartcontrolbrasil.com.br/engenharia-serralheria-industrial/",
             "https://www.smartcontrolbrasil.com.br/camara-climatica/",
-            "https://www.smartcontrolbrasil.com.br/robotica-educacional/",
             "https://www.smartcontrolbrasil.com.br/robo-seguranca-condominios/",
         )
         for disabled_url in disabled_landing_urls:
             with self.subTest(disabled_url=disabled_url):
                 self.assertNotIn(disabled_url, urls)
-        self.assertEqual(len(urls), 19 + len(BLOG_POSTS) + len(AUTHORS))
+        self.assertEqual(len(urls), 22 + len(BLOG_POSTS) + len(AUTHORS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":
@@ -4147,6 +4160,170 @@ class TechnicalSeoTests(TestCase):
             if BLOG_POSTS[slug].get("faq"):
                 self.assertEqual(len(faq_pages), 1)
             self.assertEqual(len(breadcrumbs), 1)
+
+    def _script_sources(self, response):
+        html = response.content.decode()
+        return re.findall(r'<script[^>]+src="([^"]+)"', html)
+
+    def _stylesheet_hrefs(self, response):
+        html = response.content.decode()
+        return re.findall(r'<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"', html)
+
+    def test_xyron_pillar_pages_return_200_with_unique_seo_metadata(self):
+        sitemap_urls = self.sitemap_urls()
+        titles = set()
+        descriptions = set()
+
+        for pillar in XYRON_PILLAR_PAGES:
+            canonical = f"https://www.smartcontrolbrasil.com.br{pillar['path']}"
+            with self.subTest(path=pillar["path"]):
+                response = self.client.get(f"{pillar['path']}?utm_source=google")
+                html = response.content.decode()
+                body = html.split("<body", 1)[1]
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(self.h1_texts(response), [pillar["h1"]])
+                self.assertTitle(response, pillar["title"])
+                self.assertMetaDescription(response, pillar["description"])
+                self.assertNotIn(pillar["description"], body)
+                self.assertCanonical(response, canonical)
+                self.assertNotContains(response, 'name="robots"')
+                self.assertMetaProperty(response, "og:title", pillar["title"])
+                self.assertMetaProperty(response, "og:description", pillar["description"])
+                self.assertMetaProperty(response, "og:url", canonical)
+                self.assertMetaProperty(response, "og:type", "website")
+                self.assertMetaName(response, "twitter:title", pillar["title"])
+                self.assertMetaName(response, "twitter:description", pillar["description"])
+                self.assertIn(canonical, sitemap_urls)
+                self.assertEqual(html.count('fetchpriority="high"'), 1)
+                self.assertNotIn("swiper-bundle.min.js", html)
+                self.assertNotIn("wow.min.js", html)
+
+                titles.add(pillar["title"])
+                descriptions.add(pillar["description"])
+
+        self.assertEqual(len(titles), len(XYRON_PILLAR_PAGES))
+        self.assertEqual(len(descriptions), len(XYRON_PILLAR_PAGES))
+
+    def test_xyron_pillar_pages_include_webpage_service_faq_and_itemlist(self):
+        for pillar in XYRON_PILLAR_PAGES:
+            with self.subTest(path=pillar["path"]):
+                response = self.client.get(pillar["path"])
+                html = response.content.decode()
+
+                web_pages = self.graph_items(response, "WebPage")
+                services = self.graph_items(response, "Service")
+                faq_pages = self.graph_items(response, "FAQPage")
+                item_lists = self.graph_items(response, "ItemList")
+                products = self.graph_items(response, "Product")
+                breadcrumbs = self.graph_items(response, "BreadcrumbList")
+
+                self.assertEqual(len(web_pages), 1)
+                self.assertEqual(len(services), 1)
+                self.assertEqual(len(faq_pages), 1)
+                self.assertEqual(len(item_lists), 1)
+                self.assertEqual(products, [])
+                self.assertEqual(len(breadcrumbs), 1)
+                self.assertEqual(
+                    [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+                    ["Início", pillar["breadcrumb_label"]],
+                )
+
+                faq_entities = faq_pages[0]["mainEntity"]
+                self.assertEqual(len(faq_entities), len(pillar["faqs"]))
+                for (question, answer), entity in zip(pillar["faqs"], faq_entities):
+                    self.assertEqual(entity["name"], question)
+                    self.assertEqual(entity["acceptedAnswer"]["text"], answer)
+                    self.assertIn(question, html)
+                    self.assertIn(answer, html)
+
+                list_items = item_lists[0]["itemListElement"]
+                self.assertEqual(len(list_items), len(pillar["related_robots"]))
+
+    def test_xyron_pillar_pages_link_to_products_xyron_and_back(self):
+        pillar_links = {
+            "robotica_educacional": reverse("institutional:robotica_educacional"),
+            "robos_limpeza_profissional": reverse("institutional:robos_limpeza_profissional"),
+            "robos_seguranca_patrimonial": reverse("institutional:robos_seguranca_patrimonial"),
+        }
+        product_links = {
+            "littlebot": reverse("institutional:xyron_littlebot"),
+            "hygibot_dune_bot": reverse("institutional:xyron_hygibot_dune_bot"),
+            "orbit": reverse("institutional:xyron_orbit"),
+            "buddy_bot": reverse("institutional:xyron_buddy_bot"),
+        }
+
+        for pillar in XYRON_PILLAR_PAGES:
+            response = self.client.get(pillar["path"])
+            html = response.content.decode()
+            self.assertIn(reverse("institutional:xyron"), html)
+            for robot_key in pillar["related_robots"]:
+                self.assertIn(product_links[robot_key], html)
+
+        littlebot = self.client.get("/xyron/littlebot/").content.decode()
+        self.assertIn(pillar_links["robotica_educacional"], littlebot)
+
+        hygibot = self.client.get("/xyron/hygibot-dune-bot/").content.decode()
+        self.assertIn(pillar_links["robos_limpeza_profissional"], hygibot)
+
+        orbit = self.client.get("/xyron/orbit/").content.decode()
+        buddy = self.client.get("/xyron/buddy-bot/").content.decode()
+        self.assertIn(pillar_links["robos_seguranca_patrimonial"], orbit)
+        self.assertIn(pillar_links["robos_seguranca_patrimonial"], buddy)
+
+        xyron = self.client.get("/xyron/").content.decode()
+        for link in pillar_links.values():
+            self.assertIn(link, xyron)
+
+    def test_xyron_pillar_pages_do_not_canibalize_product_titles(self):
+        product_titles = {robot["title"] for robot in XYRON_ROBOT_PAGES}
+        hub_title = "Robôs Inteligentes Xyron Robotics | Smart Control Brasil"
+
+        for pillar in XYRON_PILLAR_PAGES:
+            self.assertNotIn(pillar["title"], product_titles)
+            self.assertNotEqual(pillar["title"], hub_title)
+            self.assertNotEqual(
+                pillar["h1"],
+                "Xyron Robotics — Robótica Inteligente para Segurança, Educação e Empresas",
+            )
+
+    def test_xyron_pillar_pages_use_base_assets_without_optional_plugins(self):
+        response = self.client.get("/robotica-educacional/")
+        scripts = self._script_sources(response)
+        stylesheets = self._stylesheet_hrefs(response)
+
+        self.assertEqual(len(scripts), 12)
+        self.assertEqual(len(stylesheets), 6)
+        self.assertFalse(any("swiper" in source for source in scripts))
+        self.assertFalse(any("wow.min.js" in source for source in scripts))
+        self.assertTrue(any("main.js" in source for source in scripts))
+
+    def test_stage19_diff_does_not_add_forbidden_climate_terms(self):
+        result = subprocess.run(
+            [
+                "git",
+                "diff",
+                "HEAD",
+                "--",
+                "src/institutional/presentation/",
+                "templates/",
+                "static/",
+                "config/",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+            cwd=Path(__file__).resolve().parents[4],
+        )
+        added_lines = [
+            line[1:].lower()
+            for line in result.stdout.splitlines()
+            if line.startswith("+") and not line.startswith("+++")
+        ]
+        added_text = "\n".join(added_lines)
+        for term in FORBIDDEN_CLIMATE_TERMS:
+            with self.subTest(term=term):
+                self.assertNotIn(term.lower(), added_text)
 
 
 LEGACY_SEO_REDIRECTS = (

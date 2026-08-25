@@ -1,0 +1,116 @@
+{% extends 'institutional/base.html' %}
+{% load institutional_media %}
+{% load static %}
+
+{% block content %}
+<section class="breadcrumb__before p-relative">
+    <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12">
+                    <div class="breadcrumb__content">
+                        <div class="breadcrumb__title-wrapper">
+                            <h1 class="breadcrumb__title">{{ pillar.h1 }}</h1>
+                        </div>
+                        <div class="breadcrumb__menu">
+                            <nav aria-label="Breadcrumb">
+                                <ul>
+                                    <li><span><a href="{% url 'institutional:home' %}"><img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                    <li class="active"><span>{{ pillar.breadcrumb_label }}</span></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="choose-us__area section-space">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="choose-us__thumb">
+                    <img
+                        src="{% static pillar.hero_image.path %}"
+                        alt="{{ pillar.hero_image.alt }}"
+                        width="{{ pillar.hero_image.width }}"
+                        height="{{ pillar.hero_image.height }}"
+                        loading="eager"
+                        fetchpriority="high"
+                        decoding="async">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section__title-wrapper hero">
+                    <h2 class="section__title-wrapper-title _split_text">O que é patrulhamento robótico</h2>
+                    <p class="section__title-wrapper-dec mt-20">Patrulhamento robótico descreve o uso de robôs móveis para ampliar presença operacional, percorrer rotas definidas e apoiar o monitoramento de grandes áreas. A solução complementa equipes de segurança — não substitui vigilantes ou profissionais responsáveis pelo patrimônio.</p>
+                    <p class="mt-20">Conheça produtos específicos: <a href="{% url 'institutional:xyron_orbit' %}">Orbit Bot</a>, <a href="{% url 'institutional:xyron_buddy_bot' %}">Buddy Bot</a> e o hub <a href="{% url 'institutional:xyron' %}">Xyron Robotics</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-9__area section-space light-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="section__title-wrapper-title _split_text mb-30">Câmera fixa, robô móvel e robô quadrúpede</h2>
+                <ul>
+                    <li><strong>Câmera fixa:</strong> observação de pontos definidos.</li>
+                    <li><strong>Robô móvel:</strong> presença dinâmica e rondas programadas, como o <a href="{% url 'institutional:xyron_orbit' %}">Orbit Bot</a>.</li>
+                    <li><strong>Robô quadrúpede:</strong> inspeção e acesso a áreas de difícil alcance, como o <a href="{% url 'institutional:xyron_buddy_bot' %}">Buddy Bot</a>.</li>
+                    <li><strong>Inspeção x patrulhamento:</strong> objetivos distintos que podem se complementar conforme o projeto.</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section__title-wrapper-title _split_text mb-30">Rondas, monitoramento e planejamento</h2>
+                <p>Em ambientes corporativos, industriais ou externos compatíveis com a solução, vale mapear rotas, conectividade, terreno, fluxo de pessoas, integração técnica disponível e responsabilidades operacionais antes de implantar.</p>
+                <p class="mt-20">Para contexto sobre robótica aplicada, leia <a href="{% url 'institutional:blog_detail' 'inovacao-que-aparece-e-gera-valor' %}">Inovação que Aparece e Gera Valor</a> e os <a href="{% url 'institutional:services' %}">serviços de robótica</a> da Smart Control Brasil.</p>
+                <div class="mt-30">
+                    <img
+                        {% image_dimensions 'institutional/imgs/bg-img/budy-bot-em-atento.webp' %}
+                        src="{% static 'institutional/imgs/bg-img/budy-bot-em-atento.webp' %}"
+                        alt="Buddy Bot em posição de inspeção e segurança"
+                        loading="lazy"
+                        decoding="async">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-9__area section-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Orbit Bot — patrulhamento e segurança</h3>
+                <p>O <a href="{% url 'institutional:xyron_orbit' %}">Orbit Bot / Patrol Bot</a> é apresentado para patrulhamento e segurança em grandes áreas, com navegação autônoma e monitoramento conforme documentação do produto.</p>
+            </div>
+            <div class="col-lg-6">
+                <h3>Buddy Bot — inspeção complementar</h3>
+                <p>O <a href="{% url 'institutional:xyron_buddy_bot' %}">Buddy Bot</a> aparece como robô quadrúpede para inspeção, segurança patrimonial e áreas de difícil acesso, podendo complementar cenários distintos do patrulhamento móvel tradicional.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'institutional/partials/pillar_related_products.html' %}
+{% include 'institutional/partials/pillar_faq.html' %}
+
+<section class="blog-9__area section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 text-center">
+                <div class="section__title-wrapper hero mb-40">
+                    <h2 class="section__title-wrapper-title _split_text">Diagnóstico de aplicação</h2>
+                    <p class="section__title-wrapper-dec mt-15">Descreva o ambiente, as rotas desejadas e o objetivo de segurança patrimonial para avaliar robôs de patrulhamento e inspeção.</p>
+                </div>
+                <a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar diagnóstico <i class="fa-regular fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

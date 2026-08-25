@@ -39,6 +39,21 @@ urlpatterns = [
     path("xyron/hostbot/", views.xyron_hostbot, name="xyron_hostbot"),
     path("xyron/mowerbot/", views.xyron_mowerbot, name="xyron_mowerbot"),
     path(
+        "robotica-educacional/",
+        views.robotica_educacional,
+        name="robotica_educacional",
+    ),
+    path(
+        "robos-de-limpeza-profissional/",
+        views.robos_limpeza_profissional,
+        name="robos_limpeza_profissional",
+    ),
+    path(
+        "robos-de-seguranca-patrimonial/",
+        views.robos_seguranca_patrimonial,
+        name="robos_seguranca_patrimonial",
+    ),
+    path(
         "mitsubishi-automacao-industrial/",
         views.mitsubishi_automacao_industrial,
         name="mitsubishi_automacao_industrial",

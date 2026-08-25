@@ -1,0 +1,41 @@
+{% load static %}
+<section class="services-7__area section-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper text-center hero mb-50">
+                    <h2 class="section__title-wrapper-title _split_text">Produtos Relacionados</h2>
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                        Conheça os equipamentos da linha
+                        <a href="{% url 'institutional:xyron' %}">Xyron Robotics</a>
+                        relacionados a esta solução.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-minus-30 justify-content-center">
+            {% for product in related_products %}
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="services-7__item mb-30">
+                    <div class="services-7__thumb mb-20">
+                        <img
+                            src="{% static product.image %}"
+                            alt="{{ product.alt }}"
+                            width="{{ product.width }}"
+                            height="{{ product.height }}"
+                            loading="lazy"
+                            decoding="async">
+                    </div>
+                    <h3 class="services-7__title">
+                        <a href="{{ product.detail_path }}">{{ product.name }}</a>
+                    </h3>
+                    <p class="services-7__dec">{{ product.description }}</p>
+                    <a class="rr-btn mt-20" href="{{ product.detail_path }}">
+                        Ver produto <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

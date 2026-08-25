@@ -22,6 +22,7 @@ from src.institutional.presentation.authors import DEFAULT_AUTHOR_SLUG
 from src.institutional.presentation.authors import get_author
 from src.institutional.presentation.forms import ContactForm
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
+from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGE_BY_KEY
 
 
 logger = logging.getLogger(__name__)
@@ -360,6 +361,44 @@ def xyron_hostbot(request):
 
 def xyron_mowerbot(request):
     return _render_xyron_robot(request, "mowerbot")
+
+
+def _render_xyron_pillar(request, key):
+    pillar = XYRON_PILLAR_PAGE_BY_KEY[key]
+    related_products = []
+    for robot_key in pillar["related_robots"]:
+        robot = dict(XYRON_ROBOT_PAGE_BY_KEY[robot_key])
+        robot["detail_path"] = reverse(f"institutional:{robot['view']}")
+        related_products.append(robot)
+
+    page = SimpleNamespace(
+        metadata=SimpleNamespace(
+            title=pillar["title"],
+            description=pillar["description"],
+            canonical_path=pillar["path"],
+        )
+    )
+    return render(
+        request,
+        pillar["template"],
+        {
+            "page": page,
+            "pillar": pillar,
+            "related_products": related_products,
+        },
+    )
+
+
+def robotica_educacional(request):
+    return _render_xyron_pillar(request, "robotica_educacional")
+
+
+def robos_limpeza_profissional(request):
+    return _render_xyron_pillar(request, "robos_limpeza_profissional")
+
+
+def robos_seguranca_patrimonial(request):
+    return _render_xyron_pillar(request, "robos_seguranca_patrimonial")
 
 
 def mitsubishi_automacao_industrial(request):
