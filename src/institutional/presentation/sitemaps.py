@@ -1,8 +1,11 @@
 from django.contrib.sitemaps import Sitemap
 from django.conf import settings
 from django.urls import reverse
+from datetime import date
 
 from src.institutional.presentation.blog_posts import BLOG_POSTS
+from src.institutional.presentation.blog_editorial import BLOG_POST_EDITORIAL
+from src.institutional.presentation.authors import AUTHORS
 from src.commerce.models import Category
 from src.commerce.models import Product
 from src.commerce.seo import CANONICAL_PRODUCT_ROUTE_BY_SLUG
@@ -136,6 +139,32 @@ class BlogPostSitemap(Sitemap):
 
     def location(self, slug):
         return reverse("institutional:blog_detail", kwargs={"slug": slug})
+
+    def lastmod(self, slug):
+        return date.fromisoformat(BLOG_POST_EDITORIAL[slug]["date_modified"])
+
+
+class AuthorSitemap(Sitemap):
+    changefreq = "monthly"
+    priority = 0.7
+    protocol = "https"
+
+    def get_domain(self, site=None):
+        return settings.PUBLIC_SITE_URL.removeprefix("https://").removeprefix("http://")
+
+    def items(self):
+        return list(AUTHORS)
+
+    def location(self, slug):
+        return reverse("institutional:author_detail", kwargs={"slug": slug})
+
+    def lastmod(self, slug):
+        modified_dates = [
+            BLOG_POST_EDITORIAL[post_slug]["date_modified"]
+            for post_slug, editorial in BLOG_POST_EDITORIAL.items()
+            if editorial["author_slug"] == slug
+        ]
+        return max(date.fromisoformat(value) for value in modified_dates)
 
 
 class CommerceStaticSitemap(Sitemap):

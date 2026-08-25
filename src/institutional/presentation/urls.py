@@ -92,5 +92,6 @@ urlpatterns = [
         name="legacy_blog_paineis_eletricos_automacao",
     ),
     path("blog/<slug:slug>/", views.blog_detail, name="blog_detail"),
+    path("autor/<slug:slug>/", views.author_detail, name="author_detail"),
     path("contato/", views.contact, name="contact"),
 ]

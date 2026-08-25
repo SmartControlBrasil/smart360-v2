@@ -16,6 +16,8 @@ from django.utils.http import url_has_allowed_host_and_scheme
 
 from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
+from src.institutional.presentation.blog_editorial import enrich_blog_post
+from src.institutional.presentation.authors import AUTHORS
 from src.institutional.presentation.forms import ContactForm
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 
@@ -104,7 +106,7 @@ def _related_blog_posts(slug, limit=3):
         if BLOG_SOLUTION_LINKS.get(related_slug, {}).get("url_name") == current_solution:
             score += 50
         score += len(current_terms & _post_terms(related_post))
-        scored_posts.append((-score, position, {"slug": related_slug, **related_post}))
+        scored_posts.append((-score, position, enrich_blog_post(related_slug, related_post)))
 
     scored_posts.sort()
     return [post for _, _, post in scored_posts[:limit]]
@@ -335,21 +337,38 @@ def blog_list(request):
 
 
 def blog_detail(request, slug):
-    post = BLOG_POSTS.get(slug)
-    if post is None:
+    post_data = BLOG_POSTS.get(slug)
+    if post_data is None:
         raise Http404("Artigo tecnico nao encontrado.")
 
+    post = enrich_blog_post(slug, post_data)
     related_posts = _related_blog_posts(slug)
-
     solution_link = BLOG_SOLUTION_LINKS.get(slug)
 
     return render(
         request,
         "institutional/pages/blog_detail.html",
         {
-            "post": {"slug": slug, **post},
+            "post": post,
             "related_posts": related_posts,
             "solution_link": solution_link,
+        },
+    )
+
+
+def author_detail(request, slug):
+    author = AUTHORS.get(slug)
+    if author is None:
+        raise Http404("Autor nao encontrado.")
+
+    author_posts = [post for post in BLOG_POSTS_LIST if post["author_slug"] == slug]
+
+    return render(
+        request,
+        "institutional/pages/author.html",
+        {
+            "author": author,
+            "author_posts": author_posts,
         },
     )
 

@@ -58,15 +58,15 @@
                                     <div class="blog__item mb-30">
                                         <div class="blog__item-details">
                                             <div class="blog__item-details-cta">
-                                                <div class="man-img">
-                                                    <img src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="Equipe Smart Control Brasil">
-                                                </div>
                                                 <div class="text">
-                                                    <h6 class="title"><a href="{% url 'institutional:blog_detail' post.slug %}">Equipe Smart Control Brasil</a></h6>
-                                                    <span class="position">Artigo Técnico</span>
+                                                    <h6 class="title"><a href="{% url post.author_url_name slug=post.author_slug %}">{{ post.author_name }}</a></h6>
+                                                    <span class="position">{{ post.author_job_title }}</span>
                                                 </div>
                                             </div>
-                                            <div class="date"><i class="fa-solid fa-tags"></i> <a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.category }}</a></div>
+                                            <div class="date">
+                                                <i class="fa-solid fa-tags"></i> <a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.category }}</a>
+                                                · <time datetime="{{ post.date_published }}">{{ post.date_published_display }}</time>
+                                            </div>
                                         </div>
                                         <div class="blog__item-thumb-2 blog__item-thumb-1">
                                             <div class="blog__item-thumb return">

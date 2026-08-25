@@ -9,6 +9,8 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from src.institutional.presentation.blog_posts import BLOG_POSTS
+from src.institutional.presentation.authors import DEFAULT_AUTHOR_SLUG
+from src.institutional.presentation.authors import get_author
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.commerce.seo import NOINDEX_CATEGORY_SLUGS
 
@@ -91,6 +93,13 @@ ROUTE_METADATA = {
         "description": (
             "Conheça a Smart Control Brasil, empresa especializada em automação industrial, "
             "robótica, engenharia, manutenção técnica e desenvolvimento de sistemas."
+        ),
+    },
+    "author_detail": {
+        "title": "Marcelo Custodio | Engenheiro de Controle e Automação",
+        "description": (
+            "Conheça Marcelo Custodio, engenheiro de Controle e Automação, pós-graduado em TPM "
+            "e Inteligência Artificial e autor técnico da Smart Control Brasil."
         ),
     },
     "testimonials": {
@@ -209,6 +218,17 @@ def _metadata_canonical_path(context):
 
 def _post(context):
     return context.get("post")
+
+
+def _author(context):
+    return context.get("author")
+
+
+def _post_author(context):
+    post = _post(context)
+    if not post:
+        return None
+    return get_author(post.get("author_slug", DEFAULT_AUTHOR_SLUG))
 
 
 def _product(context):
@@ -358,6 +378,10 @@ def _breadcrumb_items(context):
     if route_name in page_names:
         return [home, (page_names[route_name], canonical_url(context))]
 
+    author = _author(context)
+    if route_name == "author_detail" and author:
+        return [home, (author.name, canonical_url(context))]
+
     if post:
         return [
             home,
@@ -387,11 +411,39 @@ def _breadcrumb_items(context):
     return []
 
 
+def _person_schema(author):
+    return {
+        "@id": author.json_ld_id,
+        "@type": "Person",
+        "name": author.name,
+        "jobTitle": author.job_title,
+        "description": author.short_bio,
+        "knowsAbout": list(author.knows_about),
+        "url": _site_url(author.public_path),
+        "worksFor": {"@id": ORGANIZATION_ID},
+    }
+
+
+def _author_profile_page_schema(context):
+    author = _author(context)
+    if _route_name(context) != "author_detail" or not author:
+        return None
+
+    return {
+        "@type": "ProfilePage",
+        "name": author.seo_title,
+        "description": author.seo_description,
+        "url": canonical_url(context),
+        "mainEntity": {"@id": author.json_ld_id},
+    }
+
+
 def _article_schema(context):
     post = _post(context)
     if not post:
         return None
 
+    author = _post_author(context)
     schema = {
         "@type": "BlogPosting",
         "headline": post.get("title", ""),
@@ -400,10 +452,9 @@ def _article_schema(context):
         "mainEntityOfPage": canonical_url(context),
         "articleSection": post.get("category", ""),
         "image": _post_image_url(context) or social_image_url(context),
-        "author": {
-            "@type": "Organization",
-            "name": "Equipe Smart Control Brasil",
-        },
+        "datePublished": post.get("date_published"),
+        "dateModified": post.get("date_modified"),
+        "author": {"@id": author.json_ld_id},
         "publisher": {
             "@type": "Organization",
             "name": SOCIAL_SITE_NAME,
@@ -1060,6 +1111,17 @@ def _structured_data_graph(context):
     if about_page:
         graph.append(about_page)
 
+    author_profile_page = _author_profile_page_schema(context)
+    if author_profile_page:
+        graph.append(author_profile_page)
+
+    author = _author(context)
+    if author:
+        graph.append(_person_schema(author))
+
+    if _route_name(context) == "author_detail":
+        graph.append(_organization_schema())
+
     blog_schema = _blog_schema(context)
     if blog_schema:
         graph.append(blog_schema)
@@ -1095,6 +1157,9 @@ def _structured_data_graph(context):
     article = _article_schema(context)
     if article:
         graph.append(article)
+        post_author = _post_author(context)
+        if post_author:
+            graph.append(_person_schema(post_author))
         faq_page = _faq_page_schema(context)
         if faq_page:
             graph.append(faq_page)
@@ -1125,6 +1190,10 @@ def canonical_url(context):
 
 @register.simple_tag(takes_context=True)
 def page_title(context):
+    author = _author(context)
+    if author:
+        return author.seo_title
+
     post = _post(context)
     if post:
         return post.get("seo_title") or f"{post.get('title', DEFAULT_TITLE)} | Smart Control Brasil"
@@ -1142,6 +1211,10 @@ def page_title(context):
 
 @register.simple_tag(takes_context=True)
 def meta_description(context):
+    author = _author(context)
+    if author:
+        return author.seo_description
+
     post = _post(context)
     if post and post.get("meta_description"):
         return post["meta_description"]

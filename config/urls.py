@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
+from src.institutional.presentation.sitemaps import AuthorSitemap
 from src.institutional.presentation.sitemaps import BlogPostSitemap
 from src.institutional.presentation.sitemaps import CommerceCategorySitemap
 from src.institutional.presentation.sitemaps import CommerceProductSitemap
@@ -14,6 +15,7 @@ from src.institutional.presentation.sitemaps import StaticViewSitemap
 sitemaps = {
     "static": StaticViewSitemap,
     "blog": BlogPostSitemap,
+    "authors": AuthorSitemap,
     "commerce_static": CommerceStaticSitemap,
     "commerce_categories": CommerceCategorySitemap,
     "commerce_products": CommerceProductSitemap,

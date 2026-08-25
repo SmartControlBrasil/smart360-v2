@@ -1,0 +1,82 @@
+{% extends 'institutional/base.html' %}
+{% load static %}
+
+{% block content %}
+             <section class="breadcrumb__before p-relative">
+                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-12">
+                                <div class="breadcrumb__content">
+                                    <div class="breadcrumb__title-wrapper">
+                                        <h1 class="breadcrumb__title">{{ author.name }}</h1>
+                                    </div>
+                                    <div class="breadcrumb__menu">
+                                        <nav aria-label="Breadcrumb">
+                                            <ul>
+                                                <li><span><a href="{% url 'institutional:home' %}"> <img src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                                <li class="active"><span>{{ author.name }}</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+
+            <section class="section-space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="blog__details-content hero">
+                                <p class="title">{{ author.job_title }}</p>
+                                <p class="dec-2">{{ author.post_graduation }}</p>
+                                <p class="dec-3">{{ author.full_bio }}</p>
+
+                                <h2 class="title mt-50">Áreas de conhecimento</h2>
+                                <ul class="blog__details-list">
+                                    {% for area in author.knows_about %}
+                                        <li>{{ area }}</li>
+                                    {% endfor %}
+                                </ul>
+
+                                <h2 class="title mt-50">Responsabilidade editorial</h2>
+                                <p class="dec-3">Marcelo Custodio é o autor técnico responsável pelos artigos publicados no blog da Smart Control Brasil sobre automação industrial, manutenção, robótica aplicada, integração de sistemas e tecnologias aplicadas à operação.</p>
+
+                                <h2 class="title mt-50">Artigos publicados</h2>
+                                <ul class="blog__details-list">
+                                    {% for post in author_posts %}
+                                        <li>
+                                            <a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.title }}</a>
+                                            <span class="d-block mt-10">
+                                                {{ post.category }} ·
+                                                <time datetime="{{ post.date_published }}">{{ post.date_published_display }}</time>
+                                            </span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="blog__details-bottom d-flex flex-column flex-md-row justify-content-md-between mt-50">
+                                    <a href="{% url 'institutional:services' %}" class="rr-btn mb-sm-30 mb-xs-30">Conheça as soluções</a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Entrar em contato</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="sidebar">
+                                <div class="sidebar__widget">
+                                    <h5 class="sidebar__widget-title sidebar__widget-title-2">Sobre a Smart Control Brasil</h5>
+                                    <p class="dec-3">Soluções em automação industrial, robótica, manutenção técnica e sistemas sob medida para empresas e indústrias.</p>
+                                    <div class="sidebar__widget-category mt-30">
+                                        <a href="{% url 'institutional:about' %}"><span><i class="fa-regular fa-arrow-right"></i>Conheça a empresa</span></a>
+                                        <a href="{% url 'institutional:blog' %}"><span><i class="fa-regular fa-arrow-right"></i>Ver todos os artigos</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}

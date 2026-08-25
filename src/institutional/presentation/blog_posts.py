@@ -1114,7 +1114,10 @@ BLOG_POSTS = {
 }
 
 
+from src.institutional.presentation.blog_editorial import enrich_blog_post
+
+
 BLOG_POSTS_LIST = [
-    {"slug": slug, **post}
+    enrich_blog_post(slug, post)
     for slug, post in BLOG_POSTS.items()
 ]

@@ -17,7 +17,11 @@ from django.urls import reverse
 
 from src.commerce.models import Category
 from src.commerce.models import Product
+from src.institutional.presentation.authors import AUTHORS
+from src.institutional.presentation.authors import MARCELO_CUSTODIO
+from src.institutional.presentation.blog_editorial import BLOG_POST_EDITORIAL
 from src.institutional.presentation.blog_posts import BLOG_POSTS
+from src.institutional.presentation.blog_posts import BLOG_POSTS_LIST
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
@@ -517,6 +521,15 @@ class ConversionTrackingTests(TestCase):
 
 @override_settings(ALLOWED_HOSTS=["testserver", "smartcontrolbrasil.com.br"])
 class TechnicalSeoTests(TestCase):
+    AUTHOR_PERSON_ID = MARCELO_CUSTODIO.json_ld_id
+
+    def assertBlogPostingAuthorAndDates(self, blog_posting, slug):
+        editorial = BLOG_POST_EDITORIAL[slug]
+        self.assertEqual(blog_posting["author"], {"@id": self.AUTHOR_PERSON_ID})
+        self.assertEqual(blog_posting["datePublished"], editorial["date_published"])
+        self.assertEqual(blog_posting["dateModified"], editorial["date_modified"])
+        self.assertEqual(blog_posting["publisher"]["name"], "Smart Control Brasil")
+
     def assertCanonical(self, response, expected_url):
         html = response.content.decode()
         self.assertEqual(html.count('rel="canonical"'), 1)
@@ -888,6 +901,8 @@ class TechnicalSeoTests(TestCase):
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "equipamentos-sistemas-para-evoluir"}), html)
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "inovacao-que-aparece-e-gera-valor"}), html)
         self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "informacao-precisa-para-agir-melhor"}), html)
+        self.assertIn("Responsabilidade Técnica e Editorial", html)
+        self.assertIn(reverse("institutional:author_detail", kwargs={"slug": "marcelo-custodio"}), html)
 
     def test_about_page_includes_breadcrumb_and_about_page_json_ld(self):
         response = self.client.get("/empresa/")
@@ -1059,9 +1074,7 @@ class TechnicalSeoTests(TestCase):
 
         self.assertEqual(len(blog_postings), 1)
         self.assertEqual(blog_postings[0]["articleSection"], "Engenharia de Aplicação")
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "selecao-controladores-ativos-alta-severidade")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual(len(faq_pages), 1)
         self.assertEqual(
@@ -2828,9 +2841,7 @@ class TechnicalSeoTests(TestCase):
                 self.assertEqual(blog_posting["mainEntityOfPage"], canonical)
                 self.assertEqual(blog_posting["articleSection"], post["category"])
                 self.assertEqual(blog_posting["image"], f"https://www.smartcontrolbrasil.com.br/static/{post['image']}")
-                self.assertEqual(blog_posting["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-                self.assertNotIn("datePublished", blog_posting)
-                self.assertNotIn("dateModified", blog_posting)
+                self.assertBlogPostingAuthorAndDates(blog_posting, slug)
                 self.assertEqual(len(breadcrumbs), 1)
                 self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
 
@@ -2926,9 +2937,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Automação Industrial e Transformação Digital")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "convergencia-robotica-ia-firmwares-dedicados")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3024,9 +3033,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Robótica Aplicada")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "inovacao-que-aparece-e-gera-valor")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3122,9 +3129,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Eficiência Operacional")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "eliminar-gargalos-autonomia-previsibilidade")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3228,9 +3233,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Gestão de Ativos")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "historico-indicadores-decisoes-consistentes")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3340,9 +3343,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Engenharia de Manutenção")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "reducao-paradas-inesperadas-planejamento-tecnico")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3442,9 +3443,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Retrofit Industrial")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "menos-retrabalho-rastreabilidade-retrofit")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3544,9 +3543,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Integração Inteligente")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "informacao-precisa-para-agir-melhor")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3638,9 +3635,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(blog_postings[0]["url"], canonical)
         self.assertEqual(blog_postings[0]["mainEntityOfPage"], canonical)
         self.assertEqual(blog_postings[0]["articleSection"], "Soluções Tecnológicas")
-        self.assertEqual(blog_postings[0]["author"], {"@type": "Organization", "name": "Equipe Smart Control Brasil"})
-        self.assertNotIn("datePublished", blog_postings[0])
-        self.assertNotIn("dateModified", blog_postings[0])
+        self.assertBlogPostingAuthorAndDates(blog_postings[0], "equipamentos-sistemas-para-evoluir")
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual([item["name"] for item in breadcrumbs[0]["itemListElement"]][:2], ["Início", "Blog"])
         self.assertEqual(len(faq_pages), 1)
@@ -3709,6 +3704,7 @@ class TechnicalSeoTests(TestCase):
                 self.assertIn(strategic_url, urls)
                 self.assertEqual(urls.count(strategic_url), 1)
         self.assertIn("https://www.smartcontrolbrasil.com.br/blog/", urls)
+        self.assertIn("https://www.smartcontrolbrasil.com.br/autor/marcelo-custodio/", urls)
         self.assertIn("https://www.smartcontrolbrasil.com.br/contato/", urls)
         self.assertIn(
             "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
@@ -3757,7 +3753,7 @@ class TechnicalSeoTests(TestCase):
         for disabled_url in disabled_landing_urls:
             with self.subTest(disabled_url=disabled_url):
                 self.assertNotIn(disabled_url, urls)
-        self.assertEqual(len(urls), 19 + len(BLOG_POSTS))
+        self.assertEqual(len(urls), 19 + len(BLOG_POSTS) + len(AUTHORS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":
@@ -3970,6 +3966,80 @@ class TechnicalSeoTests(TestCase):
                 self.assertIn(expected, html)
         self.assertNotIn("Traceback", html)
         self.assertNotIn("Django", html)
+
+    def test_author_page_and_article_editorial_metadata(self):
+        author_url = reverse("institutional:author_detail", kwargs={"slug": "marcelo-custodio"})
+        author_response = self.client.get(author_url)
+        author_html = author_response.content.decode()
+
+        self.assertEqual(author_response.status_code, 200)
+        self.assertTitle(author_response, MARCELO_CUSTODIO.seo_title)
+        self.assertMetaDescription(author_response, MARCELO_CUSTODIO.seo_description)
+        self.assertCanonical(author_response, "https://www.smartcontrolbrasil.com.br/autor/marcelo-custodio/")
+        self.assertEqual(self.h1_texts(author_response), [MARCELO_CUSTODIO.name])
+        self.assertNotContains(author_response, 'name="robots"')
+
+        profile_pages = self.graph_items(author_response, "ProfilePage")
+        people = self.graph_items(author_response, "Person")
+        self.assertEqual(len(profile_pages), 1)
+        self.assertEqual(len(people), 1)
+        self.assertEqual(profile_pages[0]["mainEntity"], {"@id": self.AUTHOR_PERSON_ID})
+        self.assertEqual(people[0]["name"], MARCELO_CUSTODIO.name)
+        self.assertEqual(people[0]["jobTitle"], MARCELO_CUSTODIO.job_title)
+        self.assertEqual(people[0]["description"], MARCELO_CUSTODIO.short_bio)
+        self.assertEqual(people[0]["knowsAbout"], list(MARCELO_CUSTODIO.knows_about))
+        self.assertEqual(people[0]["worksFor"], {"@id": "https://www.smartcontrolbrasil.com.br/#organization"})
+        self.assertEqual(people[0]["url"], "https://www.smartcontrolbrasil.com.br/autor/marcelo-custodio/")
+        self.assertNotIn("sameAs", people[0])
+
+        for forbidden in (
+            "CREA",
+            "LinkedIn",
+            "linkedin.com",
+            "anos de experiência",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, people[0])
+                self.assertNotIn(forbidden, author_html[author_html.find('<main>'):author_html.find('</main>')])
+
+        for post in BLOG_POSTS_LIST:
+            self.assertIn(post["title"], author_html)
+
+        unchanged_slug = "selecao-controladores-ativos-alta-severidade"
+        article_response = self.client.get(f"/blog/{unchanged_slug}/")
+        article_html = article_response.content.decode()
+        self.assertIn("Por ", article_html)
+        self.assertIn(MARCELO_CUSTODIO.name, article_html)
+        self.assertIn(author_url, article_html)
+        self.assertIn('datetime="2026-08-01"', article_html)
+        self.assertIn("Publicado em", article_html)
+        self.assertIn("Atualizado em", article_html)
+        self.assertIn("Sobre o autor", article_html)
+        self.assertIn("Conheça o autor", article_html)
+
+        updated_slug = "convergencia-robotica-ia-firmwares-dedicados"
+        updated_response = self.client.get(f"/blog/{updated_slug}/")
+        updated_html = updated_response.content.decode()
+        self.assertIn('datetime="2026-08-24"', updated_html)
+        self.assertIn("Atualizado em", updated_html)
+
+        blog_listing = self.client.get("/blog/")
+        listing_html = blog_listing.content.decode()
+        self.assertIn(MARCELO_CUSTODIO.name, listing_html)
+        self.assertIn('datetime="2026-08-01"', listing_html)
+
+        sitemap_urls = self.sitemap_urls()
+        self.assertIn("https://www.smartcontrolbrasil.com.br/autor/marcelo-custodio/", sitemap_urls)
+
+        for slug in BLOG_POSTS:
+            blog_postings = self.graph_items(self.client.get(f"/blog/{slug}/"), "BlogPosting")
+            self.assertEqual(len(blog_postings), 1)
+            self.assertBlogPostingAuthorAndDates(blog_postings[0], slug)
+            faq_pages = self.graph_items(self.client.get(f"/blog/{slug}/"), "FAQPage")
+            breadcrumbs = self.graph_items(self.client.get(f"/blog/{slug}/"), "BreadcrumbList")
+            if BLOG_POSTS[slug].get("faq"):
+                self.assertEqual(len(faq_pages), 1)
+            self.assertEqual(len(breadcrumbs), 1)
 
 
 class AuthenticationRoutesTests(TestCase):
