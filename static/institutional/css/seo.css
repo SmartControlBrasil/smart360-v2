@@ -125,3 +125,18 @@
 .author-about-block__content {
   margin-top: 20px;
 }
+
+#preloader .preloader-close {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 40px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+#preloader .preloader-close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}

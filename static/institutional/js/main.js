@@ -36,31 +36,6 @@
             handleQuantityButtons();
         });
 
-
-        function resourcesHubMasonry() {
-            var $grid = $('.resources-hub__masonry');
-            $grid.masonry({
-              itemSelector: '.col-item',
-              columnWidth: '.col-lg-4',
-              horizontalOrder: false,
-              isAnimated: true,
-              // percentPosition: true,
-            });
-        
-            $grid.masonry('reloadItems');
-            $grid.masonry('layout');
-        
-            // layout Masonry after each image loads
-            $grid.imagesLoaded().progress(function () {
-              $grid.masonry('layout');
-            });
-          }
-        
-          if ($('.resources-hub__masonry').length && typeof $.fn.masonry === "function") {
-            resourcesHubMasonry();
-          }
-
-
     let odometerWaypointInitialized = false;
 
     function initOdometerWaypoint() {
@@ -81,7 +56,6 @@
     }
 
     $(function () {
-        $('#preloader').fadeOut(300);
         initOdometerWaypoint();
     });
 
@@ -125,11 +99,6 @@
     $(document).on('click', 'a[href^="mailto:"]', function () {
         pushTrackingEvent('click_email');
     });
-
-    $(".preloader-close").on("click", function () {
-        $('#preloader').fadeOut(300);
-        initOdometerWaypoint();
-    })
 
     //GSAP START
 

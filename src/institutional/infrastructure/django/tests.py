@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import unittest
 from smtplib import SMTPException
 from unittest.mock import patch
 from urllib.parse import urljoin
@@ -11,6 +12,7 @@ from xml.etree import ElementTree
 from django.core import mail
 from django.contrib.auth import get_user_model
 from django.contrib.staticfiles import finders
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
 from django.templatetags.static import static
 from django.test import TestCase
@@ -27,6 +29,8 @@ from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
+
+INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260825-preloader1"
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -693,7 +697,7 @@ class TechnicalSeoTests(TestCase):
             "institutional/js/plugins/SplitText.js",
             "institutional/js/plugins/swiper.min.js",
             "institutional/js/plugins/wow.js",
-            "institutional/js/main.js",
+            f"institutional/js/main.js?v={INSTITUTIONAL_MAIN_JS_CACHE_BUST}",
         )
 
         previous_position = -1
@@ -705,7 +709,10 @@ class TechnicalSeoTests(TestCase):
                 previous_position = position
 
         self.assertEqual(html.count("institutional/js/vendor/jquery-3.7.1.min.js"), 1)
-        self.assertEqual(html.count("institutional/js/main.js"), 1)
+        self.assertEqual(
+            html.count(f"institutional/js/main.js?v={INSTITUTIONAL_MAIN_JS_CACHE_BUST}"),
+            1,
+        )
 
     def test_home_lcp_image_is_prioritized_without_lazy_loading(self):
         response = self.client.get("/")
@@ -4292,8 +4299,9 @@ class TechnicalSeoTests(TestCase):
         scripts = self._script_sources(response)
         stylesheets = self._stylesheet_hrefs(response)
 
-        self.assertEqual(len(scripts), 12)
+        self.assertEqual(len(scripts), 13)
         self.assertEqual(len(stylesheets), 6)
+        self.assertTrue(any("preloader-critical.js" in source for source in scripts))
         self.assertFalse(any("swiper" in source for source in scripts))
         self.assertFalse(any("wow.min.js" in source for source in scripts))
         self.assertTrue(any("main.js" in source for source in scripts))
@@ -4525,6 +4533,267 @@ class AuthorPortraitTests(TestCase):
                 self.assertNotIn(term.lower(), added_text)
 
 
+@override_settings(ALLOWED_HOSTS=["testserver", "smartcontrolbrasil.com.br"])
+class PreloaderHotfixTests(TestCase):
+    MAIN_JS_PATH = Path(__file__).resolve().parents[4] / "static/institutional/js/main.js"
+    CRITICAL_JS_PATH = (
+        Path(__file__).resolve().parents[4] / "static/institutional/js/preloader-critical.js"
+    )
+    CACHE_BUST = INSTITUTIONAL_MAIN_JS_CACHE_BUST
+    INSTITUTIONAL_ROUTES = (
+        "home",
+        "about",
+        "services",
+        "blog",
+        "contact",
+        "xyron",
+        "xyron_littlebot",
+        "manutencao_industrial_campo",
+        "sistemas_websites_python",
+        "robotica_educacional",
+    )
+
+    def home_html(self):
+        return self.client.get(reverse("institutional:home")).content.decode()
+
+    def test_preloader_uses_semantic_close_button(self):
+        html = self.home_html()
+        self.assertIn('class="preloader-close"', html)
+        self.assertIn('type="button"', html)
+        self.assertIn('aria-label="Fechar tela de carregamento"', html)
+        self.assertIn("<noscript><style>#preloader{display:none!important}</style></noscript>", html)
+
+    def test_critical_preloader_controller_loads_before_main_js(self):
+        html = self.home_html()
+        critical_index = html.find("preloader-critical.js")
+        main_index = html.find("main.js?v=" + self.CACHE_BUST)
+        self.assertNotEqual(critical_index, -1)
+        self.assertNotEqual(main_index, -1)
+        self.assertLess(critical_index, main_index)
+        self.assertNotIn("defer", html[critical_index : critical_index + 120])
+
+    def test_main_js_has_cache_busting_query_string(self):
+        html = self.home_html()
+        self.assertIn(f"main.js?v={self.CACHE_BUST}", html)
+
+    def test_main_js_no_longer_references_masonry(self):
+        main_js = self.MAIN_JS_PATH.read_text(encoding="utf-8")
+        self.assertNotIn("resourcesHubMasonry", main_js)
+        self.assertNotIn(".masonry(", main_js)
+
+    def test_critical_preloader_script_is_self_contained(self):
+        critical_js = self.CRITICAL_JS_PATH.read_text(encoding="utf-8")
+        self.assertIn("smart360ClosePreloader", critical_js)
+        self.assertIn("Escape", critical_js)
+        self.assertIn("DOMContentLoaded", critical_js)
+        self.assertIn("4000", critical_js)
+        self.assertNotIn("jquery", critical_js.lower())
+        self.assertNotIn('"load"', critical_js)
+        self.assertNotIn("'load'", critical_js)
+
+    PILLAR_ROUTES = (
+        "robotica_educacional",
+        "robos_seguranca_patrimonial",
+        "robos_limpeza_profissional",
+    )
+
+    def test_stage19_pillar_pages_remain_indexable_and_in_sitemap(self):
+        sitemap = self.client.get(
+            "/sitemap.xml",
+            HTTP_HOST="smartcontrolbrasil.com.br",
+            secure=True,
+        ).content.decode()
+        for route in self.PILLAR_ROUTES:
+            with self.subTest(route=route):
+                response = self.client.get(reverse(f"institutional:{route}"))
+                self.assertEqual(response.status_code, 200)
+                html = response.content.decode()
+                self.assertNotIn('content="noindex', html.lower())
+                self.assertIn(reverse(f"institutional:{route}").strip("/"), sitemap)
+
+    def test_institutional_routes_still_return_200(self):
+        for route in self.INSTITUTIONAL_ROUTES:
+            with self.subTest(route=route):
+                response = self.client.get(reverse(f"institutional:{route}"))
+                self.assertEqual(response.status_code, 200)
+
+    def test_legacy_redirects_sitemap_and_404_remain_correct(self):
+        redirect_response = self.client.get("/parceiros/xyron-robotics/")
+        self.assertEqual(redirect_response.status_code, 301)
+
+        sitemap_response = self.client.get(
+            "/sitemap.xml",
+            HTTP_HOST="smartcontrolbrasil.com.br",
+            secure=True,
+        )
+        self.assertEqual(sitemap_response.status_code, 200)
+        self.assertIn("robotica-educacional", sitemap_response.content.decode())
+
+        missing_response = self.client.get("/pagina-inexistente-hotfix/")
+        self.assertEqual(missing_response.status_code, 404)
+        self.assertContains(
+            missing_response,
+            '<meta name="robots" content="noindex,follow">',
+            status_code=404,
+        )
+
+        home_html = self.home_html()
+        self.assertIn('"@type":"Organization"', home_html.replace(" ", ""))
+
+
+try:
+    from playwright.sync_api import sync_playwright
+except ImportError:  # pragma: no cover - optional dependency
+    sync_playwright = None
+
+
+@override_settings(ALLOWED_HOSTS=["*"])
+class PreloaderHotfixPlaywrightTests(StaticLiveServerTestCase):
+    HOLD_AUTO_CLOSE = """
+        (function () {
+            var nativeAddEventListener = window.addEventListener;
+            var nativeDocumentAddEventListener = document.addEventListener;
+            window.addEventListener = function (type, listener, options) {
+                if (type === "load") {
+                    return;
+                }
+                return nativeAddEventListener.call(this, type, listener, options);
+            };
+            document.addEventListener = function (type, listener, options) {
+                if (type === "DOMContentLoaded") {
+                    return;
+                }
+                return nativeDocumentAddEventListener.call(this, type, listener, options);
+            };
+            var nativeSetTimeout = window.setTimeout;
+            window.setTimeout = function (callback, delay) {
+                if (delay === 4000) {
+                    return 0;
+                }
+                return nativeSetTimeout(callback, delay);
+            };
+        })();
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        if sync_playwright is None:
+            raise unittest.SkipTest("Playwright não instalado neste ambiente.")
+        super().setUpClass()
+
+    def test_preloader_closes_on_load_click_escape_and_failsafe(self):
+        with sync_playwright() as playwright_context:
+            browser = playwright_context.chromium.launch(headless=True)
+
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
+            errors = []
+            page.on("pageerror", lambda exc: errors.append(str(exc)))
+            page.goto(self.live_server_url + "/", wait_until="domcontentloaded")
+            page.wait_for_timeout(500)
+            self.assertEqual(page.locator("#preloader").count(), 0)
+            self.assertFalse(any("masonry is not a function" in item.lower() for item in errors))
+            clickable = page.evaluate(
+                """() => {
+                    const link = document.querySelector('header nav a[href="/empresa/"]');
+                    if (!link) {
+                        return false;
+                    }
+                    const rect = link.getBoundingClientRect();
+                    const target = document.elementFromPoint(
+                        rect.left + rect.width / 2,
+                        rect.top + rect.height / 2
+                    );
+                    return target === link || link.contains(target);
+                }"""
+            )
+            self.assertTrue(clickable)
+
+            click_page = browser.new_page(viewport={"width": 1440, "height": 900})
+            click_page.add_init_script(self.HOLD_AUTO_CLOSE)
+            click_page.goto(self.live_server_url + "/", wait_until="domcontentloaded")
+            self.assertEqual(click_page.locator("#preloader").count(), 1)
+            click_page.locator(".preloader-close").click()
+            click_page.wait_for_timeout(400)
+            self.assertEqual(click_page.locator("#preloader").count(), 0)
+
+            escape_page = browser.new_page(viewport={"width": 390, "height": 844})
+            escape_page.add_init_script(self.HOLD_AUTO_CLOSE)
+            escape_page.goto(self.live_server_url + "/", wait_until="domcontentloaded")
+            escape_page.keyboard.press("Escape")
+            escape_page.wait_for_timeout(400)
+            self.assertEqual(escape_page.locator("#preloader").count(), 0)
+
+            blocked = browser.new_page(viewport={"width": 1440, "height": 900})
+            blocked.route("**/main.js*", lambda route: route.abort())
+            blocked.goto(self.live_server_url + "/", wait_until="domcontentloaded")
+            blocked.wait_for_timeout(4500)
+            self.assertEqual(blocked.locator("#preloader").count(), 0)
+
+            browser.close()
+
+    def test_core_interactions_still_work_after_preloader_hotfix(self):
+        with sync_playwright() as playwright_context:
+            browser = playwright_context.chromium.launch(headless=True)
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.goto(self.live_server_url + "/servicos/", wait_until="domcontentloaded")
+            page.wait_for_timeout(500)
+            page.locator(".sidebar__toggle, .bar-icon").first.click(force=True)
+            page.wait_for_timeout(500)
+            self.assertGreater(page.locator(".offcanvas__area, .offcanvas__overlay").count(), 0)
+
+            page.goto(self.live_server_url + "/servicos/", wait_until="load")
+            page.locator(".faq__area").scroll_into_view_if_needed()
+            page.wait_for_timeout(500)
+            self.assertTrue(
+                page.evaluate("() => Boolean(window.bootstrap && window.bootstrap.Collapse)")
+            )
+            collapsed_panel = page.locator(".faq__item .accordion-collapse:not(.show)").first
+            self.assertGreater(collapsed_panel.count(), 0)
+            panel_id = collapsed_panel.get_attribute("id")
+            page.evaluate(
+                """(panelId) => {
+                    const panel = document.getElementById(panelId);
+                    if (!panel || !window.bootstrap) {
+                        return;
+                    }
+                    bootstrap.Collapse.getOrCreateInstance(panel).show();
+                }""",
+                panel_id,
+            )
+            page.wait_for_function(
+                f"() => document.getElementById('{panel_id}')?.classList.contains('show')",
+                timeout=5000,
+            )
+
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.wait_for_timeout(500)
+            self.assertEqual(page.locator("#scroll-percentage").count(), 1)
+            self.assertIn("livia.smartcontrolbrasil.com.br/widget.js", page.content())
+
+            manutencao = browser.new_page(viewport={"width": 1440, "height": 900})
+            manutencao.goto(
+                self.live_server_url + "/manutencao-industrial-campo/",
+                wait_until="load",
+            )
+            self.assertTrue(
+                any(
+                    "odometer" in source
+                    for source in manutencao.locator("script[src]").evaluate_all(
+                        "elements => elements.map(el => el.getAttribute('src') || '')"
+                    )
+                )
+            )
+
+            sistemas = browser.new_page(viewport={"width": 1440, "height": 900})
+            sistemas.goto(
+                self.live_server_url + "/sistemas-websites-python/",
+                wait_until="load",
+            )
+            self.assertIn("vanilla-tilt.js", sistemas.content())
+
+            browser.close()
+
+
 class FrontendPerformanceTests(TestCase):
     CORE_SCRIPT_MARKERS = (
         "institutional/js/vendor/jquery-3.7.1.min.js",
@@ -4614,8 +4883,11 @@ class FrontendPerformanceTests(TestCase):
         html = response.content.decode()
         jquery_index = html.find("institutional/js/vendor/jquery-3.7.1.min.js")
         gsap_index = html.find("institutional/js/plugins/gsap.js")
-        main_index = html.find("institutional/js/main.js")
-        self.assertIn('defer src="/static/institutional/js/main.js"', html)
+        main_index = html.find(f"institutional/js/main.js?v={INSTITUTIONAL_MAIN_JS_CACHE_BUST}")
+        self.assertIn(
+            f'defer src="/static/institutional/js/main.js?v={INSTITUTIONAL_MAIN_JS_CACHE_BUST}"',
+            html,
+        )
         self.assertNotEqual(jquery_index, -1)
         self.assertNotEqual(gsap_index, -1)
         self.assertNotEqual(main_index, -1)
