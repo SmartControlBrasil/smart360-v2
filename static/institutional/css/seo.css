@@ -140,3 +140,22 @@
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
+
+/* CTA do header: reduz largura sem alterar altura ou tipografia */
+@media (min-width: 1400px) {
+  .header-1 .header__btn-wrap > .rr-btn.rr-btn-bold {
+    padding-left: 20px;
+    padding-right: 20px;
+    min-width: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .header-1 .header__btn-wrap > .rr-btn.rr-btn-bold {
+    padding-left: 14px;
+    padding-right: 14px;
+    min-width: auto;
+    white-space: nowrap;
+  }
+}
