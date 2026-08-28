@@ -58,7 +58,7 @@
                             class="rr-btn">
 
                             Agendar demonstração
-                            <i class="fa-regular fa-arrow-right"></i>
+                            {% institutional_icon "next" %}
 
                         </a>
 
@@ -201,14 +201,14 @@
                     class="rr-btn"
                     href="{% url 'institutional:contact' %}">
                     Levar o LIRO / Little Bot para minha escola
-                    <i class="fa-solid fa-angle-right"></i>
+                    {% institutional_icon "next" %}
                 </a>
 
                 <a
                     class="rr-btn btn-transparent mt-15"
                     href="{% url 'institutional:contact' %}">
                     Solicitar informações
-                    <i class="fa-solid fa-angle-right"></i>
+                    {% institutional_icon "next" %}
                 </a>
 
             </div>
@@ -308,7 +308,7 @@
                             href="{% url 'institutional:contact' %}">
 
                             Conhecer o LIRO / Little Bot
-                            <i class="fa-regular fa-arrow-right"></i>
+                            {% institutional_icon "next" %}
 
                         </a>
 
@@ -531,7 +531,7 @@
                         href="{% url 'institutional:contact' %}">
 
                         Agendar demonstração
-                        <i class="fa-regular fa-arrow-right"></i>
+                        {% institutional_icon "next" %}
 
                     </a>
 
@@ -823,13 +823,16 @@
 
             <div class="hero-interdum">
                 <span class="play-btn">
-                    <i
-                        class="audio fa-sharp fa-solid fa-play"
+                    <span
+                        class="audio"
                         role="button"
                         tabindex="0"
                         aria-label="Ouvir áudio institucional sobre LIRO e inclusão"
+                        data-audio-state="play"
+                        data-audio-icon-play="/static/institutional/icons/play.svg"
+                        data-audio-icon-pause="/static/institutional/icons/pause.svg"
                         data-audio-src="{% static 'institutional/audio/robo-liro-inclusao-neurodivergentes.m4a' %}"
-                    ></i>
+                    >{% institutional_icon "play" class="site-icon--audio" %}</span>
                 </span>
 
                 <h5 class="hero-titles">
@@ -844,7 +847,7 @@
                     data-track-location="littlebot_audio"
                     data-track-label="Agendar demonstração">
                     Agendar demonstração
-                    <i class="fa-regular fa-arrow-right"></i>
+                    {% institutional_icon "next" %}
                 </a>
             </div>
 
@@ -915,27 +918,27 @@
                         <ul>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Introdução à robótica
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Tecnologia e inovação
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Inteligência artificial
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Atividades demonstrativas
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Experiências STEM
                             </li>
 
@@ -975,27 +978,27 @@
                         <ul>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Recepção de visitantes
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Eventos educacionais
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Feiras de tecnologia
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Ações institucionais
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Demonstrações
                             </li>
 
@@ -1035,27 +1038,27 @@
                         <ul>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Centros de inovação
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Espaços tecnológicos
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Projetos especiais
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Instituições públicas
                             </li>
 
                             <li>
-                                <i class="fa-regular fa-check"></i>
+                                {% institutional_icon "check" %}
                                 Ambientes corporativos
                             </li>
 
@@ -1341,7 +1344,7 @@
                     class="rr-btn">
 
                     Agendar demonstração
-                    <i class="fa-regular fa-arrow-right"></i>
+                    {% institutional_icon "next" %}
 
                 </a>
 

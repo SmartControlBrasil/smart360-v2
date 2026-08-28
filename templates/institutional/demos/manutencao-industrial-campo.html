@@ -15,7 +15,7 @@
                             <div class="banner-5__title-wrapper text-center hero">
                                 <h1 class="banner-5__title _split_text">Manutenção Industrial e Assistência Técnica em Campo</h1>
                                 <p class="banner-5__dec rr_title_anim">A Smart Control Brasil realiza manutenção industrial e assistência técnica em campo, com diagnóstico de falhas, manutenção preventiva e corretiva, comissionamento, retrofit e suporte em automação, painéis elétricos e equipamentos industriais.</p>
-                                <a class="rr-btn" href="{% url 'institutional:contact' %}" data-track-event="click_primary_cta" data-track-location="maintenance_hero" data-track-label="Solicitar manutenção">Solicitar manutenção <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn" href="{% url 'institutional:contact' %}" data-track-event="click_primary_cta" data-track-location="maintenance_hero" data-track-label="Solicitar manutenção">Solicitar manutenção {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -42,8 +42,8 @@
                             <div class="rrseken__fast-content-wrapper hero">
                                 <h2 class="title _split_text">Manutenção que Sustenta a Operação</h2>
                                 <div class="slider">
-                                    <div class="rr-btn rrseken-swiper-button-prev"><i class="fa-solid fa-angle-left"></i></div>
-                                    <div class="rr-btn rrseken-swiper-button-next"><i class="fa-solid fa-angle-right"></i></div>
+                                    <div class="rr-btn rrseken-swiper-button-prev">{% institutional_icon "next" class="site-icon--flip-x" %}</div>
+                                    <div class="rr-btn rrseken-swiper-button-next">{% institutional_icon "next" %}</div>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                                 <p>Atendimento técnico em máquinas, linhas, utilidades e ativos industriais.</p>
                                             </div>
                                             <div class="rrseken__fast-content mt-40">
-                                                <a href="{% url 'institutional:contact' %}" class="learn-btn">Solicitar manutenção <i class="fa-solid fa-angle-right"></i></a>
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn">Solicitar manutenção {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                                 <p>Identificação de falhas, testes funcionais, ajustes e retorno à operação.</p>
                                             </div>
                                             <div class="rrseken__fast-content mt-40">
-                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Solicitar manutenção <i class="fa-solid fa-angle-right"></i></a>
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Solicitar manutenção {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                                 <p>Modernização de refrigeração, painéis, controles e sistemas de automação.</p>
                                             </div>
                                             <div class="rrseken__fast-content mt-40">
-                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Solicitar avaliação <i class="fa-solid fa-angle-right"></i></a>
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Solicitar avaliação {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                                                 <p>Planos, checklists, indicadores e histórico para uma operação previsível.</p>
                                             </div>
                                             <div class="rrseken__fast-content mt-40">
-                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Falar com a equipe <i class="fa-solid fa-angle-right"></i></a>
+                                                <a href="{% url 'institutional:contact' %}" class="learn-btn learn-btn-black">Falar com a equipe {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -152,11 +152,11 @@
                                                 <h3 class="_split_text">Manutenção de sistemas <br> de refrigeração industrial</h3>
                                                 <div class="rr-project-tab__icon-list mt-30">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-check"></i> Diagnóstico de falhas e alarmes</li>
-                                                        <li><i class="fa-solid fa-check"></i> Avaliação elétrica e de controle</li>
-                                                        <li><i class="fa-solid fa-check"></i> Verificação de componentes críticos</li>
-                                                        <li><i class="fa-solid fa-check"></i> Manutenção preventiva e corretiva</li>
-                                                        <li><i class="fa-solid fa-check"></i> Suporte técnico em campo</li>
+                                                        <li>{% institutional_icon "check" %} Diagnóstico de falhas e alarmes</li>
+                                                        <li>{% institutional_icon "check" %} Avaliação elétrica e de controle</li>
+                                                        <li>{% institutional_icon "check" %} Verificação de componentes críticos</li>
+                                                        <li>{% institutional_icon "check" %} Manutenção preventiva e corretiva</li>
+                                                        <li>{% institutional_icon "check" %} Suporte técnico em campo</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -179,15 +179,15 @@
                                                 <h3 class="_split_text">Manutenção de máquinas <br> e equipamentos industriais</h3>
                                                 <div class="rr-project-tab__icon-list mt-30">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-check"></i> Inspeção técnica dos ativos</li>
-                                                        <li><i class="fa-solid fa-check"></i> Diagnóstico de falhas eletromecânicas</li>
-                                                        <li><i class="fa-solid fa-check"></i> Intervenções preventivas e corretivas</li>
-                                                        <li><i class="fa-solid fa-check"></i> Comissionamento e testes funcionais</li>
-                                                        <li><i class="fa-solid fa-check"></i> Ações para melhorar disponibilidade</li>
+                                                        <li>{% institutional_icon "check" %} Inspeção técnica dos ativos</li>
+                                                        <li>{% institutional_icon "check" %} Diagnóstico de falhas eletromecânicas</li>
+                                                        <li>{% institutional_icon "check" %} Intervenções preventivas e corretivas</li>
+                                                        <li>{% institutional_icon "check" %} Comissionamento e testes funcionais</li>
+                                                        <li>{% institutional_icon "check" %} Ações para melhorar disponibilidade</li>
                                                     </ul>
                                                 </div>
                                                 <div class="rr-project-tab__btn mt-50">
-                                                    <a href="{% url 'institutional:services' %}" class="rr-btn blue-bg">Ver serviços <i class="fa-solid fa-angle-right"></i></a>
+                                                    <a href="{% url 'institutional:services' %}" class="rr-btn blue-bg">Ver serviços {% institutional_icon "next" %}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,15 +209,15 @@
                                                 <h3 >Manutenção e retrofit <br> de painéis elétricos</h3>
                                                 <div class="rr-project-tab__icon-list mt-30">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-check"></i> Inspeção de painéis e componentes</li>
-                                                        <li><i class="fa-solid fa-check"></i> Fontes, contatores, relés e acionamentos</li>
-                                                        <li><i class="fa-solid fa-check"></i> Análise de falhas elétricas</li>
-                                                        <li><i class="fa-solid fa-check"></i> Atualização e retrofit quando aplicável</li>
-                                                        <li><i class="fa-solid fa-check"></i> Testes, ajustes e registro técnico</li>
+                                                        <li>{% institutional_icon "check" %} Inspeção de painéis e componentes</li>
+                                                        <li>{% institutional_icon "check" %} Fontes, contatores, relés e acionamentos</li>
+                                                        <li>{% institutional_icon "check" %} Análise de falhas elétricas</li>
+                                                        <li>{% institutional_icon "check" %} Atualização e retrofit quando aplicável</li>
+                                                        <li>{% institutional_icon "check" %} Testes, ajustes e registro técnico</li>
                                                     </ul>
                                                 </div>
                                                 <div class="rr-project-tab__btn mt-50">
-                                                    <a href="{% url 'institutional:about' %}" class="rr-btn blue-bg">Conheça a empresa <i class="fa-solid fa-angle-right"></i></a>
+                                                    <a href="{% url 'institutional:about' %}" class="rr-btn blue-bg">Conheça a empresa {% institutional_icon "next" %}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -239,15 +239,15 @@
                                                 <h3 >Diagnóstico de <br> automação industrial</h3>
                                                 <div class="rr-project-tab__icon-list mt-30">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-check"></i> CLPs, IHMs e inversores</li>
-                                                        <li><i class="fa-solid fa-check"></i> Sinais de campo e intertravamentos</li>
-                                                        <li><i class="fa-solid fa-check"></i> Diagnóstico de comunicação industrial</li>
-                                                        <li><i class="fa-solid fa-check"></i> Parametrização e testes de operação</li>
-                                                        <li><i class="fa-solid fa-check"></i> Integração com sistemas e supervisórios</li>
+                                                        <li>{% institutional_icon "check" %} CLPs, IHMs e inversores</li>
+                                                        <li>{% institutional_icon "check" %} Sinais de campo e intertravamentos</li>
+                                                        <li>{% institutional_icon "check" %} Diagnóstico de comunicação industrial</li>
+                                                        <li>{% institutional_icon "check" %} Parametrização e testes de operação</li>
+                                                        <li>{% institutional_icon "check" %} Integração com sistemas e supervisórios</li>
                                                     </ul>
                                                 </div>
                                                 <div class="rr-project-tab__btn mt-50">
-                                                    <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}" class="rr-btn blue-bg">Ver automação <i class="fa-solid fa-angle-right"></i></a>
+                                                    <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}" class="rr-btn blue-bg">Ver automação {% institutional_icon "next" %}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -269,15 +269,15 @@
                                                 <h3>Manutenção orientada <br> à confiabilidade</h3>
                                                 <div class="rr-project-tab__icon-list mt-30">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-check"></i> MTBF, MTTR e disponibilidade</li>
-                                                        <li><i class="fa-solid fa-check"></i> Planejamento de preventivas</li>
-                                                        <li><i class="fa-solid fa-check"></i> Histórico e recorrência de falhas</li>
-                                                        <li><i class="fa-solid fa-check"></i> Análise de criticidade dos ativos</li>
-                                                        <li><i class="fa-solid fa-check"></i> TPM e redução de reincidências</li>
+                                                        <li>{% institutional_icon "check" %} MTBF, MTTR e disponibilidade</li>
+                                                        <li>{% institutional_icon "check" %} Planejamento de preventivas</li>
+                                                        <li>{% institutional_icon "check" %} Histórico e recorrência de falhas</li>
+                                                        <li>{% institutional_icon "check" %} Análise de criticidade dos ativos</li>
+                                                        <li>{% institutional_icon "check" %} TPM e redução de reincidências</li>
                                                     </ul>
                                                 </div>
                                                 <div class="rr-project-tab__btn mt-50">
-                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar manutenção <i class="fa-solid fa-angle-right"></i></a>
+                                                    <a href="{% url 'institutional:contact' %}" class="rr-btn blue-bg">Solicitar manutenção {% institutional_icon "next" %}</a>
                                                 </div>
                                              </div>
                                         </div>
@@ -320,19 +320,19 @@
                                         </div>
                                         <div class="testimonial-5__rating-img">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                             <p>Manutenção e <br>
                                                 Ratings</p>
                                         </div>
                                     </div>
                                     <div class="testimonial-5__btn">
-                                        <div class="rr-btn rrseken-swiper-button-prev"><i class="fa-solid fa-angle-left"></i></div>
-                                        <div class="rr-btn rrseken-swiper-button-next"><i class="fa-solid fa-angle-right"></i></div>
+                                        <div class="rr-btn rrseken-swiper-button-prev">{% institutional_icon "next" class="site-icon--flip-x" %}</div>
+                                        <div class="rr-btn rrseken-swiper-button-next">{% institutional_icon "next" %}</div>
                                     </div>
                                 </div>
                             </div>
@@ -343,11 +343,11 @@
                                             <div class="testimonial-5__item">
                                                 <div class="testimonial-5__icon">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
                                                     </ul>
                                                     <p>“MTTR, MTBF e disponibilidade ajudam a entender <br> o comportamento dos ativos, o tempo de recuperação <br> e as oportunidades para melhorar a confiabilidade <br> da operação industrial.”</p>
                                                 </div>
@@ -371,11 +371,11 @@
                                             <div class="testimonial-5__item">
                                                 <div class="testimonial-5__icon">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
                                                     </ul>
                                                     <p>“Planos preventivos, inspeções e checklists tornam <br> as responsabilidades mais claras e ajudam a reduzir <br> falhas inesperadas, retrabalho e intervenções <br> emergenciais na planta.”</p>
                                                 </div>
@@ -399,11 +399,11 @@
                                             <div class="testimonial-5__item">
                                                 <div class="testimonial-5__icon">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
-                                                        <li><i class="fa-solid fa-star"></i></li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
+                                                        <li>{% institutional_icon "star" %}</li>
                                                     </ul>
                                                     <p>“O histórico técnico registra falhas, intervenções, <br> evidências e decisões por ativo, criando uma base <br> confiável para análise de recorrência, priorização <br> e melhoria contínua.”</p>
                                                 </div>
@@ -678,8 +678,8 @@
                             <div class="rrseken__fast-content-wrapper hero">
                                 <h2 class="title _split_text">Benefícios para sua Operação</h2>
                                 <div class="slider">
-                                    <div class="rr-btn blog-5-prev"><i class="fa-solid fa-angle-left"></i></div>
-                                    <div class="rr-btn blog-5-next"><i class="fa-solid fa-angle-right"></i></div>
+                                    <div class="rr-btn blog-5-prev">{% institutional_icon "next" class="site-icon--flip-x" %}</div>
+                                    <div class="rr-btn blog-5-next">{% institutional_icon "next" %}</div>
                                 </div>
                             </div>
                         </div>
@@ -697,7 +697,7 @@
                                                 <span class="cta"><i class="fa-sharp fa-light fa-screwdriver-wrench"></i> Manutenção planejada</span>
                                                 <h5 class="title"><a href="{% url 'institutional:blog_detail' 'reducao-paradas-inesperadas-planejamento-tecnico' %}">Redução de paradas inesperadas e melhor planejamento técnico</a></h5>
                                                 <div class="blog-5__btn">
-                                                    <a href="{% url 'institutional:blog_detail' 'reducao-paradas-inesperadas-planejamento-tecnico' %}" class="learn-btn">Saiba mais <span><i class="fa-solid fa-angle-right"></i></span></a>
+                                                    <a href="{% url 'institutional:blog_detail' 'reducao-paradas-inesperadas-planejamento-tecnico' %}" class="learn-btn">Saiba mais <span>{% institutional_icon "next" %}</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -708,10 +708,10 @@
                                                 <img {% image_dimensions 'institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp' %} src="{% static 'institutional/imgs/blog/blog-historico-organizado-e-indicadores.webp' %}" alt="Histórico e indicadores de manutenção para gestão de ativos">
                                             </div>
                                             <div class="blog-5__text">
-                                                <span class="cta"><i class="fa-sharp fa-light fa-chart-line"></i> Confiabilidade</span>
+                                                <span class="cta">{% institutional_icon "growth" %} Confiabilidade</span>
                                                 <h5 class="title"><a href="{% url 'institutional:blog_detail' 'historico-indicadores-decisoes-consistentes' %}">Histórico organizado e indicadores para decisões mais consistentes</a></h5>
                                                 <div class="blog-5__btn">
-                                                    <a href="{% url 'institutional:blog_detail' 'historico-indicadores-decisoes-consistentes' %}" class="learn-btn">Saiba mais <span><i class="fa-solid fa-angle-right"></i></span></a>
+                                                    <a href="{% url 'institutional:blog_detail' 'historico-indicadores-decisoes-consistentes' %}" class="learn-btn">Saiba mais <span>{% institutional_icon "next" %}</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -722,10 +722,10 @@
                                                 <img {% image_dimensions 'institutional/imgs/blog/blog-sem-retrabalho.webp' %} src="{% static 'institutional/imgs/blog/blog-sem-retrabalho.webp' %}" alt="Documentação e rastreabilidade para retrofit industrial">
                                             </div>
                                             <div class="blog-5__text">
-                                                <span class="cta"><i class="fa-sharp fa-light fa-gears"></i> Melhoria contínua</span>
+                                                <span class="cta">{% institutional_icon "settings" %} Melhoria contínua</span>
                                                 <h5 class="title"><a href="{% url 'institutional:blog_detail' 'menos-retrabalho-rastreabilidade-retrofit' %}">Menos retrabalho, mais rastreabilidade e base para retrofit</a></h5>
                                                 <div class="blog-5__btn">
-                                                    <a href="{% url 'institutional:contact' %}" class="learn-btn">Solicitar visita <span><i class="fa-solid fa-angle-right"></i></span></a>
+                                                    <a href="{% url 'institutional:contact' %}" class="learn-btn">Solicitar visita <span>{% institutional_icon "next" %}</span></a>
                                                 </div>
                                             </div>
                                         </div>

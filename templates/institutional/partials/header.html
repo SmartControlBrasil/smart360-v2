@@ -1,4 +1,4 @@
-{% load static %}
+{% load static institutional_media %}
 {% with current=request.resolver_match.url_name %}
 
 <header>
@@ -185,7 +185,7 @@
                                     title="YouTube"
                                     style="color: #ffffff; font-size: 17px;"
                                 >
-                                    <i class="fa-brands fa-youtube"></i>
+                                    {% institutional_icon "youtube" %}
                                 </a>
 
 
@@ -199,7 +199,7 @@
                                     title="Instagram"
                                     style="color: #ffffff; font-size: 18px;"
                                 >
-                                    <i class="fa-brands fa-instagram"></i>
+                                    {% institutional_icon "instagram" %}
                                 </a>
 
 
@@ -213,7 +213,7 @@
                                     title="Facebook"
                                     style="color: #ffffff; font-size: 18px;"
                                 >
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                    {% institutional_icon "facebook" %}
                                 </a>
 
                             </div>

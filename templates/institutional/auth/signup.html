@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 
 {% block title %}Cadastro | Smart Control Brasil{% endblock %}
 {% block meta_description %}Crie sua conta Smart Control Brasil.{% endblock %}
@@ -66,7 +67,7 @@
 
                             <button type="submit" class="rr-btn mt-25">
                                 Criar conta
-                                <i class="fa-solid fa-arrow-right"></i>
+                                {% institutional_icon "next" %}
                             </button>
                         </form>
 

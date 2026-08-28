@@ -65,7 +65,7 @@
                                                 </div>
                                             </div>
                                             <div class="date">
-                                                <i class="fa-solid fa-tags"></i> <a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.category }}</a>
+                                                {% institutional_icon "tag" %} <a href="{% url 'institutional:blog_detail' post.slug %}">{{ post.category }}</a>
                                                 · <time datetime="{{ post.date_published }}">{{ post.date_published_display }}</time>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                 data-track-location="blog_listing_footer"
                                 data-track-label="Fale com nossa equipe">
                                 Fale com nossa equipe
-                                <i class="fa-solid fa-angle-right"></i>
+                                {% institutional_icon "next" %}
                             </a>
                         </div>
                     </div>

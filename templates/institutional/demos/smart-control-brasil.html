@@ -41,7 +41,7 @@
                                             data-track-event="click_primary_cta"
                                             data-track-location="home_hero"
                                             data-track-label="Solicitar contato">
-                                            <i class="fa-solid fa-paper-plane"></i> Solicitar contato
+                                            {% institutional_icon "paper-plane" %} Solicitar contato
                                         </button>
                                     </div>
                                  </div>
@@ -70,7 +70,7 @@
                                 <h2 class="section__title-wrapper-title _split_text">Tecnologia Inteligente e Confiabilidade <br> para o seu Negócio</h2>
                                 <p class="section__title-wrapper-dec rr_title_anim mt-20">Transformamos sua operação com soluções sob medida. Unimos a máxima eficiência <br> da Automação Industrial Mitsubishi à inovação tecnológica da linha Xyron.</p>
                                 <p class="section__title-wrapper-dec rr_title_anim pt-25">Modernizamos indústrias, comércios, escolas e condomínios com engenharia <br> consultiva, tecnologia aplicada e soluções de alto impacto.</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça a Smart Control Brasil <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça a Smart Control Brasil {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -100,7 +100,7 @@
                                 href="{% url 'institutional:contact' %}"
                                 data-track-event="click_primary_cta"
                                 data-track-location="home_about"
-                                data-track-label="Fale conosco">Fale Conosco <i class="fa-solid fa-angle-right"></i></a>
+                                data-track-label="Fale conosco">Fale Conosco {% institutional_icon "next" %}</a>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                                             <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção industrial em campo</a></li>
                                         </ul>
                                     </div>
-                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Engenharia <i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Engenharia {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                     <div class="service__item-content">
                                         <h3 class="title">Automação Industrial Mitsubishi</h3>
                                         <p class="dec">Controle avançado de processos, sistemas supervisórios inteligentes e redes industriais de alta disponibilidade.</p>
-                                        <a class="rr-btn btn-white" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Soluções Mitsubishi <i class="fa-solid fa-angle-right"></i></a>
+                                        <a class="rr-btn btn-white" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Soluções Mitsubishi {% institutional_icon "next" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -177,8 +177,8 @@
                                     <div class="service__item-content">
                                         <h3 class="title">Robótica de Serviço e IA Xyron</h3>
                                         <p class="dec">Robôs móveis autônomos para recepção, segurança patrimonial, educação e limpeza profissional.</p>
-                                        <a class="rr-btn btn-white" href="{% url 'institutional:xyron' %}">Robótica Xyron <i class="fa-solid fa-angle-right"></i></a>
-                                        <a class="rr-btn btn-white ms-3" href="{% url 'institutional:robos_seguranca_patrimonial' %}">Segurança patrimonial <i class="fa-solid fa-angle-right"></i></a>
+                                        <a class="rr-btn btn-white" href="{% url 'institutional:xyron' %}">Robótica Xyron {% institutional_icon "next" %}</a>
+                                        <a class="rr-btn btn-white ms-3" href="{% url 'institutional:robos_seguranca_patrimonial' %}">Segurança patrimonial {% institutional_icon "next" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@
                                     <div class="service__item-content">
                                         <h3 class="title">IoT e Hardware Sob Medida</h3>
                                         <p class="dec">Firmwares, circuitos dedicados, aquisição de dados, telemetria e monitoramento remoto de ativos críticos.</p>
-                                        <a class="rr-btn btn-white" href="{% url 'institutional:sistemas_websites_python' %}">Sistemas Python <i class="fa-solid fa-angle-right"></i></a>
+                                        <a class="rr-btn btn-white" href="{% url 'institutional:sistemas_websites_python' %}">Sistemas Python {% institutional_icon "next" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -243,16 +243,16 @@
                             </div>
                             <div class="card_middle">
                                 <ul>
-                                    <li><i class="fa-solid fa-check"></i></li>
-                                    <li><i class="fa-solid fa-check"></i></li>
+                                    <li>{% institutional_icon "check" %}</li>
+                                    <li>{% institutional_icon "check" %}</li>
                                     <li>Análise técnica</li>
-                                    <li><i class="fa-solid fa-check"></i></li>
-                                    <li><i class="fa-solid fa-check"></i></li>
+                                    <li>{% institutional_icon "check" %}</li>
+                                    <li>{% institutional_icon "check" %}</li>
                                 </ul>
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -266,16 +266,16 @@
                             </div>
                             <div class="card_middle">
                                 <ul>
-                                    <li><i class="fa-solid fa-check"></i></li>
-                                    <li><i class="fa-solid fa-check"></i></li>
+                                    <li>{% institutional_icon "check" %}</li>
+                                    <li>{% institutional_icon "check" %}</li>
                                     <li>Projeto completo</li>
-                                    <li><i class="fa-solid fa-check"></i></li>
-                                    <li><i class="fa-solid fa-check"></i></li>
+                                    <li>{% institutional_icon "check" %}</li>
+                                    <li>{% institutional_icon "check" %}</li>
                                 </ul>
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-white pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-white pricing-card-button d-flex">Saiba Mais {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -289,16 +289,16 @@
                             </div>
                             <div class="card_middle">
                                 <ul>
-                                    <li><i class="fa-solid fa-check"></i></li>
+                                    <li>{% institutional_icon "check" %}</li>
                                     <li>Suporte técnico</li>
                                     <li>Melhoria contínua</li>
-                                    <li><i class="fa-solid fa-check"></i></li>
-                                    <li><i class="fa-solid fa-check"></i></li>
+                                    <li>{% institutional_icon "check" %}</li>
+                                    <li>{% institutional_icon "check" %}</li>
                                 </ul>
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais <i class="fa-solid fa-angle-right"></i></a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -321,11 +321,11 @@
                                     <h4 class="title">4 pilares</h4>
                                     <div class="star-icon">
                                         <ul>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
+                                            <li>{% institutional_icon "star" %}</li>
+                                            <li>{% institutional_icon "star" %}</li>
+                                            <li>{% institutional_icon "star" %}</li>
+                                            <li>{% institutional_icon "star" %}</li>
+                                            <li>{% institutional_icon "star" %}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -504,7 +504,7 @@
                         <div class="col-12">
                             <div class="space-between__wrapper hero mb-60">
                                 <h2 class="space-between__wrapper-title _split_text">Artigos Técnicos e Engenharia <br> de Aplicação Sem Filtros</h2>
-                                <a class="rr-btn" href="{% url 'institutional:blog' %}">Acessar Artigos <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn" href="{% url 'institutional:blog' %}">Acessar Artigos {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -519,7 +519,7 @@
                                                 <span class="position">Engenheiro de Controle e Automação</span>
                                             </div>
                                         </div>
-                                        <div class="date"><i class="fa-solid fa-calendar-days"></i> Engenharia de Aplicação · <time datetime="2026-08-01">01/08/2026</time></div>
+                                        <div class="date">{% institutional_icon "calendar" %} Engenharia de Aplicação · <time datetime="2026-08-01">01/08/2026</time></div>
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
@@ -540,7 +540,7 @@
                                                 <span class="position">Engenheiro de Controle e Automação</span>
                                             </div>
                                         </div>
-                                        <div class="date"><i class="fa-solid fa-calendar-days"></i> Automação Industrial e Transformação Digital · <time datetime="2026-08-01">01/08/2026</time></div>
+                                        <div class="date">{% institutional_icon "calendar" %} Automação Industrial e Transformação Digital · <time datetime="2026-08-01">01/08/2026</time></div>
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
@@ -560,7 +560,7 @@
                                             <span class="position">Engenheiro de Controle e Automação</span>
                                         </div>
                                     </div>
-                                    <div class="date"><i class="fa-solid fa-calendar-days"></i> Eficiência Operacional · <time datetime="2026-08-01">01/08/2026</time></div>
+                                    <div class="date">{% institutional_icon "calendar" %} Eficiência Operacional · <time datetime="2026-08-01">01/08/2026</time></div>
                                 </div>
                                 <div class="blog__item-thumb-2">
                                     <div class="blog__item-thumb return">

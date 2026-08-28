@@ -57,7 +57,7 @@
                                 <h2 class="section__title-wrapper-title _split_text">Automação, Robótica e <br> Tecnologia Aplicada</h2>
                                 <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil integra engenharia, automação industrial, robótica, manutenção <br> e sistemas sob medida para empresas que precisam modernizar processos e <br> transformar tecnologia em resultado prático.</p>
                                 <p class="section__title-wrapper-dec rr_title_anim pt-25">Do campo ao software, conectamos equipamentos, dados, controle e suporte técnico <br> para transformar necessidades operacionais em soluções sustentáveis.</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:services' %}">Conheça Nossa Atuação <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:services' %}">Conheça Nossa Atuação {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -82,7 +82,7 @@
                                 <img {% image_dimensions 'institutional/imgs/icon/about-icon-1.png' %} src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="Equipamentos, softwares, robótica e automação com visão de engenharia.">
                                 <p>Equipamentos, softwares, robótica e automação com visão de engenharia.</p>
                             </div>
-                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Sobre sua Solução <i class="fa-solid fa-angle-right"></i></a>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Sobre sua Solução {% institutional_icon "next" %}</a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                                             <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas, IoT e dados</a></li>
                                         </ul>
                                     </div>
-                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:contact' %}">Fale com Nossa Equipe <i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:contact' %}">Fale com Nossa Equipe {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +232,7 @@
                                 <h2 class="section__title-wrapper-title _split_text">Responsabilidade Técnica e Editorial</h2>
                                 <p class="section__title-wrapper-dec rr_title_anim mt-20"><a href="{% url 'institutional:author_detail' slug=technical_author.slug %}">{{ technical_author.name }}</a> · {{ technical_author.job_title }} · {{ technical_author.post_graduation }}.</p>
                                 <p class="section__title-wrapper-dec rr_title_anim pt-25">{{ technical_author.short_bio }}</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:author_detail' slug=technical_author.slug %}">Conheça o autor <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:author_detail' slug=technical_author.slug %}">Conheça o autor {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         <div class="col-12">
                             <div class="space-between__wrapper hero mb-60">
                                 <h2 class="space-between__wrapper-title _split_text">Mais Inovação. <br> Mais Produtividade.</h2>
-                                <a class="rr-btn" href="{% url 'institutional:services' %}">Conheça as Soluções <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn" href="{% url 'institutional:services' %}">Conheça as Soluções {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                                                 <span class="position">Engenheiro de Controle e Automação</span>
                                             </div>
                                         </div>
-                                        <div class="date"><i class="fa-solid fa-calendar-days"></i> Soluções Tecnológicas · <time datetime="2026-08-01">01/08/2026</time></div>
+                                        <div class="date">{% institutional_icon "calendar" %} Soluções Tecnológicas · <time datetime="2026-08-01">01/08/2026</time></div>
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
@@ -281,7 +281,7 @@
                                                 <span class="position">Engenheiro de Controle e Automação</span>
                                             </div>
                                         </div>
-                                        <div class="date"><i class="fa-solid fa-calendar-days"></i> Robótica Aplicada · <time datetime="2026-08-01">01/08/2026</time></div>
+                                        <div class="date">{% institutional_icon "calendar" %} Robótica Aplicada · <time datetime="2026-08-01">01/08/2026</time></div>
                                     </div>
                                     <div class="blog__item-thumb-2">
                                         <div class="blog__item-thumb return">
@@ -301,7 +301,7 @@
                                             <span class="position">Engenheiro de Controle e Automação</span>
                                         </div>
                                     </div>
-                                    <div class="date"><i class="fa-solid fa-calendar-days"></i> Integração Inteligente · <time datetime="2026-08-01">01/08/2026</time></div>
+                                    <div class="date">{% institutional_icon "calendar" %} Integração Inteligente · <time datetime="2026-08-01">01/08/2026</time></div>
                                 </div>
                                 <div class="blog__item-thumb-2">
                                     <div class="blog__item-thumb return">

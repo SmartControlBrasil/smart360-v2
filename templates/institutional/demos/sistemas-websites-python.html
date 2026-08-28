@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="banner2__btn-wrapper">
                                     <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".4s" href="{% url 'institutional:contact' %}" data-track-event="click_primary_cta" data-track-location="systems_hero" data-track-label="Solicitar orçamento">Solicitar orçamento</a>
-                                    <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".6s" href="{% url 'institutional:services' %}">Ver serviços <i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="rr-btn btn-transparent border-gradient wow fadeInLeft animated" data-wow-delay=".6s" href="{% url 'institutional:services' %}">Ver serviços {% institutional_icon "next" %}</a>
                                 </div>
                                 <div class="banner2__content-message">
                                     <div class="icon">
@@ -40,11 +40,11 @@
                                     <div class="star-list">
                                         <div class="star">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                             <p class="dec">Software desenvolvido para transformar processos reais.</p>
                                         </div>
@@ -77,8 +77,8 @@
                             <p>Projetos em Python e Django podem organizar dados, integrar rotinas, criar portais, dashboards e automações sob medida. A solução parte do processo real da empresa, não apenas de uma tela pronta. Conheça também a <a href="{% url 'institutional:about' %}">Smart Control Brasil</a> e nossa abordagem de engenharia aplicada.</p>
                         </div>
                         <div class="col-lg-4 text-lg-end">
-                            <a class="rr-btn" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Integrar automação industrial <i class="fa-solid fa-angle-right"></i></a>
-                            <a class="rr-btn btn-transparent mt-15" href="{% url 'institutional:manutencao_industrial_campo' %}">Digitalizar manutenção <i class="fa-solid fa-angle-right"></i></a>
+                            <a class="rr-btn" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Integrar automação industrial {% institutional_icon "next" %}</a>
+                            <a class="rr-btn btn-transparent mt-15" href="{% url 'institutional:manutencao_industrial_campo' %}">Digitalizar manutenção {% institutional_icon "next" %}</a>
                         </div>
                     </div>
                 </div>
@@ -119,10 +119,10 @@
                             <h3 class="title _split_text">O que desenvolvemos</h3>
                             <div class="slider-button-wrap">
                                 <button class="aifunction-slide-button-prev slide-button">
-                                    <i class="fa-solid fa-angle-left"></i>
+                                    {% institutional_icon "next" class="site-icon--flip-x" %}
                                 </button>
                                 <button class="aifunction-slide-button-next slide-button">
-                                    <i class="fa-solid fa-angle-right"></i>
+                                    {% institutional_icon "next" %}
                                 </button>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                                                     <h4 class="title"><a href="{% url 'institutional:contact' %}">Sistemas Web</a></h4>
                                                     <p class="dec">Plataformas personalizadas para gestão e operação</p>
                                                 </div>
-                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                                     <h4 class="title"><a href="{% url 'institutional:contact' %}">Websites Inteligentes</a></h4>
                                                     <p class="dec">Sites rápidos, profissionais e integrados ao negócio</p>
                                                 </div>
-                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@
                                                     <h4 class="title"><a href="{% url 'institutional:contact' %}">Bancos de Dados</a></h4>
                                                     <p class="dec">Dados organizados, protegidos e disponíveis</p>
                                                 </div>
-                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +181,7 @@
                                                     <h4 class="title"><a href="{% url 'institutional:contact' %}">Inteligência Artificial</a></h4>
                                                     <p class="dec">IA integrada aos processos e sistemas da empresa</p>
                                                 </div>
-                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais <i class="fa-solid fa-angle-right"></i></a>
+                                                <a class="rr-btn" href="{% url 'institutional:contact' %}"> Saiba mais {% institutional_icon "next" %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -417,7 +417,7 @@
                                         <p class="dec rr_title_anim">Tecnologia sob medida para necessidades reais.</p>
                                     </div>
                                 </div>
-                                <a class="rr-btn" href="{% url 'institutional:contact' %}">Falar com a equipe <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn" href="{% url 'institutional:contact' %}">Falar com a equipe {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -440,7 +440,7 @@
                                 </div>
                                 <div class="dedicated__item-content">
                                     <a class="text" href="#ia-aplicada">Inteligência Artificial</a>
-                                    <a class="icon" href="#ia-aplicada" aria-label="Ver inteligência artificial aplicada"><i class="fa-light fa-eye"></i></a>
+                                    <a class="icon" href="#ia-aplicada" aria-label="Ver inteligência artificial aplicada">{% institutional_icon "eye" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -451,7 +451,7 @@
                                 </div>
                                 <div class="dedicated__item-content">
                                     <a class="text" href="#python-django">PostgreSQL</a>
-                                    <a class="icon" href="#python-django" aria-label="Ver Python Django e banco de dados"><i class="fa-light fa-eye"></i></a>
+                                    <a class="icon" href="#python-django" aria-label="Ver Python Django e banco de dados">{% institutional_icon "eye" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -462,7 +462,7 @@
                                 </div>
                                 <div class="dedicated__item-content">
                                     <a class="text" href="#integracoes">APIs e Integrações</a>
-                                    <a class="icon" href="#integracoes" aria-label="Ver APIs e integrações"><i class="fa-light fa-eye"></i></a>
+                                    <a class="icon" href="#integracoes" aria-label="Ver APIs e integrações">{% institutional_icon "eye" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -473,7 +473,7 @@
                                 </div>
                                 <div class="dedicated__item-content">
                                     <a class="text" href="#python-django">Python e Django</a>
-                                    <a class="icon" href="#python-django" aria-label="Ver Python e Django"><i class="fa-light fa-eye"></i></a>
+                                    <a class="icon" href="#python-django" aria-label="Ver Python e Django">{% institutional_icon "eye" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +484,7 @@
                                 </div>
                                 <div class="dedicated__item-content">
                                     <a class="text" href="#dashboards">Dashboards</a>
-                                    <a class="icon" href="#dashboards" aria-label="Ver dashboards"><i class="fa-light fa-eye"></i></a>
+                                    <a class="icon" href="#dashboards" aria-label="Ver dashboards">{% institutional_icon "eye" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -495,7 +495,7 @@
                                 </div>
                                 <div class="dedicated__item-content">
                                     <a class="text" href="#automacao-digital">Automação</a>
-                                    <a class="icon" href="#automacao-digital" aria-label="Ver automação digital"><i class="fa-light fa-eye"></i></a>
+                                    <a class="icon" href="#automacao-digital" aria-label="Ver automação digital">{% institutional_icon "eye" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -568,11 +568,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Cada solução é estruturada conforme o processo, os usuários, os dados e as integrações necessárias para a operação.</p>
@@ -593,11 +593,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Utilizamos Python e Django para desenvolver aplicações escaláveis, organizadas e preparadas para evolução contínua.</p>
@@ -618,11 +618,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Sistemas podem conectar formulários, bancos de dados, APIs e rotinas internas para reduzir tarefas manuais.</p>
@@ -643,11 +643,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Estruturamos informações para facilitar consultas, indicadores, rastreabilidade e tomada de decisão.</p>
@@ -668,11 +668,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Interfaces são desenvolvidas com foco em clareza, facilidade de uso e aderência à rotina operacional.</p>
@@ -693,11 +693,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">A arquitetura pode ser preparada para receber novos módulos, usuários, integrações e funcionalidades.</p>
@@ -718,11 +718,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Integramos sistemas, serviços externos e aplicações por meio de APIs e fluxos de dados controlados.</p>
@@ -743,11 +743,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Processos repetitivos podem ser automatizados para reduzir retrabalho e melhorar produtividade.</p>
@@ -768,11 +768,11 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Recursos de inteligência artificial podem ser incorporados quando agregam valor real ao processo e à experiência do usuário.</p>
@@ -788,7 +788,7 @@
                                 </div>
                             </div>
                             <div class="testimonial-2-btn text-center">
-                                <a class="rr-btn loadmore" href="{% url 'institutional:contact' %}">Falar sobre meu projeto <i class="fa-solid fa-angle-right"></i></a>
+                                <a class="rr-btn loadmore" href="{% url 'institutional:contact' %}">Falar sobre meu projeto {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -887,11 +887,11 @@
                                  </div>
                                  <div class="blog-2__item-content">
                                     <div class="blog-2__item-content-cta-wrap">
-                                        <span class="date"><i class="fa-sharp fa-solid fa-code"></i>Python</span>
-                                        <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-database"></i>Banco de dados</a>
+                                        <span class="date">{% institutional_icon "programming" %}Python</span>
+                                        <a href="{% url 'institutional:contact' %}" class="date">{% institutional_icon "database" %}Banco de dados</a>
                                     </div>
                                     <h3 class="title"><a href="{% url 'institutional:services' %}">Sistemas personalizados para <br> organizar sua operação</a></h3>
-                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais{% institutional_icon "next" %}</a>
                                  </div>
                             </div>
                         </div>
@@ -905,11 +905,11 @@
                                  </div>
                                  <div class="blog-2__item-content">
                                     <div class="blog-2__item-content-cta-wrap">
-                                        <span class="date"><i class="fa-sharp fa-solid fa-display"></i>Responsivo</span>
-                                        <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-gears"></i>Integrado</a>
+                                        <span class="date">{% institutional_icon "monitor" %}Responsivo</span>
+                                        <a href="{% url 'institutional:contact' %}" class="date">{% institutional_icon "settings" %}Integrado</a>
                                     </div>
                                     <h3 class="title"><a href="{% url 'institutional:about' %}">Websites inteligentes conectados <br> aos objetivos da empresa</a></h3>
-                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais{% institutional_icon "next" %}</a>
                                  </div>
                             </div>
                         </div>
@@ -923,11 +923,11 @@
                                  </div>
                                  <div class="blog-2__item-content">
                                     <div class="blog-2__item-content-cta-wrap">
-                                        <span class="date"><i class="fa-sharp fa-solid fa-brain"></i>IA aplicada</span>
-                                        <a href="{% url 'institutional:contact' %}" class="date"><i class="fa-sharp fa-regular fa-chart-line"></i>Automação</a>
+                                        <span class="date">{% institutional_icon "brain" %}IA aplicada</span>
+                                        <a href="{% url 'institutional:contact' %}" class="date">{% institutional_icon "growth" %}Automação</a>
                                     </div>
                                     <h3 class="title"><a href="{% url 'institutional:blog_detail' 'equipamentos-sistemas-para-evoluir' %}">Modernização de Equipamentos <br> e Sistemas Industriais</a></h3>
-                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais<i class="fa-solid fa-angle-right"></i></a>
+                                    <a class="blog-2__item-content-btn" href="{% url 'institutional:contact' %}">Saiba mais{% institutional_icon "next" %}</a>
                                  </div>
                             </div>
                         </div>

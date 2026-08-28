@@ -350,7 +350,7 @@
   $("#mobile-menu").meanmenu({
     meanMenuContainer: ".mobile-menu",
     meanScreenWidth: "1199",
-    meanExpand: ['<i class="fa-regular fa-angle-right"></i>'],
+    meanExpand: ['<img src="/static/institutional/icons/next.svg" alt="" aria-hidden="true" class="site-icon">'],
   });
   }
 
@@ -1093,25 +1093,32 @@
         var $button = $(this);
         var audio = $button.data('audio-player');
 
+        var setAudioState = function(state) {
+            var label = state === 'pause'
+                ? 'Pausar áudio institucional sobre LIRO e inclusão'
+                : 'Ouvir áudio institucional sobre LIRO e inclusão';
+            var iconSrc = state === 'pause'
+                ? $button.data('audio-icon-pause')
+                : $button.data('audio-icon-play');
+
+            $button.attr('data-audio-state', state);
+            $button.attr('aria-label', label);
+            $button.find('img.site-icon').attr('src', iconSrc);
+        };
+
         if (!audio) {
             audio = new Audio($button.data('audio-src'));
             audio.onended = function() {
-                $button.removeClass('fa-pause');
-                $button.addClass('fa-play');
-                $button.attr('aria-label', 'Ouvir áudio institucional sobre LIRO e inclusão');
+                setAudioState('play');
             };
             $button.data('audio-player', audio);
         }
 
-        if ($button.hasClass('fa-play')) {
-            $button.removeClass('fa-play');
-            $button.addClass('fa-pause');
-            $button.attr('aria-label', 'Pausar áudio institucional sobre LIRO e inclusão');
+        if ($button.attr('data-audio-state') === 'play') {
+            setAudioState('pause');
             audio.play();
         } else {
-            $button.removeClass('fa-pause');
-            $button.addClass('fa-play');
-            $button.attr('aria-label', 'Ouvir áudio institucional sobre LIRO e inclusão');
+            setAudioState('play');
             audio.pause();
         }
     });
@@ -1270,7 +1277,7 @@
             if( scrollValue < 96 ) {
                 $("#scroll-percentage-value").text(`${scrollValue}%`);
             } else {
-                $("#scroll-percentage-value").html('<i class="fa-sharp fa-regular fa-arrow-up-long"></i>');
+                $("#scroll-percentage-value").html('<img src="/static/institutional/icons/top.svg" alt="" aria-hidden="true" class="site-icon">');
             }
         }
         window.onscroll = scrollPercentage;

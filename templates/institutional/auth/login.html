@@ -1,4 +1,5 @@
 {% extends 'institutional/base.html' %}
+{% load institutional_media %}
 
 {% block title %}Entrar | Smart Control Brasil{% endblock %}
 {% block meta_description %}Entre na sua conta Smart Control Brasil.{% endblock %}
@@ -50,7 +51,7 @@
 
                             <button type="submit" class="rr-btn mt-25">
                                 Entrar
-                                <i class="fa-solid fa-arrow-right"></i>
+                                {% institutional_icon "next" %}
                             </button>
                         </form>
 

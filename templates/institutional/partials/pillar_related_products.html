@@ -1,4 +1,4 @@
-{% load static %}
+{% load static institutional_media %}
 <section class="services-7__area section-space">
     <div class="container">
         <div class="row">
@@ -31,7 +31,7 @@
                     </h3>
                     <p class="services-7__dec">{{ product.description }}</p>
                     <a class="rr-btn mt-20" href="{{ product.detail_path }}">
-                        Ver produto <i class="fa-solid fa-angle-right"></i>
+                        Ver produto {% institutional_icon "next" %}
                     </a>
                 </div>
             </div>
