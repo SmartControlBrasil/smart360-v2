@@ -233,6 +233,48 @@ button > .site-icon:not(:only-child):first-child {
   mask: url("/static/institutional/icons/down-arrow.svg") center / contain no-repeat;
   font-family: inherit;
 }
+
+@media (min-width: 1200px) {
+  .main-menu ul li.has-dropdown:focus-within > .submenu {
+    visibility: visible;
+    opacity: 1;
+    top: 100%;
+  }
+
+  .main-menu ul li .submenu li.has-dropdown:focus-within > .submenu {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .main-menu ul li .submenu.submenu--robots {
+    min-width: 310px;
+    width: max-content;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    top: 0;
+  }
+
+  .main-menu ul li .submenu li.has-dropdown > a {
+    padding-inline-end: 42px;
+  }
+
+  .main-menu ul li .submenu.submenu--robots > li > a {
+    white-space: nowrap;
+    padding-inline-end: 28px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .main-menu ul li .submenu .has-dropdown > .submenu.submenu--robots {
+    inset-inline-start: auto;
+    inset-inline-end: 100%;
+  }
+
+  .main-menu ul li .submenu li.has-dropdown > a::after {
+    transform: translateY(-50%) rotate(90deg);
+  }
+}
+
 .hero-interdum .play-btn .audio {
   width: 50px;
   height: 50px;
@@ -251,6 +293,10 @@ button > .site-icon:not(:only-child):first-child {
 
 .hero-interdum .play-btn .audio[data-audio-state="pause"] .site-icon {
   transform: none;
+}
+
+.mean-container .mean-nav ul li li li a {
+  white-space: normal;
 }
 
 .faq__item .accordion-header .accordion-button::after,
