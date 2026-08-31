@@ -4301,7 +4301,7 @@ class TechnicalSeoTests(TestCase):
         stylesheets = self._stylesheet_hrefs(response)
 
         self.assertEqual(len(scripts), 13)
-        self.assertEqual(len(stylesheets), 5)
+        self.assertEqual(len(stylesheets), 4)
         self.assertTrue(any("preloader-critical.js" in source for source in scripts))
         self.assertFalse(any("swiper" in source for source in scripts))
         self.assertFalse(any("wow.min.js" in source for source in scripts))

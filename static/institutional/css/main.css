@@ -110,7 +110,6 @@
 /*----------------------------------------*/
 /*  1.1 Theme Default
 /*----------------------------------------*/
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Langar&family=Space+Grotesk:wght@300..700&display=swap");
 .mean-container .mean-nav ul li > a.mean-expand i, .main-menu ul li .submenu, .main-menu ul li .submenu li a::before, .main-menu ul li .mega-menu, .main-menu ul li .mega-menu li ul li a::before, .offcanvas__overlay, .offcanvas__navigation button svg, .rr-btn svg path, .rr-btn.btn-transparent.btn-border-gray i, .body__overlay, a,
 .btn,
 button,
@@ -153,7 +152,6 @@ h6 {
   */
   --rr-ff-heading: 'Space Grotesk', sans-serif;
   --rr-ff-body: 'Inter', sans-serif;
-  --rr-ff-fontawesome: "Font Awesome 6 Pro";
   /**
   @color declaration
   */
@@ -894,7 +892,6 @@ input[type=number]::-webkit-inner-spin-button {
   content: "\f00d";
   height: 100%;
   width: 100%;
-  font-family: var(--rr-ff-fontawesome);
   font-size: 31px;
   font-weight: 200;
   right: -20px;
@@ -1875,7 +1872,6 @@ section {
   content: "\f107";
   top: 50%;
   right: -18px;
-  font-family: var(--rr-ff-fontawesome);
   color: var(--rr-heading-primary);
   font-weight: var(--rr-fw-medium);
   pointer-events: none;
@@ -2426,7 +2422,6 @@ section {
   content: "/";
   position: absolute;
   top: 55.8888%;
-  font-family: var(--rr-ff-fontawesome);
   inset-inline-end: -29px;
   color: var(--rr-common-white);
   font-size: 16px;
@@ -2568,7 +2563,6 @@ section {
 }
 .backtotop-wrap::after {
   position: absolute;
-  font-family: var(--rr-ff-fontawesome);
   content: "\f062";
   text-align: center;
   line-height: 46px;
@@ -8835,7 +8829,6 @@ body .ui-tooltip {
 }
 .main-menu ul li.has-dropdown > a::after {
   background-image: none;
-  font-family: "Font Awesome 6 Pro";
   font-size: 12px;
   font-weight: var(--rr-fw-bold);
   content: "\f107";
@@ -9249,7 +9242,6 @@ body .ui-tooltip {
 }
 .main-menu-2.main-menu-5 ul li.active > a.main-menu ul li.has-dropdown > a::after {
   background-image: none;
-  font-family: "Font Awesome 6 Pro";
   font-size: 12px;
   font-weight: var(--rr-fw-bold);
   content: "\f107";
@@ -14261,7 +14253,6 @@ body .ui-tooltip {
   right: 30px;
   content: "+";
   background-image: none;
-  font-family: var(--rr-ff-fontawesome);
   font-size: 22px;
   top: calc(50% - 8px);
   line-height: 29px;
@@ -14432,7 +14423,6 @@ body .ui-tooltip {
   right: 30px;
   content: "\f078";
   background-image: none;
-  font-family: var(--rr-ff-fontawesome);
   font-size: var(--rr-fs-h6);
   top: calc(50% - 8px);
   line-height: 29px;
@@ -14574,7 +14564,6 @@ body .ui-tooltip {
   right: 30px;
   content: "\f078";
   background-image: none;
-  font-family: var(--rr-ff-fontawesome);
   font-size: var(--rr-fs-h6);
   top: calc(50% - 8px);
   line-height: 29px;
@@ -14723,7 +14712,6 @@ body .ui-tooltip {
   right: 0;
   content: "+";
   background-image: none;
-  font-family: var(--rr-ff-fontawesome);
   font-size: var(--rr-fs-h5);
   top: calc(50% - 19px);
   line-height: 29px;
@@ -14994,7 +14982,6 @@ body .ui-tooltip {
   right: 30px;
   content: "\f078";
   background-image: none;
-  font-family: var(--rr-ff-fontawesome);
   font-size: var(--rr-fs-h6);
   top: calc(50% - 8px);
   line-height: 29px;
@@ -15097,7 +15084,6 @@ body .ui-tooltip {
   right: 30px;
   content: "\f078";
   background-image: none;
-  font-family: var(--rr-ff-fontawesome);
   font-size: var(--rr-fs-h6);
   top: calc(50% - 8px);
   line-height: 29px;
@@ -26058,7 +26044,6 @@ START: Slider CSS
   top: 27px;
   position: absolute;
   color: #575757;
-  font-family: "Font Awesome 5 Pro";
   font-weight: 700;
 }
 
