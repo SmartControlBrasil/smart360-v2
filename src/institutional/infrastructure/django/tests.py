@@ -30,7 +30,7 @@ from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
-INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260825-h1-lcp1"
+INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260831-scroll1"
 
 
 class InstitutionalRoutesTests(TestCase):

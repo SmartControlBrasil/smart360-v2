@@ -634,14 +634,45 @@
   /*======================================
 	Sticky Header Js
 	========================================*/
+  (function () {
+    var headerStickyPending = false;
+    var headerIsSticky = false;
+    var $headerSticky = $("#header-sticky");
 
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 250) {
-      $("#header-sticky").addClass("rs-sticky");
-    } else {
-      $("#header-sticky").removeClass("rs-sticky");
+    if (!$headerSticky.length) {
+      return;
     }
-  });
+
+    function updateStickyHeader() {
+      headerStickyPending = false;
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      if (scrollTop > 250) {
+        if (!headerIsSticky) {
+          $headerSticky.addClass("rs-sticky");
+          headerIsSticky = true;
+        }
+        return;
+      }
+
+      if (headerIsSticky) {
+        $headerSticky.removeClass("rs-sticky");
+        headerIsSticky = false;
+      }
+    }
+
+    function scheduleStickyHeaderUpdate() {
+      if (headerStickyPending) {
+        return;
+      }
+
+      headerStickyPending = true;
+      requestAnimationFrame(updateStickyHeader);
+    }
+
+    window.addEventListener("scroll", scheduleStickyHeaderUpdate, { passive: true });
+    scheduleStickyHeaderUpdate();
+  })();
 
     /*** pricing table */
     const pricingMonthlyBtn = $("#monthly-btn"),
@@ -1508,39 +1539,67 @@
 
     // Page Scroll Percentage
     function scrollTopPercentage() {
-        const scrollPercentage = () => {
-            const scrollTopPos = document.documentElement.scrollTop;
-            const calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollValue = Math.round((scrollTopPos / calcHeight) * 100);
-            const scrollElementWrap = $("#scroll-percentage");
+        var scrollElementWrap = $("#scroll-percentage");
+        var scrollValueEl = $("#scroll-percentage-value");
+        var scrollPercentagePending = false;
+        var lastScrollValue = -1;
+        var lastIsActive = null;
+        var topIconHtml = '<img src="/static/institutional/icons/top.svg" alt="" aria-hidden="true" class="site-icon">';
 
-            scrollElementWrap.css("background", `conic-gradient( var(--rr-theme-primary2) ${scrollValue}%, var(--rr-common-white) ${scrollValue}%)`);
-            
-            // ScrollProgress
-            if ( scrollTopPos > 100 ) {
-                scrollElementWrap.addClass("active");
-            } else {
-                scrollElementWrap.removeClass("active");
+        function flushScrollPercentage() {
+            scrollPercentagePending = false;
+
+            var scrollTopPos = document.documentElement.scrollTop;
+            var calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrollValue = calcHeight > 0 ? Math.round((scrollTopPos / calcHeight) * 100) : 0;
+
+            if (scrollValue !== lastScrollValue) {
+                scrollElementWrap.css(
+                    "background",
+                    "conic-gradient( var(--rr-theme-primary2) " + scrollValue + "%, var(--rr-common-white) " + scrollValue + "%)"
+                );
+
+                if (scrollValue < 96) {
+                    scrollValueEl.text(scrollValue + "%");
+                } else {
+                    scrollValueEl.html(topIconHtml);
+                }
+
+                lastScrollValue = scrollValue;
             }
 
-            if( scrollValue < 96 ) {
-                $("#scroll-percentage-value").text(`${scrollValue}%`);
-            } else {
-                $("#scroll-percentage-value").html('<img src="/static/institutional/icons/top.svg" alt="" aria-hidden="true" class="site-icon">');
+            var isActive = scrollTopPos > 100;
+            if (isActive !== lastIsActive) {
+                if (isActive) {
+                    scrollElementWrap.addClass("active");
+                } else {
+                    scrollElementWrap.removeClass("active");
+                }
+                lastIsActive = isActive;
             }
         }
-        window.onscroll = scrollPercentage;
-        window.onload = scrollPercentage;
 
-        // Back to Top
+        function scheduleScrollPercentageUpdate() {
+            if (scrollPercentagePending) {
+                return;
+            }
+
+            scrollPercentagePending = true;
+            requestAnimationFrame(flushScrollPercentage);
+        }
+
+        window.addEventListener("scroll", scheduleScrollPercentageUpdate, { passive: true });
+        window.addEventListener("load", scheduleScrollPercentageUpdate);
+
         function scrollToTop() {
             document.documentElement.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
         }
-        
+
         $("#scroll-percentage").on("click", scrollToTop);
+        scheduleScrollPercentageUpdate();
     }
 
     scrollTopPercentage();
