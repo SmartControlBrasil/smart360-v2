@@ -1,6 +1,44 @@
 {% extends 'institutional/layouts/with_swiper_wow.html' %}
-{% load institutional_media %}
+{% load institutional_media frontend_assets %}
 {% load static %}
+
+{% block critical_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'institutional/css/critical-home.css' %}?v=20260831-critical1"
+>
+{% endblock %}
+
+{% block vendor_stylesheets %}
+<link
+    rel="stylesheet"
+    href="{% static 'institutional/css/vendor/bootstrap.min.css' %}"
+>
+{% endblock %}
+
+{% block main_stylesheets %}
+<link
+    rel="stylesheet"
+    href="{% static 'institutional/css/main.css' %}"
+>
+{% endblock %}
+
+{% block deferred_stylesheets %}
+{% deferred_stylesheet 'institutional/css/vendor/spacing.css' 'institutional/css/seo.css' %}
+{% endblock %}
+
+{% block vendor_css %}
+<link
+    rel="stylesheet"
+    href="{% static 'institutional/css/plugins/swiper.min.css' %}"
+    media="print"
+    onload="this.media='all'"
+>
+<noscript>
+    <link rel="stylesheet" href="{% static 'institutional/css/plugins/swiper.min.css' %}">
+</noscript>
+{% deferred_stylesheet 'institutional/css/vendor/animate.min.css' %}
+{% endblock %}
 
 {% block content %}
 <!-- Banner area start -->

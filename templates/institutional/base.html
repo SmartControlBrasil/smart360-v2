@@ -65,7 +65,10 @@
         href="{% static 'institutional/imgs/logo/favicon.png' %}"
     >
 
+    {% block critical_css %}{% endblock %}
+
     <!-- Vendor CSS (global) -->
+    {% block vendor_stylesheets %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/bootstrap.min.css' %}"
@@ -74,10 +77,12 @@
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/spacing.css' %}"
     >
+    {% endblock %}
 
     {% block vendor_css %}{% endblock %}
 
     <!-- Main CSS -->
+    {% block main_stylesheets %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/main.css' %}"
@@ -86,6 +91,9 @@
         rel="stylesheet"
         href="{% static 'institutional/css/seo.css' %}"
     >
+    {% endblock %}
+
+    {% block deferred_stylesheets %}{% endblock %}
 
     {% block extra_head %}{% endblock %}
 </head>

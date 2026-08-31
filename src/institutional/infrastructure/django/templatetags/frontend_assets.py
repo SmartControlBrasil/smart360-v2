@@ -29,6 +29,18 @@ def _render_links(paths):
     return mark_safe("\n    ".join(tags))
 
 
+def _render_deferred_links(paths):
+    tags = []
+    for path in paths:
+        href = static(path)
+        tags.append(
+            f'<link rel="preload" href="{href}" as="style" '
+            f"onload=\"this.onload=null;this.rel='stylesheet'\">"
+        )
+        tags.append(f'<noscript><link rel="stylesheet" href="{href}"></noscript>')
+    return mark_safe("\n    ".join(tags))
+
+
 def _render_scripts(paths):
     tags = []
     for path in paths:
@@ -45,6 +57,11 @@ def vendor_styles(*names):
         if path:
             paths.append(path)
     return _render_links(paths)
+
+
+@register.simple_tag
+def deferred_stylesheet(*paths):
+    return _render_deferred_links(paths)
 
 
 @register.simple_tag
