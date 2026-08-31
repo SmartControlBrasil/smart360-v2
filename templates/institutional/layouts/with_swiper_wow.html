@@ -1,9 +1,15 @@
 {% extends 'institutional/layouts/with_swiper.html' %}
-{% load frontend_assets %}
+{% load frontend_assets static %}
 
 {% block vendor_css %}
     {{ block.super }}
-    {% vendor_styles 'wow' %}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/vendor/animate.min.css' %}"
+        media="print"
+        onload="this.media='all'"
+    >
+    <noscript><style>@import url("{% static 'institutional/css/vendor/animate.min.css' %}");</style></noscript>
 {% endblock %}
 
 {% block vendor_js %}

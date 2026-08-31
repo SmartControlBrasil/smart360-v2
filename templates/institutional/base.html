@@ -70,10 +70,14 @@
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/bootstrap.min.css' %}"
     >
+    {% include 'institutional/partials/critical_spacing.html' %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/spacing.css' %}"
+        media="print"
+        onload="this.media='all'"
     >
+    <noscript><style>@import url("{% static 'institutional/css/vendor/spacing.css' %}");</style></noscript>
 
     {% block vendor_css %}{% endblock %}
 
