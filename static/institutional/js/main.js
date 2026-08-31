@@ -8,8 +8,58 @@
     return new window.Swiper(selector, options);
   }
 
+  function createLazySwiper(selector, options, rootMargin) {
+    var element = document.querySelector(selector);
+    if (typeof Swiper === "undefined" || !element) {
+      return null;
+    }
+
+    if (!isMobile() || typeof IntersectionObserver === "undefined") {
+      return new window.Swiper(selector, options);
+    }
+
+    observeOnce(element, function () {
+      new window.Swiper(selector, options);
+    }, rootMargin || "700px 0px");
+
+    return null;
+  }
+
   function pluginAvailable(name) {
     return typeof window[name] !== "undefined";
+  }
+
+  var mobileMediaQuery = window.matchMedia ? window.matchMedia("(max-width: 767px)") : null;
+
+  function isMobile() {
+    return mobileMediaQuery ? mobileMediaQuery.matches : window.innerWidth <= 767;
+  }
+
+  function observeOnce(element, callback, rootMargin) {
+    if (!element || typeof callback !== "function") {
+      return;
+    }
+
+    if (!isMobile() || typeof IntersectionObserver === "undefined") {
+      callback(element);
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries, currentObserver) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        currentObserver.unobserve(entry.target);
+        callback(entry.target);
+      });
+    }, {
+      rootMargin: rootMargin || "600px 0px",
+      threshold: 0.01
+    });
+
+    observer.observe(element);
   }
 
   var windowOn = $(window);
@@ -182,7 +232,7 @@
 
     let revealContainers = document.querySelectorAll(".return");
 
-    revealContainers.forEach((container) => {
+    function initReturnReveal(container) {
     let image = container.querySelector("img");
     let tl = gsap.timeline({
         scrollTrigger: {
@@ -202,16 +252,20 @@
         delay: -1.5,
         ease: Power2.out
     });
+    }
+
+    revealContainers.forEach((container) => {
+    observeOnce(container, initReturnReveal, "700px 0px");
     });
 
     //GSAP smooth animation
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
 
-    if ($('#smooth-wrapper').length && $('#smooth-content').length) {
-  
        gsap.config({
           nullTargetWarn: false,
        });
+
+    if (!isMobile() && $('#smooth-wrapper').length && $('#smooth-content').length) {
   
        let smoother = ScrollSmoother.create({
           smooth: 2,
@@ -225,7 +279,8 @@
     //GSAP title animation
     if ($('.rr_title_anim').length > 0) {
         let splitTitleLines = gsap.utils.toArray(".rr_title_anim");
-        splitTitleLines.forEach(splitTextLine => {
+
+        function initTitleLine(splitTextLine) {
            const tl = gsap.timeline({
               scrollTrigger: {
                  trigger: splitTextLine,
@@ -249,13 +304,17 @@
               transformOrigin: "top center -50",
               stagger: 0.1
            });
+        }
+
+        splitTitleLines.forEach(splitTextLine => {
+           observeOnce(splitTextLine, initTitleLine, "700px 0px");
         });
      }
 
      //split-text animation
      let heroes = document.querySelectorAll(".hero");
      
-     heroes.forEach(hero => {
+     function initHeroSplit(hero) {
        const splitTarget = hero.querySelector("._split_text");
 
        if (!splitTarget) {
@@ -286,6 +345,10 @@
            ease: "back",
            stagger: 0.05
          });
+     }
+
+     heroes.forEach(hero => {
+       observeOnce(hero, initHeroSplit, "700px 0px");
      });
     //split-text animation end
 
@@ -295,9 +358,7 @@
             var section = $(this);
             var fadeItems = section.find(".fade-top");
     
-            fadeItems.each(function (index, element) {
-            var delay = index * 0.15;
-    
+            function initFadeItem(element, delay) {
             gsap.set(element, {
                 opacity: 0,
                 y: 100,
@@ -319,6 +380,13 @@
                 },
                 once: true,
             });
+            }
+
+            fadeItems.each(function (index, element) {
+            var delay = index * 0.15;
+            observeOnce(element, function () {
+                initFadeItem(element, delay);
+            }, "700px 0px");
             });
         });
     }
@@ -465,34 +533,40 @@
 	One Page Scroll Js
 	========================================*/
     /*** Scroll Nav */
-    var link = $('.mean-nav ul li a');
+    var link = $(".mean-nav ul li a[href^=\"#\"]");
 
-    link.on('click', function(e) {
-        var target = $($(this).attr('href'));
-        $('html, body').animate({
-            scrollTop: target.offset().top - 76
-        }, 600);
-        $(this).parent().addClass('active');
-        e.preventDefault();
-    });
-
-    $(window).on('scroll', function(){
-        scrNav();
-    });
-
-    function scrNav() {
-        var sTop = $(window).scrollTop();
-        $('section').each(function() {
-            var id = $(this).attr('id'),
-                offset = $(this).offset().top-1,
-                height = $(this).height();
-            if(sTop >= offset && sTop < offset + height) {
-                link.parent().removeClass('active');
-                $('.main-menu').find('[href="#' + id + '"]').parent().addClass('active');
+    if (link.length) {
+        link.on("click", function(e) {
+            var target = $($(this).attr("href"));
+            if (!target.length) {
+                return;
             }
+
+            $("html, body").animate({
+                scrollTop: target.offset().top - 76
+            }, 600);
+            $(this).parent().addClass("active");
+            e.preventDefault();
         });
+
+        $(window).on("scroll", function(){
+            scrNav();
+        });
+
+        function scrNav() {
+            var sTop = $(window).scrollTop();
+            $("section[id]").each(function() {
+                var id = $(this).attr("id"),
+                    offset = $(this).offset().top-1,
+                    height = $(this).height();
+                if(sTop >= offset && sTop < offset + height) {
+                    link.parent().removeClass("active");
+                    $(".main-menu").find("a").filter(function() { return $(this).attr("href") === "#" + id; }).parent().addClass("active");
+                }
+            });
+        }
+        scrNav();
     }
-    scrNav();
 
     /*======================================
 	Smoth animatio Js
@@ -509,7 +583,7 @@
   ========================================*/
 
     // seken testimonial__carousel
-    var swiperProject = createSwiper(".testimonial__carousel", {
+    var swiperProject = createLazySwiper(".testimonial__carousel", {
         slidesPerView: 4,
         spaceBetween: 20,
         loop: true,
