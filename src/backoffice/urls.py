@@ -1,5 +1,8 @@
 from django.urls import path
 
+from src.sales_intelligence import api_views as sales_intelligence_api_views
+from src.sales_intelligence import backoffice_views as sales_intelligence_views
+
 from . import views
 
 
@@ -45,4 +48,49 @@ urlpatterns = [
     path("administracao/acessos/", views.business_unit_membership_list, name="business_unit_membership_list"),
     path("administracao/acessos/novo/", views.business_unit_membership_create, name="business_unit_membership_create"),
     path("administracao/acessos/<int:pk>/editar/", views.business_unit_membership_update, name="business_unit_membership_update"),
+    path("sales-intelligence/api/search-runs/", sales_intelligence_api_views.search_run_create, name="sales_intelligence_search_run_create"),
+    path("sales-intelligence/api/search-runs/<int:pk>/", sales_intelligence_api_views.search_run_detail, name="sales_intelligence_search_run_detail"),
+    path("sales-intelligence/api/search-runs/<int:pk>/results/", sales_intelligence_api_views.search_run_results, name="sales_intelligence_search_run_results"),
+    path("sales-intelligence/api/search-runs/<int:pk>/complete/", sales_intelligence_api_views.search_run_complete, name="sales_intelligence_search_run_complete"),
+    path("sales-intelligence/api/search-runs/<int:pk>/cancel/", sales_intelligence_api_views.search_run_cancel, name="sales_intelligence_search_run_cancel"),
+    path("sales-intelligence/api/search-runs/<int:pk>/fail/", sales_intelligence_api_views.search_run_fail, name="sales_intelligence_search_run_fail"),
+    path("sales-intelligence/api/search-results/<int:pk>/matches/", sales_intelligence_api_views.search_result_matches, name="sales_intelligence_search_result_matches"),
+    path("sales-intelligence/api/search-results/<int:pk>/link/", sales_intelligence_api_views.search_result_link, name="sales_intelligence_search_result_link"),
+    path(
+        "sales-intelligence/api/search-results/<int:pk>/create-customer/",
+        sales_intelligence_api_views.search_result_create_customer,
+        name="sales_intelligence_search_result_create_customer",
+    ),
+    path("sales-intelligence/campanhas/", sales_intelligence_views.campaign_list, name="sales_intelligence_campaign_list"),
+    path("sales-intelligence/campanhas/nova/", sales_intelligence_views.campaign_create, name="sales_intelligence_campaign_create"),
+    path("sales-intelligence/campanhas/<int:pk>/", sales_intelligence_views.campaign_detail, name="sales_intelligence_campaign_detail"),
+    path(
+        "sales-intelligence/campanhas/<int:campaign_pk>/pesquisas/nova/",
+        sales_intelligence_views.search_run_create,
+        name="sales_intelligence_search_run_create_form",
+    ),
+    path("sales-intelligence/pesquisas/", sales_intelligence_views.search_run_list, name="sales_intelligence_search_run_list"),
+    path("sales-intelligence/pesquisas/<int:pk>/", sales_intelligence_views.search_run_detail, name="sales_intelligence_search_run_page"),
+    path(
+        "sales-intelligence/pesquisas/<int:pk>/finalizar/",
+        sales_intelligence_views.search_run_complete,
+        name="sales_intelligence_search_run_complete_form",
+    ),
+    path(
+        "sales-intelligence/pesquisas/<int:pk>/cancelar/",
+        sales_intelligence_views.search_run_cancel,
+        name="sales_intelligence_search_run_cancel_form",
+    ),
+    path("sales-intelligence/revisao/", sales_intelligence_views.search_result_review_list, name="sales_intelligence_review"),
+    path("sales-intelligence/revisao/<int:pk>/", sales_intelligence_views.search_result_review_detail, name="sales_intelligence_result_detail"),
+    path(
+        "sales-intelligence/revisao/<int:pk>/vincular/<int:customer_pk>/",
+        sales_intelligence_views.search_result_review_link,
+        name="sales_intelligence_result_link",
+    ),
+    path(
+        "sales-intelligence/revisao/<int:pk>/criar-cliente/",
+        sales_intelligence_views.search_result_review_create_customer,
+        name="sales_intelligence_result_create_customer",
+    ),
 ]

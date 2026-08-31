@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "src.commerce.apps.CommerceConfig",
     "src.salespeople.apps.SalespeopleConfig",
     "src.customers.apps.CustomersConfig",
+    "src.sales_intelligence.apps.SalesIntelligenceConfig",
     "src.backoffice.apps.BackofficeConfig",
 ]
 

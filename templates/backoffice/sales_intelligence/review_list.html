@@ -1,0 +1,82 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Revisão de prospecção{% endblock title %}
+{% block page_title %}Revisão de prospecção{% endblock page_title %}
+{% block page_title_breadcrumb %}Sales Intelligence{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Resultados capturados</h5>
+        <small class="text-muted">Consolidação manual com clientes existentes ou novos prospects</small>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="si-campaign">Campanha</label>
+                <select id="si-campaign" class="form-select" name="campaign">
+                    <option value="">Todas</option>
+                    {% for campaign in campaigns %}
+                        <option value="{{ campaign.pk }}" {% if campaign_id == campaign.pk|stringformat:'s' %}selected{% endif %}>{{ campaign.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="si-run">Pesquisa</label>
+                <select id="si-run" class="form-select" name="search_run">
+                    <option value="">Todas</option>
+                    {% for run in search_runs %}
+                        <option value="{{ run.pk }}" {% if search_run_id == run.pk|stringformat:'s' %}selected{% endif %}>{{ run.campaign.name }} · {{ run.query }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label" for="si-status">Status</label>
+                <select id="si-status" class="form-select" name="processing_status">
+                    <option value="">Todos</option>
+                    {% for value,label in statuses %}
+                        <option value="{{ value }}" {% if processing_status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label" for="si-city">Cidade</label>
+                <input id="si-city" class="form-control" name="city" value="{{ city }}">
+            </div>
+            <div class="col-lg-1 col-md-6">
+                <label class="form-label" for="si-state">UF</label>
+                <input id="si-state" class="form-control" name="state" value="{{ state }}" maxlength="2">
+            </div>
+            <div class="col-lg-1 col-md-6">
+                <div class="form-check mb-2">
+                    <input id="si-unconsolidated" class="form-check-input" type="checkbox" name="unconsolidated" value="1" {% if unconsolidated == "1" %}checked{% endif %}>
+                    <label class="form-check-label" for="si-unconsolidated">Abertos</label>
+                </div>
+            </div>
+            <div class="col-lg-auto col-md-12 d-grid">
+                <button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead><tr><th>Empresa</th><th>Campanha</th><th>Contato</th><th>Status</th><th>Match</th><th class="text-end">Ações</th></tr></thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            <td><h6 class="mb-0">{{ row.result.name }}</h6><small class="text-muted">{{ row.result.city }}{% if row.result.state %}/{{ row.result.state }}{% endif %}</small></td>
+                            <td>{{ row.result.search_run.campaign.name }}<br><small class="text-muted">{{ row.result.search_run.query }}</small></td>
+                            <td><div>{{ row.result.phone|default:"Sem telefone" }}</div><small class="text-muted">{{ row.result.website|default:"Sem site" }}</small></td>
+                            <td><span class="badge bg-light text-dark">{{ row.result.get_processing_status_display }}</span></td>
+                            <td>{{ row.match_status }}</td>
+                            <td class="text-end"><a class="btn btn-sm btn-light" href="{% url 'backoffice:sales_intelligence_result_detail' row.result.pk %}">Abrir</a></td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="6" class="text-center text-muted py-4">Nenhum resultado encontrado.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

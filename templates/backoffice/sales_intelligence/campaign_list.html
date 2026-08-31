@@ -1,0 +1,42 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}Campanhas{% endblock title %}
+{% block page_title %}Campanhas{% endblock page_title %}
+{% block page_title_breadcrumb %}Sales Intelligence{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+            <h5 class="card-title mb-0">Campanhas</h5>
+            <small class="text-muted">Planejamento de prospecção por produto, segmento e região</small>
+        </div>
+        {% if can_manage %}
+            <a class="btn btn-primary" href="{% url 'backoffice:sales_intelligence_campaign_create' %}"><i data-feather="plus" class="me-1"></i>Nova campanha</a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end mb-3">
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="campaign-status">Status</label>
+                <select id="campaign-status" class="form-select" name="status"><option value="">Todos</option>{% for value,label in statuses %}<option value="{{ value }}"{% if status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="campaign-product">Produto</label>
+                <select id="campaign-product" class="form-select" name="product"><option value="">Todos</option>{% for product in products %}<option value="{{ product.pk }}"{% if product_id == product.pk|stringformat:'s' %} selected{% endif %}>{{ product.name }}</option>{% endfor %}</select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="campaign-segment">Segmento</label>
+                <select id="campaign-segment" class="form-select" name="segment"><option value="">Todos</option>{% for segment in segments %}<option value="{{ segment.pk }}"{% if segment_id == segment.pk|stringformat:'s' %} selected{% endif %}>{{ segment.name }}</option>{% endfor %}</select>
+            </div>
+            <div class="col-lg-auto col-md-12 d-grid"><button class="btn btn-light text-nowrap px-4" type="submit">Filtrar</button></div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-hover table-centered mb-0">
+                <thead><tr><th>Nome</th><th>Produto</th><th>Segmento</th><th>Região</th><th>Status</th><th>Pesquisas</th><th>Criada em</th><th class="text-end">Ações</th></tr></thead>
+                <tbody>{% for campaign in campaigns %}<tr><td><h6 class="mb-0">{{ campaign.name }}</h6><small class="text-muted">{{ campaign.objective }}</small></td><td>{{ campaign.product|default:"Sem produto" }}</td><td>{{ campaign.market_segment }}</td><td>{{ campaign.location_description }}</td><td><span class="badge bg-light text-dark">{{ campaign.get_status_display }}</span></td><td>{{ campaign.search_run_count }}</td><td>{{ campaign.created_at|date:"d/m/Y" }}</td><td class="text-end"><a class="btn btn-sm btn-light" href="{% url 'backoffice:sales_intelligence_campaign_detail' campaign.pk %}">Abrir</a></td></tr>{% empty %}<tr><td colspan="8" class="text-center text-muted py-4">Nenhuma campanha encontrada.</td></tr>{% endfor %}</tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

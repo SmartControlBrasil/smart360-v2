@@ -1,0 +1,62 @@
+{% extends "backoffice/base.html" %}
+
+{% block title %}{{ result.name }}{% endblock title %}
+{% block page_title %}{{ result.name }}{% endblock page_title %}
+{% block page_title_breadcrumb %}Resultado de prospecção{% endblock page_title_breadcrumb %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <span class="badge bg-light text-dark">{{ result.get_processing_status_display }}</span>
+    <a class="btn btn-light" href="{% url 'backoffice:sales_intelligence_review' %}">Voltar</a>
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Dados capturados</h5></div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Nome</dt><dd class="col-sm-8">{{ result.name }}</dd>
+                    <dt class="col-sm-4 text-muted">Telefone</dt><dd class="col-sm-8">{{ result.phone|default:"Não informado" }}</dd>
+                    <dt class="col-sm-4 text-muted">Website</dt><dd class="col-sm-8">{{ result.website|default:"Não informado" }}</dd>
+                    <dt class="col-sm-4 text-muted">Endereço</dt><dd class="col-sm-8">{{ result.address|default:"Não informado" }}</dd>
+                    <dt class="col-sm-4 text-muted">Cidade/UF</dt><dd class="col-sm-8">{{ result.city }}{% if result.state %}/{{ result.state }}{% endif %}</dd>
+                    <dt class="col-sm-4 text-muted">Fonte</dt><dd class="col-sm-8">{{ result.source_url|default:"Não informada" }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header"><h5 class="card-title mb-0">Consolidação</h5></div>
+            <div class="card-body">
+                {% if result.customer %}
+                    <p class="mb-2">Consolidado com <a href="{% url 'backoffice:customer_detail' result.customer.pk %}">{{ result.customer.display_name }}</a>.</p>
+                {% else %}
+                    <p class="text-muted mb-3">Status de match: {{ match_result.status }}</p>
+                    {% for candidate in match_result.candidates %}
+                        <div class="border rounded p-3 mb-2">
+                            <div class="d-flex flex-wrap justify-content-between gap-2">
+                                <div><h6 class="mb-0">{{ candidate.customer.display_name }}</h6><small class="text-muted">{{ candidate.customer.phone|default:candidate.customer.whatsapp|default:"Sem telefone" }} · {{ candidate.customer.website|default:"Sem site" }}</small></div>
+                                <form method="post" action="{% url 'backoffice:sales_intelligence_result_link' result.pk candidate.customer.pk %}">{% csrf_token %}<button class="btn btn-sm btn-primary" type="submit">Associar</button></form>
+                            </div>
+                            <small class="text-muted">{{ candidate.reasons|join:", " }}</small>
+                        </div>
+                    {% empty %}
+                        <div class="text-muted mb-3">Nenhum cliente candidato encontrado pelos critérios seguros.</div>
+                    {% endfor %}
+                    <form method="post" action="{% url 'backoffice:sales_intelligence_result_create_customer' result.pk %}">
+                        {% csrf_token %}
+                        <button class="btn btn-success" type="submit">Novo Customer prospect</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h5 class="card-title mb-0">Histórico</h5></div>
+    <div class="card-body">{% include "backoffice/partials/history.html" with history=history %}</div>
+</div>
+{% endblock content %}

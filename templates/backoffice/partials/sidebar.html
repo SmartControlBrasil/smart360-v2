@@ -14,7 +14,7 @@
                     </a>
                 </li>
 
-                {% if perms.customers.view_customer or perms.salespeople.view_salesperson %}
+                {% if perms.customers.view_customer or perms.salespeople.view_salesperson or perms.sales_intelligence.view_prospectingcampaign or perms.sales_intelligence.view_searchrun %}
                     <li class="menu-title">Comercial</li>
                     {% if perms.customers.view_customer %}
                         <li class="{% if 'customer_' in request.resolver_match.url_name %}menuitem-active{% endif %}">
@@ -29,6 +29,30 @@
                                 <i data-feather="briefcase"></i><span>Vendedores</span>
                             </a>
                         </li>
+                    {% endif %}
+                    {% if perms.sales_intelligence.view_prospectingcampaign or perms.sales_intelligence.view_searchrun %}
+                        <li class="menu-title">Prospecção</li>
+                        {% if perms.sales_intelligence.view_prospectingcampaign %}
+                            <li class="{% if request.resolver_match.url_name == 'sales_intelligence_campaign_list' or request.resolver_match.url_name == 'sales_intelligence_campaign_create' or request.resolver_match.url_name == 'sales_intelligence_campaign_detail' %}menuitem-active{% endif %}">
+                                <a href="{% url 'backoffice:sales_intelligence_campaign_list' %}" class="tp-link {% if request.resolver_match.url_name == 'sales_intelligence_campaign_list' or request.resolver_match.url_name == 'sales_intelligence_campaign_create' or request.resolver_match.url_name == 'sales_intelligence_campaign_detail' %}active{% endif %}">
+                                    <i data-feather="target"></i><span>Campanhas</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if perms.sales_intelligence.view_searchrun %}
+                            <li class="{% if request.resolver_match.url_name == 'sales_intelligence_search_run_list' or request.resolver_match.url_name == 'sales_intelligence_search_run_page' or request.resolver_match.url_name == 'sales_intelligence_search_run_create_form' %}menuitem-active{% endif %}">
+                                <a href="{% url 'backoffice:sales_intelligence_search_run_list' %}" class="tp-link {% if request.resolver_match.url_name == 'sales_intelligence_search_run_list' or request.resolver_match.url_name == 'sales_intelligence_search_run_page' or request.resolver_match.url_name == 'sales_intelligence_search_run_create_form' %}active{% endif %}">
+                                    <i data-feather="search"></i><span>Pesquisas</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if perms.sales_intelligence.view_searchresult %}
+                            <li class="{% if request.resolver_match.url_name == 'sales_intelligence_review' or request.resolver_match.url_name == 'sales_intelligence_result_detail' %}menuitem-active{% endif %}">
+                                <a href="{% url 'backoffice:sales_intelligence_review' %}" class="tp-link {% if request.resolver_match.url_name == 'sales_intelligence_review' or request.resolver_match.url_name == 'sales_intelligence_result_detail' %}active{% endif %}">
+                                    <i data-feather="check-square"></i><span>Revisão</span>
+                                </a>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 {% endif %}
 

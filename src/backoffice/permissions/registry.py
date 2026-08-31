@@ -49,6 +49,8 @@ class BackofficePermission(StrEnum):
     BUSINESS_UNIT_MEMBERSHIPS_UPDATE = "business_unit_memberships.update"
     USERS_MANAGE = "users.manage"
     PERMISSIONS_MANAGE = "permissions.manage"
+    SALES_INTELLIGENCE_VIEW = "sales_intelligence.view"
+    SALES_INTELLIGENCE_MANAGE = "sales_intelligence.manage"
 
 
 @dataclass(frozen=True)
@@ -105,6 +107,23 @@ REAL_PERMISSION_MAP = {
     BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_VIEW: DjangoPermissionRef("backoffice", "view_businessunitmembership"),
     BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_CREATE: DjangoPermissionRef("backoffice", "add_businessunitmembership"),
     BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_UPDATE: DjangoPermissionRef("backoffice", "change_businessunitmembership"),
+    BackofficePermission.SALES_INTELLIGENCE_VIEW: (
+        DjangoPermissionRef("sales_intelligence", "view_marketsegment"),
+        DjangoPermissionRef("sales_intelligence", "view_prospectingcampaign"),
+        DjangoPermissionRef("sales_intelligence", "view_searchrun"),
+        DjangoPermissionRef("sales_intelligence", "view_searchresult"),
+        DjangoPermissionRef("sales_intelligence", "view_campaignprospect"),
+    ),
+    BackofficePermission.SALES_INTELLIGENCE_MANAGE: (
+        DjangoPermissionRef("sales_intelligence", "add_prospectingcampaign"),
+        DjangoPermissionRef("sales_intelligence", "change_prospectingcampaign"),
+        DjangoPermissionRef("sales_intelligence", "add_searchrun"),
+        DjangoPermissionRef("sales_intelligence", "change_searchrun"),
+        DjangoPermissionRef("sales_intelligence", "add_searchresult"),
+        DjangoPermissionRef("sales_intelligence", "change_searchresult"),
+        DjangoPermissionRef("sales_intelligence", "add_campaignprospect"),
+        DjangoPermissionRef("sales_intelligence", "change_campaignprospect"),
+    ),
 }
 
 
@@ -139,6 +158,8 @@ ROLE_DEFINITIONS = {
             BackofficePermission.DEPARTMENTS_VIEW,
             BackofficePermission.TEAMS_VIEW,
             BackofficePermission.BUSINESS_UNIT_MEMBERSHIPS_VIEW,
+            BackofficePermission.SALES_INTELLIGENCE_VIEW,
+            BackofficePermission.SALES_INTELLIGENCE_MANAGE,
         ),
     ),
     BackofficeRole.SALESPERSON: RoleDefinition(
@@ -152,6 +173,8 @@ ROLE_DEFINITIONS = {
             BackofficePermission.COMMERCE_PRODUCTS_VIEW,
             BackofficePermission.COMMERCE_CATEGORIES_VIEW,
             BackofficePermission.COMMERCE_BRANDS_VIEW,
+            BackofficePermission.SALES_INTELLIGENCE_VIEW,
+            BackofficePermission.SALES_INTELLIGENCE_MANAGE,
         ),
     ),
     BackofficeRole.CATALOG_MANAGER: RoleDefinition(
