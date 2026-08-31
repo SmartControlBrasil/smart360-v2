@@ -339,3 +339,17 @@ button > .site-icon:not(:only-child):first-child {
 .breadcrumb__menu ul li:not(:last-child)::before {
   font-family: inherit;
 }
+
+/* Menu principal desktop sempre em uma única linha */
+@media (min-width: 992px) {
+  .header-1 #mobile-menu > ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .header-1 #mobile-menu > ul > li {
+    flex: 0 0 auto;
+  }
+}

@@ -349,7 +349,7 @@
   if ($("#mobile-menu").length && $.fn.meanmenu) {
   $("#mobile-menu").meanmenu({
     meanMenuContainer: ".mobile-menu",
-    meanScreenWidth: "1199",
+    meanScreenWidth: "991",
     meanExpand: ['<img src="/static/institutional/icons/next.svg" alt="" aria-hidden="true" class="site-icon">'],
   });
   }
