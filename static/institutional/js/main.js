@@ -1,6 +1,11 @@
 (function ($) {
   "use strict";
 
+  function isHomePage() {
+    var path = window.location.pathname || "/";
+    return path === "/" || path === "/index.html";
+  }
+
   function createSwiper(selector, options) {
     if (typeof Swiper === "undefined" || !document.querySelector(selector)) {
       return null;
@@ -14,13 +19,16 @@
       return null;
     }
 
-    if (!isMobile() || typeof IntersectionObserver === "undefined") {
+    if (typeof IntersectionObserver === "undefined") {
       return new window.Swiper(selector, options);
     }
 
     observeOnce(element, function () {
+      if (element.classList.contains("swiper-initialized")) {
+        return;
+      }
       new window.Swiper(selector, options);
-    }, rootMargin || "700px 0px");
+    }, rootMargin || "320px 0px");
 
     return null;
   }
@@ -35,12 +43,127 @@
     return mobileMediaQuery ? mobileMediaQuery.matches : window.innerWidth <= 767;
   }
 
+  var scrollTriggerRefreshScheduled = false;
+
+  function scheduleScrollTriggerRefresh() {
+    if (!pluginAvailable("ScrollTrigger") || scrollTriggerRefreshScheduled) {
+      return;
+    }
+
+    scrollTriggerRefreshScheduled = true;
+    requestAnimationFrame(function () {
+      scrollTriggerRefreshScheduled = false;
+      ScrollTrigger.refresh();
+    });
+  }
+
+  function parseRootMarginPx(rootMargin, fallback) {
+    if (!rootMargin) {
+      return fallback || 320;
+    }
+
+    var match = String(rootMargin).match(/(-?\d+)/);
+    return match ? parseInt(match[1], 10) : (fallback || 320);
+  }
+
+  function usesScrollSmootherLayout() {
+    return !isMobile()
+      && document.querySelector("#smooth-wrapper")
+      && document.querySelector("#smooth-content");
+  }
+
+  function isWithinExpandedViewport(element, marginPx) {
+    var node = element instanceof jQuery ? element[0] : element;
+    if (!node || typeof node.getBoundingClientRect !== "function") {
+      return false;
+    }
+
+    var rect = node.getBoundingClientRect();
+    var margin = marginPx || 0;
+    return rect.top < window.innerHeight + margin && rect.bottom > -margin;
+  }
+
+  function hasEnteredLazyZone(element, marginPx) {
+    var node = element instanceof jQuery ? element[0] : element;
+    if (!node || typeof node.getBoundingClientRect !== "function") {
+      return false;
+    }
+
+    var rect = node.getBoundingClientRect();
+    var margin = marginPx || 0;
+    return rect.top <= window.innerHeight + margin;
+  }
+
+  var pendingViewportInits = [];
+  var viewportInitListenersBound = false;
+  var viewportInitFlushScheduled = false;
+
+  function flushPendingViewportInits() {
+    if (!pendingViewportInits.length) {
+      return;
+    }
+
+    pendingViewportInits = pendingViewportInits.filter(function (item) {
+      if (!item.element || item.done) {
+        return false;
+      }
+
+      if (hasEnteredLazyZone(item.element, item.marginPx)) {
+        item.done = true;
+        item.callback(item.element);
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  function schedulePendingViewportInitFlush() {
+    if (viewportInitFlushScheduled) {
+      return;
+    }
+
+    viewportInitFlushScheduled = true;
+    requestAnimationFrame(function () {
+      viewportInitFlushScheduled = false;
+      flushPendingViewportInits();
+    });
+  }
+
+  function bindViewportInitListeners() {
+    if (viewportInitListenersBound || !pluginAvailable("ScrollTrigger")) {
+      return;
+    }
+
+    viewportInitListenersBound = true;
+    ScrollTrigger.addEventListener("scroll", schedulePendingViewportInitFlush);
+    ScrollTrigger.addEventListener("scrollEnd", flushPendingViewportInits);
+    ScrollTrigger.addEventListener("refresh", flushPendingViewportInits);
+    window.addEventListener("scroll", schedulePendingViewportInitFlush, { passive: true });
+    window.addEventListener("resize", flushPendingViewportInits);
+    schedulePendingViewportInitFlush();
+  }
+
   function observeOnce(element, callback, rootMargin) {
     if (!element || typeof callback !== "function") {
       return;
     }
 
-    if (!isMobile() || typeof IntersectionObserver === "undefined") {
+    var marginPx = parseRootMarginPx(rootMargin, 320);
+
+    if (usesScrollSmootherLayout()) {
+      pendingViewportInits.push({
+        element: element,
+        callback: callback,
+        marginPx: marginPx,
+        done: false
+      });
+      bindViewportInitListeners();
+      flushPendingViewportInits();
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
       callback(element);
       return;
     }
@@ -55,11 +178,54 @@
         callback(entry.target);
       });
     }, {
-      rootMargin: rootMargin || "600px 0px",
+      rootMargin: rootMargin || "320px 0px",
       threshold: 0.01
     });
 
     observer.observe(element);
+  }
+
+  function applyDataBackground(element) {
+    var node = element instanceof jQuery ? element[0] : element;
+    if (!node) {
+      return;
+    }
+
+    var background = node.getAttribute("data-background");
+    if (!background) {
+      return;
+    }
+
+    node.style.backgroundImage = "url(" + background + ")";
+  }
+
+  function initWowAnimations() {
+    if (!$(".wow").length || typeof WOW === "undefined") {
+      return;
+    }
+
+    var wow = new WOW({
+      boxClass: "wow",
+      animateClass: "animated",
+      offset: 0,
+      mobile: false,
+      live: true
+    });
+
+    if (isHomePage()) {
+      var startWow = function () {
+        wow.init();
+      };
+
+      if (typeof requestIdleCallback === "function") {
+        requestIdleCallback(startWow, { timeout: 2000 });
+      } else {
+        window.setTimeout(startWow, 150);
+      }
+      return;
+    }
+
+    wow.init();
   }
 
   var windowOn = $(window);
@@ -228,7 +394,26 @@
     /////////////////////////////////////////////////////
 
     //return img gsap
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
+
+    gsap.config({
+       nullTargetWarn: false,
+    });
+
+    if (!isMobile() && $('#smooth-wrapper').length && $('#smooth-content').length) {
+       ScrollSmoother.create({
+          smooth: 2,
+          effects: true,
+          smoothTouch: false,
+          normalizeScroll: false,
+          ignoreMobileResize: true,
+          onUpdate: schedulePendingViewportInitFlush,
+          onStop: flushPendingViewportInits
+       });
+       scheduleScrollTriggerRefresh();
+       bindViewportInitListeners();
+       flushPendingViewportInits();
+    }
 
     let revealContainers = document.querySelectorAll(".return");
 
@@ -252,35 +437,22 @@
         delay: -1.5,
         ease: Power2.out
     });
+    scheduleScrollTriggerRefresh();
     }
 
     revealContainers.forEach((container) => {
-    observeOnce(container, initReturnReveal, "700px 0px");
+    observeOnce(container, initReturnReveal, "320px 0px");
     });
-
-    //GSAP smooth animation
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
-
-       gsap.config({
-          nullTargetWarn: false,
-       });
-
-    if (!isMobile() && $('#smooth-wrapper').length && $('#smooth-content').length) {
-  
-       let smoother = ScrollSmoother.create({
-          smooth: 2,
-          effects: true,
-          smoothTouch: false,
-          normalizeScroll: false,
-          ignoreMobileResize: true,
-       });
-    }
 
     //GSAP title animation
     if ($('.rr_title_anim').length > 0) {
         let splitTitleLines = gsap.utils.toArray(".rr_title_anim");
 
         function initTitleLine(splitTextLine) {
+           if (isHomePage() && splitTextLine.closest(".banner-before")) {
+             return;
+           }
+
            const tl = gsap.timeline({
               scrollTrigger: {
                  trigger: splitTextLine,
@@ -304,10 +476,11 @@
               transformOrigin: "top center -50",
               stagger: 0.1
            });
+           scheduleScrollTriggerRefresh();
         }
 
         splitTitleLines.forEach(splitTextLine => {
-           observeOnce(splitTextLine, initTitleLine, "700px 0px");
+           observeOnce(splitTextLine, initTitleLine, "320px 0px");
         });
      }
 
@@ -345,10 +518,11 @@
            ease: "back",
            stagger: 0.05
          });
+       scheduleScrollTriggerRefresh();
      }
 
      heroes.forEach(hero => {
-       observeOnce(hero, initHeroSplit, "700px 0px");
+       observeOnce(hero, initHeroSplit, "320px 0px");
      });
     //split-text animation end
 
@@ -380,13 +554,14 @@
                 },
                 once: true,
             });
+            scheduleScrollTriggerRefresh();
             }
 
             fadeItems.each(function (index, element) {
             var delay = index * 0.15;
             observeOnce(element, function () {
                 initFadeItem(element, delay);
-            }, "700px 0px");
+            }, "320px 0px");
             });
         });
     }
@@ -397,10 +572,17 @@
    Data Css js
    ========================================*/
     $("[data-background]").each(function() {
-        $(this).css(
-            "background-image",
-            "url( " + $(this).attr("data-background") + "  )"
-        );
+        if (isHomePage()) {
+            if (isWithinExpandedViewport(this, 240)) {
+                applyDataBackground(this);
+                return;
+            }
+
+            observeOnce(this, applyDataBackground, "240px 0px");
+            return;
+        }
+
+        applyDataBackground(this);
     });
 
     $("[data-width]").each(function() {
@@ -514,16 +696,7 @@
   /*======================================
 	Wow Js
 	========================================*/
-    if ($('.wow').length && typeof WOW !== "undefined") {
-        var wow = new WOW({
-            boxClass: 'wow', // animated element css class (default is wow)
-            animateClass: 'animated', // animation css class (default is animated)
-            offset: 0, // distance to the element when triggering the animation (default is 0)
-            mobile: false, // trigger animations on mobile devices (default is true)
-            live: true // act on asynchronously loaded content (default is true)
-        });
-        wow.init();
-    }
+    initWowAnimations();
 
   /*======================================
 	Button scroll up js
@@ -1319,6 +1492,7 @@
     
 
     // Custom Cursor
+    if ($(".cursor-effect, .cross-cursor").length) {
     $("body").append('<div class="mt-cursor"></div>');
     var cursor = $(".mt-cursor"),
         linksCursor = $("a, .swiper-nav, button, .cursor-effect"),
@@ -1330,6 +1504,7 @@
             visibility: "inherit",
         });
     });
+    }
 
     // Page Scroll Percentage
     function scrollTopPercentage() {
