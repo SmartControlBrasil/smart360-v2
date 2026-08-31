@@ -17,12 +17,12 @@
 }
 
 .coupon-accordion h3::before {
-	content: "\f07b";
+	content: "";
 	left: 15px;
 	top: 27px;
 	position: absolute;
 	color: #575757;
-	font-family: "Font Awesome 5 Pro";
+	font-family: inherit;
 	font-weight: 700;
 }
 
@@ -429,7 +429,7 @@ p.lost-password a {
 	& .accordion-item:last-of-type {
 		border-bottom-right-radius: 0;
 
-		
+
 		border-bottom-left-radius: 0;
 	}
 	& .accordion-item {
@@ -454,7 +454,6 @@ p.lost-password a {
 			top: 20%;
 			// @include transform(translateY(-50%));
 			transform: translateY(-50%);
-			// font-family: $fontawesome;
 			font-size: 23px;
 			font-weight: 400;
 			margin-left: 0;

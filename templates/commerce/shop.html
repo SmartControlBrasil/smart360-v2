@@ -72,7 +72,7 @@
                                             <div class="product-4__content-wrap">
                                                 <div class="product-4__content-wrap-icon">
                                                     <ul>
-                                                        <li><i class="fa-solid fa-layer-group"></i></li>
+                                                        <li>{% institutional_icon "tag" %}</li>
                                                     </ul>
                                                 </div>
                                                 <h5>{{ product.category.name }}</h5>
@@ -85,7 +85,7 @@
                                         <div class="product-4__item-cart">
                                             {% if product.public_price_label %}<h5 class="product-4__item-cart-text">{{ product.public_price_label }}</h5>{% endif %}
                                             <div class="commerce-card-actions">
-                                                <a href="{{ product.public_detail_url }}" class="rr-btn"><i class="fa-regular fa-eye"></i>Ver detalhes</a>
+                                                <a href="{{ product.public_detail_url }}" class="rr-btn">{% institutional_icon "eye" %}Ver detalhes</a>
                                                 <a href="{{ product.primary_cta_url }}" class="rr-btn btn-transparent">{{ product.primary_cta_label }}</a>
                                                 {% if product.secondary_cta_label %}
                                                     <a href="{{ product.secondary_cta_url }}" class="rr-btn btn-transparent">{{ product.secondary_cta_label }}</a>

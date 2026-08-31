@@ -169,7 +169,7 @@
               content: "\2f";
               position: absolute;
               top: 55.8888%;
-              font-family: var(--rr-ff-fontawesome);
+              font-family: inherit;
               @extend %translateY1_2;
               inset-inline-end: -29px;
               color: var(--rr-common-white);

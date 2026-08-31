@@ -353,3 +353,98 @@ button > .site-icon:not(:only-child):first-child {
     flex: 0 0 auto;
   }
 }
+
+/* ==========================================================
+   Ícones legados substituídos por SVGs locais
+   ========================================================== */
+
+/* Magnific Popup - fechar */
+.mfp-close::after {
+  content: "";
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/close.svg") center / 24px 24px no-repeat;
+  mask: url("../icons/close.svg") center / 24px 24px no-repeat;
+}
+
+/* Nice Select - seta */
+.nice-select::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+  mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+}
+
+.nice-select.open::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Voltar ao topo */
+.backtotop-wrap::after {
+  content: "";
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/top.svg") center / 16px 16px no-repeat;
+  mask: url("../icons/top.svg") center / 16px 16px no-repeat;
+}
+
+/* Dropdown do menu principal */
+.main-menu ul li.has-dropdown > a::after,
+.main-menu-2.main-menu-5 ul li.has-dropdown > a::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+  mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+}
+
+/* FAQs - seta fechada */
+.faq-2__item .accordion-header .accordion-button::after,
+.faq-4__item .accordion-header .accordion-button::after,
+.faq-9__item .accordion-header .accordion-button::after,
+.faq-10__item .accordion-header .accordion-button::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+  mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+}
+
+/* FAQs - seta aberta */
+.faq-2__item:has(.collapse.show) .accordion-button::after,
+.faq-4__item:has(.collapse.show) .accordion-button::after,
+.faq-9__item:has(.collapse.show) .accordion-button::after,
+.faq-10__item:has(.collapse.show) .accordion-button::after {
+  content: "";
+  transform: rotate(180deg);
+}
+
+/* FAQs que usam sinal de menos quando abertas */
+.faq__item:has(.collapse.show) .accordion-button::after,
+.faq-5__item:has(.collapse.show) .accordion-button::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/minus.svg") center / contain no-repeat;
+  mask: url("../icons/minus.svg") center / contain no-repeat;
+}
+
+/* Checkout - pasta */
+.coupon-accordion h3::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  font-family: inherit;
+  background-color: currentColor;
+  -webkit-mask: url("../icons/folder.svg") center / contain no-repeat;
+  mask: url("../icons/folder.svg") center / contain no-repeat;
+}

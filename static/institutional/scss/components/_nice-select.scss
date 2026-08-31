@@ -43,10 +43,10 @@
     }
     &::after{
         position: absolute;
-		content: '\f107';
+		content: "";
         top: 50%;
         right: -18px;
-		font-family: var(--rr-ff-fontawesome);
+		font-family: inherit;
 		color: var(--rr-heading-primary);
 		font-weight: var(--rr-fw-medium);
         pointer-events: none;

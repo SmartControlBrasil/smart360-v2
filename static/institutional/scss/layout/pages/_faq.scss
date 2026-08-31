@@ -30,13 +30,13 @@
                 box-shadow: none;
                 padding-bottom: 10px;
               }
-          
+
               &::after {
                 position: absolute;
                 right: 30px;
                 content: "\2b";
                 background-image: none;
-                font-family: var(--rr-ff-fontawesome);
+                font-family: inherit;
                 font-size: 22px;
                 top: calc(50% + -8px);
                 line-height: 29px;
@@ -64,7 +64,7 @@
               transition: all 0.3s ease-in-out;
               border-bottom: none;
               &::after{
-                  content: "\f068";
+                  content: "";
                   color: var(--rr-heading-primary)
               }
               @media #{$xs} {
@@ -125,7 +125,7 @@
           line-height: var(--rr-lh-p);
           color: rgba(5, 5, 19, 0.7);
           margin-bottom: 0;
-    
+
             @media #{$lg, $md, $sm, $xs} {
                 br{
                     display: none;
@@ -137,11 +137,11 @@
           margin-bottom: 30px;
           @include border-radius(1);
           border: none;
-         
+
           &:last-child {
             margin-bottom: 0;
           }
-      
+
           &:has(.collapse.show) {
               border-color: transparent;
           }
@@ -201,13 +201,13 @@
                 box-shadow: none;
                 padding-bottom: 10px;
               }
-          
+
               &::after {
                 position: absolute;
                 right: 30px;
-                content: "\f078";
+                content: "";
                 background-image: none;
-                font-family: var(--rr-ff-fontawesome);
+                font-family: inherit;
                 font-size: var(--rr-fs-h6);
                 top: calc(50% + -8px);
                 line-height: 29px;
@@ -234,7 +234,7 @@
               transition: all 0.3s ease-in-out;
               border-bottom: none;
               &::after{
-                  content: "\f106";
+                  content: "";
                   color: var(--rr-common-white)
               }
               @media #{$mxs} {
@@ -259,7 +259,7 @@
           line-height: var(--rr-lh-p);
           color: rgba(255, 255, 255, 0.7);
           margin-bottom: 0;
-    
+
             @media #{$lg, $md, $sm, $xs} {
                 br{
                     display: none;
@@ -277,7 +277,7 @@
           &:last-child {
             margin-bottom: 0;
           }
-      
+
           &:has(.collapse.show) {
               border-color: transparent;
           }
@@ -324,7 +324,7 @@
     }
   }
   &__item{
-    
+
       .accordion-header{
           .accordion-button{
             background: transparent;
@@ -352,13 +352,13 @@
                 box-shadow: none;
                 padding-bottom: 10px;
               }
-          
+
               &::after {
                 position: absolute;
                 right: 30px;
-                content: "\f078";
+                content: "";
                 background-image: none;
-                font-family: var(--rr-ff-fontawesome);
+                font-family: inherit;
                 font-size: var(--rr-fs-h6);
                 top: calc(50% + -8px);
                 line-height: 29px;
@@ -388,7 +388,7 @@
             border-bottom: none;
             box-shadow: none;
               &::after{
-                  content: "\f106";
+                  content: "";
                   color: var(--rr-heading-primary)
               }
               @media #{$mxs} {
@@ -413,7 +413,7 @@
           line-height: var(--rr-lh-p);
           color: rgb(5 5 19 / 70%);
           margin-bottom: 0;
-    
+
             @media #{$lg, $md, $sm, $xs} {
                 br{
                     display: none;
@@ -499,13 +499,13 @@
                 box-shadow: none;
                 padding-bottom: 5px;
               }
-          
+
               &::after {
                 position: absolute;
                 right: 0;
                 content: "\2b";
                 background-image: none;
-                font-family: var(--rr-ff-fontawesome);
+                font-family: inherit;
                 font-size: var(--rr-fs-h5);
                 top: calc(50% + -19px);
                 line-height: 29px;
@@ -533,7 +533,7 @@
               transition: all 0.3s ease-in-out;
               border-bottom: none;
               &::after{
-                  content: "\f068";
+                  content: "";
                   color: var(--rr-heading-primary)
               }
               @media #{$mxs} {
@@ -568,7 +568,7 @@
           line-height: var(--rr-lh-p);
           color: rgb(5 5 19 / 70%);
           margin-bottom: 0;
-    
+
             @media #{$lg, $md, $sm, $xs} {
                 br{
                     display: none;
@@ -803,13 +803,13 @@
                 box-shadow: none;
                 padding-bottom: 10px;
               }
-          
+
               &::after {
                 position: absolute;
                 right: 30px;
-                content: "\f078";
+                content: "";
                 background-image: none;
-                font-family: var(--rr-ff-fontawesome);
+                font-family: inherit;
                 font-size: var(--rr-fs-h6);
                 top: calc(50% + -8px);
                 line-height: 29px;
@@ -839,7 +839,7 @@
             border-bottom: none;
             box-shadow: none;
               &::after{
-                  content: "\f106";
+                  content: "";
                   color: var(--rr-heading-primary)
               }
               @media #{$mxs} {
@@ -864,7 +864,7 @@
           line-height: var(--rr-lh-p);
           color: rgb(5 5 19 / 60%);
           margin-bottom: 0;
-    
+
             @media #{$lg, $md, $sm, $xs} {
                 br{
                     display: none;
@@ -887,7 +887,7 @@
 .faq-10{
 
   &__item{
-    
+
       .accordion-header{
           .accordion-button{
             background: transparent;
@@ -916,13 +916,13 @@
                 box-shadow: none;
                 padding-bottom: 10px;
               }
-          
+
               &::after {
                 position: absolute;
                 right: 30px;
-                content: "\f078";
+                content: "";
                 background-image: none;
-                font-family: var(--rr-ff-fontawesome);
+                font-family: inherit;
                 font-size: var(--rr-fs-h6);
                 top: calc(50% + -8px);
                 line-height: 29px;
@@ -955,7 +955,7 @@
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
               &::after{
-                  content: "\f106";
+                  content: "";
                   color: var(--rr-heading-primary)
               }
               @media #{$mxs} {
@@ -980,7 +980,7 @@
           line-height: var(--rr-lh-p);
           color: rgb(5 5 19 / 70%);
           margin-bottom: 0;
-    
+
             @media #{$lg, $md, $sm, $xs} {
                 br{
                     display: none;

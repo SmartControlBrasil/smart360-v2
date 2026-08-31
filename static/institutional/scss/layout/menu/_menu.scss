@@ -53,10 +53,10 @@
                     padding-right: 13px !important;
                     &::after {
                         background-image: none;
-                        font-family: "Font Awesome 6 Pro";
+                        font-family: inherit;
                         font-size: 12px;
                         font-weight: var(--rr-fw-bold);
-                        content: "\f107";
+                        content: "";
                         position: absolute;
                         top: 45%;
                         right: 0;
@@ -635,10 +635,10 @@
                             color: var(--rr-common-white) !important;
                             &.main-menu ul li.has-dropdown > a::after {
                                 background-image: none;
-                                font-family: "Font Awesome 6 Pro";
+                                font-family: inherit;
                                 font-size: 12px;
                                 font-weight: var(--rr-fw-bold);
-                                content: "\f107";
+                                content: "";
                                 position: absolute;
                                 top: 33% !important;
                                 right: 11px;

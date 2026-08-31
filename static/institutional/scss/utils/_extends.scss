@@ -27,10 +27,6 @@
 %rs-transition-fz{
 	@include rs-transition(font-size);
 }
-// font
-%rs-ff-fontawesome{
-	font-family: var(--rr-ff-fontawesome);
-}
 /* transform */
 %translateY1_2{
 	@include transform(translateY(-50%));

@@ -314,7 +314,7 @@ class InstitutionalRoutesTests(TestCase):
         self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
         self.assertRegex(
             html,
-            r"<script[^>]+defer[^>]+src=\"https://livia\.smartcontrolbrasil\.com\.br/widget\.js\"",
+            r'<script[^>]+defer[^>]+src="https://livia\.smartcontrolbrasil\.com\.br/widget\.js(?:\?[^"]*)?"',
         )
 
     def test_lazy_images_use_async_decoding(self):
@@ -535,15 +535,14 @@ class ContactFormTests(TestCase):
 
 
 class ConversionTrackingTests(TestCase):
-    def test_header_primary_cta_points_to_contact(self):
+    def test_header_primary_cta_points_to_shop(self):
         response = self.client.get(reverse("institutional:home"))
         html = response.content.decode()
 
         self.assertIn('data-track-location="header"', html)
-        self.assertIn('data-track-label="Solicitar orçamento"', html)
-        self.assertIn(f'href="{reverse("institutional:contact")}"', html)
-        self.assertIn("Solicitar orçamento", html)
-        self.assertNotIn("Ver Produtos", html)
+        self.assertIn('data-track-label="Produtos"', html)
+        self.assertIn(f'href="{reverse("commerce:shop")}"', html)
+        self.assertIn(">Produtos<", html.replace("\n", "").replace(" ", ""))
 
     def test_home_primary_cta_has_clear_copy_and_tracking(self):
         response = self.client.get(reverse("institutional:home"))
@@ -1260,7 +1259,9 @@ class TechnicalSeoTests(TestCase):
         self.assertIn(audio_path, html)
         self.assertIn('data-audio-src="/static/institutional/audio/robo-liro-inclusao-neurodivergentes.m4a"', html)
         self.assertIn('aria-label="Ouvir áudio institucional sobre LIRO e inclusão"', html)
-        self.assertIn('class="audio fa-sharp fa-solid fa-play"', html)
+        self.assertIn('class="audio"', html)
+        self.assertIn('data-audio-icon-play="/static/institutional/icons/play.svg"', html)
+        self.assertIn('data-audio-icon-pause="/static/institutional/icons/pause.svg"', html)
         self.assertNotIn("sound" + "helix", html.lower())
         self.assertIsNotNone(finders.find(audio_path))
 
@@ -2865,7 +2866,7 @@ class TechnicalSeoTests(TestCase):
             ["Blog de Automação Industrial, Robótica e Tecnologia"],
         )
         self.assertNotIn("fa-calendar-days", html)
-        self.assertIn("fa-tags", html)
+        self.assertIn("/static/institutional/icons/tag.svg", html)
 
         breadcrumbs = self.graph_items(response, "BreadcrumbList")
         blogs = self.graph_items(response, "Blog")
@@ -4300,7 +4301,7 @@ class TechnicalSeoTests(TestCase):
         stylesheets = self._stylesheet_hrefs(response)
 
         self.assertEqual(len(scripts), 13)
-        self.assertEqual(len(stylesheets), 6)
+        self.assertEqual(len(stylesheets), 5)
         self.assertTrue(any("preloader-critical.js" in source for source in scripts))
         self.assertFalse(any("swiper" in source for source in scripts))
         self.assertFalse(any("wow.min.js" in source for source in scripts))

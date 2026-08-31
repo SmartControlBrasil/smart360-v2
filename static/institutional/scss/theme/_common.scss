@@ -120,10 +120,10 @@
 	}
 	&::after {
 		position: absolute;
-		content: "\f00d";
+		content: "";
 		height: 100%;
 		width: 100%;
-		font-family: var(--rr-ff-fontawesome);
+		font-family: inherit;
 		font-size: 31px;
 		font-weight: 200;
 		right: -20px;

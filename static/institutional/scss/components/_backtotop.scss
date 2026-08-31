@@ -48,8 +48,8 @@
 	}
 	&::after {
 		position: absolute;
-		font-family: var(--rr-ff-fontawesome);
-		content: "\f062";
+		font-family: inherit;
+		content: "";
 		text-align: center;
 		line-height: 46px;
 		font-size: 16px;
