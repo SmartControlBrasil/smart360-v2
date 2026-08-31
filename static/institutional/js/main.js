@@ -6,6 +6,41 @@
     return path === "/" || path === "/index.html";
   }
 
+  var swiperScriptPromise = null;
+  var SWIPER_SCRIPT_SRC = "/static/institutional/js/plugins/swiper.min.js";
+
+  function loadSwiperScript() {
+    if (typeof window.Swiper !== "undefined") {
+      return Promise.resolve(window.Swiper);
+    }
+
+    if (swiperScriptPromise) {
+      return swiperScriptPromise;
+    }
+
+    swiperScriptPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = SWIPER_SCRIPT_SRC;
+      script.async = true;
+      script.onload = function () {
+        if (typeof window.Swiper !== "undefined") {
+          resolve(window.Swiper);
+          return;
+        }
+
+        swiperScriptPromise = null;
+        reject(new Error("Swiper unavailable after load"));
+      };
+      script.onerror = function () {
+        swiperScriptPromise = null;
+        reject(new Error("Swiper script failed"));
+      };
+      document.head.appendChild(script);
+    });
+
+    return swiperScriptPromise;
+  }
+
   function createSwiper(selector, options) {
     if (typeof Swiper === "undefined" || !document.querySelector(selector)) {
       return null;
@@ -15,20 +50,40 @@
 
   function createLazySwiper(selector, options, rootMargin) {
     var element = document.querySelector(selector);
-    if (typeof Swiper === "undefined" || !element) {
+    if (!element) {
       return null;
     }
 
-    if (typeof IntersectionObserver === "undefined") {
-      return new window.Swiper(selector, options);
-    }
+    var lazyRootMargin = rootMargin || "600px 0px";
 
-    observeOnce(element, function () {
+    function initSwiperInstance() {
       if (element.classList.contains("swiper-initialized")) {
         return;
       }
+
+      if (typeof window.Swiper === "undefined") {
+        return;
+      }
+
       new window.Swiper(selector, options);
-    }, rootMargin || "320px 0px");
+    }
+
+    function scheduleSwiperInit() {
+      loadSwiperScript()
+        .then(function () {
+          initSwiperInstance();
+        })
+        .catch(function () {
+          /* keep static carousel markup visible */
+        });
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      scheduleSwiperInit();
+      return null;
+    }
+
+    observeOnce(element, scheduleSwiperInit, lazyRootMargin);
 
     return null;
   }

@@ -1,6 +1,9 @@
 {% extends 'institutional/layouts/with_swiper_wow.html' %}
-{% load institutional_media %}
-{% load static %}
+{% load frontend_assets institutional_media static %}
+
+{% block vendor_js %}
+    {% vendor_scripts 'wow' %}
+{% endblock %}
 
 {% block content %}
 <!-- Banner area start -->

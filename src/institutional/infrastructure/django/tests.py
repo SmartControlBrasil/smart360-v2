@@ -30,7 +30,7 @@ from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
-INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260831-scroll1"
+INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260831-swiper1"
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -694,7 +694,6 @@ class TechnicalSeoTests(TestCase):
             "institutional/js/plugins/ScrollToPlugin.js",
             "institutional/js/plugins/ScrollTrigger.js",
             "institutional/js/plugins/SplitText.js",
-            "institutional/js/plugins/swiper.min.js",
             "institutional/js/plugins/wow.js",
             f"institutional/js/main.js?v={INSTITUTIONAL_MAIN_JS_CACHE_BUST}",
         )
@@ -4303,7 +4302,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(len(scripts), 13)
         self.assertEqual(len(stylesheets), 4)
         self.assertTrue(any("preloader-critical.js" in source for source in scripts))
-        self.assertFalse(any("swiper" in source for source in scripts))
+        self.assertFalse(any("swiper.min.js" in source for source in scripts))
         self.assertFalse(any("wow.min.js" in source for source in scripts))
         self.assertTrue(any("main.js" in source for source in scripts))
 
@@ -4849,9 +4848,11 @@ class FrontendPerformanceTests(TestCase):
     def test_swiper_and_wow_load_only_on_interactive_pages(self):
         home_sources = self.script_sources(self.client.get(reverse("institutional:home")))
         contact_sources = self.script_sources(self.client.get(reverse("institutional:contact")))
+        xyron_sources = self.script_sources(self.client.get(reverse("institutional:xyron")))
 
-        self.assertTrue(any("swiper.min.js" in source for source in home_sources))
+        self.assertFalse(any("swiper.min.js" in source for source in home_sources))
         self.assertTrue(any("wow.js" in source for source in home_sources))
+        self.assertTrue(any("swiper.min.js" in source for source in xyron_sources))
         self.assertFalse(any("swiper.min.js" in source for source in contact_sources))
         self.assertFalse(any("wow.js" in source for source in contact_sources))
 
