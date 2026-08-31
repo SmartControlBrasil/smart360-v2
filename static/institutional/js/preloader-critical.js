@@ -50,7 +50,7 @@
 
     bindControls();
 
-    if (document.readyState === "loading") {
+    if (document.readyState !== "complete") {
         document.addEventListener("DOMContentLoaded", closePreloader, { once: true });
     } else {
         closePreloader();
