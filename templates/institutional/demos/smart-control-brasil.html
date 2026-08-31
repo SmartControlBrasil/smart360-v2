@@ -2,18 +2,6 @@
 {% load institutional_media %}
 {% load static %}
 
-{% block main_css %}
-    {% include 'institutional/partials/critical_css.html' %}
-    <!-- Main CSS -->
-    <link
-        rel="stylesheet"
-        href="{% static 'institutional/css/main.css' %}"
-        media="print"
-        onload="this.media='all'"
-    >
-    <noscript><style>@import url("{% static 'institutional/css/main.css' %}");</style></noscript>
-{% endblock %}
-
 {% block content %}
 <!-- Banner area start -->
             <section class="banner-before">
