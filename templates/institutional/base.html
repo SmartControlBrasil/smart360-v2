@@ -81,11 +81,13 @@
 
     {% block vendor_css %}{% endblock %}
 
+    {% block main_css %}
     <!-- Main CSS -->
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/main.css' %}"
     >
+    {% endblock %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/seo.css' %}"
