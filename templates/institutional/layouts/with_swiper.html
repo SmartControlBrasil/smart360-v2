@@ -1,8 +1,13 @@
 {% extends 'institutional/base.html' %}
-{% load frontend_assets %}
+{% load frontend_assets static %}
 
 {% block vendor_css %}
-    {% vendor_styles 'swiper' %}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/plugins/swiper.min.css' %}"
+        media="print"
+        onload="this.media='all'"
+    >
 {% endblock %}
 
 {% block vendor_js %}
