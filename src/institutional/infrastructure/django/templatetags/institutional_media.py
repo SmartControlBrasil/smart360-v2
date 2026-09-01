@@ -18,6 +18,7 @@ INSTITUTIONAL_ICON_NAMES = {
     "email",
     "eye",
     "facebook",
+    "folder",
     "growth",
     "home-button",
     "instagram",
@@ -30,12 +31,13 @@ INSTITUTIONAL_ICON_NAMES = {
     "play",
     "programming",
     "settings",
-    "sign",
     "star",
     "tag",
     "top",
     "trolley",
+    "user",
     "web",
+    "whatsapp",
     "youtube",
 }
 
