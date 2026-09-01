@@ -212,7 +212,7 @@ STATIC_IMAGE_DIMENSIONS = {
     "institutional/imgs/service/little-bot-sobre-a-mesa.webp": (345, 410),
     "institutional/imgs/service/orbit-aeroporto.webp": (755, 443),
     "institutional/imgs/service/orbit-banner-01.webp": (593, 443),
-    "institutional/imgs/service/orbit-fazendoŕonda.webp": (790, 443),
+    "institutional/imgs/service/orbit-fazendo-ronda.webp": (790, 443),
     "institutional/imgs/service/orbit-infografico.webp": (755, 443),
     "institutional/imgs/service/orbit-novidade.webp": (755, 443),
     "institutional/imgs/shapes/about-9-shape-1.png": (735, 657),

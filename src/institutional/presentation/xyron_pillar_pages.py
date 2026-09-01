@@ -125,7 +125,7 @@ XYRON_PILLAR_PAGES = (
         "h1": "Robôs de Segurança Patrimonial e Patrulhamento Autônomo",
         "breadcrumb_label": "Robôs de Segurança Patrimonial",
         "hero_image": {
-            "path": "institutional/imgs/service/orbit-fazendoŕonda.webp",
+            "path": "institutional/imgs/service/orbit-fazendo-ronda.webp",
             "width": 790,
             "height": 443,
             "alt": "Robô Orbit em patrulhamento de segurança patrimonial",

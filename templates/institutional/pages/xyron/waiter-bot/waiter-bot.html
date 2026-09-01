@@ -1,37 +1,358 @@
 {% extends 'institutional/layouts/with_swiper_wow.html' %}
+
 {% load institutional_media %}
+
 {% load static %}
 
 {% block content %}
-<section class="banner9__area p-relative overflow-hidden heading-bg z-1"><div class="banner9__shapes"><div class="banner9__shapes-shape-1"></div><div class="banner9__shapes-shape-2"></div><div class="banner9__shapes-shape-3"></div><div class="banner9__shapes-shape-4"></div><div class="banner9__shapes-shape-5"></div><div class="banner9__shapes-shape-6"></div><div class="banner9__shapes-shape-7" data-background="{% static 'institutional/imgs/shapes/hero-9-bg-shape-1.png' %}"></div></div><div class="container"><div class="row align-items-center"><div class="col-lg-7"><div class="banner9__content"><div class="banner-heading__wrapper"><h1 class="banner-heading__wrapper-title">Waiter Bot — Robô de Entrega e Apoio Operacional</h1><p class="banner-heading__wrapper-dec">Solução Xyron Robotics voltada a rotinas de entrega, deslocamento interno e apoio operacional em restaurantes, hotéis, supermercados e ambientes de atendimento.</p></div><div class="banner9__from-wrapper-box"><a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar informações {% institutional_icon "next" %}</a></div><div class="banner9__option">
+
+<section class="banner9__area p-relative overflow-hidden heading-bg z-1">
+    <div class="banner9__shapes">
+        <div class="banner9__shapes-shape-1"></div>
+        <div class="banner9__shapes-shape-2"></div>
+        <div class="banner9__shapes-shape-3"></div>
+        <div class="banner9__shapes-shape-4"></div>
+        <div class="banner9__shapes-shape-5"></div>
+        <div class="banner9__shapes-shape-6"></div>
+        <div class="banner9__shapes-shape-7" data-background="{% static 'institutional/imgs/shapes/hero-9-bg-shape-1.png' %}"></div>
+    </div>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="banner9__content">
+                    <div class="banner-heading__wrapper">
+                        <h1 class="banner-heading__wrapper-title">Waiter Bot — Robô de Entrega e Apoio Operacional</h1>
+                        <p class="banner-heading__wrapper-dec">Solução Xyron Robotics voltada a rotinas de entrega, deslocamento interno e apoio operacional em restaurantes, hotéis, supermercados e ambientes de atendimento.</p>
+                    </div>
+
+                    <div class="banner9__from-wrapper-box">
+                        <a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar informações {% institutional_icon "next" %}</a>
+                    </div>
+
+                    <div class="banner9__option">
                         <span class="banner9__option-box">Entrega</span>
                         <span class="banner9__option-box">Restaurantes</span>
                         <span class="banner9__option-box">Hotéis</span>
                         <span class="banner9__option-box">Operação</span>
-</div></div></div><div class="col-lg-5"><div class="banner9__thumb"><img src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Ícone do Waiter Bot" width="37" height="34" loading="eager" fetchpriority="high"></div></div></div></div></section>
-<section class="blog__area section-space-bottom pastel-blue-bg"><div class="container"><div class="row align-items-center"><div class="col-lg-8"><h2 class="section__title-wrapper-title _split_text">Apoio operacional para serviço e atendimento</h2><p>O Waiter Bot foi desenvolvido para apoiar operações que precisam movimentar itens e organizar deslocamentos internos em ambientes com atendimento a pessoas. Ele integra a <a href="{% url 'institutional:xyron' %}">linha Xyron Robotics</a> e deve ser avaliado a partir do fluxo real da operação, do tipo de item transportado, dos pontos de origem e entrega e dos responsáveis pelo processo.</p></div><div class="col-lg-4 text-lg-end"><a class="rr-btn" href="{% url 'institutional:contact' %}">Falar com nossa equipe {% institutional_icon "next" %}</a></div></div></div></section>
-<section class="about-9__area section-space-9 p-relative overflow-hidden"><div class="container"><div class="row align-items-center"><div class="col-lg-6"><div class="about-9__thumb"><img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Ícone do Waiter Bot" loading="lazy" decoding="async"></div></div><div class="col-lg-6"><div class="about-9__content"><div class="section__title-wrapper hero"><h2 class="section__title-wrapper-title _split_text">Operação com mais fluidez em rotinas de entrega</h2><p class="dec rr_title_anim">A implantação deve considerar onde a tarefa começa, por onde o robô circulará, qual é o ponto de entrega, como ocorre a retirada ou o recebimento do item e de que forma a rotina volta ao fluxo normal. Esse cuidado posiciona o Waiter Bot como tecnologia de apoio à operação, sem substituir a equipe responsável pelo atendimento.</p></div><div class="about-9__content-btn"><a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar informações {% institutional_icon "next" %}</a></div></div></div></div></div></section>
-<section class="service-9__area light-blue section-space-13"><div class="container"><div class="row"><div class="col-lg-5 col-sm-12"><div class="section__title-wrapper hero mb-30"><h2 class="section__title-wrapper-title _split_text">Benefícios do Waiter Bot</h2><p class="section__title-wrapper-dec mt-15 rr_title_anim">O valor está em inserir a robótica onde há deslocamentos repetitivos, necessidade de apoio ao serviço e circulação organizada em ambientes de atendimento.</p></div></div><div class="col-lg-7 col-sm-12"><div class="row pl-30 pl-md-0">
-                    <div class="col-md-6 col-sm-12"><div class="service-9__item mb-30"><div class="service-9__item-icon"><img {% image_dimensions 'institutional/imgs/icon/service-9-icon-1.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}" alt="Apoio à equipe"></div><h4 class="title">Apoio à equipe</h4><p class="dec">Contribui com rotinas de entrega e deslocamento interno, mantendo pessoas responsáveis pelas decisões e pelo atendimento.</p></div></div>
-                    <div class="col-md-6 col-sm-12"><div class="service-9__item mb-30"><div class="service-9__item-icon"><img {% image_dimensions 'institutional/imgs/icon/service-9-icon-2.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}" alt="Atendimento"></div><h4 class="title">Ambientes de serviço</h4><p class="dec">Pode compor experiências em locais onde clientes, visitantes e equipes compartilham áreas de circulação.</p></div></div>
-                    <div class="col-md-6 col-sm-12"><div class="service-9__item mb-30"><div class="service-9__item-icon"><img {% image_dimensions 'institutional/imgs/icon/service-9-icon-3.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}" alt="Organização"></div><h4 class="title">Fluxo operacional</h4><p class="dec">Ajuda a organizar tarefas recorrentes quando origem, trajeto, entrega e retorno à rotina estão bem definidos.</p></div></div>
-                    <div class="col-md-6 col-sm-12"><div class="service-9__item mb-30"><div class="service-9__item-icon"><img {% image_dimensions 'institutional/imgs/icon/service-9-icon-4.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}" alt="Experiência"></div><h4 class="title">Experiência tecnológica</h4><p class="dec">Torna a presença da robótica visível para o público sem transformar a solução em promessa de automação total.</p></div></div>
-</div></div></div></div></section>
-<section class="product-9__area section-space"><div class="container"><div class="row"><div class="col-12"><div class="section__title-wrapper text-center mb-55 hero"><h2 class="section__title-wrapper-title _split_text">Aplicações do Waiter Bot</h2><p class="section__title-wrapper-dec mt-15 rr_title_anim">A avaliação deve partir da rotina de atendimento e do papel do robô dentro do fluxo, evitando prometer integrações, capacidades ou modos de operação que precisam ser especificados no projeto.</p></div></div></div><div class="row mb-minus-30">
-                    <div class="col-md-4 col-sm-6"><div class="product-9__item mb-30"><img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Restaurantes - Waiter Bot" loading="lazy" decoding="async"><div class="product-9__item-content"><h3 class="title">Restaurantes</h3><p class="dec">Pode apoiar deslocamentos internos e transporte de itens dentro de um fluxo de serviço definido. A aplicação deve respeitar circulação, pontos de entrega e atuação da equipe.</p></div></div></div>
-                    <div class="col-md-4 col-sm-6"><div class="product-9__item mb-30"><img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Hotéis - Waiter Bot" loading="lazy" decoding="async"><div class="product-9__item-content"><h3 class="title">Hotéis</h3><p class="dec">Pode ser avaliado como apoio operacional em áreas de atendimento e circulação. Fluxos específicos, como entregas em quartos, dependem de validação técnica do ambiente.</p></div></div></div>
-                    <div class="col-md-4 col-sm-6"><div class="product-9__item mb-30"><img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Supermercados - Waiter Bot" loading="lazy" decoding="async"><div class="product-9__item-content"><h3 class="title">Supermercados</h3><p class="dec">Pode apoiar rotinas internas em ambientes com circulação e atendimento, desde que a tarefa, o trajeto e o ponto de entrega sejam claramente definidos.</p></div></div></div>
-                    <div class="col-md-4 col-sm-6"><div class="product-9__item mb-30"><img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Ambientes de atendimento - Waiter Bot" loading="lazy" decoding="async"><div class="product-9__item-content"><h3 class="title">Ambientes de atendimento</h3><p class="dec">Indicado para estudos de apoio a rotinas repetitivas de movimentação de itens, sempre como complemento ao processo existente e à equipe responsável.</p></div></div></div>
-</div></div></section>
-<section class="review-9__area section-space light-blue"><div class="container"><div class="row"><div class="col-12"><div class="section__title-wrapper text-center mb-45 hero"><h2 class="section__title-wrapper-title _split_text">Diferenciais da solução</h2><p class="section__title-wrapper-dec mt-15 rr_title_anim">O diferencial do Waiter Bot está na aplicação planejada da robótica ao fluxo operacional: origem da tarefa, deslocamento, ponto de entrega, retirada ou recebimento e retorno à rotina. Para aprofundar a base tecnológica por trás desse tipo de solução, veja o artigo sobre <a href="{% url 'institutional:blog_detail' 'convergencia-robotica-ia-firmwares-dedicados' %}">convergência entre robótica, IA e firmware dedicado</a>.</p></div></div></div></div></section>
-<section class="pricing-9__area section-space fade-wrapper"><div class="container"><div class="row"><div class="col-12"><div class="section__title-wrapper text-center mb-45 hero"><h2 class="section__title-wrapper-title _split_text">Possibilidades de uso</h2></div></div></div><div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-6"><div class="pricing-9__item fade-top mb-30"><div class="pricing-9__header"><h3>Restaurantes</h3><p class="dec">Apoio ao transporte de itens e ao deslocamento interno dentro do fluxo de atendimento.</p></div></div></div>
-                    <div class="col-xl-3 col-lg-3 col-md-6"><div class="pricing-9__item fade-top mb-30"><div class="pricing-9__header"><h3>Hotéis</h3><p class="dec">Apoio operacional em áreas onde serviço, circulação e experiência do visitante precisam ser coordenados.</p></div></div></div>
-                    <div class="col-xl-3 col-lg-3 col-md-6"><div class="pricing-9__item fade-top mb-30"><div class="pricing-9__header"><h3>Supermercados</h3><p class="dec">Uso em rotinas internas que exigem organização de trajetos e apoio a tarefas de movimentação.</p></div></div></div>
-                    <div class="col-xl-3 col-lg-3 col-md-6"><div class="pricing-9__item fade-top mb-30"><div class="pricing-9__header"><h3>Serviços</h3><p class="dec">Apoio a ambientes de atendimento que precisam conectar pessoas, itens e pontos de entrega.</p></div></div></div>
-</div></div></section>
-<section class="faq-9__area ask-question-9 p-relative overflow-hidden"><div class="container"><div class="row"><div class="col-lg-7"><div class="ask-question-9__faq-9"><div class="accordion" id="accordionExample">
-                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".2s"><h5 class="accordion-header" id="headingOne"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">O que é o Waiter Bot?</button></h5><div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample"><div class="accordion-body"><p>O Waiter Bot é uma solução robótica para apoiar entregas internas, deslocamentos e rotinas operacionais em locais de serviço e atendimento.</p></div></div></div>                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".3s"><h5 class="accordion-header" id="headingTwo"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Em quais ambientes o Waiter Bot pode ser utilizado?</button></h5><div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample"><div class="accordion-body"><p>Ele pode ser avaliado para restaurantes, hotéis, supermercados e outros ambientes de atendimento que tenham rotinas de entrega, deslocamento interno ou apoio operacional.</p></div></div></div>                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".4s"><h5 class="accordion-header" id="headingThree"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Como um robô de entrega pode apoiar uma operação de atendimento?</button></h5><div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample"><div class="accordion-body"><p>Ele pode apoiar o transporte de itens e a organização de deslocamentos repetitivos dentro de um fluxo definido, sem substituir a equipe responsável pelo serviço e pela interação com as pessoas.</p></div></div></div>                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".5s"><h5 class="accordion-header" id="headingFour"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">O que deve ser avaliado antes de implantar um Waiter Bot?</button></h5><div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample"><div class="accordion-body"><p>É importante avaliar o fluxo, o ambiente, o tipo de item movimentado, os pontos de origem e entrega, a circulação de pessoas e os responsáveis operacionais pelo processo.</p></div></div></div>
-</div></div></div><div class="col-lg-5"><div class="faq-9__thumb"><div class="section__title-wrapper hero"><h2 class="section__title-wrapper-title-2 _split_text">Quer conhecer o Waiter Bot?</h2><p class="dec">Fale com a equipe da Smart Control Brasil para avaliar a aplicação mais adequada.</p></div><div class="faq-9__thumb-media"><img {% image_dimensions 'institutional/imgs/icon/services-7-04.png' %} src="{% static 'institutional/imgs/icon/services-7-04.png' %}" alt="Ícone do Waiter Bot" loading="lazy" decoding="async"></div></div></div></div></div></section>
-<section class="blog-9__area section-space"><div class="container"><div class="row justify-content-center"><div class="col-lg-9 text-center"><div class="section__title-wrapper hero mb-40"><h2 class="section__title-wrapper-title _split_text">Converse sobre uma aplicação do Waiter Bot</h2><p class="section__title-wrapper-dec mt-15 rr_title_anim">Avalie como robótica de entrega e apoio operacional pode contribuir para uma rotina específica antes de decidir pela implantação. Veja também como pensar <a href="{% url 'institutional:blog_detail' 'inovacao-que-aparece-e-gera-valor' %}">robótica aplicada com geração de valor</a>.</p></div><a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar informações {% institutional_icon "next" %}</a></div></div></div></section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="banner9__thumb">
+                    <img src="{% static 'institutional/imgs/bg-img/waiter-bot-01.webp' %}" alt="Ícone do Waiter Bot" width="37" height="34" loading="eager" fetchpriority="high">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog__area section-space-bottom pastel-blue-bg">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="section__title-wrapper-title _split_text">Apoio operacional para serviço e atendimento</h2>
+                <p>O Waiter Bot foi desenvolvido para apoiar operações que precisam movimentar itens e organizar deslocamentos internos em ambientes com atendimento a pessoas. Ele integra a <a href="{% url 'institutional:xyron' %}">linha Xyron Robotics</a> e deve ser avaliado a partir do fluxo real da operação, do tipo de item transportado, dos pontos de origem e entrega e dos responsáveis pelo processo.</p>
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+                <a class="rr-btn" href="{% url 'institutional:contact' %}">Falar com nossa equipe {% institutional_icon "next" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-9__area section-space-9 p-relative overflow-hidden">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="about-9__thumb">
+                    <img {% image_dimensions 'institutional/imgs/bg-img/waiter-bot-02.webp' %} src="{% static 'institutional/imgs/bg-img/waiter-bot-02.webp' %}" alt="Ícone do Waiter Bot" loading="lazy" decoding="async">
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="about-9__content">
+                    <div class="section__title-wrapper hero">
+                        <h2 class="section__title-wrapper-title _split_text">Operação com mais fluidez em rotinas de entrega</h2>
+                        <p class="dec rr_title_anim">A implantação deve considerar onde a tarefa começa, por onde o robô circulará, qual é o ponto de entrega, como ocorre a retirada ou o recebimento do item e de que forma a rotina volta ao fluxo normal. Esse cuidado posiciona o Waiter Bot como tecnologia de apoio à operação, sem substituir a equipe responsável pelo atendimento.</p>
+                    </div>
+
+                    <div class="about-9__content-btn">
+                        <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar informações {% institutional_icon "next" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-9__area light-blue section-space-13">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-12">
+                <div class="section__title-wrapper hero mb-30">
+                    <h2 class="section__title-wrapper-title _split_text">Benefícios do Waiter Bot</h2>
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">O valor está em inserir a robótica onde há deslocamentos repetitivos, necessidade de apoio ao serviço e circulação organizada em ambientes de atendimento.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-sm-12">
+                <div class="row pl-30 pl-md-0">
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="service-9__item mb-30">
+                            <div class="service-9__item-icon">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-1.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-1.png' %}" alt="Apoio à equipe">
+                            </div>
+                            <h4 class="title">Apoio à equipe</h4>
+                            <p class="dec">Contribui com rotinas de entrega e deslocamento interno, mantendo pessoas responsáveis pelas decisões e pelo atendimento.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="service-9__item mb-30">
+                            <div class="service-9__item-icon">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-2.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-2.png' %}" alt="Atendimento">
+                            </div>
+                            <h4 class="title">Ambientes de serviço</h4>
+                            <p class="dec">Pode compor experiências em locais onde clientes, visitantes e equipes compartilham áreas de circulação.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="service-9__item mb-30">
+                            <div class="service-9__item-icon">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-3.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-3.png' %}" alt="Organização">
+                            </div>
+                            <h4 class="title">Fluxo operacional</h4>
+                            <p class="dec">Ajuda a organizar tarefas recorrentes quando origem, trajeto, entrega e retorno à rotina estão bem definidos.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <div class="service-9__item mb-30">
+                            <div class="service-9__item-icon">
+                                <img {% image_dimensions 'institutional/imgs/icon/service-9-icon-4.png' %} src="{% static 'institutional/imgs/icon/service-9-icon-4.png' %}" alt="Experiência">
+                            </div>
+                            <h4 class="title">Experiência tecnológica</h4>
+                            <p class="dec">Torna a presença da robótica visível para o público sem transformar a solução em promessa de automação total.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-9__area section-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper text-center mb-55 hero">
+                    <h2 class="section__title-wrapper-title _split_text">Aplicações do Waiter Bot</h2>
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">A avaliação deve partir da rotina de atendimento e do papel do robô dentro do fluxo, evitando prometer integrações, capacidades ou modos de operação que precisam ser especificados no projeto.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-minus-30">
+
+            <div class="col-md-4 col-sm-6">
+                <div class="product-9__item mb-30">
+                    <img {% image_dimensions 'institutional/imgs/bg-img/waiter-bot-03.webp' %} src="{% static 'institutional/imgs/bg-img/waiter-bot-03.webp' %}" alt="Restaurantes - Waiter Bot" loading="lazy" decoding="async">
+                    <div class="product-9__item-content">
+                        <h3 class="title">Restaurantes</h3>
+                        <p class="dec">Pode apoiar deslocamentos internos e transporte de itens dentro de um fluxo de serviço definido. A aplicação deve respeitar circulação, pontos de entrega e atuação da equipe.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="product-9__item mb-30">
+                    <img {% image_dimensions 'institutional/imgs/bg-img/waiter-bot-04.webp' %} src="{% static 'institutional/imgs/bg-img/waiter-bot-04.webp' %}" alt="Hotéis - Waiter Bot" loading="lazy" decoding="async">
+                    <div class="product-9__item-content">
+                        <h3 class="title">Hotéis</h3>
+                        <p class="dec">Pode ser avaliado como apoio operacional em áreas de atendimento e circulação. Fluxos específicos, como entregas em quartos, dependem de validação técnica do ambiente.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="product-9__item mb-30">
+                    <img {% image_dimensions 'institutional/imgs/bg-img/waiter-bot-05.webp' %} src="{% static 'institutional/imgs/bg-img/waiter-bot-05.webp' %}" alt="Supermercados - Waiter Bot" loading="lazy" decoding="async">
+                    <div class="product-9__item-content">
+                        <h3 class="title">Supermercados</h3>
+                        <p class="dec">Pode apoiar rotinas internas em ambientes com circulação e atendimento, desde que a tarefa, o trajeto e o ponto de entrega sejam claramente definidos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="product-9__item mb-30">
+                    <img {% image_dimensions 'institutional/imgs/bg-img/waiter-bot-06.webp' %} src="{% static 'institutional/imgs/bg-img/waiter-bot-06.webp' %}" alt="Ambientes de atendimento - Waiter Bot" loading="lazy" decoding="async">
+                    <div class="product-9__item-content">
+                        <h3 class="title">Ambientes de atendimento</h3>
+                        <p class="dec">Indicado para estudos de apoio a rotinas repetitivas de movimentação de itens, sempre como complemento ao processo existente e à equipe responsável.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="review-9__area section-space light-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper text-center mb-45 hero">
+                    <h2 class="section__title-wrapper-title _split_text">Diferenciais da solução</h2>
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">O diferencial do Waiter Bot está na aplicação planejada da robótica ao fluxo operacional: origem da tarefa, deslocamento, ponto de entrega, retirada ou recebimento e retorno à rotina. Para aprofundar a base tecnológica por trás desse tipo de solução, veja o artigo sobre <a href="{% url 'institutional:blog_detail' 'convergencia-robotica-ia-firmwares-dedicados' %}">convergência entre robótica, IA e firmware dedicado</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing-9__area section-space fade-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper text-center mb-45 hero">
+                    <h2 class="section__title-wrapper-title _split_text">Possibilidades de uso</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="pricing-9__item fade-top mb-30">
+                    <div class="pricing-9__header">
+                        <h3>Restaurantes</h3>
+                        <p class="dec">Apoio ao transporte de itens e ao deslocamento interno dentro do fluxo de atendimento.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="pricing-9__item fade-top mb-30">
+                    <div class="pricing-9__header">
+                        <h3>Hotéis</h3>
+                        <p class="dec">Apoio operacional em áreas onde serviço, circulação e experiência do visitante precisam ser coordenados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="pricing-9__item fade-top mb-30">
+                    <div class="pricing-9__header">
+                        <h3>Supermercados</h3>
+                        <p class="dec">Uso em rotinas internas que exigem organização de trajetos e apoio a tarefas de movimentação.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-6">
+                <div class="pricing-9__item fade-top mb-30">
+                    <div class="pricing-9__header">
+                        <h3>Serviços</h3>
+                        <p class="dec">Apoio a ambientes de atendimento que precisam conectar pessoas, itens e pontos de entrega.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="faq-9__area ask-question-9 p-relative overflow-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="ask-question-9__faq-9">
+                    <div class="accordion" id="accordionExample">
+
+                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".2s">
+                            <h5 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">O que é o Waiter Bot?</button>
+                            </h5>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>O Waiter Bot é uma solução robótica para apoiar entregas internas, deslocamentos e rotinas operacionais em locais de serviço e atendimento.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".3s">
+                            <h5 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Em quais ambientes o Waiter Bot pode ser utilizado?</button>
+                            </h5>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Ele pode ser avaliado para restaurantes, hotéis, supermercados e outros ambientes de atendimento que tenham rotinas de entrega, deslocamento interno ou apoio operacional.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".4s">
+                            <h5 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Como um robô de entrega pode apoiar uma operação de atendimento?</button>
+                            </h5>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Ele pode apoiar o transporte de itens e a organização de deslocamentos repetitivos dentro de um fluxo definido, sem substituir a equipe responsável pelo serviço e pela interação com as pessoas.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item ask-question-9__faq-9-item faq-9__item wow fadeInLeft animated" data-wow-delay=".5s">
+                            <h5 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">O que deve ser avaliado antes de implantar um Waiter Bot?</button>
+                            </h5>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>É importante avaliar o fluxo, o ambiente, o tipo de item movimentado, os pontos de origem e entrega, a circulação de pessoas e os responsáveis operacionais pelo processo.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="faq-9__thumb">
+                    <div class="section__title-wrapper hero">
+                        <h2 class="section__title-wrapper-title-2 _split_text">Quer conhecer o Waiter Bot?</h2>
+                        <p class="dec">Fale com a equipe da Smart Control Brasil para avaliar a aplicação mais adequada.</p>
+                    </div>
+
+                    <div class="faq-9__thumb-media">
+                        <img {% image_dimensions 'institutional/imgs/bg-img/waiter-bot-07.webp' %} src="{% static 'institutional/imgs/bg-img/waiter-bot-07.webp' %}" alt="Ícone do Waiter Bot" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-9__area section-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 text-center">
+                <div class="section__title-wrapper hero mb-40">
+                    <h2 class="section__title-wrapper-title _split_text">Converse sobre uma aplicação do Waiter Bot</h2>
+                    <p class="section__title-wrapper-dec mt-15 rr_title_anim">Avalie como robótica de entrega e apoio operacional pode contribuir para uma rotina específica antes de decidir pela implantação. Veja também como pensar <a href="{% url 'institutional:blog_detail' 'inovacao-que-aparece-e-gera-valor' %}">robótica aplicada com geração de valor</a>.</p>
+                </div>
+
+                <a href="{% url 'institutional:contact' %}" class="rr-btn">Solicitar informações {% institutional_icon "next" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

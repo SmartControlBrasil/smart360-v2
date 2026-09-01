@@ -20,7 +20,7 @@ XYRON_ROBOT_PAGES = (
         "template": 'institutional/pages/xyron/orbit/orbit.html',
         "title": 'Orbit Bot | Robô de Patrulhamento e Segurança | Smart Control Brasil',
         "description": 'Robô de patrulhamento e segurança para grandes áreas, com navegação autônoma, visão inteligente e monitoramento em tempo real.',
-        "image": 'institutional/imgs/service/orbit-fazendoŕonda.webp',
+        "image": 'institutional/imgs/service/orbit-fazendo-ronda.webp',
         "width": 790,
         "height": 443,
         "alt": 'Robô Orbit em patrulhamento de segurança',
