@@ -98,18 +98,39 @@
     return mobileMediaQuery ? mobileMediaQuery.matches : window.innerWidth <= 767;
   }
 
-  var scrollTriggerRefreshScheduled = false;
+  var scrollTriggerRefreshTimeout = null;
+  var scrollTriggerRefreshRaf = null;
+  var SCROLL_TRIGGER_REFRESH_DELAY_MS = 100;
 
   function scheduleScrollTriggerRefresh() {
-    if (!pluginAvailable("ScrollTrigger") || scrollTriggerRefreshScheduled) {
+    if (!pluginAvailable("ScrollTrigger")) {
       return;
     }
 
-    scrollTriggerRefreshScheduled = true;
-    requestAnimationFrame(function () {
-      scrollTriggerRefreshScheduled = false;
-      ScrollTrigger.refresh();
-    });
+    if (viewportInitFlushInProgress) {
+      viewportInitRefreshRequested = true;
+      return;
+    }
+
+    if (scrollTriggerRefreshTimeout != null) {
+      clearTimeout(scrollTriggerRefreshTimeout);
+      scrollTriggerRefreshTimeout = null;
+    }
+
+    if (scrollTriggerRefreshRaf != null) {
+      cancelAnimationFrame(scrollTriggerRefreshRaf);
+      scrollTriggerRefreshRaf = null;
+    }
+
+    scrollTriggerRefreshTimeout = setTimeout(function () {
+      scrollTriggerRefreshTimeout = null;
+      scrollTriggerRefreshRaf = requestAnimationFrame(function () {
+        scrollTriggerRefreshRaf = null;
+        if (pluginAvailable("ScrollTrigger")) {
+          ScrollTrigger.refresh();
+        }
+      });
+    }, SCROLL_TRIGGER_REFRESH_DELAY_MS);
   }
 
   function parseRootMarginPx(rootMargin, fallback) {
@@ -152,25 +173,39 @@
   var pendingViewportInits = [];
   var viewportInitListenersBound = false;
   var viewportInitFlushScheduled = false;
+  var viewportInitFlushInProgress = false;
+  var viewportInitRefreshRequested = false;
 
   function flushPendingViewportInits() {
     if (!pendingViewportInits.length) {
       return;
     }
 
-    pendingViewportInits = pendingViewportInits.filter(function (item) {
-      if (!item.element || item.done) {
-        return false;
-      }
+    viewportInitFlushInProgress = true;
+    viewportInitRefreshRequested = false;
 
-      if (hasEnteredLazyZone(item.element, item.marginPx)) {
-        item.done = true;
-        item.callback(item.element);
-        return false;
-      }
+    try {
+      pendingViewportInits = pendingViewportInits.filter(function (item) {
+        if (!item.element || item.done) {
+          return false;
+        }
 
-      return true;
-    });
+        if (hasEnteredLazyZone(item.element, item.marginPx)) {
+          item.done = true;
+          item.callback(item.element);
+          return false;
+        }
+
+        return true;
+      });
+    } finally {
+      viewportInitFlushInProgress = false;
+    }
+
+    if (viewportInitRefreshRequested) {
+      viewportInitRefreshRequested = false;
+      scheduleScrollTriggerRefresh();
+    }
   }
 
   function schedulePendingViewportInitFlush() {
@@ -193,7 +228,6 @@
     viewportInitListenersBound = true;
     ScrollTrigger.addEventListener("scroll", schedulePendingViewportInitFlush);
     ScrollTrigger.addEventListener("scrollEnd", flushPendingViewportInits);
-    ScrollTrigger.addEventListener("refresh", flushPendingViewportInits);
     window.addEventListener("scroll", schedulePendingViewportInitFlush, { passive: true });
     window.addEventListener("resize", flushPendingViewportInits);
     schedulePendingViewportInitFlush();
@@ -214,7 +248,7 @@
         done: false
       });
       bindViewportInitListeners();
-      flushPendingViewportInits();
+      schedulePendingViewportInitFlush();
       return;
     }
 
@@ -465,7 +499,6 @@
           onUpdate: schedulePendingViewportInitFlush,
           onStop: flushPendingViewportInits
        });
-       scheduleScrollTriggerRefresh();
        bindViewportInitListeners();
        flushPendingViewportInits();
     }
@@ -492,7 +525,6 @@
         delay: -1.5,
         ease: Power2.out
     });
-    scheduleScrollTriggerRefresh();
     }
 
     revealContainers.forEach((container) => {
@@ -508,6 +540,10 @@
              return;
            }
 
+           const itemSplitted = new SplitText(splitTextLine, { type: "words, lines" });
+           gsap.set(splitTextLine, { perspective: 400 });
+           itemSplitted.split({ type: "lines" });
+
            const tl = gsap.timeline({
               scrollTrigger: {
                  trigger: splitTextLine,
@@ -518,10 +554,7 @@
                  toggleActions: 'play none none reverse'
               }
            });
-    
-           const itemSplitted = new SplitText(splitTextLine, { type: "words, lines" });
-           gsap.set(splitTextLine, { perspective: 400 });
-           itemSplitted.split({ type: "lines" })
+
            tl.from(itemSplitted.lines, {
               duration: 1,
               delay: 0.3,
@@ -531,7 +564,6 @@
               transformOrigin: "top center -50",
               stagger: 0.1
            });
-           scheduleScrollTriggerRefresh();
         }
 
         splitTitleLines.forEach(splitTextLine => {
@@ -573,7 +605,6 @@
            ease: "back",
            stagger: 0.05
          });
-       scheduleScrollTriggerRefresh();
      }
 
      heroes.forEach(hero => {
