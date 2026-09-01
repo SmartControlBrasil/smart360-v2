@@ -73,6 +73,7 @@
         href="{% static 'institutional/css/vendor/bootstrap.min.css' %}"
     >
     {% include 'institutional/partials/critical_spacing.html' %}
+    {% include 'institutional/partials/critical_css.html' %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/spacing.css' %}"
@@ -84,10 +85,12 @@
     {% block vendor_css %}{% endblock %}
 
     <!-- Main CSS -->
+    {% block main_css %}
     <link
         rel="stylesheet"
-        href="{% static 'institutional/css/main.css' %}?v=20260901-icons1"
+        href="{% static 'institutional/css/main.css' %}?v=20260901-perf1"
     >
+    {% endblock %}
 
     {% block extra_head %}{% endblock %}
 </head>

@@ -1,0 +1,178 @@
+// Institutional SVG/icon overrides required above the fold on HOME.
+// Keep in sync with static/institutional/scss/_seo.scss (subset only).
+
+.container-balao-robo {
+	position: relative;
+	display: inline-block;
+	margin-top: 50px;
+}
+
+.balao-fala-robo {
+	position: absolute;
+	bottom: 105%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #007bff;
+	color: #ffffff;
+	padding: 12px;
+	border-radius: 12px;
+	width: 220px;
+	font-family: sans-serif;
+	font-size: 14px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+	z-index: 10;
+	text-align: center;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 80%;
+		transform: translateX(-50%);
+		border-width: 11px;
+		border-style: solid;
+		border-color: #007bff transparent transparent transparent;
+	}
+}
+
+#preloader .preloader-close {
+	appearance: none;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	min-width: 40px;
+	min-height: 40px;
+	cursor: pointer;
+
+	&:focus-visible {
+		outline: 2px solid #ffffff;
+		outline-offset: 2px;
+	}
+}
+
+@media (min-width: 1400px) {
+	.header-1 .header__btn-wrap > .rr-btn.rr-btn-bold {
+		padding-left: 20px;
+		padding-right: 20px;
+		min-width: auto;
+		white-space: nowrap;
+	}
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+	.header-1 .header__btn-wrap > .rr-btn.rr-btn-bold {
+		padding-left: 14px;
+		padding-right: 14px;
+		min-width: auto;
+		white-space: nowrap;
+	}
+}
+
+.site-icon {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	object-fit: contain;
+	flex: 0 0 auto;
+	vertical-align: -0.125em;
+}
+
+a > .site-icon:not(:only-child):last-child,
+button > .site-icon:not(:only-child):last-child {
+	margin-left: 8px;
+}
+
+a > .site-icon:not(:only-child):first-child,
+button > .site-icon:not(:only-child):first-child {
+	margin-right: 8px;
+}
+
+.header__social .site-icon,
+.search-close .site-icon {
+	filter: brightness(0) invert(1);
+}
+
+.header__social .site-icon {
+	width: 1em;
+	height: 1em;
+}
+
+@media (min-width: 992px) {
+	.header-1 #mobile-menu > ul {
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap;
+		white-space: nowrap;
+	}
+
+	.header-1 #mobile-menu > ul > li {
+		flex: 0 0 auto;
+	}
+}
+
+.main-menu ul li.has-dropdown > a::after {
+	content: "";
+	width: 10px;
+	height: 10px;
+	font-family: inherit;
+	background-color: currentColor;
+	-webkit-mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+	mask: url("../icons/down-arrow.svg") center / contain no-repeat;
+}
+
+.header-1 .header__social a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
+
+.header-1 .header__social .site-icon {
+	width: 14px;
+	height: 14px;
+	max-width: 14px;
+	max-height: 14px;
+	flex: 0 0 14px;
+	object-fit: contain;
+}
+
+.header-1 .header__right .contact a .site-icon {
+	width: 14px;
+	height: 14px;
+	max-width: 14px;
+	max-height: 14px;
+	flex: 0 0 14px;
+	filter: brightness(0) invert(1);
+}
+
+.header-1 .main-menu ul li.has-dropdown > a::after {
+	width: 8px;
+	height: 8px;
+}
+
+.rr-btn .site-icon {
+	width: 16px;
+	height: 16px;
+	max-width: 16px;
+	max-height: 16px;
+	flex: 0 0 16px;
+	display: block;
+	object-fit: contain;
+	margin: 0;
+	filter: brightness(0);
+}
+
+.rr-btn:hover .site-icon,
+.rr-btn:focus .site-icon {
+	filter: brightness(0) invert(1);
+}
+
+.banner1__thumb img[width][height] {
+	height: auto;
+	max-width: 100%;
+}
+
+.header__logo img[width][height] {
+	height: auto;
+	max-width: 100%;
+}

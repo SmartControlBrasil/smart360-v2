@@ -1,0 +1,32 @@
+/*! home-critical.scss
+ * Critical above-fold CSS for Smart Control Brasil HOME.
+ *
+ * Compiled output: static/institutional/css/home-critical.css
+ * Build: npx sass static/institutional/scss/home-critical.scss static/institutional/css/home-critical.css --style=compressed --no-source-map
+ *
+ * Sources (subset of main.scss):
+ * - theme/theme, theme/common
+ * - components: color, background, buttons, preloader, backtotop, offcanvas,
+ *   section-title, animation
+ * - layout/header: header-common, header-1, header-2 (#popup-search-box global)
+ * - layout/menu: menu, meanmenu
+ * - layout/banner: banner-1
+ */
+
+@forward 'theme/theme';
+@forward 'theme/common';
+@forward 'components/color';
+@forward 'components/background';
+@forward 'components/buttons';
+@forward 'components/preloader';
+@forward 'components/backtotop';
+@forward 'components/offcanvas';
+@forward 'components/section-title';
+@forward 'components/animation';
+@forward 'layout/header/header-common';
+@forward 'layout/header/header-1';
+@forward 'layout/header/header-2';
+@forward 'layout/menu/menu';
+@forward 'layout/menu/meanmenu';
+@forward 'layout/banner/banner-1';
+@forward 'seo-critical-above-fold';

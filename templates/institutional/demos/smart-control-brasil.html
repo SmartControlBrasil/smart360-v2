@@ -1,6 +1,22 @@
 {% extends 'institutional/layouts/with_swiper_wow.html' %}
 {% load frontend_assets institutional_media static %}
 
+{% block main_css %}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/home-critical.css' %}?v=20260901-critical1"
+    >
+    <link
+        rel="preload"
+        href="{% static 'institutional/css/main.css' %}?v=20260901-perf1"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'"
+    >
+    <noscript>
+        <link rel="stylesheet" href="{% static 'institutional/css/main.css' %}?v=20260901-perf1">
+    </noscript>
+{% endblock %}
+
 {% block vendor_js %}
     {% vendor_scripts 'wow' %}
 {% endblock %}
