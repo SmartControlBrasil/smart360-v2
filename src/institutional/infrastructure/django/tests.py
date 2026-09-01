@@ -30,7 +30,7 @@ from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
-INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-scroll1"
+INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-tbt1"
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -311,10 +311,13 @@ class InstitutionalRoutesTests(TestCase):
         response = self.client.get(reverse("institutional:home"))
         html = response.content.decode("utf-8")
 
+        self.assertIn('id="livia-config"', html)
         self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
-        self.assertRegex(
+        self.assertIn('data-tenant="smart-control-brasil"', html)
+        self.assertIn('data-api-url="https://livia.smartcontrolbrasil.com.br/api/chat/"', html)
+        self.assertNotRegex(
             html,
-            r'<script[^>]+defer[^>]+src="https://livia\.smartcontrolbrasil\.com\.br/widget\.js(?:\?[^"]*)?"',
+            r'<script[^>]+src="https://livia\.smartcontrolbrasil\.com\.br/widget\.js',
         )
 
     def test_lazy_images_use_async_decoding(self):
@@ -686,14 +689,10 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
         scripts = (
             "institutional/js/vendor/jquery-3.7.1.min.js",
-            "institutional/js/vendor/chroma.min.js",
             "institutional/js/vendor/bootstrap.bundle.min.js",
             "institutional/js/plugins/meanmenu.min.js",
             "institutional/js/plugins/gsap.js",
-            "institutional/js/plugins/ScrollSmoother.js",
-            "institutional/js/plugins/ScrollToPlugin.js",
             "institutional/js/plugins/ScrollTrigger.js",
-            "institutional/js/plugins/SplitText.js",
             "institutional/js/plugins/wow.js",
             f"institutional/js/main.js?v={INSTITUTIONAL_MAIN_JS_CACHE_BUST}",
         )
@@ -4299,7 +4298,7 @@ class TechnicalSeoTests(TestCase):
         scripts = self._script_sources(response)
         stylesheets = self._stylesheet_hrefs(response)
 
-        self.assertEqual(len(scripts), 13)
+        self.assertEqual(len(scripts), 8)
         self.assertEqual(len(stylesheets), 4)
         self.assertTrue(any("preloader-critical.js" in source for source in scripts))
         self.assertFalse(any("swiper.min.js" in source for source in scripts))
@@ -4877,6 +4876,7 @@ class FrontendPerformanceTests(TestCase):
         html = response.content.decode()
         self.assertIn('src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"', html)
         self.assertIn('async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"', html)
+        self.assertIn('id="livia-config"', html)
         self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
         self.assertIn('data-tenant="smart-control-brasil"', html)
 

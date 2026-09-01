@@ -147,27 +147,24 @@
 
     <!-- Vendor JS (global) -->
     <script defer src="{% static 'institutional/js/vendor/jquery-3.7.1.min.js' %}"></script>
-    <script defer src="{% static 'institutional/js/vendor/chroma.min.js' %}"></script>
     <script defer src="{% static 'institutional/js/vendor/bootstrap.bundle.min.js' %}"></script>
     <script defer src="{% static 'institutional/js/plugins/meanmenu.min.js' %}"></script>
 
-    <!-- GSAP -->
+    <!-- GSAP core (plugins carregados sob demanda em main.js) -->
     <script defer src="{% static 'institutional/js/plugins/gsap.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/ScrollSmoother.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/ScrollToPlugin.js' %}"></script>
     <script defer src="{% static 'institutional/js/plugins/ScrollTrigger.js' %}"></script>
-    <script defer src="{% static 'institutional/js/plugins/SplitText.js' %}"></script>
 
     {% block vendor_js %}{% endblock %}
 
     <!-- Main JS -->
-    <script defer src="{% static 'institutional/js/main.js' %}?v=20260901-scroll1"></script>
-    <script
-        defer
-        src="https://livia.smartcontrolbrasil.com.br/widget.js?v=20260830-chat1"
+    <script defer src="{% static 'institutional/js/main.js' %}?v=20260901-tbt1"></script>
+    <span
+        id="livia-config"
+        hidden
+        data-widget-src="https://livia.smartcontrolbrasil.com.br/widget.js?v=20260830-chat1"
         data-tenant="smart-control-brasil"
         data-api-url="https://livia.smartcontrolbrasil.com.br/api/chat/">
-    </script>
+    </span>
 
     {% block extra_js %}{% endblock %}
 

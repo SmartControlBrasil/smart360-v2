@@ -41,6 +41,60 @@
     return swiperScriptPromise;
   }
 
+  var externalScriptPromises = {};
+
+  function loadExternalScript(src) {
+    if (externalScriptPromises[src]) {
+      return externalScriptPromises[src];
+    }
+
+    externalScriptPromises[src] = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.onload = function () {
+        resolve();
+      };
+      script.onerror = function () {
+        externalScriptPromises[src] = null;
+        reject(new Error("Script failed: " + src));
+      };
+      document.head.appendChild(script);
+    });
+
+    return externalScriptPromises[src];
+  }
+
+  function loadInstitutionalScript(relativePath) {
+    return loadExternalScript("/static/institutional/js/" + relativePath);
+  }
+
+  function ensureSplitTextReady(callback) {
+    if (pluginAvailable("SplitText")) {
+      callback();
+      return;
+    }
+
+    loadInstitutionalScript("plugins/SplitText.js")
+      .then(callback)
+      .catch(function () {
+        /* keep static text visible */
+      });
+  }
+
+  function ensureChromaReady(callback) {
+    if (pluginAvailable("chroma")) {
+      callback();
+      return;
+    }
+
+    loadInstitutionalScript("vendor/chroma.min.js")
+      .then(callback)
+      .catch(function () {
+        /* keep static footer text visible */
+      });
+  }
+
   function createSwiper(selector, options) {
     if (typeof Swiper === "undefined" || !document.querySelector(selector)) {
       return null;
@@ -453,249 +507,354 @@
 
     //GSAP START
 
-    // Check if any elements with the class ".end" exist
-        if (document.querySelector('.end') && pluginAvailable("gsap") && pluginAvailable("SplitText") && pluginAvailable("chroma")) {
-            // 31. Folks animation
-            let endTl = gsap.timeline({
-                repeat: -1,
-                delay: 0.5,
-                scrollTrigger: {
-                    trigger: '.end',
-                    start: 'bottom 100%-=50px'
+    function initEndGradientAnimation() {
+        if (!document.querySelector(".end")) {
+            return;
+        }
+
+        ensureSplitTextReady(function () {
+            ensureChromaReady(function () {
+                if (!pluginAvailable("SplitText") || !pluginAvailable("chroma")) {
+                    return;
                 }
-            });
 
-            gsap.set('.end', {
-                opacity: 0
-            });
-
-            gsap.to('.end', {
-                opacity: 1,
-                duration: 1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: '.end',
-                    start: 'bottom 100%-=50px',
-                    once: true
-                }
-            });
-
-            let mySplitText = new SplitText(".end", {
-                type: "words,chars"
-            });
-            let chars = mySplitText.chars;
-            let endGradient = chroma.scale(['#F9D371', '#F47340', '#EF2F88', '#8843F2']);
-            
-            endTl.to(chars, {
-                duration: 0.5,
-                scaleY: 0.6,
-                ease: "power3.out",
-                stagger: 0.04,
-                transformOrigin: 'center bottom'
-            });
-            endTl.to(chars, {
-                yPercent: -20,
-                ease: "elastic",
-                stagger: 0.03,
-                duration: 0.8
-            }, 0.5);
-            endTl.to(chars, {
-                scaleY: 1,
-                ease: "elastic.out(2.5, 0.2)",
-                stagger: 0.03,
-                duration: 1.5
-            }, 0.5);
-            endTl.to(chars, {
-                color: (i, el, arr) => {
-                    return endGradient(i / arr.length).hex();
-                },
-                ease: "power2.out",
-                stagger: 0.03,
-                duration: 0.3
-            }, 0.5);
-            endTl.to(chars, {
-                yPercent: 0,
-                ease: "back",
-                stagger: 0.03,
-                duration: 0.8
-            }, 0.7);
-            endTl.to(chars, {
-                color: '#FFDA59',
-                duration: 1.4,
-                stagger: 0.05
-            });
-        }
-
-    /////////////////////////////////////////////////////
-
-    //return img gsap
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
-
-    gsap.config({
-       nullTargetWarn: false,
-    });
-
-    if (!isMobile() && $('#smooth-wrapper').length && $('#smooth-content').length) {
-       ScrollSmoother.create({
-          smooth: 2,
-          effects: true,
-          smoothTouch: false,
-          normalizeScroll: false,
-          ignoreMobileResize: true,
-          onUpdate: schedulePendingViewportInitFlush,
-          onStop: flushPendingViewportInits
-       });
-       bindViewportInitListeners();
-       flushPendingViewportInits();
-    }
-
-    let revealContainers = document.querySelectorAll(".return");
-
-    function initReturnReveal(container) {
-    let image = container.querySelector("img");
-    let tl = gsap.timeline({
-        scrollTrigger: {
-        trigger: container,
-        toggleActions: "restart none none reset"
-        }
-    });
-
-    tl.set(container, { autoAlpha: 1 });
-    tl.from(container, 1.5, {
-        xPercent: -100,
-        ease: Power2.out
-    });
-    tl.from(image, 1.5, {
-        xPercent: 100,
-        scale: 1.3,
-        delay: -1.5,
-        ease: Power2.out
-    });
-    }
-
-    revealContainers.forEach((container) => {
-    observeOnce(container, initReturnReveal, "320px 0px");
-    });
-
-    //GSAP title animation
-    if ($('.rr_title_anim').length > 0) {
-        let splitTitleLines = gsap.utils.toArray(".rr_title_anim");
-
-        function initTitleLine(splitTextLine) {
-           if (isHomePage() && splitTextLine.closest(".banner-before")) {
-             return;
-           }
-
-           const itemSplitted = new SplitText(splitTextLine, { type: "words, lines" });
-           gsap.set(splitTextLine, { perspective: 400 });
-           itemSplitted.split({ type: "lines" });
-
-           const tl = gsap.timeline({
-              scrollTrigger: {
-                 trigger: splitTextLine,
-                 start: 'top 90%',
-                 end: 'bottom 60%',
-                 scrub: false,
-                 markers: false,
-                 toggleActions: 'play none none reverse'
-              }
-           });
-
-           tl.from(itemSplitted.lines, {
-              duration: 1,
-              delay: 0.3,
-              opacity: 0,
-              rotationX: -80,
-              force3D: true,
-              transformOrigin: "top center -50",
-              stagger: 0.1
-           });
-        }
-
-        splitTitleLines.forEach(splitTextLine => {
-           observeOnce(splitTextLine, initTitleLine, "320px 0px");
-        });
-     }
-
-     //split-text animation
-     let heroes = document.querySelectorAll(".hero");
-     
-     function initHeroSplit(hero) {
-       const splitTarget = hero.querySelector("._split_text");
-
-       if (!splitTarget) {
-         return;
-       }
-
-       let split = new SplitText(splitTarget, { type: "chars, words" }),
-           tl = gsap.timeline({
-           scrollTrigger: {
-             trigger: hero,
-             start: "top bottom",
-             toggleActions: "play none none reverse",
-                 onEnter: () => {
-           tl.timeScale(2.3);
-         },
-         
-         onLeaveBack: () => {
-           tl.timeScale(2.3).reverse();
-         },
-           }
-         });
-       tl.to(hero.querySelector(".sup_hero"), { opacity: 1, x: -50, ease: "back" })
-         .from(split.chars, {
-           opacity: 0,
-           y: 50,
-           rotation: 1,
-           duration: 2,
-           ease: "back",
-           stagger: 0.05
-         });
-     }
-
-     heroes.forEach(hero => {
-       observeOnce(hero, initHeroSplit, "320px 0px");
-     });
-    //split-text animation end
-
-    //fade-top gsap animation
-    if ($(".fade-wrapper").length > 0) {
-        $(".fade-wrapper").each(function () {
-            var section = $(this);
-            var fadeItems = section.find(".fade-top");
-    
-            function initFadeItem(element, delay) {
-            gsap.set(element, {
-                opacity: 0,
-                y: 100,
-            });
-    
-            ScrollTrigger.create({
-                trigger: element,
-                start: "top 100%",
-                end: "bottom 60%",
-                toggleActions: "play none none reverse",
-                scrub: 0.5,
-                onEnter: function () {
-                gsap.to(element, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    delay: delay,
+                let endTl = gsap.timeline({
+                    repeat: -1,
+                    delay: 0.5,
+                    scrollTrigger: {
+                        trigger: ".end",
+                        start: "bottom 100%-=50px"
+                    }
                 });
-                },
-                once: true,
+
+                gsap.set(".end", {
+                    opacity: 0
+                });
+
+                gsap.to(".end", {
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".end",
+                        start: "bottom 100%-=50px",
+                        once: true
+                    }
+                });
+
+                let mySplitText = new SplitText(".end", {
+                    type: "words,chars"
+                });
+                let chars = mySplitText.chars;
+                let endGradient = chroma.scale(["#F9D371", "#F47340", "#EF2F88", "#8843F2"]);
+
+                endTl.to(chars, {
+                    duration: 0.5,
+                    scaleY: 0.6,
+                    ease: "power3.out",
+                    stagger: 0.04,
+                    transformOrigin: "center bottom"
+                });
+                endTl.to(chars, {
+                    yPercent: -20,
+                    ease: "elastic",
+                    stagger: 0.03,
+                    duration: 0.8
+                }, 0.5);
+                endTl.to(chars, {
+                    scaleY: 1,
+                    ease: "elastic.out(2.5, 0.2)",
+                    stagger: 0.03,
+                    duration: 1.5
+                }, 0.5);
+                endTl.to(chars, {
+                    color: function (i, el, arr) {
+                        return endGradient(i / arr.length).hex();
+                    },
+                    ease: "power2.out",
+                    stagger: 0.03,
+                    duration: 0.3
+                }, 0.5);
+                endTl.to(chars, {
+                    yPercent: 0,
+                    ease: "back",
+                    stagger: 0.03,
+                    duration: 0.8
+                }, 0.7);
+                endTl.to(chars, {
+                    color: "#FFDA59",
+                    duration: 1.4,
+                    stagger: 0.05
+                });
             });
+        });
+    }
+
+    function initGsapContentAnimations() {
+        initEndGradientAnimation();
+
+        let revealContainers = document.querySelectorAll(".return");
+
+        function initReturnReveal(container) {
+            let image = container.querySelector("img");
+            let tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: container,
+                    toggleActions: "restart none none reset"
+                }
+            });
+
+            tl.set(container, { autoAlpha: 1 });
+            tl.from(container, 1.5, {
+                xPercent: -100,
+                ease: Power2.out
+            });
+            tl.from(image, 1.5, {
+                xPercent: 100,
+                scale: 1.3,
+                delay: -1.5,
+                ease: Power2.out
+            });
+        }
+
+        revealContainers.forEach(function (container) {
+            observeOnce(container, initReturnReveal, "320px 0px");
+        });
+
+        if ($(".rr_title_anim").length > 0) {
+            let splitTitleLines = gsap.utils.toArray(".rr_title_anim");
+
+            function initTitleLine(splitTextLine) {
+                if (isHomePage() && splitTextLine.closest(".banner-before")) {
+                    return;
+                }
+
+                ensureSplitTextReady(function () {
+                    if (!pluginAvailable("SplitText")) {
+                        return;
+                    }
+
+                    const itemSplitted = new SplitText(splitTextLine, { type: "words, lines" });
+                    gsap.set(splitTextLine, { perspective: 400 });
+                    itemSplitted.split({ type: "lines" });
+
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: splitTextLine,
+                            start: "top 90%",
+                            end: "bottom 60%",
+                            scrub: false,
+                            markers: false,
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+
+                    tl.from(itemSplitted.lines, {
+                        duration: 1,
+                        delay: 0.3,
+                        opacity: 0,
+                        rotationX: -80,
+                        force3D: true,
+                        transformOrigin: "top center -50",
+                        stagger: 0.1
+                    });
+                });
             }
 
-            fadeItems.each(function (index, element) {
-            var delay = index * 0.15;
-            observeOnce(element, function () {
-                initFadeItem(element, delay);
-            }, "320px 0px");
+            splitTitleLines.forEach(function (splitTextLine) {
+                observeOnce(splitTextLine, initTitleLine, "320px 0px");
             });
+        }
+
+        let heroes = document.querySelectorAll(".hero");
+
+        function initHeroSplit(hero) {
+            const splitTarget = hero.querySelector("._split_text");
+
+            if (!splitTarget) {
+                return;
+            }
+
+            ensureSplitTextReady(function () {
+                if (!pluginAvailable("SplitText")) {
+                    return;
+                }
+
+                let split = new SplitText(splitTarget, { type: "chars, words" }),
+                    tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: hero,
+                            start: "top bottom",
+                            toggleActions: "play none none reverse",
+                            onEnter: function () {
+                                tl.timeScale(2.3);
+                            },
+                            onLeaveBack: function () {
+                                tl.timeScale(2.3).reverse();
+                            }
+                        }
+                    });
+                tl.to(hero.querySelector(".sup_hero"), { opacity: 1, x: -50, ease: "back" })
+                    .from(split.chars, {
+                        opacity: 0,
+                        y: 50,
+                        rotation: 1,
+                        duration: 2,
+                        ease: "back",
+                        stagger: 0.05
+                    });
+            });
+        }
+
+        heroes.forEach(function (hero) {
+            observeOnce(hero, initHeroSplit, "320px 0px");
         });
+
+        if ($(".fade-wrapper").length > 0) {
+            $(".fade-wrapper").each(function () {
+                var section = $(this);
+                var fadeItems = section.find(".fade-top");
+
+                function initFadeItem(element, delay) {
+                    gsap.set(element, {
+                        opacity: 0,
+                        y: 100
+                    });
+
+                    ScrollTrigger.create({
+                        trigger: element,
+                        start: "top 100%",
+                        end: "bottom 60%",
+                        toggleActions: "play none none reverse",
+                        scrub: 0.5,
+                        onEnter: function () {
+                            gsap.to(element, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1,
+                                delay: delay
+                            });
+                        },
+                        once: true
+                    });
+                }
+
+                fadeItems.each(function (index, element) {
+                    var delay = index * 0.15;
+                    observeOnce(element, function () {
+                        initFadeItem(element, delay);
+                    }, "320px 0px");
+                });
+            });
+        }
     }
+
+    function initGsapPinAnimations() {
+        if (!pluginAvailable("gsap") || !pluginAvailable("ScrollTrigger")) {
+            return;
+        }
+
+        var device_width = window.screen.width;
+        var pinElement = document.querySelector(".pin-element");
+
+        if (pinElement && device_width > 1199) {
+            gsap.to(".pin-element", {
+                scrollTrigger: {
+                    trigger: ".pin-area",
+                    pin: ".pin-element",
+                    start: "top top",
+                    end: "bottom 60%",
+                    pinSpacing: false
+                }
+            });
+        }
+
+        var pinElement2 = document.querySelector(".pin-element_2");
+
+        if (pinElement2 && device_width > 1199) {
+            gsap.to(".pin-element_2", {
+                scrollTrigger: {
+                    trigger: ".pin-area-2",
+                    pin: ".pin-element_2",
+                    start: "top top",
+                    end: "bottom botttom",
+                    pinSpacing: false
+                }
+            });
+        }
+
+        var latesUpdateItems = document.querySelectorAll(".lates-update__item");
+
+        if (device_width > 1199) {
+            latesUpdateItems.forEach(function (gallery) {
+                gsap.to(gallery, {
+                    scrollTrigger: {
+                        trigger: gallery,
+                        pin: gallery,
+                        pinSpacing: false,
+                        start: "top 80px",
+                        delay: 1
+                    }
+                });
+            });
+        }
+    }
+
+    function initGsapBootstrap() {
+        if (!pluginAvailable("gsap") || !pluginAvailable("ScrollTrigger")) {
+            return;
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.config({
+            nullTargetWarn: false
+        });
+
+        function runGsapAnimations() {
+            initGsapContentAnimations();
+            initGsapPinAnimations();
+        }
+
+        if (usesScrollSmootherLayout()) {
+            loadInstitutionalScript("plugins/ScrollSmoother.js")
+                .then(function () {
+                    if (pluginAvailable("ScrollSmoother")) {
+                        gsap.registerPlugin(ScrollSmoother);
+                        ScrollSmoother.create({
+                            smooth: 2,
+                            effects: true,
+                            smoothTouch: false,
+                            normalizeScroll: false,
+                            ignoreMobileResize: true,
+                            onUpdate: schedulePendingViewportInitFlush,
+                            onStop: flushPendingViewportInits
+                        });
+                        bindViewportInitListeners();
+                        flushPendingViewportInits();
+                    }
+                    runGsapAnimations();
+                })
+                .catch(runGsapAnimations);
+            return;
+        }
+
+        runGsapAnimations();
+    }
+
+    function scheduleGsapBootstrap() {
+        var startGsap = function () {
+            initGsapBootstrap();
+        };
+
+        if (typeof requestIdleCallback === "function") {
+            requestIdleCallback(startGsap, { timeout: 2500 });
+            return;
+        }
+
+        window.setTimeout(startGsap, 200);
+    }
+
+    window.addEventListener("load", scheduleGsapBootstrap);
 
     //GSAP END
     
@@ -1828,37 +1987,6 @@
         }
     });
 
-    // Register GSAP plugins
-    var device_width = window.screen.width;
-
-    // Pin Active
-    var pin_fixed = document.querySelector('.pin-element');
-    if (pin_fixed && device_width > 1199) {
-
-        gsap.to(".pin-element", {
-            scrollTrigger: {
-                trigger: ".pin-area",
-                pin: ".pin-element",
-                start: "top top",
-                end: "bottom 60%",
-                pinSpacing: false,
-            }
-        });
-    }
-
-    var pin_fixed = document.querySelector('.pin-element_2');
-    if (pin_fixed && device_width > 1199) {
-
-        gsap.to(".pin-element_2", {
-            scrollTrigger: {
-                trigger: ".pin-area-2",
-                pin: ".pin-element_2",
-                start: "top top",
-                end: "bottom botttom",
-                pinSpacing: false,
-            }
-        });
-    }
     // seken testimonial-8__carousel
     var swiperProject1 = createSwiper(".testimonial-8__slider", {
         slidesPerView: 2,
@@ -1915,23 +2043,6 @@
             },
         },
     });
-    var lates_update__item = document.querySelectorAll(".lates-update__item");
-    var counter = 0
-
-    if (device_width > 1199) {
-        lates_update__item.forEach((gallery) => {
-            gsap.to(gallery, {
-                scrollTrigger: {
-                    trigger: gallery,
-                    pin: gallery,
-                    pinSpacing: false,
-                    start: "top 80px",
-                    delay: 1,
-                },
-            });
-        });
-    }
-
     var swiper1 = createSwiper(".about-us-7__slider-1", {
         direction: "vertical",
         slidesPerView: "auto",
@@ -2087,5 +2198,43 @@
         },
     });
 
+
+    var liviaWidgetLoaded = false;
+
+    function initLiviaWidget() {
+        if (liviaWidgetLoaded) {
+            return;
+        }
+
+        var config = document.getElementById("livia-config");
+        if (!config) {
+            return;
+        }
+
+        var widgetSrc = config.getAttribute("data-widget-src");
+        if (!widgetSrc) {
+            return;
+        }
+
+        liviaWidgetLoaded = true;
+
+        var script = document.createElement("script");
+        script.src = widgetSrc;
+        script.defer = true;
+        script.setAttribute("data-tenant", config.getAttribute("data-tenant") || "");
+        script.setAttribute("data-api-url", config.getAttribute("data-api-url") || "");
+        document.body.appendChild(script);
+    }
+
+    function scheduleLiviaWidget() {
+        if (typeof requestIdleCallback === "function") {
+            requestIdleCallback(initLiviaWidget, { timeout: 4000 });
+            return;
+        }
+
+        window.setTimeout(initLiviaWidget, 500);
+    }
+
+    window.addEventListener("load", scheduleLiviaWidget);
 
 })(jQuery);
