@@ -1,6 +1,20 @@
 {% extends 'institutional/layouts/with_swiper_wow.html' %}
 {% load frontend_assets institutional_media static %}
 
+{% block main_css %}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/home-critical.css' %}?v=20260901-homecritical1"
+    >
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/main.css' %}"
+        media="print"
+        onload="this.media='all'"
+    >
+    <noscript><link rel="stylesheet" href="{% static 'institutional/css/main.css' %}"></noscript>
+{% endblock %}
+
 {% block vendor_js %}
     {% vendor_scripts 'wow' %}
 {% endblock %}

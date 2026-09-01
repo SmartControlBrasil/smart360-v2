@@ -3,6 +3,19 @@
 <html class="no-js" lang="pt-BR">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-9XGJDZ0N87');
+    </script>
+    
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
@@ -45,18 +58,7 @@
     <script type="application/ld+json">{{ seo_structured_data }}</script>
     {% endif %}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-        gtag('config', 'G-9XGJDZ0N87');
-    </script>
+    
 
     <!-- Favicon -->
     <link
@@ -82,10 +84,12 @@
     {% block vendor_css %}{% endblock %}
 
     <!-- Main CSS -->
+    {% block main_css %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/main.css' %}"
     >
+    {% endblock %}
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/seo.css' %}"
