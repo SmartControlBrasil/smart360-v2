@@ -100,18 +100,27 @@
 
   var scrollTriggerRefreshTimeout = null;
   var scrollTriggerRefreshRaf = null;
+  var scrollTriggerRefreshPending = false;
+  var scrollTriggerRefreshScrollEndBound = false;
   var SCROLL_TRIGGER_REFRESH_DELAY_MS = 100;
 
-  function scheduleScrollTriggerRefresh() {
-    if (!pluginAvailable("ScrollTrigger")) {
+  function bindScrollTriggerRefreshOnScrollEnd() {
+    if (scrollTriggerRefreshScrollEndBound || !pluginAvailable("ScrollTrigger")) {
       return;
     }
 
-    if (viewportInitFlushInProgress) {
-      viewportInitRefreshRequested = true;
-      return;
-    }
+    scrollTriggerRefreshScrollEndBound = true;
+    ScrollTrigger.addEventListener("scrollEnd", flushScheduledScrollTriggerRefresh);
+  }
 
+  function isScrollSmootherScrolling() {
+    return usesScrollSmootherLayout()
+      && pluginAvailable("ScrollTrigger")
+      && ScrollTrigger.isScrolling
+      && ScrollTrigger.isScrolling();
+  }
+
+  function runDebouncedScrollTriggerRefresh() {
     if (scrollTriggerRefreshTimeout != null) {
       clearTimeout(scrollTriggerRefreshTimeout);
       scrollTriggerRefreshTimeout = null;
@@ -126,11 +135,44 @@
       scrollTriggerRefreshTimeout = null;
       scrollTriggerRefreshRaf = requestAnimationFrame(function () {
         scrollTriggerRefreshRaf = null;
+        scrollTriggerRefreshPending = false;
         if (pluginAvailable("ScrollTrigger")) {
           ScrollTrigger.refresh();
         }
       });
     }, SCROLL_TRIGGER_REFRESH_DELAY_MS);
+  }
+
+  function flushScheduledScrollTriggerRefresh() {
+    if (!scrollTriggerRefreshPending) {
+      return;
+    }
+
+    if (isScrollSmootherScrolling()) {
+      return;
+    }
+
+    runDebouncedScrollTriggerRefresh();
+  }
+
+  function scheduleScrollTriggerRefresh() {
+    if (!pluginAvailable("ScrollTrigger")) {
+      return;
+    }
+
+    if (viewportInitFlushInProgress) {
+      viewportInitRefreshRequested = true;
+      return;
+    }
+
+    scrollTriggerRefreshPending = true;
+    bindScrollTriggerRefreshOnScrollEnd();
+
+    if (isScrollSmootherScrolling()) {
+      return;
+    }
+
+    runDebouncedScrollTriggerRefresh();
   }
 
   function parseRootMarginPx(rootMargin, fallback) {
@@ -210,6 +252,10 @@
 
   function schedulePendingViewportInitFlush() {
     if (viewportInitFlushScheduled) {
+      return;
+    }
+
+    if (isScrollSmootherScrolling()) {
       return;
     }
 
@@ -640,7 +686,6 @@
                 },
                 once: true,
             });
-            scheduleScrollTriggerRefresh();
             }
 
             fadeItems.each(function (index, element) {
