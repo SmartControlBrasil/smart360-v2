@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart360 Prospect</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="popup">
+    <header class="header">
+      <h1>SMART360 PROSPECT</h1>
+      <span id="status-dot" class="dot dot-idle"></span>
+    </header>
+
+    <section class="fields">
+      <label for="base-url">Smart360</label>
+      <input id="base-url" type="url" placeholder="http://127.0.0.1:8000">
+
+      <label for="search-run-id">SearchRun</label>
+      <input id="search-run-id" type="number" min="1" placeholder="55">
+
+      <label for="query">Busca</label>
+      <input id="query" type="text" placeholder="hospital Campinas SP">
+    </section>
+
+    <section class="stats" aria-live="polite">
+      <div><span>Status</span><strong id="status">IDLE</strong></div>
+      <div><span>Encontrados</span><strong id="found-count">0</strong></div>
+      <div><span>Enviados</span><strong id="sent-count">0</strong></div>
+      <div><span>Pendentes</span><strong id="pending-count">0</strong></div>
+      <div><span>Duplicados</span><strong id="duplicate-count">0</strong></div>
+      <div><span>Erros</span><strong id="error-count">0</strong></div>
+    </section>
+
+    <section class="activity">
+      <span>Última atividade</span>
+      <p id="last-activity">Pronto para iniciar.</p>
+      <p id="last-error" class="error" hidden></p>
+    </section>
+
+    <section class="actions">
+      <button id="start" type="button">Iniciar</button>
+      <button id="pause" type="button">Pausar</button>
+      <button id="resume" type="button">Retomar</button>
+      <button id="complete" type="button">Finalizar</button>
+      <button id="cancel" type="button">Cancelar</button>
+    </section>
+  </main>
+  <script src="../lib/smart360_api.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Smart360 Prospect",
+  "description": "Coleta resultados visíveis do Google Maps e envia lotes para o Smart360 Sales Intelligence.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "Smart360 Prospect",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "cookies"
+  ],
+  "host_permissions": [
+    "https://www.google.com/maps/*",
+    "https://www.google.com.br/maps/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*",
+    "https://smartcontrolbrasil.com.br/*",
+    "https://www.smartcontrolbrasil.com.br/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/maps/*",
+        "https://www.google.com.br/maps/*"
+      ],
+      "js": ["content/google_maps.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
