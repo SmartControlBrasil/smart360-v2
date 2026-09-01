@@ -186,6 +186,7 @@ class SearchResult(TimeStampedModel):
         indexes = [
             models.Index(fields=["search_run", "processing_status"], name="si_result_run_status_idx"),
             models.Index(fields=["customer"], name="si_result_customer_idx"),
+            models.Index(fields=["created_at", "id"], name="si_result_created_idx"),
         ]
         constraints = [
             models.UniqueConstraint(

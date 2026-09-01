@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
@@ -24,7 +25,11 @@ from src.sales_intelligence.services import create_customer_from_search_result
 from src.sales_intelligence.services import create_search_run
 from src.sales_intelligence.services import finish_search_run
 from src.sales_intelligence.services import find_customer_matches
+from src.sales_intelligence.services import find_customer_matches_bulk
 from src.sales_intelligence.services import link_search_result_to_customer
+
+
+REVIEW_PAGE_SIZE = 25
 
 
 def _user_can_manage_sales_intelligence(user):
@@ -234,16 +239,28 @@ def search_result_review_list(request):
     if unconsolidated == "1":
         results = results.filter(customer__isnull=True)
 
+    paginator = Paginator(results, REVIEW_PAGE_SIZE)
+    page_obj = paginator.get_page(request.GET.get("page"))
+    page_results = list(page_obj.object_list)
+    unconsolidated_results = [result for result in page_results if result.customer_id is None]
+    match_map = find_customer_matches_bulk(unconsolidated_results)
+
     rows = []
-    for result in results[:100]:
-        match_result = find_customer_matches(result) if result.customer_id is None else None
+    for result in page_results:
+        match_result = match_map.get(result.pk)
         rows.append({"result": result, "match_status": match_result.status if match_result else "CONSOLIDATED"})
+
+    filter_params = request.GET.copy()
+    filter_params.pop("page", None)
+    filter_querystring = filter_params.urlencode()
 
     return render(
         request,
         "backoffice/sales_intelligence/review_list.html",
         {
             "rows": rows,
+            "page_obj": page_obj,
+            "filter_querystring": filter_querystring,
             "campaigns": ProspectingCampaign.objects.order_by("name"),
             "search_runs": SearchRun.objects.select_related("campaign").order_by("-created_at")[:100],
             "statuses": SearchResult.ProcessingStatus.choices,

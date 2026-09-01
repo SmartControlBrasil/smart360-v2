@@ -4,6 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 
+from src.customers.normalization import apply_customer_match_normalization
+
 
 def only_digits(value):
     return re.sub(r"\D", "", value or "")
@@ -32,6 +34,9 @@ class Customer(models.Model):
     phone = models.CharField(max_length=30, blank=True)
     whatsapp = models.CharField(max_length=30, blank=True)
     website = models.URLField(blank=True)
+    normalized_phone = models.CharField(max_length=32, blank=True, default="", db_index=True, editable=False)
+    normalized_whatsapp = models.CharField(max_length=32, blank=True, default="", db_index=True, editable=False)
+    normalized_domain = models.CharField(max_length=255, blank=True, default="", db_index=True, editable=False)
     postal_code = models.CharField(max_length=12, blank=True)
     address_line = models.CharField(max_length=180, blank=True)
     address_number = models.CharField(max_length=30, blank=True)
@@ -97,6 +102,17 @@ class Customer(models.Model):
             self.document = None
         if self.state:
             self.state = self.state.upper()
+        apply_customer_match_normalization(self)
+        update_fields = kwargs.get("update_fields")
+        if update_fields is not None:
+            update_fields = set(update_fields)
+            if "phone" in update_fields:
+                update_fields.add("normalized_phone")
+            if "whatsapp" in update_fields:
+                update_fields.add("normalized_whatsapp")
+            if "website" in update_fields:
+                update_fields.add("normalized_domain")
+            kwargs["update_fields"] = update_fields
         super().save(*args, **kwargs)
 
 

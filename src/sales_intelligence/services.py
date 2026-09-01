@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django.db import IntegrityError
 from django.db import transaction
+from django.db.models import Q
 from django.utils import timezone
 
 from src.backoffice.audit.services import AuditService
@@ -15,6 +16,8 @@ from src.backoffice.models import AuditLog
 from src.backoffice.services.audit_helpers import model_snapshot
 from src.customers.forms import CustomerForm
 from src.customers.models import Customer
+from src.customers.normalization import normalize_domain_for_match
+from src.customers.normalization import normalize_phone_for_match
 from src.customers.services import CUSTOMER_AUDIT_FIELDS
 from src.customers.services import create_customer
 from src.customers.services import sync_default_customer_relationship
@@ -154,13 +157,6 @@ def normalize_spaces(value):
     return re.sub(r"\s+", " ", (value or "").strip())
 
 
-def normalize_phone_for_match(value):
-    digits = re.sub(r"\D", "", value or "")
-    if digits.startswith("55") and len(digits) in {12, 13}:
-        digits = digits[2:]
-    return digits
-
-
 def normalize_url_for_match(value):
     value = (value or "").strip()
     if not value:
@@ -181,22 +177,21 @@ def normalize_name_for_match(value):
     return normalize_spaces(value).casefold()
 
 
-def normalize_domain_for_match(value):
-    value = (value or "").strip()
-    if not value:
-        return ""
-    if "://" not in value:
-        value = f"https://{value}"
-    try:
-        parsed = urlsplit(value)
-    except ValueError:
-        return ""
-    domain = (parsed.netloc or "").split("@")[-1].lower()
-    if ":" in domain:
-        domain = domain.split(":", 1)[0]
-    if domain.startswith("www."):
-        domain = domain[4:]
-    return domain
+CUSTOMER_MATCH_ONLY_FIELDS = (
+    "id",
+    "legal_name",
+    "trade_name",
+    "document",
+    "phone",
+    "whatsapp",
+    "website",
+    "city",
+    "state",
+    "status",
+    "normalized_phone",
+    "normalized_whatsapp",
+    "normalized_domain",
+)
 
 
 def _customer_names_for_match(customer):
@@ -205,46 +200,105 @@ def _customer_names_for_match(customer):
 
 
 def _customer_phones_for_match(customer):
-    phones = {normalize_phone_for_match(customer.phone), normalize_phone_for_match(customer.whatsapp)}
-    return {phone for phone in phones if phone}
+    persisted = {
+        getattr(customer, "normalized_phone", "") or "",
+        getattr(customer, "normalized_whatsapp", "") or "",
+    }
+    phones = {phone for phone in persisted if phone}
+    if phones:
+        return phones
+    return {
+        phone
+        for phone in (
+            normalize_phone_for_match(customer.phone),
+            normalize_phone_for_match(customer.whatsapp),
+        )
+        if phone
+    }
 
 
-def find_customer_matches(search_result):
-    result_name = normalize_name_for_match(search_result.name)
-    result_phone = normalize_phone_for_match(search_result.phone)
-    result_domain = normalize_domain_for_match(search_result.website)
-    candidate_map = {}
+def _customer_domain_for_match(customer):
+    domain = getattr(customer, "normalized_domain", "") or ""
+    return domain or normalize_domain_for_match(customer.website)
 
-    if not result_phone and not result_domain:
-        return CustomerMatchResult(MatchStatus.NO_MATCH, tuple())
 
-    queryset = Customer.objects.all().only(
-        "id", "legal_name", "trade_name", "document", "phone", "whatsapp", "website", "city", "state", "status"
-    )
-    for customer in queryset.order_by("id"):
-        reasons = []
-        customer_phones = _customer_phones_for_match(customer)
-        customer_domain = normalize_domain_for_match(customer.website)
-        names_match = bool(result_name and result_name in _customer_names_for_match(customer))
-        phone_match = bool(result_phone and result_phone in customer_phones)
-        domain_match = bool(result_domain and result_domain == customer_domain)
-        if phone_match:
-            reasons.append(MatchReason.PHONE)
-        if domain_match:
-            reasons.append(MatchReason.WEBSITE_DOMAIN)
-        if names_match and phone_match:
-            reasons.append(MatchReason.NAME_PHONE)
-        if names_match and domain_match:
-            reasons.append(MatchReason.NAME_WEBSITE_DOMAIN)
-        if reasons:
-            candidate_map[customer.pk] = CustomerMatchCandidate(customer=customer, reasons=tuple(str(reason) for reason in reasons))
+def _candidate_reasons(search_name, search_phone, search_domain, customer):
+    reasons = []
+    names_match = bool(search_name and search_name in _customer_names_for_match(customer))
+    phone_match = bool(search_phone and search_phone in _customer_phones_for_match(customer))
+    domain_match = bool(search_domain and search_domain == _customer_domain_for_match(customer))
+    if phone_match:
+        reasons.append(MatchReason.PHONE)
+    if domain_match:
+        reasons.append(MatchReason.WEBSITE_DOMAIN)
+    if names_match and phone_match:
+        reasons.append(MatchReason.NAME_PHONE)
+    if names_match and domain_match:
+        reasons.append(MatchReason.NAME_WEBSITE_DOMAIN)
+    return tuple(str(reason) for reason in reasons)
 
+
+def _match_result_from_candidates(candidate_map):
     candidates = tuple(candidate_map.values())
     if len(candidates) == 1:
         return CustomerMatchResult(MatchStatus.EXACT_MATCH, candidates)
     if len(candidates) > 1:
         return CustomerMatchResult(MatchStatus.AMBIGUOUS, candidates)
     return CustomerMatchResult(MatchStatus.NO_MATCH, tuple())
+
+
+def find_customer_matches_bulk(search_results):
+    prepared = []
+    phones = set()
+    domains = set()
+    for result in search_results:
+        phone = normalize_phone_for_match(result.phone)
+        domain = normalize_domain_for_match(result.website)
+        name = normalize_name_for_match(result.name)
+        prepared.append((result, name, phone, domain))
+        if phone:
+            phones.add(phone)
+        if domain:
+            domains.add(domain)
+
+    customers_by_phone = {}
+    customers_by_domain = {}
+    lookup = Q()
+    if phones:
+        lookup |= Q(normalized_phone__in=phones) | Q(normalized_whatsapp__in=phones)
+    if domains:
+        lookup |= Q(normalized_domain__in=domains)
+
+    if lookup:
+        queryset = Customer.objects.filter(lookup).only(*CUSTOMER_MATCH_ONLY_FIELDS).order_by("id")
+        for customer in queryset:
+            for phone in _customer_phones_for_match(customer):
+                customers_by_phone.setdefault(phone, []).append(customer)
+            domain = _customer_domain_for_match(customer)
+            if domain:
+                customers_by_domain.setdefault(domain, []).append(customer)
+
+    matches = {}
+    for result, name, phone, domain in prepared:
+        if not phone and not domain:
+            matches[result.pk] = CustomerMatchResult(MatchStatus.NO_MATCH, tuple())
+            continue
+        candidate_map = {}
+        related = []
+        if phone:
+            related.extend(customers_by_phone.get(phone, ()))
+        if domain:
+            related.extend(customers_by_domain.get(domain, ()))
+        for customer in related:
+            reasons = _candidate_reasons(name, phone, domain, customer)
+            if reasons:
+                candidate_map[customer.pk] = CustomerMatchCandidate(customer=customer, reasons=reasons)
+        matches[result.pk] = _match_result_from_candidates(candidate_map)
+    return matches
+
+
+def find_customer_matches(search_result):
+    return find_customer_matches_bulk([search_result])[search_result.pk]
 
 
 def _ensure_campaign_prospect(*, campaign, customer, origin_search_result=None, actor=None, request=None):

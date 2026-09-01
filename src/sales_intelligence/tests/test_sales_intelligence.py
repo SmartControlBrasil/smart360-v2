@@ -26,10 +26,12 @@ from src.sales_intelligence.services import ConsolidationConflict
 from src.sales_intelligence.services import create_customer_from_search_result
 from src.sales_intelligence.services import create_search_result
 from src.sales_intelligence.services import find_customer_matches
+from src.sales_intelligence.services import find_customer_matches_bulk
 from src.sales_intelligence.services import link_search_result_to_customer
 from src.sales_intelligence.services import create_search_run
 from src.sales_intelligence.services import finish_search_run
 from src.sales_intelligence.services import start_search_run
+from src.sales_intelligence.backoffice_views import REVIEW_PAGE_SIZE
 
 
 class SalesIntelligenceTestCase(TestCase):
@@ -605,6 +607,76 @@ class SalesIntelligenceConsolidationTests(SalesIntelligenceTestCase):
         self.assertEqual(match.status, "AMBIGUOUS")
         self.assertEqual(len(match.candidates), 2)
 
+    def test_unique_phone_and_domain_pointing_to_same_customer_is_exact(self):
+        result = self.search_result()
+        customer = self.customer()
+
+        match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "EXACT_MATCH")
+        self.assertEqual(match.candidates[0].customer, customer)
+        self.assertIn("PHONE", match.candidates[0].reasons)
+        self.assertIn("WEBSITE_DOMAIN", match.candidates[0].reasons)
+
+    def test_phone_and_domain_pointing_to_different_customers_are_ambiguous(self):
+        result = self.search_result()
+        self.customer(legal_name="Por telefone", website="")
+        self.customer(
+            legal_name="Por dominio",
+            trade_name="Por dominio",
+            phone="",
+            website="https://hospitalabc.com.br",
+        )
+
+        match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "AMBIGUOUS")
+        self.assertEqual(len(match.candidates), 2)
+
+    def test_duplicate_domain_is_ambiguous(self):
+        result = self.search_result(phone="")
+        self.customer(legal_name="Unidade 1", phone="", website="https://hospitalabc.com.br")
+        self.customer(legal_name="Unidade 2", trade_name="Unidade 2", phone="", website="http://www.hospitalabc.com.br/x")
+
+        match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "AMBIGUOUS")
+        self.assertEqual(len(match.candidates), 2)
+
+    def test_no_phone_or_domain_is_no_match(self):
+        result = self.search_result(phone="", website="")
+        self.customer()
+
+        match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "NO_MATCH")
+
+    def test_identical_name_with_different_identifiers_does_not_match(self):
+        result = self.search_result(phone="11911112222", website="https://outra.com.br")
+        self.customer()
+
+        match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "NO_MATCH")
+
+    def test_whatsapp_can_match_when_phone_field_is_empty(self):
+        result = self.search_result(website="")
+        customer = self.customer(phone="", website="", whatsapp="(19) 3333-4444")
+
+        match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "EXACT_MATCH")
+        self.assertEqual(match.candidates[0].customer, customer)
+        self.assertIn("PHONE", match.candidates[0].reasons)
+
+    def test_create_customer_from_result_persists_normalized_fields(self):
+        result = self.search_result()
+
+        customer, _, _ = create_customer_from_search_result(search_result=result)
+
+        self.assertEqual(customer.normalized_phone, "1933334444")
+        self.assertEqual(customer.normalized_domain, "hospitalabc.com.br")
+
     def test_linking_existing_customer_creates_campaign_prospect(self):
         result = self.search_result()
         customer = self.customer()
@@ -702,6 +774,113 @@ class SalesIntelligenceConsolidationTests(SalesIntelligenceTestCase):
 
         self.assertTrue(AuditLog.objects.filter(module="sales_intelligence.search_results", metadata__event="customer_linked").exists())
         self.assertTrue(AuditLog.objects.filter(module="sales_intelligence.campaign_prospects", object_type="CampaignProspect").exists())
+
+
+class SalesIntelligenceBulkMatchTests(SalesIntelligenceTestCase):
+    def _search_run(self):
+        return create_search_run(campaign=self.campaign(), query="hospital", start=True)
+
+    def test_bulk_match_covers_mixed_page_and_does_not_scan_per_result(self):
+        search_run = self._search_run()
+        unique_phone_customer = Customer.objects.create(
+            legal_name="Unico Telefone",
+            phone="11910000001",
+            website="",
+        )
+        unique_domain_customer = Customer.objects.create(
+            legal_name="Unico Dominio",
+            phone="",
+            website="https://www.clinicaunica.com.br/sobre",
+        )
+        shared_phone_a = Customer.objects.create(legal_name="Compartilhado A", phone="11920000000", website="")
+        shared_phone_b = Customer.objects.create(legal_name="Compartilhado B", phone="11920000000", website="")
+        conflict_phone = Customer.objects.create(legal_name="Conflito Phone", phone="11930000000", website="")
+        conflict_domain = Customer.objects.create(
+            legal_name="Conflito Domain",
+            phone="",
+            website="https://conflito.com.br",
+        )
+        name_only_customer = Customer.objects.create(
+            legal_name="Hospital Homônimo",
+            phone="11940000000",
+            website="https://homonimo.com.br",
+        )
+        for index in range(100):
+            Customer.objects.create(
+                legal_name=f"Ruido {index}",
+                phone=f"1188{index:07d}",
+                website=f"https://ruido{index}.example.com",
+            )
+
+        results = [
+            SearchResult.objects.create(search_run=search_run, name="Lead phone", phone="(11) 91000-0001", website=""),
+            SearchResult.objects.create(
+                search_run=search_run,
+                name="Lead domain",
+                phone="",
+                website="http://clinicaunica.com.br/contato?utm=1",
+            ),
+            SearchResult.objects.create(search_run=search_run, name="Lead duplicate phone", phone="11920000000", website=""),
+            SearchResult.objects.create(
+                search_run=search_run,
+                name="Lead conflict",
+                phone="11930000000",
+                website="https://www.conflito.com.br/x",
+            ),
+            SearchResult.objects.create(search_run=search_run, name="Hospital Homônimo", phone="", website=""),
+            SearchResult.objects.create(
+                search_run=search_run,
+                name="Hospital Homônimo",
+                phone="11950000000",
+                website="https://outrohomonimo.com.br",
+            ),
+        ]
+        for index in range(44):
+            results.append(
+                SearchResult.objects.create(
+                    search_run=search_run,
+                    name=f"Lead extra {index}",
+                    phone=f"1177{index:07d}",
+                    website="",
+                )
+            )
+
+        self.assertGreaterEqual(Customer.objects.count(), 100)
+        self.assertGreaterEqual(len(results), 50)
+
+        with self.assertNumQueries(1):
+            matches = find_customer_matches_bulk(results)
+
+        self.assertEqual(len(matches), len(results))
+        self.assertEqual(matches[results[0].pk].status, "EXACT_MATCH")
+        self.assertEqual(matches[results[0].pk].candidates[0].customer, unique_phone_customer)
+        self.assertEqual(matches[results[1].pk].status, "EXACT_MATCH")
+        self.assertEqual(matches[results[1].pk].candidates[0].customer, unique_domain_customer)
+        self.assertEqual(matches[results[2].pk].status, "AMBIGUOUS")
+        self.assertEqual(
+            {candidate.customer for candidate in matches[results[2].pk].candidates},
+            {shared_phone_a, shared_phone_b},
+        )
+        self.assertEqual(matches[results[3].pk].status, "AMBIGUOUS")
+        self.assertEqual(
+            {candidate.customer for candidate in matches[results[3].pk].candidates},
+            {conflict_phone, conflict_domain},
+        )
+        self.assertEqual(matches[results[4].pk].status, "NO_MATCH")
+        self.assertEqual(matches[results[5].pk].status, "NO_MATCH")
+        self.assertEqual(matches[results[6].pk].status, "NO_MATCH")
+        self.assertNotIn(name_only_customer, [candidate.customer for match in matches.values() for candidate in match.candidates])
+
+    def test_find_customer_matches_uses_bulk_indexed_path(self):
+        search_run = self._search_run()
+        result = SearchResult.objects.create(search_run=search_run, name="Hospital ABC", phone="1933334444", website="")
+        customer = Customer.objects.create(legal_name="Hospital ABC", phone="(19) 3333-4444", website="")
+
+        with self.assertNumQueries(1):
+            match = find_customer_matches(result)
+
+        self.assertEqual(match.status, "EXACT_MATCH")
+        self.assertEqual(match.candidates[0].customer, customer)
 
 
 class SalesIntelligenceConsolidationApiTests(SalesIntelligenceTestCase):
@@ -824,6 +1003,35 @@ class SalesIntelligenceConsolidationApiTests(SalesIntelligenceTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, result.name)
         self.assertContains(response, "Abrir")
+
+    def test_review_list_paginates_and_preserves_filters(self):
+        self.login()
+        search_run = self.running_search_run()
+        for index in range(REVIEW_PAGE_SIZE + 3):
+            SearchResult.objects.create(
+                search_run=search_run,
+                name=f"Lead paginado {index:02d}",
+                city="Campinas",
+                state="SP",
+            )
+
+        page_one = self.client.get(
+            reverse("backoffice:sales_intelligence_review"),
+            {"unconsolidated": "1", "city": "Campinas"},
+        )
+        page_two = self.client.get(
+            reverse("backoffice:sales_intelligence_review"),
+            {"unconsolidated": "1", "city": "Campinas", "page": "2"},
+        )
+
+        self.assertEqual(page_one.status_code, 200)
+        self.assertEqual(page_two.status_code, 200)
+        self.assertEqual(len(page_one.context["rows"]), REVIEW_PAGE_SIZE)
+        self.assertEqual(len(page_two.context["rows"]), 3)
+        self.assertContains(page_one, "unconsolidated=1")
+        self.assertContains(page_one, "city=Campinas")
+        self.assertContains(page_one, "page=2")
+        self.assertContains(page_two, "Lead paginado")
 
     def test_review_detail_page_renders_candidate_and_create_action(self):
         self.login()
