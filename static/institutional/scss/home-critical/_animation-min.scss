@@ -1,0 +1,55 @@
+@use '../utils' as *;
+
+// Minimal motion used above the fold on HOME only.
+@keyframes fadeInDown {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -100%, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes qode-draw {
+	0%,
+	100% {
+		-webkit-clip-path: inset(-2px 0);
+		clip-path: inset(-2px 0);
+	}
+	42% {
+		-webkit-clip-path: inset(-2px 0 -2px 100%);
+		clip-path: inset(-2px 0 -2px 100%);
+	}
+	43% {
+		-webkit-clip-path: inset(-2px 100% -2px 0);
+		clip-path: inset(-2px 100% -2px 0);
+	}
+}
+
+@keyframes leftRight {
+	0% {
+		@include transform(translateX(0px));
+	}
+	100% {
+		@include transform(translateX(-10px));
+	}
+}
+
+.upDown {
+	animation: upDown 1.3s infinite alternate;
+}
+
+@keyframes upDown {
+	0% {
+		@include transform(translateY(0px));
+	}
+	100% {
+		@include transform(translateY(-15px));
+	}
+}
+
+.leftRight {
+	animation: leftRight 1.3s infinite alternate;
+}

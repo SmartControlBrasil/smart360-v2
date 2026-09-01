@@ -1,0 +1,176 @@
+@use '../utils' as *;
+
+// Desktop menu + dropdowns for HOME header. Mega menus and alternate headers stay in main.css.
+.main-menu {
+	& ul {
+		margin-bottom: 0;
+
+		& li {
+			position: relative;
+			list-style: none;
+			display: inline-block;
+			margin-inline-end: 26px;
+
+			@media #{$lg} {
+				margin-inline-end: 20px;
+			}
+
+			@media #{$xl} {
+				margin-inline-end: 30px;
+			}
+
+			&.active {
+				> a {
+					color: var(--rr-theme-primary2) !important;
+				}
+			}
+
+			> a {
+				display: inline-block;
+				color: var(--rr-heading-primary);
+				font-family: var(--rr-ff-body);
+				font-weight: var(--rr-fw-medium);
+				padding: 35px 0;
+				font-size: 14px;
+				line-height: 10px;
+				text-transform: capitalize;
+
+				@media #{$xxl} {
+					padding: 32.8px 0;
+				}
+
+				@media #{$lg, $xl} {
+					padding: 30px 0;
+					font-size: 14px;
+				}
+			}
+
+			&.has-dropdown {
+				> a {
+					position: relative;
+					padding-right: 13px !important;
+
+					&::after {
+						background-image: none;
+						font-family: inherit;
+						font-size: 12px;
+						font-weight: var(--rr-fw-bold);
+						content: "";
+						position: absolute;
+						top: 45%;
+						right: 0;
+						transform: translateY(1px);
+						transition: all 0.3s ease-in-out;
+						cursor: pointer;
+					}
+				}
+			}
+
+			& .submenu {
+				position: absolute;
+				top: 110%;
+				inset-inline-start: 0;
+				min-width: 280px;
+				background: var(--rr-common-white);
+				z-index: 99;
+				visibility: hidden;
+				opacity: 0;
+				transform-origin: top center;
+				padding: 35px 0 6px;
+				color: var(--rr-common-white);
+				border: 1px solid var(--rr-border-primary);
+				@extend %rs-transition-3;
+				box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+				& li {
+					display: block;
+					width: 100%;
+					margin: 0;
+					padding: 0;
+					@include transform(translateY(-10px));
+
+					&.has-dropdown {
+						> a {
+							&::after {
+								position: absolute;
+								top: 50%;
+								inset-inline-end: 25px;
+								@include transform(translateY(-50%) rotate(-90deg));
+								color: var(--rr-text-1);
+							}
+						}
+					}
+
+					& a {
+						position: relative;
+						z-index: 11;
+						color: var(--rr-heading-primary);
+						font-size: var(--rr-fs-h6);
+						padding: 0 25px;
+						padding-inline-start: 30px;
+						padding-bottom: 9px;
+						width: 100%;
+						text-transform: capitalize;
+
+						&::before {
+							position: absolute;
+							content: '';
+							left: 28px;
+							top: 47%;
+							@include transform(translateY(-50%));
+							width: 0px;
+							height: 1px;
+							background-color: var(--rr-theme-primary2);
+							@extend %rs-transition-3;
+						}
+					}
+
+					& .submenu {
+						inset-inline-start: 100%;
+						top: 0;
+						visibility: hidden;
+						opacity: 0;
+					}
+
+					&:hover {
+						> a {
+							color: var(--rr-theme-primary2);
+							padding-inline-start: 43px !important;
+
+							&::before {
+								width: 12px;
+							}
+
+							&::after {
+								color: var(--rr-theme-primary);
+							}
+						}
+
+						> .submenu {
+							@include transform(translateY(1));
+							visibility: visible;
+							opacity: 1;
+						}
+					}
+				}
+			}
+
+			&:hover {
+				> a {
+					color: var(--rr-theme-primary2);
+
+					&::after {
+						color: var(--rr-theme-primary2);
+						@include transform(rotate(180deg));
+					}
+				}
+
+				> .submenu {
+					visibility: visible;
+					opacity: 1;
+					top: 100%;
+				}
+			}
+		}
+	}
+}

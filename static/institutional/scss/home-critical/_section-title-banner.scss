@@ -1,0 +1,58 @@
+@use '../utils' as *;
+
+// H1/hero typography only (banner-heading). Full section-title stays in main.css.
+.banner-heading {
+	&__wrapper {
+		&-title {
+			font-family: var(--rr-ff-heading);
+			font-weight: var(--rr-fw-bold);
+			color: var(--rr-common-white);
+			font-size: var(--rr-fs-h1);
+			line-height: var(--rr-lh-h1);
+			font-style: normal;
+			letter-spacing: -0.03em;
+			text-transform: inherit;
+			margin-bottom: 40px;
+			@media #{$lg} {
+				font-size: 60px;
+				line-height: 70px;
+			}
+			@media #{$md} {
+				font-size: 60px;
+				line-height: 70px;
+				br {
+					display: none;
+				}
+			}
+			@media #{$sm} {
+				font-size: 47px;
+				line-height: 58px;
+				margin-bottom: 20px;
+				br {
+					display: none;
+				}
+			}
+			@media #{$xs} {
+				font-size: 37px;
+				line-height: 48px;
+				margin-bottom: 20px;
+				br {
+					display: none;
+				}
+			}
+		}
+		&-dec {
+			font-family: var(--rr-ff-body);
+			font-weight: var(--rr-fw-regular);
+			font-size: var(--rr-fs-body);
+			line-height: var(--rr-lh-body);
+			font-style: normal;
+			color: rgb(255 255 255 / 70%);
+			@media #{$xl, $lg, $md, $sm, $xs} {
+				br {
+					display: none;
+				}
+			}
+		}
+	}
+}
