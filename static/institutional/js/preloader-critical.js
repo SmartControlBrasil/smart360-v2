@@ -5,7 +5,7 @@
     var TRANSITION_MS = 300;
     var FAILSAFE_MS = 4000;
 
-    function closePreloader() {
+    function closePreloader(options) {
         if (CLOSED) {
             return;
         }
@@ -16,7 +16,12 @@
             return;
         }
 
-        preloader.style.transition = "opacity " + TRANSITION_MS + "ms ease";
+        var immediate = options && options.immediate;
+
+        if (!immediate) {
+            preloader.style.transition = "opacity " + TRANSITION_MS + "ms ease";
+        }
+
         preloader.style.opacity = "0";
         preloader.style.visibility = "hidden";
         preloader.style.pointerEvents = "none";
@@ -27,7 +32,7 @@
             if (preloader.parentNode) {
                 preloader.parentNode.removeChild(preloader);
             }
-        }, TRANSITION_MS);
+        }, immediate ? 0 : TRANSITION_MS);
     }
 
     window.smart360ClosePreloader = closePreloader;
@@ -50,11 +55,24 @@
 
     bindControls();
 
-    if (document.readyState !== "complete") {
-        document.addEventListener("DOMContentLoaded", closePreloader, { once: true });
-    } else {
-        closePreloader();
+    function scheduleAutoClose() {
+        if (document.readyState === "interactive" || document.readyState === "complete") {
+            closePreloader({ immediate: true });
+            return;
+        }
+
+        document.addEventListener("readystatechange", function onReadyStateChange() {
+            if (document.readyState !== "interactive") {
+                return;
+            }
+
+            document.removeEventListener("readystatechange", onReadyStateChange);
+            closePreloader({ immediate: true });
+        });
     }
 
-    window.setTimeout(closePreloader, FAILSAFE_MS);
+    scheduleAutoClose();
+    window.setTimeout(function () {
+        closePreloader({ immediate: true });
+    }, FAILSAFE_MS);
 })(window, document);

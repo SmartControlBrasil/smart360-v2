@@ -4584,7 +4584,7 @@ class PreloaderHotfixTests(TestCase):
         critical_js = self.CRITICAL_JS_PATH.read_text(encoding="utf-8")
         self.assertIn("smart360ClosePreloader", critical_js)
         self.assertIn("Escape", critical_js)
-        self.assertIn("DOMContentLoaded", critical_js)
+        self.assertIn("readystatechange", critical_js)
         self.assertIn("4000", critical_js)
         self.assertNotIn("jquery", critical_js.lower())
         self.assertNotIn('"load"', critical_js)
@@ -4650,6 +4650,13 @@ except ImportError:  # pragma: no cover - optional dependency
 class PreloaderHotfixPlaywrightTests(StaticLiveServerTestCase):
     HOLD_AUTO_CLOSE = """
         (function () {
+            var heldReadyState = "loading";
+            Object.defineProperty(document, "readyState", {
+                configurable: true,
+                get: function () {
+                    return heldReadyState;
+                }
+            });
             var nativeAddEventListener = window.addEventListener;
             var nativeDocumentAddEventListener = document.addEventListener;
             window.addEventListener = function (type, listener, options) {
@@ -4659,7 +4666,7 @@ class PreloaderHotfixPlaywrightTests(StaticLiveServerTestCase):
                 return nativeAddEventListener.call(this, type, listener, options);
             };
             document.addEventListener = function (type, listener, options) {
-                if (type === "DOMContentLoaded") {
+                if (type === "DOMContentLoaded" || type === "readystatechange") {
                     return;
                 }
                 return nativeDocumentAddEventListener.call(this, type, listener, options);

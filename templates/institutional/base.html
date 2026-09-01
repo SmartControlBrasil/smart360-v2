@@ -71,7 +71,12 @@
     <link
         rel="stylesheet"
         href="{% static 'institutional/css/vendor/bootstrap.min.css' %}"
+        media="print"
+        onload="this.media='all'"
     >
+    <noscript>
+        <link rel="stylesheet" href="{% static 'institutional/css/vendor/bootstrap.min.css' %}">
+    </noscript>
     {% include 'institutional/partials/critical_spacing.html' %}
     {% include 'institutional/partials/critical_css.html' %}
     <link
@@ -98,7 +103,7 @@
 <body>
 
     {% include 'institutional/partials/preloader.html' %}
-    <script defer src="{% static 'institutional/js/preloader-critical.js' %}?v=20260825-preloader1"></script>
+    <script defer src="{% static 'institutional/js/preloader-critical.js' %}?v=20260901-lcp1"></script>
     {% include 'institutional/partials/back_to_top.html' %}
     {% include 'institutional/partials/whatsapp_float.html' %}
     {% include 'institutional/partials/offcanvas.html' %}
