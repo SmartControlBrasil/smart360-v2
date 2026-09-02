@@ -484,11 +484,29 @@
             return;
         }
 
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push($.extend({
+        var trackingPayload = $.extend({
             event: eventName,
             page_path: window.location.pathname
-        }, payload || {}));
+        }, payload || {});
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(trackingPayload);
+
+        if (typeof window.gtag === 'function') {
+            var gtagParams = {
+                page_path: trackingPayload.page_path
+            };
+
+            if (trackingPayload.cta_location) {
+                gtagParams.cta_location = trackingPayload.cta_location;
+            }
+
+            if (trackingPayload.cta_label) {
+                gtagParams.cta_label = trackingPayload.cta_label;
+            }
+
+            window.gtag('event', eventName, gtagParams);
+        }
     }
 
     $('[data-track-on-load="true"][data-track-event]').each(function () {

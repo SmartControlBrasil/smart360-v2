@@ -30,7 +30,7 @@ from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
-INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-lcp2"
+INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-gaevent1"
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -594,9 +594,50 @@ class ConversionTrackingTests(TestCase):
         self.assertIn("window.dataLayer = window.dataLayer || []", main_js)
         self.assertIn("page_path: window.location.pathname", main_js)
         self.assertIn('data-track-event="click_primary_cta"', html)
+        self.assertIn("function gtag()", html)
+        self.assertIn("loadGoogleTagOnce", html)
         self.assertNotIn("telefone:", main_js)
         self.assertNotIn("email:", main_js)
         self.assertNotIn("mensagem:", main_js)
+
+    def test_push_tracking_event_enqueues_gtag_event_without_duplicating_dispatch(self):
+        main_js = Path("static/institutional/js/main.js").read_text()
+
+        self.assertIn("window.dataLayer.push(trackingPayload)", main_js)
+        self.assertIn("window.gtag('event', eventName, gtagParams)", main_js)
+        self.assertEqual(main_js.count("window.gtag('event', eventName, gtagParams)"), 1)
+        self.assertIn("gtagParams.cta_location = trackingPayload.cta_location", main_js)
+        self.assertIn("gtagParams.cta_label = trackingPayload.cta_label", main_js)
+        self.assertIn("page_path: trackingPayload.page_path", main_js)
+
+        for event_name in (
+            "click_whatsapp",
+            "click_phone",
+            "click_email",
+        ):
+            with self.subTest(event_name=event_name):
+                self.assertIn(event_name, main_js)
+
+        self.assertIn("[data-track-event]", main_js)
+        self.assertIn("element.data('track-event')", main_js)
+
+    def test_home_mobile_lazy_google_tag_loader_is_present(self):
+        html = self.client.get(reverse("institutional:home")).content.decode()
+
+        self.assertIn("isHomeMobileForGoogleTag", html)
+        self.assertIn("scheduleHomeMobileGoogleTagAfterLcp", html)
+        self.assertIn("largest-contentful-paint", html)
+        self.assertIn("smart360GoogleTagLoadCount", html)
+        self.assertNotIn(
+            '<script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>',
+            html,
+        )
+
+    def test_internal_page_keeps_immediate_google_tag_loader(self):
+        html = self.client.get(reverse("institutional:about")).content.decode()
+
+        self.assertIn("window.loadGoogleTagOnce();", html)
+        self.assertIn("gtag('config', 'G-9XGJDZ0N87')", html)
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "smartcontrolbrasil.com.br"])
@@ -680,8 +721,11 @@ class TechnicalSeoTests(TestCase):
         html = response.content.decode()
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(html.count("https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"), 1)
+        self.assertIn("googletagmanager.com/gtag/js?id=", html)
+        self.assertEqual(html.count("G-9XGJDZ0N87"), 2)
         self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
+        self.assertIn("loadGoogleTagOnce", html)
+        self.assertIn("scheduleHomeMobileGoogleTagAfterLcp", html)
         self.assertNotIn("G-X9BGRJ75B7", html)
 
     def test_global_theme_scripts_are_deferred_in_dependency_order(self):
@@ -4889,8 +4933,10 @@ class FrontendPerformanceTests(TestCase):
     def test_google_analytics_and_livia_widget_remain_configured(self):
         response = self.client.get(reverse("institutional:home"))
         html = response.content.decode()
-        self.assertIn('src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"', html)
-        self.assertIn('async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"', html)
+        self.assertIn("googletagmanager.com/gtag/js?id=", html)
+        self.assertIn("G-9XGJDZ0N87", html)
+        self.assertIn("loadGoogleTagOnce", html)
+        self.assertIn("gtag('config', 'G-9XGJDZ0N87')", html)
         self.assertIn('id="livia-config"', html)
         self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
         self.assertIn('data-tenant="smart-control-brasil"', html)

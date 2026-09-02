@@ -4,7 +4,6 @@
 
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -14,6 +13,152 @@
 
         gtag('js', new Date());
         gtag('config', 'G-9XGJDZ0N87');
+
+        (function () {
+            var GOOGLE_TAG_ID = 'G-9XGJDZ0N87';
+            var GOOGLE_TAG_SRC = 'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_TAG_ID;
+            var HOME_MOBILE_GA_FAILSAFE_MS = 2800;
+            var HOME_MOBILE_GA_LCP_SETTLE_MS = 200;
+            var HOME_MOBILE_GA_STAGGER_MS = 120;
+
+            window.smart360GoogleTagLoaded = false;
+            window.smart360GoogleTagLoading = false;
+            window.smart360GoogleTagLoadCount = 0;
+
+            window.loadGoogleTagOnce = function loadGoogleTagOnce() {
+                if (window.smart360GoogleTagLoaded || window.smart360GoogleTagLoading) {
+                    return;
+                }
+
+                window.smart360GoogleTagLoading = true;
+                window.smart360GoogleTagLoadCount += 1;
+
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = GOOGLE_TAG_SRC;
+                script.onload = function () {
+                    window.smart360GoogleTagLoaded = true;
+                    window.smart360GoogleTagLoading = false;
+                };
+                script.onerror = function () {
+                    window.smart360GoogleTagLoading = false;
+                };
+                document.head.appendChild(script);
+            };
+
+            function isHomeMobileForGoogleTag() {
+                var path = window.location.pathname || '/';
+                var isHome = path === '/' || path === '/index.html';
+
+                if (!isHome) {
+                    return false;
+                }
+
+                return window.matchMedia
+                    ? window.matchMedia('(max-width: 767px)').matches
+                    : window.innerWidth <= 767;
+            }
+
+            function scheduleHomeMobileGoogleTagAfterLcp() {
+                var triggered = false;
+                var lcpObserver = null;
+                var settleTimer = null;
+                var failsafeTimer = null;
+                var staggerTimer = null;
+                var interactionHandler = null;
+
+                function cleanup() {
+                    if (settleTimer != null) {
+                        clearTimeout(settleTimer);
+                        settleTimer = null;
+                    }
+
+                    if (failsafeTimer != null) {
+                        clearTimeout(failsafeTimer);
+                        failsafeTimer = null;
+                    }
+
+                    if (staggerTimer != null) {
+                        clearTimeout(staggerTimer);
+                        staggerTimer = null;
+                    }
+
+                    if (lcpObserver) {
+                        try {
+                            lcpObserver.disconnect();
+                        } catch (ignore) {
+                            /* noop */
+                        }
+                        lcpObserver = null;
+                    }
+
+                    if (interactionHandler) {
+                        window.removeEventListener('scroll', interactionHandler);
+                        window.removeEventListener('touchstart', interactionHandler);
+                        window.removeEventListener('pointerdown', interactionHandler);
+                        window.removeEventListener('keydown', interactionHandler);
+                        interactionHandler = null;
+                    }
+                }
+
+                function trigger() {
+                    if (triggered) {
+                        return;
+                    }
+
+                    triggered = true;
+                    cleanup();
+                    staggerTimer = window.setTimeout(function () {
+                        staggerTimer = null;
+                        window.loadGoogleTagOnce();
+                    }, HOME_MOBILE_GA_STAGGER_MS);
+                }
+
+                function scheduleLcpSettle() {
+                    if (settleTimer != null) {
+                        clearTimeout(settleTimer);
+                    }
+
+                    settleTimer = window.setTimeout(function () {
+                        settleTimer = null;
+                        trigger();
+                    }, HOME_MOBILE_GA_LCP_SETTLE_MS);
+                }
+
+                interactionHandler = function () {
+                    trigger();
+                };
+
+                window.addEventListener('scroll', interactionHandler, { passive: true, once: true });
+                window.addEventListener('touchstart', interactionHandler, { passive: true, once: true });
+                window.addEventListener('pointerdown', interactionHandler, { once: true });
+                window.addEventListener('keydown', interactionHandler, { once: true });
+
+                failsafeTimer = window.setTimeout(trigger, HOME_MOBILE_GA_FAILSAFE_MS);
+
+                if (typeof PerformanceObserver === 'function') {
+                    try {
+                        lcpObserver = new PerformanceObserver(function (entryList) {
+                            if (!entryList.getEntries().length) {
+                                return;
+                            }
+
+                            scheduleLcpSettle();
+                        });
+                        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+                    } catch (ignore) {
+                        /* failsafe / interaction handle unsupported browsers */
+                    }
+                }
+            }
+
+            if (isHomeMobileForGoogleTag()) {
+                window.addEventListener('load', scheduleHomeMobileGoogleTagAfterLcp);
+                return;
+            }
+
+            window.loadGoogleTagOnce();
+        })();
     </script>
 
     <meta charset="utf-8">
@@ -162,7 +307,7 @@
     {% block vendor_js %}{% endblock %}
 
     <!-- Main JS -->
-    <script defer src="{% static 'institutional/js/main.js' %}?v=20260901-lcp2"></script>
+    <script defer src="{% static 'institutional/js/main.js' %}?v=20260901-gaevent1"></script>
     <span
         id="livia-config"
         hidden
