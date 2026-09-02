@@ -1,16 +1,7 @@
-{# Minimal spacing + bootstrap grid/display for first paint before async CSS loads. #}
+{# Minimal spacing + display utilities required before async CSS loads. #}
 <style>
 .mt-60{margin-top:60px}.ml-20{margin-left:20px}.mb-20{margin-bottom:20px}
 *,*::before,*::after{box-sizing:border-box}
-.container{width:100%;padding-right:calc(var(--bs-gutter-x,1.5rem)*.5);padding-left:calc(var(--bs-gutter-x,1.5rem)*.5);margin-right:auto;margin-left:auto}
-@media (min-width:576px){.container{max-width:540px}}
-@media (min-width:768px){.container{max-width:720px}}
-@media (min-width:992px){.container{max-width:960px}}
-@media (min-width:1200px){.container{max-width:1140px}}
-@media (min-width:1400px){.container{max-width:1320px}}
-.row{--bs-gutter-x:1.5rem;--bs-gutter-y:0;display:flex;flex-wrap:wrap;margin-top:calc(-1*var(--bs-gutter-y));margin-right:calc(-.5*var(--bs-gutter-x));margin-left:calc(-.5*var(--bs-gutter-x))}
-.row>*{flex-shrink:0;width:100%;max-width:100%;padding-right:calc(var(--bs-gutter-x)*.5);padding-left:calc(var(--bs-gutter-x)*.5);margin-top:var(--bs-gutter-y)}
-@media (min-width:992px){.col-lg-3{flex:0 0 auto;width:25%}.col-lg-9{flex:0 0 auto;width:75%}}
 .d-none{display:none!important}
 .d-flex{display:flex!important}
 .align-items-center{align-items:center!important}
