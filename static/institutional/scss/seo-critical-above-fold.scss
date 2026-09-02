@@ -183,6 +183,62 @@ button > .site-icon:not(:only-child):first-child {
 // balao/header/shapes before layout settles (~950–1200 ms).
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// CLS stabilization — fixed floats must not occupy document flow before main.css
+// Root cause: .backtotop-wrap SVG expands to ~390px static block; .whatsapp-float
+// is inline/static until main.css/seo.css. When main.css async loads (~738ms),
+// both become fixed → header/hero jump ~426px (CLS ~0.54 mobile, ~0.98 desktop).
+// ---------------------------------------------------------------------------
+
+.backtotop-wrap {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	width: 46px;
+	height: 46px;
+	overflow: hidden;
+	display: block;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: 100;
+}
+
+.whatsapp-float {
+	position: fixed;
+	right: 50px;
+	bottom: 125px;
+	width: 60px;
+	height: 60px;
+	z-index: 101;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#popup-search-box {
+	position: fixed;
+	width: 100%;
+	height: 20%;
+	top: -100%;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: 99;
+}
+
+@media (max-width: 575.98px) {
+	.backtotop-wrap {
+		bottom: 20px;
+		right: 20px;
+	}
+}
+
+// ---------------------------------------------------------------------------
+// CLS stabilization — HOME above-the-fold hero geometry
+// ---------------------------------------------------------------------------
+
 .banner1__area {
 	overflow: hidden;
 	isolation: isolate;
@@ -211,6 +267,24 @@ button > .site-icon:not(:only-child):first-child {
 	width: 100%;
 	height: auto;
 	aspect-ratio: 381 / 571;
+}
+
+// Reserve hero stack height before late-parsed thumb column enters the DOM (~560ms).
+// Progressive parsing grows .banner1__area ~828px → ~1459px and shifts bottom-anchored shape-4.
+@media (max-width: 991.98px) {
+	.banner1__area {
+		min-height: 1459px;
+	}
+
+	.banner1__thumb {
+		min-height: 540px;
+	}
+}
+
+@media (min-width: 992px) {
+	.banner1__area {
+		min-height: 1040px;
+	}
 }
 
 // clip-path animates layout; transform+opacity preserves the entrance effect
