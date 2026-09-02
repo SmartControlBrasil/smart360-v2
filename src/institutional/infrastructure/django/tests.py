@@ -30,7 +30,7 @@ from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
-INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-tbt1"
+INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-lcp2"
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -4574,6 +4574,14 @@ class PreloaderHotfixTests(TestCase):
     def test_main_js_has_cache_busting_query_string(self):
         html = self.home_html()
         self.assertIn(f"main.js?v={self.CACHE_BUST}", html)
+
+    def test_home_mobile_defers_gsap_bootstrap_until_after_lcp(self):
+        main_js = self.MAIN_JS_PATH.read_text(encoding="utf-8")
+        self.assertIn("scheduleHomeMobileGsapAfterLcp", main_js)
+        self.assertIn("isHomePage() && isMobile()", main_js)
+        self.assertIn('type: "largest-contentful-paint"', main_js)
+        self.assertIn("runGsapBootstrapOnce", main_js)
+        self.assertIn("isHomeMobileGsapDeferred", main_js)
 
     def test_main_js_no_longer_references_masonry(self):
         main_js = self.MAIN_JS_PATH.read_text(encoding="utf-8")

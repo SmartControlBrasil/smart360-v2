@@ -152,6 +152,12 @@
     return mobileMediaQuery ? mobileMediaQuery.matches : window.innerWidth <= 767;
   }
 
+  var gsapBootstrapStarted = false;
+
+  function isHomeMobileGsapDeferred() {
+    return isHomePage() && isMobile() && !gsapBootstrapStarted;
+  }
+
   var scrollTriggerRefreshTimeout = null;
   var scrollTriggerRefreshRaf = null;
   var scrollTriggerRefreshPending = false;
@@ -175,6 +181,10 @@
   }
 
   function runDebouncedScrollTriggerRefresh() {
+    if (isHomeMobileGsapDeferred()) {
+      return;
+    }
+
     if (scrollTriggerRefreshTimeout != null) {
       clearTimeout(scrollTriggerRefreshTimeout);
       scrollTriggerRefreshTimeout = null;
@@ -211,6 +221,10 @@
 
   function scheduleScrollTriggerRefresh() {
     if (!pluginAvailable("ScrollTrigger")) {
+      return;
+    }
+
+    if (isHomeMobileGsapDeferred()) {
       return;
     }
 
@@ -841,10 +855,110 @@
         runGsapAnimations();
     }
 
+    function runGsapBootstrapOnce() {
+        if (gsapBootstrapStarted) {
+            return;
+        }
+
+        gsapBootstrapStarted = true;
+        initGsapBootstrap();
+    }
+
+    function scheduleHomeMobileGsapAfterLcp(callback) {
+        var HOME_MOBILE_GSAP_FAILSAFE_MS = 4500;
+        var HOME_MOBILE_LCP_SETTLE_MS = 200;
+        var triggered = false;
+        var lcpObserver = null;
+        var settleTimer = null;
+        var failsafeTimer = null;
+        var interactionHandler = null;
+
+        function cleanup() {
+            if (settleTimer != null) {
+                clearTimeout(settleTimer);
+                settleTimer = null;
+            }
+
+            if (failsafeTimer != null) {
+                clearTimeout(failsafeTimer);
+                failsafeTimer = null;
+            }
+
+            if (lcpObserver) {
+                try {
+                    lcpObserver.disconnect();
+                } catch (ignore) {
+                    /* noop */
+                }
+                lcpObserver = null;
+            }
+
+            if (interactionHandler) {
+                window.removeEventListener("scroll", interactionHandler);
+                window.removeEventListener("touchstart", interactionHandler);
+                window.removeEventListener("pointerdown", interactionHandler);
+                window.removeEventListener("keydown", interactionHandler);
+                interactionHandler = null;
+            }
+        }
+
+        function trigger() {
+            if (triggered) {
+                return;
+            }
+
+            triggered = true;
+            cleanup();
+            requestAnimationFrame(callback);
+        }
+
+        function scheduleLcpSettle() {
+            if (settleTimer != null) {
+                clearTimeout(settleTimer);
+            }
+
+            settleTimer = setTimeout(function () {
+                settleTimer = null;
+                trigger();
+            }, HOME_MOBILE_LCP_SETTLE_MS);
+        }
+
+        interactionHandler = function () {
+            trigger();
+        };
+
+        window.addEventListener("scroll", interactionHandler, { passive: true, once: true });
+        window.addEventListener("touchstart", interactionHandler, { passive: true, once: true });
+        window.addEventListener("pointerdown", interactionHandler, { once: true });
+        window.addEventListener("keydown", interactionHandler, { once: true });
+
+        failsafeTimer = setTimeout(trigger, HOME_MOBILE_GSAP_FAILSAFE_MS);
+
+        if (typeof PerformanceObserver === "function") {
+            try {
+                lcpObserver = new PerformanceObserver(function (entryList) {
+                    if (!entryList.getEntries().length) {
+                        return;
+                    }
+
+                    scheduleLcpSettle();
+                });
+                lcpObserver.observe({ type: "largest-contentful-paint", buffered: true });
+            } catch (ignore) {
+                /* failsafe / interaction handle unsupported browsers */
+            }
+        }
+    }
+
     function scheduleGsapBootstrap() {
         var startGsap = function () {
-            initGsapBootstrap();
+            runGsapBootstrapOnce();
         };
+
+        if (isHomePage() && isMobile()) {
+            scheduleHomeMobileGsapAfterLcp(startGsap);
+            return;
+        }
 
         if (typeof requestIdleCallback === "function") {
             requestIdleCallback(startGsap, { timeout: 2500 });
