@@ -334,19 +334,19 @@ button.livia-bottom-left {
 	align-items: center !important;
 	justify-content: center !important;
 	width: auto !important;
-	min-width: 140px;
-	height: 44px !important;
-	min-height: 44px !important;
+	min-width: 112px;
+	height: 32px !important;
+	min-height: 32px !important;
 	max-width: none !important;
 	max-height: none !important;
-	padding: 0 16px !important;
+	padding: 0 12px !important;
 	border-radius: 999px !important;
 	white-space: nowrap !important;
 	overflow: visible;
-	font-size: 14px !important;
+	font-size: 12px !important;
 	font-weight: 600 !important;
 	line-height: 1 !important;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 @media (min-width: 481px) {
@@ -356,10 +356,10 @@ button.livia-bottom-left {
 	button.livia-bottom-left {
 		left: 20px;
 		bottom: 20px;
-		min-width: 150px;
-		height: 46px !important;
-		min-height: 46px !important;
-		padding: 0 16px !important;
-		font-size: 14px !important;
+		min-width: 120px;
+		height: 34px !important;
+		min-height: 34px !important;
+		padding: 0 12px !important;
+		font-size: 12px !important;
 	}
 }

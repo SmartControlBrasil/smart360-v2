@@ -224,7 +224,7 @@ STATIC_IMAGE_DIMENSIONS = {
     "institutional/imgs/shapes/breadcrumb-shape-2.png": (31, 35),
     "institutional/imgs/shapes/breadcrumb-shape-3.png": (31, 35),
     "institutional/imgs/shapes/breadcrumb-shape-4.png": (100, 100),
-    "institutional/imgs/shapes/breadcrumb-shape-5.png": (370, 278),
+    "institutional/imgs/shapes/liro-em-destaque.webp": (370, 278),
     "institutional/imgs/shapes/breadcrumb-shape.png": (1880, 420),
     "institutional/imgs/shapes/footer-shape-1.png": (187, 187),
     "institutional/imgs/shapes/further-2-shape-1.png": (1600, 470),
