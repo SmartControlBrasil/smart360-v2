@@ -315,11 +315,51 @@ button > .site-icon:not(:only-child):first-child {
 	}
 }
 
+// ---------------------------------------------------------------------------
+// CLS stabilization — Lívia launcher: bottom-left from first paint (pill shape)
+// Root cause: widget.js defaults to bottom-right until loadConfig() → position flip CLS.
+// Reserve final bottom-left pill geometry before widget styles / class swap.
+// ---------------------------------------------------------------------------
+
+#livia-launcher,
+#livia-launcher.livia-bottom-right,
 #livia-launcher.livia-bottom-left,
 button.livia-bottom-left {
-	width: 90px;
-	height: 90px;
-	min-width: 90px;
-	min-height: 90px;
+	position: fixed;
+	left: 16px;
+	bottom: 16px;
+	right: auto !important;
 	box-sizing: border-box;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: auto !important;
+	min-width: 180px;
+	height: 58px !important;
+	min-height: 58px !important;
+	max-width: none !important;
+	max-height: none !important;
+	padding: 0 22px !important;
+	border-radius: 999px !important;
+	white-space: nowrap !important;
+	overflow: visible;
+	font-size: 18px !important;
+	font-weight: 600 !important;
+	line-height: 1 !important;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+@media (min-width: 481px) {
+	#livia-launcher,
+	#livia-launcher.livia-bottom-right,
+	#livia-launcher.livia-bottom-left,
+	button.livia-bottom-left {
+		left: 20px;
+		bottom: 20px;
+		min-width: 220px;
+		height: 68px !important;
+		min-height: 68px !important;
+		padding: 0 28px !important;
+		font-size: 20px !important;
+	}
 }
