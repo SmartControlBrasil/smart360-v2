@@ -129,14 +129,16 @@
 				display: block;
 			}
 			.rr-subscribe-form{
+				flex: 1 1 auto;
+				width: 100%;
 				.form-control{
 					background-color: transparent;
-					width: 700px;
+					width: 100%;
 					height: 42px;
 					border: 1px solid rgba(255, 255, 255, 0.14);
 					border-radius: 0;
 					padding-left: 20px;
-					color: rgb(255 255 255 / 50%);
+					color: rgb(255 255 255 / 85%);
 					@include rs-placeholder{
 						color: rgb(255 255 255 / 50%);
 					}
@@ -149,13 +151,19 @@
 					}
 				}
 			}
-		}
-		.rr-btn {
-			white-space: nowrap;
+			.rr-btn {
+				flex: 0 0 auto;
+				white-space: nowrap;
+				height: 42px;
+				padding: 0 24px;
+				@media #{$lg, $md, $sm, $xs} {
+					width: 100%;
+				}
+			}
 		}
 		&-consent {
 			font-size: 12px;
-			color: rgba(255, 255, 255, 0.6);
+			color: rgba(255, 255, 255, 0.85);
 			margin-top: 10px;
 			line-height: 1.4;
 		}
@@ -164,8 +172,9 @@
 			font-weight: 500;
 			margin-top: 10px;
 			line-height: 1.4;
+			color: #ffffff;
 			&.success {
-				color: #20c997;
+				color: #36F165;
 			}
 			&.error {
 				color: #ff6b6b;
