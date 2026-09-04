@@ -36,7 +36,12 @@ urlpatterns = [
     path("xyron/hygibot-dune-bot/", views.xyron_hygibot_dune_bot, name="xyron_hygibot_dune_bot"),
     path("xyron/buddy-bot/", views.xyron_buddy_bot, name="xyron_buddy_bot"),
     path("xyron/carebot/", views.xyron_carebot, name="xyron_carebot"),
-    path("xyron/hostbot/", views.xyron_hostbot, name="xyron_hostbot"),
+    path("xyron/connect-bot/", views.xyron_connect_bot, name="xyron_connect_bot"),
+    path(
+        "xyron/hostbot/",
+        RedirectView.as_view(pattern_name="institutional:xyron_connect_bot", permanent=True),
+        name="legacy_xyron_connect_bot",
+    ),
     path("xyron/mowerbot/", views.xyron_mowerbot, name="xyron_mowerbot"),
     path(
         "robotica-educacional/",

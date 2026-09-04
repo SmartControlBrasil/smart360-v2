@@ -355,8 +355,8 @@ def xyron_carebot(request):
     return _render_xyron_robot(request, "carebot")
 
 
-def xyron_hostbot(request):
-    return _render_xyron_robot(request, "hostbot")
+def xyron_connect_bot(request):
+    return _render_xyron_robot(request, "connect_bot")
 
 
 def xyron_mowerbot(request):

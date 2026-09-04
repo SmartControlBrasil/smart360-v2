@@ -1864,8 +1864,8 @@ class TechnicalSeoTests(TestCase):
                     expected_h1 = "Buddy Bot — Robô Quadrúpede para Inspeção e Segurança"
                 elif robot["key"] == "carebot":
                     expected_h1 = "CareBot — Robô Assistivo para Saúde e Atendimento"
-                elif robot["key"] == "hostbot":
-                    expected_h1 = "HostBot — Robô Host para Recepção e Eventos"
+                elif robot["key"] == "connect_bot":
+                    expected_h1 = "Connect Bot — Atendimento e Interação para Recepção e Eventos"
                 elif robot["key"] == "mowerbot":
                     expected_h1 = "MowerBot — Robô Cortador de Grama para Áreas Externas"
                 self.assertEqual(self.h1_texts(response), [expected_h1])
@@ -2022,27 +2022,33 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(aggregate_ratings, [])
         self.assertEqual(reviews, [])
 
-    def test_hostbot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
-        response = self.client.get("/xyron/hostbot/?utm_source=google&utm_campaign=x")
+    def test_legacy_connect_bot_route_redirects_permanently_to_connect_bot(self):
+        response = self.client.get("/xyron/" + "hostbot/?utm_source=google&utm_campaign=x")
+
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response["Location"], "/xyron/connect-bot/")
+
+    def test_connect_bot_page_has_clean_copy_faq_schema_claims_and_contextual_links(self):
+        response = self.client.get("/xyron/connect-bot/?utm_source=google&utm_campaign=x")
         html = response.content.decode()
         body = html.split("<body", 1)[1]
-        robot = XYRON_ROBOT_PAGE_BY_KEY["hostbot"]
-        canonical = "https://www.smartcontrolbrasil.com.br/xyron/hostbot/"
+        robot = XYRON_ROBOT_PAGE_BY_KEY["connect_bot"]
+        canonical = "https://www.smartcontrolbrasil.com.br/xyron/connect-bot/"
         meta_description = (
-            "Robô host com duas telas e inteligência artificial para recepção, "
-            "eventos, empresas, museus, galerias e bancos."
+            "Solução Xyron Robotics com duas telas e inteligência artificial para atendimento, "
+            "interação, recepção, eventos, empresas, museus, galerias e bancos."
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, "HostBot | Robô Host para Recepção e Eventos | Smart Control Brasil")
+        self.assertTitle(response, "Connect Bot | Atendimento e Interação para Recepção e Eventos | Smart Control Brasil")
         self.assertMetaDescription(response, meta_description)
         self.assertCanonical(response, canonical)
         self.assertNotContains(response, 'name="robots"')
         self.assertEqual(
             self.h1_texts(response),
-            ["HostBot — Robô Host para Recepção e Eventos"],
+            ["Connect Bot — Atendimento e Interação para Recepção e Eventos"],
         )
-        self.assertEqual(robot["name"], "HostBot")
+        self.assertEqual(robot["name"], "Connect Bot")
         self.assertEqual(robot["description"], meta_description)
         self.assertNotIn(meta_description, body)
 
@@ -2053,9 +2059,7 @@ class TechnicalSeoTests(TestCase):
             "conforme descrito no card",
             "landing institucional",
             "não substitui o commerce",
-            "Connect Bot",
-            "ConnectBot",
-            "Host Bot",
+            
             "check-in",
             "CRM",
             "reconhecimento facial",
@@ -2069,7 +2073,7 @@ class TechnicalSeoTests(TestCase):
 
         for expected in (
             "Xyron Robotics",
-            "robô host",
+            "atendimento e interação",
             "recepção",
             "eventos",
             "duas telas",
@@ -2079,7 +2083,7 @@ class TechnicalSeoTests(TestCase):
             "museus",
             "galerias",
             "bancos",
-            "HostBot se diferencia pela função host",
+            "Connect Bot se diferencia pelo atendimento e pela interação",
             "Neo Bot",
             'href="/xyron/"',
             'href="/xyron/neo-bot/"',
@@ -2091,9 +2095,9 @@ class TechnicalSeoTests(TestCase):
                 self.assertIn(expected, html)
 
         faq_questions = [
-            "O que é o HostBot?",
-            "Para quais tipos de ambiente o HostBot pode ser utilizado?",
-            "Qual a diferença entre HostBot e Neo Bot?",
+            "O que é o Connect Bot?",
+            "Para quais tipos de ambiente o Connect Bot pode ser utilizado?",
+            "Qual a diferença entre Connect Bot e Neo Bot?",
             "O que deve ser avaliado antes de implantar um robô de recepção ou eventos?",
         ]
         for question in faq_questions:
@@ -2110,11 +2114,11 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(len(breadcrumbs), 1)
         self.assertEqual(
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
-            ["Início", "Xyron Robotics", "HostBot"],
+            ["Início", "Xyron Robotics", "Connect Bot"],
         )
         self.assertEqual(len(products), 1)
         product = products[0]
-        self.assertEqual(product["name"], "HostBot")
+        self.assertEqual(product["name"], "Connect Bot")
         self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
         self.assertEqual(product["description"], meta_description)
         self.assertEqual(product["url"], canonical)
@@ -2523,7 +2527,7 @@ class TechnicalSeoTests(TestCase):
             'href="/xyron/"',
             'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
             'href="/blog/inovacao-que-aparece-e-gera-valor/"',
-            'href="/xyron/hostbot/"',
+            'href="/xyron/connect-bot/"',
             'href="/contato/"',
         ):
             with self.subTest(expected=expected):
@@ -3139,7 +3143,7 @@ class TechnicalSeoTests(TestCase):
             'href="/xyron/hygibot-dune-bot/"',
             'href="/xyron/buddy-bot/"',
             'href="/xyron/carebot/"',
-            'href="/xyron/hostbot/"',
+            'href="/xyron/connect-bot/"',
             'href="/sistemas-websites-python/"',
             'href="/blog/convergencia-robotica-ia-firmwares-dedicados/"',
             'href="/contato/"',

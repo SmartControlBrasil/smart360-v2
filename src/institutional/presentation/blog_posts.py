@@ -556,7 +556,7 @@ BLOG_POSTS = {
             {
                 "heading": "Onde a robótica aplicada pode gerar valor",
                 "paragraphs": [
-                    "Na educação, robôs podem aproximar estudantes de tecnologia e apoiar experiências interativas. Em recepção e atendimento, podem orientar visitantes e apresentar informações; em aplicações de host, o <a href=\"/xyron/hostbot/\">HostBot</a> aparece no ecossistema Xyron como opção voltada a recepção, eventos e comunicação visual. Em segurança e monitoramento, podem apoiar patrulhamento e observação de rotinas. Em serviços, podem assumir ciclos repetitivos, como limpeza ou apoio operacional.",
+                    "Na educação, robôs podem aproximar estudantes de tecnologia e apoiar experiências interativas. Em recepção e atendimento, podem orientar visitantes e apresentar informações; em aplicações de atendimento e interação, o <a href=\"/xyron/connect-bot/\">Connect Bot</a> aparece no ecossistema Xyron como opção voltada a recepção, eventos e comunicação visual. Em segurança e monitoramento, podem apoiar patrulhamento e observação de rotinas. Em serviços, podem assumir ciclos repetitivos, como limpeza ou apoio operacional.",
                     "Essas aplicações não significam substituição automática de pessoas. Em muitos projetos, o valor está em liberar a equipe de tarefas repetitivas, padronizar pontos do atendimento, ampliar disponibilidade ou gerar dados para acompanhar a operação.",
                 ],
             },

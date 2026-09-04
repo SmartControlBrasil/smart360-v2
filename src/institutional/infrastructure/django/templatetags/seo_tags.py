@@ -924,19 +924,19 @@ def _faq_page_schema(context):
                 "É importante avaliar finalidade, ambiente, fluxo, pessoas envolvidas, privacidade, infraestrutura, responsabilidades e integração à rotina de atendimento.",
             ),
         ]
-    elif robot and robot.get("key") == "hostbot":
+    elif robot and robot.get("key") == "connect_bot":
         faqs = [
             (
-                "O que é o HostBot?",
-                "É o robô host da linha Xyron Robotics para recepção, eventos e comunicação visual com visitantes.",
+                "O que é o Connect Bot?",
+                "É a solução CONNECT da linha Xyron Robotics para atendimento, interação, recepção, eventos e comunicação visual com visitantes.",
             ),
             (
-                "Para quais tipos de ambiente o HostBot pode ser utilizado?",
+                "Para quais tipos de ambiente o Connect Bot pode ser utilizado?",
                 "Ele pode ser avaliado para recepção, eventos, empresas, museus, galerias e bancos, conforme objetivo da experiência, fluxo de visitantes e conteúdo a apresentar.",
             ),
             (
-                "Qual a diferença entre HostBot e Neo Bot?",
-                "O HostBot enfatiza função host, duas telas e comunicação visual para recepção e eventos; o Neo Bot é apresentado como robô de recepção e atendimento, com diálogo multilíngue, IA e apoio à apresentação de produtos.",
+                "Qual a diferença entre Connect Bot e Neo Bot?",
+                "O Connect Bot enfatiza atendimento e interação, duas telas e comunicação visual para recepção e eventos; o Neo Bot é apresentado como robô de recepção e atendimento, com diálogo multilíngue, IA e apoio à apresentação de produtos.",
             ),
             (
                 "O que deve ser avaliado antes de implantar um robô de recepção ou eventos?",

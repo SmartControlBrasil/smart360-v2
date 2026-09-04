@@ -47,7 +47,7 @@
 
 
                                         <!-- SOLUÇÕES -->
-                                        <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'manutencao_industrial_campo' or current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_hostbot' or current == 'xyron_mowerbot' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
+                                        <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'manutencao_industrial_campo' or current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
 
                                             <a
                                                 href="{% url 'institutional:services' %}"
@@ -76,7 +76,7 @@
                                                     </a>
                                                 </li>
 
-                                                <li class="has-dropdown {% if current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_hostbot' or current == 'xyron_mowerbot' %}active{% endif %}">
+                                                <li class="has-dropdown {% if current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' %}active{% endif %}">
                                                     <a
                                                         href="{% url 'institutional:xyron' %}"
                                                         aria-haspopup="true"
@@ -105,8 +105,8 @@
                                                         <li class="{% if current == 'xyron_carebot' %}active{% endif %}">
                                                             <a href="{% url 'institutional:xyron_carebot' %}">CareBot — Assistência</a>
                                                         </li>
-                                                        <li class="{% if current == 'xyron_hostbot' %}active{% endif %}">
-                                                            <a href="{% url 'institutional:xyron_hostbot' %}">HostBot — Recepção</a>
+                                                        <li class="{% if current == 'xyron_connect_bot' %}active{% endif %}">
+                                                            <a href="{% url 'institutional:xyron_connect_bot' %}">CONNECT — Atendimento e Interação</a>
                                                         </li>
                                                         <li class="{% if current == 'xyron_mowerbot' %}active{% endif %}">
                                                             <a href="{% url 'institutional:xyron_mowerbot' %}">MowerBot — Corte de Grama</a>

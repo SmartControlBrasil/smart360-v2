@@ -74,7 +74,7 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 0.85,
     },
     {
-        "name": "institutional:xyron_hostbot",
+        "name": "institutional:xyron_connect_bot",
         "changefreq": "weekly",
         "priority": 0.85,
     },
