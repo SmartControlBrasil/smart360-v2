@@ -24,3 +24,21 @@ class ContactForm(forms.Form):
         if website:
             raise forms.ValidationError("Mensagem nao enviada.")
         return website
+
+
+class NewsletterSubscribeForm(forms.Form):
+    email = forms.EmailField(required=True)
+    website = forms.CharField(required=False)
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email", "").strip().lower()
+        if not email:
+            raise forms.ValidationError("E-mail obrigatorio.")
+        return email
+
+    def clean_website(self):
+        website = self.cleaned_data.get("website", "").strip()
+        if website:
+            raise forms.ValidationError("Solicitacao invalida.")
+        return website
+

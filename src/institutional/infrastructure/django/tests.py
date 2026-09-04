@@ -551,7 +551,7 @@ class ConversionTrackingTests(TestCase):
         response = self.client.get(reverse("institutional:home"))
         html = response.content.decode()
 
-        self.assertIn("Solicitar contato", html)
+        self.assertIn("Receber novidades", html)
         self.assertIn('data-track-location="home_hero"', html)
         self.assertIn('data-track-event="click_primary_cta"', html)
 
@@ -5126,3 +5126,58 @@ class AuthenticationRoutesTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("institutional:home"))
         self.assertFalse("_auth_user_id" in self.client.session)
+
+
+class NewsletterSubscribeTests(TestCase):
+    def test_get_request_is_not_allowed(self):
+        url = reverse("institutional:newsletter_subscribe")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_post_with_empty_email_returns_error_and_does_not_send_mail(self):
+        url = reverse("institutional:newsletter_subscribe")
+        response = self.client.post(url, {"email": ""})
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertFalse(data["success"])
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_post_with_invalid_email_format_returns_error(self):
+        url = reverse("institutional:newsletter_subscribe")
+        response = self.client.post(url, {"email": "invalid-email-string"})
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertFalse(data["success"])
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_post_with_valid_email_sends_notification_to_comercial(self):
+        url = reverse("institutional:newsletter_subscribe")
+        email_submitted = "lead.exemplo@empresa.com.br"
+        response = self.client.post(url, {"email": email_submitted})
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data["success"])
+        self.assertEqual(data["message"], "E-mail cadastrado. Obrigado!")
+
+        self.assertEqual(len(mail.outbox), 1)
+        sent = mail.outbox[0]
+        self.assertEqual(sent.to, ["comercial@smartcontrolbrasil.com.br"])
+        self.assertIn("Novo lead pelo site — Novidades Smart Control Brasil", sent.subject)
+        self.assertIn(email_submitted, sent.body)
+        self.assertIn("Home do site Smart Control Brasil", sent.body)
+        self.assertIn("Receber novidades e atualizações.", sent.body)
+
+    def test_send_failure_returns_500(self):
+        url = reverse("institutional:newsletter_subscribe")
+        with patch(
+            "src.institutional.presentation.views.EmailMessage.send",
+            side_effect=SMTPException("smtp unavailable"),
+        ):
+            response = self.client.post(url, {"email": "lead.exemplo@empresa.com.br"})
+
+        self.assertEqual(response.status_code, 500)
+        data = response.json()
+        self.assertFalse(data["success"])
+        self.assertEqual(data["message"], "Não foi possível enviar agora. Tente novamente.")
+
+

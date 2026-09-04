@@ -47,22 +47,27 @@
                                     <p class="banner-heading__wrapper-dec rr_title_anim">{{ page.introduction }}</p>
                                 </div>
                                  <div class="banner1__from-wrapper mt-60">
-                                    <h6 class="banner1__from-wrapper-title">Como podemos ajudar?</h6>
+                                    <h6 class="banner1__from-wrapper-title">Receba novidades e atualizações</h6>
                                     <div class="banner1__from-wrapper-box">
-                                        <form id="home-contact-cta" action="{% url 'institutional:contact' %}" method="get" class="rr-subscribe-form">
-                                            <input class="form-control" type="text" name="necessidade" placeholder="Descreva sua necessidade técnica">
+                                        <form id="home-newsletter-form" action="{% url 'institutional:newsletter_subscribe' %}" method="post" class="rr-subscribe-form">
+                                            {% csrf_token %}
+                                            <input class="form-control" type="email" name="email" placeholder="Digite seu melhor e-mail" required aria-label="Digite seu melhor e-mail">
                                             <div class="clearfix"></div>
                                         </form>
                                         <button
                                             type="submit"
-                                            form="home-contact-cta"
+                                            form="home-newsletter-form"
                                             class="rr-btn"
                                             data-track-event="click_primary_cta"
                                             data-track-location="home_hero"
-                                            data-track-label="Solicitar contato">
-                                            {% institutional_icon "paper-plane" %} Solicitar contato
+                                            data-track-label="Receber novidades">
+                                            {% institutional_icon "paper-plane" %} Receber novidades
                                         </button>
                                     </div>
+                                    <div id="home-newsletter-feedback" class="banner1__from-wrapper-feedback" style="display: none;"></div>
+                                    <p class="banner1__from-wrapper-consent mb-0">
+                                        Ao enviar, você concorda em receber novidades e atualizações da Smart Control Brasil.
+                                    </p>
                                  </div>
                             </div>
                             <div class="col-lg-3">
@@ -593,3 +598,52 @@
                 </div>
             </section>
 {% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+    (function() {
+        var form = document.getElementById('home-newsletter-form');
+        if (!form) return;
+        var feedback = document.getElementById('home-newsletter-feedback');
+        var button = document.querySelector('button[form="home-newsletter-form"]');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var emailInput = form.querySelector('input[name="email"]');
+            if (!emailInput || !emailInput.checkValidity()) return;
+
+            if (button) button.disabled = true;
+            if (feedback) feedback.style.display = 'none';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(function(res) {
+                return res.json().then(function(data) { return { ok: res.ok, data: data }; });
+            })
+            .then(function(res) {
+                if (feedback) {
+                    feedback.textContent = res.data.message || (res.ok ? 'E-mail cadastrado. Obrigado!' : 'Não foi possível enviar agora. Tente novamente.');
+                    feedback.className = 'banner1__from-wrapper-feedback ' + (res.ok ? 'success' : 'error');
+                    feedback.style.display = 'block';
+                }
+                if (res.ok) form.reset();
+            })
+            .catch(function() {
+                if (feedback) {
+                    feedback.textContent = 'Não foi possível enviar agora. Tente novamente.';
+                    feedback.className = 'banner1__from-wrapper-feedback error';
+                    feedback.style.display = 'block';
+                }
+            })
+            .finally(function() {
+                if (button) button.disabled = false;
+            });
+        });
+    })();
+    </script>
+{% endblock %}
+

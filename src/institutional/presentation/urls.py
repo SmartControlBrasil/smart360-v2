@@ -141,4 +141,9 @@ urlpatterns = [
     path("blog/<slug:slug>/", views.blog_detail, name="blog_detail"),
     path("autor/<slug:slug>/", views.author_detail, name="author_detail"),
     path("contato/", views.contact, name="contact"),
+    path(
+        "newsletter/subscribe/",
+        views.newsletter_subscribe,
+        name="newsletter_subscribe",
+    ),
 ]

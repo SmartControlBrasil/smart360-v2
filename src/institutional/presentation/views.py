@@ -9,10 +9,13 @@ from django.contrib.auth.views import LogoutView
 from django.core.mail import EmailMessage
 from django.http import Http404
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
+from django.views.decorators.http import require_POST
 
 from src.institutional.application.get_home_page import GetHomePage
 from src.institutional.presentation.blog_posts import BLOG_POSTS, BLOG_POSTS_LIST
@@ -20,7 +23,7 @@ from src.institutional.presentation.blog_editorial import enrich_blog_post
 from src.institutional.presentation.authors import AUTHORS
 from src.institutional.presentation.authors import DEFAULT_AUTHOR_SLUG
 from src.institutional.presentation.authors import get_author
-from src.institutional.presentation.forms import ContactForm
+from src.institutional.presentation.forms import ContactForm, NewsletterSubscribeForm
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGE_BY_KEY
 
@@ -547,7 +550,65 @@ def contact(request):
         {"form": form},
     )
 
+
+@require_POST
+def newsletter_subscribe(request):
+    form = NewsletterSubscribeForm(request.POST)
+
+    if not form.is_valid():
+        return JsonResponse(
+            {"success": False, "message": "Não foi possível enviar agora. Tente novamente."},
+            status=400,
+        )
+
+    email_address = form.cleaned_data["email"]
+    recipient_email = getattr(
+        settings,
+        "CONTACT_RECIPIENT_EMAIL",
+        "comercial@smartcontrolbrasil.com.br",
+    )
+    now_str = timezone.now().strftime("%d/%m/%Y %H:%M:%S UTC")
+
+    subject = "Novo lead pelo site — Novidades Smart Control Brasil"
+    body = "\n".join(
+        [
+            "Novo lead capturado pela Home.",
+            "",
+            "E-mail:",
+            email_address,
+            "",
+            "Origem:",
+            "Home do site Smart Control Brasil",
+            "",
+            "Data/hora:",
+            now_str,
+            "",
+            "Finalidade:",
+            "Receber novidades e atualizações.",
+        ]
+    )
+
+    try:
+        email = EmailMessage(
+            subject=subject,
+            body=body,
+            from_email=getattr(settings, "DEFAULT_FROM_EMAIL", "webmaster@localhost"),
+            to=[recipient_email],
+            reply_to=[email_address],
+        )
+        email.send()
+    except Exception:
+        logger.exception("Falha ao enviar e-mail de inscricao de newsletter da Home.")
+        return JsonResponse(
+            {"success": False, "message": "Não foi possível enviar agora. Tente novamente."},
+            status=500,
+        )
+
+    return JsonResponse({"success": True, "message": "E-mail cadastrado. Obrigado!"})
+
+
 def page_not_found(request, exception):
+
     page = SimpleNamespace(
         metadata=SimpleNamespace(
             title="Página não encontrada | Smart Control Brasil",
