@@ -506,6 +506,12 @@
             }
 
             window.gtag('event', eventName, gtagParams);
+
+            if (eventName === 'generate_lead') {
+                window.gtag('event', 'conversion', {
+                    send_to: 'AW-18312173157/9nrbCN-F2-wcEOWs9ptE'
+                });
+            }
         }
     }
 
