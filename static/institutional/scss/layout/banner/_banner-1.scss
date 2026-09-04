@@ -27,7 +27,10 @@
 		@media #{$xs} {
 			padding-bottom: 100px;
 		}
-		
+		.banner-heading__wrapper-title,
+		.banner-heading__wrapper-dec {
+			color: #ffffff;
+		}
 	}
 	
 	&__shapes{
