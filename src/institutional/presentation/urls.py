@@ -80,6 +80,46 @@ urlpatterns = [
     ),
     path("empresa/", views.about, name="about"),
     path("servicos/", views.services, name="services"),
+    path(
+        "solucoes/xyron-robotics/liro-littlebot/",
+        views.legacy_solucoes_liro_littlebot,
+        name="legacy_solucoes_liro_littlebot",
+    ),
+    path(
+        "solucoes/xyron-robotics/hostbot/",
+        views.legacy_solucoes_hostbot,
+        name="legacy_solucoes_hostbot",
+    ),
+    path(
+        "marketplace/products/mitsubishi-ihm-got/",
+        views.legacy_marketplace_mitsubishi_ihm_got,
+        name="legacy_marketplace_mitsubishi_ihm_got",
+    ),
+    path(
+        "marketplace/products/mitsubishi-automacao-industrial-integrada/",
+        views.legacy_marketplace_mitsubishi_automacao_integrada,
+        name="legacy_marketplace_mitsubishi_automacao_integrada",
+    ),
+    path(
+        "projetos/manutencao-retrofit-confiabilidade/",
+        views.legacy_projetos_manutencao_retrofit_confiabilidade,
+        name="legacy_projetos_manutencao_retrofit_confiabilidade",
+    ),
+    path(
+        "projetos/integracao-chao-fabrica-dados-industriais/",
+        views.legacy_projetos_integracao_chao_fabrica_dados_industriais,
+        name="legacy_projetos_integracao_chao_fabrica_dados_industriais",
+    ),
+    path(
+        "projetos/diagnostico-industrial-engenharia-solucao/",
+        views.legacy_projetos_diagnostico_industrial_engenharia_solucao,
+        name="legacy_projetos_diagnostico_industrial_engenharia_solucao",
+    ),
+    path(
+        "projetos/pagina/2/",
+        views.legacy_projetos_pagina_2,
+        name="legacy_projetos_pagina_2",
+    ),
     path("projetos/", views.legacy_projects, name="legacy_projects"),
     path("projetos/detalhes/", views.legacy_projects, name="legacy_project_details"),
     path("parceiros/agraz/", views.legacy_agraz, name="legacy_parceiros_agraz"),

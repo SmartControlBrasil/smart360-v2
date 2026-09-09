@@ -162,6 +162,42 @@ def legacy_projects(request):
     return _permanent_redirect_to_route(request, "institutional:services")
 
 
+def legacy_solucoes_liro_littlebot(request):
+    return _permanent_redirect_to_route(request, "institutional:xyron_littlebot")
+
+
+def legacy_solucoes_hostbot(request):
+    return _permanent_redirect_to_route(request, "institutional:xyron_connect_bot")
+
+
+def legacy_marketplace_mitsubishi_ihm_got(request):
+    return _permanent_redirect_to_route(request, "institutional:mitsubishi_automacao_industrial")
+
+
+def legacy_marketplace_mitsubishi_automacao_integrada(request):
+    return _permanent_redirect_to_route(request, "institutional:mitsubishi_automacao_industrial")
+
+
+def legacy_projetos_manutencao_retrofit_confiabilidade(request):
+    return _permanent_redirect_to_route(request, "institutional:manutencao_industrial_campo")
+
+
+def legacy_projetos_integracao_chao_fabrica_dados_industriais(request):
+    return _permanent_redirect_to_route(
+        request,
+        "institutional:blog_detail",
+        slug="informacao-precisa-para-agir-melhor",
+    )
+
+
+def legacy_projetos_diagnostico_industrial_engenharia_solucao(request):
+    return _permanent_redirect_to_route(request, "institutional:services")
+
+
+def legacy_projetos_pagina_2(request):
+    return _permanent_redirect_to_route(request, "institutional:services")
+
+
 def legacy_blog_dashboards_decisoes_melhores(request):
     return _permanent_redirect_to_route(
         request,

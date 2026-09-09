@@ -3863,6 +3863,14 @@ class TechnicalSeoTests(TestCase):
             "https://www.smartcontrolbrasil.com.br/parceiros/agraz/",
             "https://www.smartcontrolbrasil.com.br/projetos/",
             "https://www.smartcontrolbrasil.com.br/projetos/detalhes/",
+            "https://www.smartcontrolbrasil.com.br/solucoes/xyron-robotics/liro-littlebot/",
+            "https://www.smartcontrolbrasil.com.br/solucoes/xyron-robotics/hostbot/",
+            "https://www.smartcontrolbrasil.com.br/marketplace/products/mitsubishi-ihm-got/",
+            "https://www.smartcontrolbrasil.com.br/marketplace/products/mitsubishi-automacao-industrial-integrada/",
+            "https://www.smartcontrolbrasil.com.br/projetos/manutencao-retrofit-confiabilidade/",
+            "https://www.smartcontrolbrasil.com.br/projetos/integracao-chao-fabrica-dados-industriais/",
+            "https://www.smartcontrolbrasil.com.br/projetos/diagnostico-industrial-engenharia-solucao/",
+            "https://www.smartcontrolbrasil.com.br/projetos/pagina/2/",
             "https://www.smartcontrolbrasil.com.br/blog/automacao-industrial-conectada-gestao/",
             "https://www.smartcontrolbrasil.com.br/blog/dashboards-decisoes-melhores/",
             "https://www.smartcontrolbrasil.com.br/blog/iot-mudando-negocios/",
@@ -4423,6 +4431,34 @@ LEGACY_SEO_REDIRECTS = (
 
 LEGACY_SEO_SOURCE_URLS = tuple(source for source, _ in LEGACY_SEO_REDIRECTS)
 
+LEGACY_GSC_BATCH1_REDIRECTS = (
+    ("/solucoes/xyron-robotics/liro-littlebot/", reverse("institutional:xyron_littlebot")),
+    ("/solucoes/xyron-robotics/hostbot/", reverse("institutional:xyron_connect_bot")),
+    (
+        "/marketplace/products/mitsubishi-ihm-got/",
+        reverse("institutional:mitsubishi_automacao_industrial"),
+    ),
+    (
+        "/marketplace/products/mitsubishi-automacao-industrial-integrada/",
+        reverse("institutional:mitsubishi_automacao_industrial"),
+    ),
+    (
+        "/projetos/manutencao-retrofit-confiabilidade/",
+        reverse("institutional:manutencao_industrial_campo"),
+    ),
+    (
+        "/projetos/integracao-chao-fabrica-dados-industriais/",
+        reverse(
+            "institutional:blog_detail",
+            kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+        ),
+    ),
+    ("/projetos/diagnostico-industrial-engenharia-solucao/", reverse("institutional:services")),
+    ("/projetos/pagina/2/", reverse("institutional:services")),
+)
+
+LEGACY_GSC_BATCH1_SOURCE_URLS = tuple(source for source, _ in LEGACY_GSC_BATCH1_REDIRECTS)
+
 FORBIDDEN_CLIMATE_TERMS = (
     "câmara climática",
     "câmaras climáticas",
@@ -4458,6 +4494,50 @@ class LegacySeoRedirectTests(TestCase):
         response = self.client.get("/sitemap.xml")
         xml = response.content.decode()
         for legacy_url in LEGACY_SEO_SOURCE_URLS:
+            with self.subTest(legacy_url=legacy_url):
+                self.assertNotIn(f"https://www.smartcontrolbrasil.com.br{legacy_url}", xml)
+
+
+class LegacyGscBatch1RedirectTests(TestCase):
+    def test_legacy_gsc_batch1_urls_return_301_with_preserved_query_string(self):
+        for source, target in LEGACY_GSC_BATCH1_REDIRECTS:
+            with self.subTest(source=source):
+                response = self.client.get(f"{source}?utm_source=legacy&ref=old")
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], f"{target}?utm_source=legacy&ref=old")
+
+    def test_legacy_gsc_batch1_redirect_destinations_return_200_without_loops(self):
+        for source, target in LEGACY_GSC_BATCH1_REDIRECTS:
+            with self.subTest(source=source):
+                self.assertNotEqual(source, target)
+                response = self.client.get(source)
+                self.assertEqual(response.status_code, 301)
+                self.assertEqual(response["Location"], target)
+                destination_response = self.client.get(target)
+                self.assertEqual(destination_response.status_code, 200)
+
+    def test_legacy_xyron_hostbot_redirect_still_points_to_connect_bot(self):
+        response = self.client.get("/xyron/hostbot/")
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response["Location"], reverse("institutional:xyron_connect_bot"))
+        destination_response = self.client.get(reverse("institutional:xyron_connect_bot"))
+        self.assertEqual(destination_response.status_code, 200)
+
+    def test_unknown_legacy_prefix_slugs_still_return_real_404(self):
+        unknown_urls = (
+            "/projetos/slug-inexistente-seo/",
+            "/solucoes/xyron-robotics/slug-inexistente-seo/",
+        )
+        for url in unknown_urls:
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 404)
+                self.assertContains(response, '<meta name="robots" content="noindex,follow">', status_code=404)
+
+    def test_legacy_gsc_batch1_urls_are_absent_from_sitemap(self):
+        response = self.client.get("/sitemap.xml")
+        xml = response.content.decode()
+        for legacy_url in LEGACY_GSC_BATCH1_SOURCE_URLS:
             with self.subTest(legacy_url=legacy_url):
                 self.assertNotIn(f"https://www.smartcontrolbrasil.com.br{legacy_url}", xml)
 
