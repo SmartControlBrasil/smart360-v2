@@ -13,6 +13,9 @@ from src.commerce.seo import NOINDEX_CATEGORY_SLUGS
 
 
 STATIC_PUBLIC_ROUTES = (
+    {"name": "institutional:servicos_eletricos", "changefreq": "monthly", "priority": 0.9},
+    {"name": "institutional:ar_condicionado", "changefreq": "monthly", "priority": 0.9},
+    {"name": "institutional:refrigeracao_comercial", "changefreq": "monthly", "priority": 0.9},
     {
         "name": "institutional:home",
         "changefreq": "weekly",

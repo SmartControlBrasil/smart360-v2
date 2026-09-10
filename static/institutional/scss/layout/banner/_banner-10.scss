@@ -144,6 +144,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                .site-icon {
+                    filter: brightness(0) invert(1);
+                }
                 i{
                     color: var(--rr-common-white);
                     font-size: 18px;

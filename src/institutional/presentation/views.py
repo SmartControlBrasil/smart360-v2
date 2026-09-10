@@ -346,6 +346,84 @@ def sistemas_websites_python(request):
     return render(request, "institutional/demos/sistemas-websites-python.html")
 
 
+def servicos_eletricos(request):
+    from . import electrical_services as content
+    from urllib.parse import parse_qs, urlparse
+    import re
+
+    video_url = settings.ELECTRICAL_SERVICES_VIDEO_URL
+    if not video_url and settings.DEBUG:
+        video_url = content.DEVELOPMENT_VIDEO_URL
+    if not settings.DEBUG and video_url == content.DEVELOPMENT_VIDEO_URL:
+        video_url = ""
+    parsed = urlparse(video_url)
+    video_id = ""
+    if parsed.scheme == "https" and parsed.hostname in {"www.youtube.com", "youtube.com"}:
+        video_id = parse_qs(parsed.query).get("v", [""])[0]
+    elif parsed.scheme == "https" and parsed.hostname == "youtu.be":
+        video_id = parsed.path.strip("/")
+    embed_url = ""
+    if re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+        embed_url = f"https://www.youtube-nocookie.com/embed/{video_id}?autoplay=1"
+    return render(request, "institutional/pages/servicos-eletricos.html", {
+        "electrical": content,
+        "video_embed_url": embed_url,
+        "video_is_preview": bool(settings.DEBUG and video_url == content.DEVELOPMENT_VIDEO_URL),
+    })
+
+
+def ar_condicionado(request):
+    from . import air_conditioning as content
+    from urllib.parse import parse_qs, urlparse
+    import re
+
+    video_url = settings.AIR_CONDITIONING_VIDEO_URL
+    if not video_url and settings.DEBUG:
+        video_url = content.DEVELOPMENT_VIDEO_URL
+    if not settings.DEBUG and video_url == content.DEVELOPMENT_VIDEO_URL:
+        video_url = ""
+    parsed = urlparse(video_url)
+    video_id = ""
+    if parsed.scheme == "https" and parsed.hostname in {"www.youtube.com", "youtube.com"}:
+        video_id = parse_qs(parsed.query).get("v", [""])[0]
+    elif parsed.scheme == "https" and parsed.hostname == "youtu.be":
+        video_id = parsed.path.strip("/")
+    embed_url = ""
+    if re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+        embed_url = f"https://www.youtube-nocookie.com/embed/{video_id}?autoplay=1"
+    return render(request, "institutional/pages/ar-condicionado.html", {
+        "air_conditioning": content,
+        "video_embed_url": embed_url,
+        "video_is_preview": bool(settings.DEBUG and video_url == content.DEVELOPMENT_VIDEO_URL),
+    })
+
+
+def refrigeracao_comercial(request):
+    from . import commercial_refrigeration as content
+    from urllib.parse import parse_qs, urlparse
+    import re
+
+    video_url = settings.COMMERCIAL_REFRIGERATION_VIDEO_URL
+    if not video_url and settings.DEBUG:
+        video_url = content.DEVELOPMENT_VIDEO_URL
+    if not settings.DEBUG and video_url == content.DEVELOPMENT_VIDEO_URL:
+        video_url = ""
+    parsed = urlparse(video_url)
+    video_id = ""
+    if parsed.scheme == "https" and parsed.hostname in {"www.youtube.com", "youtube.com"}:
+        video_id = parse_qs(parsed.query).get("v", [""])[0]
+    elif parsed.scheme == "https" and parsed.hostname == "youtu.be":
+        video_id = parsed.path.strip("/")
+    embed_url = ""
+    if re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+        embed_url = f"https://www.youtube-nocookie.com/embed/{video_id}?autoplay=1"
+    return render(request, "institutional/pages/refrigeracao-comercial.html", {
+        "commercial_refrigeration": content,
+        "video_embed_url": embed_url,
+        "video_is_preview": bool(settings.DEBUG and video_url == content.DEVELOPMENT_VIDEO_URL),
+    })
+
+
 def manutencao_industrial_campo(request):
     return render(request, "institutional/demos/manutencao-industrial-campo.html")
 

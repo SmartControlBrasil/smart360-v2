@@ -1,0 +1,471 @@
+{% extends 'institutional/base.html' %}
+
+{% load static institutional_media %}
+
+{% block extra_head %}
+<link
+    rel="stylesheet"
+    href="{% static 'institutional/css/servicos-eletricos.css' %}"
+>
+{% endblock %}
+
+{% block smooth_wrapper_attributes %}
+class="electrical-scroll-wrapper"
+{% endblock %}
+
+{% block smooth_content_attributes %}
+class="electrical-scroll-content"
+{% endblock %}
+
+{% block content %}
+
+<div class="electrical-page">
+
+    <!-- Adapted from smart360v2_baixado/index-3.html: preserve section order and visual components. -->
+
+    <section class="banner2__area banner3__area hero-bg-dark p-relative overflow-hidden z-1">
+        <div class="container">
+
+            <nav aria-label="Breadcrumb" class="electrical-breadcrumb">
+                <a href="{% url 'institutional:home' %}">Início</a>
+                <span aria-hidden="true"> / </span>
+                <span aria-current="page">Serviços Elétricos</span>
+            </nav>
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-7">
+                    <div class="banner3__content">
+
+                        <div class="banner-heading__wrapper">
+                            <p class="subtitle">ENGENHARIA E SERVIÇOS</p>
+
+                            <h1 class="banner-heading__wrapper-title">
+                                Serviços Elétricos com Engenharia e Execução Profissional
+                            </h1>
+
+                            <p class="banner-heading__wrapper-dec">
+                                Projetos, instalações, manutenção e adequações elétricas para
+                                residências, comércios, condomínios e empresas.
+                            </p>
+                        </div>
+
+                        <div class="electrical-actions">
+                            <a
+                                class="rr-btn"
+                                href="{% url 'institutional:contact' %}"
+                                data-track-event="click_primary_cta"
+                                data-track-location="electrical_hero"
+                                data-track-label="Solicitar Orçamento"
+                            >
+                                Solicitar Orçamento
+                                {% institutional_icon 'next' %}
+                            </a>
+
+                            <a
+                                class="rr-btn btn-transparent"
+                                href="https://wa.me/551151968525?text=Ol%C3%A1%21%20Gostaria%20de%20um%20or%C3%A7amento%20para%20servi%C3%A7os%20el%C3%A9tricos."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Falar no WhatsApp
+                                {% institutional_icon 'whatsapp' %}
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="banner3__thumb">
+                        <img
+                            src="{% static electrical.HERO_IMAGE %}"
+                            alt="Quadro elétrico com distribuição de circuitos e dispositivos de proteção"
+                            width="590"
+                            height="408"
+                            fetchpriority="high"
+                        >
+
+                        <p class="electrical-caption">
+                            Diagnóstico · Projeto · Instalação · Manutenção
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="rr__chatbot-area section-space heading-bg">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Soluções Elétricas para Cada Necessidade
+            </h2>
+
+            <div class="row g-4 text-center">
+                {% for icon, title, text in electrical.SOLUTIONS %}
+                    <div class="col-xl-3 col-md-6">
+                        <article class="rr__chatbot-item">
+
+                            <img
+                                class="electrical-icon"
+                                src="{% static 'institutional/icons/electrical/' %}{{ icon }}.svg"
+                                width="48"
+                                height="48"
+                                alt=""
+                                loading="lazy"
+                            >
+
+                            <div class="rr__chatbot-text">
+                                <h3>{{ title }}</h3>
+                                <p>{{ text }}</p>
+                            </div>
+
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+    <section class="rr__features__area heading-bg section-space-bottom">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-45">
+                Engenharia que Vai Além da Execução
+            </h2>
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-4">
+                    {% for title, text in electrical.FEATURES %}
+                        <article class="rr__features-box mb-30">
+                            <h3>{{ title }}</h3>
+                            <p>{{ text }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-7 offset-lg-1">
+                    <div class="rr__features-img position-relative">
+
+                        <!-- TODO: substituir pelo vídeo institucional de Serviços Elétricos -->
+
+                        {# Thumbnail: electrical_services.VIDEO_THUMBNAIL. URL: ELECTRICAL_SERVICES_VIDEO_URL. #}
+
+                        <img
+                            src="{% static electrical.VIDEO_THUMBNAIL %}"
+                            alt="Detalhes de um painel eletrônico em intervenção técnica"
+                            width="930"
+                            height="470"
+                            loading="lazy"
+                        >
+
+                        <div class="wrap">
+                            <button
+                                type="button"
+                                class="features__media-icon electrical-play"
+                                data-electrical-video
+                                aria-label="Abrir vídeo de Serviços Elétricos"
+                                aria-haspopup="dialog"
+                            >
+                                {% institutional_icon 'play' %}
+                            </button>
+                        </div>
+
+                    </div>
+
+                    {% if video_is_preview %}
+                        <p class="electrical-caption">
+                            Prévia de desenvolvimento: vídeo do template, aguardando substituição.
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing__area section-space op-bg">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Principais Serviços
+            </h2>
+
+            <div class="row g-4">
+
+                {% for title, items in electrical.CATEGORIES %}
+                    <div class="col-lg-4">
+                        <article class="pricing__item">
+
+                            <div class="pricing__header">
+                                <h3>{{ title }}</h3>
+                            </div>
+
+                            <div class="pricing__features text-start">
+                                <ul>
+                                    {% for item in items %}
+                                        <li>
+                                            {% institutional_icon 'check' %}
+                                            {{ item }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div class="pricing__btn">
+                                {% if title == 'Industrial' %}
+                                    <a
+                                        class="rr-btn btn-transparent"
+                                        href="{% url 'institutional:mitsubishi_automacao_industrial' %}"
+                                    >
+                                        Conhecer Soluções Industriais
+                                    </a>
+                                {% else %}
+                                    <a
+                                        class="rr-btn btn-transparent"
+                                        href="{% url 'institutional:contact' %}"
+                                        data-track-event="click_primary_cta"
+                                        data-track-location="electrical_{{ title|lower }}"
+                                        data-track-label="Solicitar Orçamento"
+                                    >
+                                        Solicitar Orçamento
+                                    </a>
+                                {% endif %}
+                            </div>
+
+                        </article>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="rr__explore-apps-area section-space heading-bg">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Serviços Elétricos que Executamos
+            </h2>
+
+            <div class="row g-4 text-center">
+
+                {% for icon, title in electrical.EXECUTION %}
+                    <div class="col-xl-3 col-md-6">
+
+                        <article class="rr__explore-apps-item">
+
+                            <img
+                                class="electrical-icon"
+                                src="{% static 'institutional/icons/electrical/' %}{{ icon }}.svg"
+                                width="48"
+                                height="48"
+                                alt=""
+                                loading="lazy"
+                            >
+
+                            <h3>{{ title }}</h3>
+
+                            <a href="{% url 'institutional:contact' %}">
+                                Solicitar atendimento
+                                {% institutional_icon 'next' %}
+                            </a>
+
+                        </article>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="things__area heading-bg section-space-bottom">
+        <div class="container">
+
+            <div class="electrical-callout">
+
+                <div>
+                    <h2>Precisa Resolver um Problema Elétrico?</h2>
+
+                    <p>
+                        Fale com a Smart Control Brasil para avaliar sua instalação
+                        e receber uma solução adequada ao seu projeto ou necessidade.
+                    </p>
+                </div>
+
+                <a
+                    class="rr-btn"
+                    href="{% url 'institutional:contact' %}"
+                    data-track-event="click_primary_cta"
+                    data-track-location="electrical_attendance"
+                    data-track-label="Solicitar Atendimento"
+                >
+                    Solicitar Atendimento
+                    {% institutional_icon 'next' %}
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="credible__area op-bg section-space">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Por que escolher a Smart Control Brasil?
+            </h2>
+
+            <div class="row g-4">
+
+                {% for title, text in electrical.CAPABILITIES %}
+                    <div class="col-md-6">
+
+                        <article class="electrical-capability">
+
+                            <span class="electrical-number" aria-hidden="true">
+                                0{{ forloop.counter }}
+                            </span>
+
+                            <h3>{{ title }}</h3>
+                            <p>{{ text }}</p>
+
+                        </article>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="rr__marketing-area heading-bg section-space">
+        <div class="container text-center">
+
+            <h2 class="section__title-wrapper-title-2">
+                Engenharia, Tecnologia e Serviços Integrados
+            </h2>
+
+            <p class="mt-25">
+                Do levantamento à supervisão técnica, conectamos planejamento e
+                execução em soluções elétricas completas.
+            </p>
+
+        </div>
+    </section>
+
+    <section class="further-2__area heading-bg section-space-bottom">
+        <div class="container">
+
+            <div class="further-2__wrapper electrical-integration">
+
+                <h2 class="section__title-wrapper-title-2">
+                    Da Elétrica à Automação Industrial
+                </h2>
+
+                <p>
+                    A Smart Control Brasil integra serviços elétricos, engenharia e
+                    automação para atender desde instalações convencionais até
+                    aplicações industriais mais complexas.
+                </p>
+
+                <div class="electrical-actions">
+
+                    <a
+                        class="rr-btn"
+                        href="{% url 'institutional:mitsubishi_automacao_industrial' %}"
+                    >
+                        Conhecer Automação Industrial
+                    </a>
+
+                    <a
+                        class="rr-btn btn-transparent"
+                        href="{% url 'institutional:manutencao_industrial_campo' %}"
+                    >
+                        Conhecer Manutenção Industrial
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="rr__lates-blog-area heading-bg section-space-bottom">
+        <div class="container electrical-faq">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Perguntas sobre Serviços Elétricos
+            </h2>
+
+            {% for question, answer in electrical.FAQS %}
+                <details>
+
+                    <summary>
+                        <h3>{{ question }}</h3>
+                    </summary>
+
+                    <p>{{ answer }}</p>
+
+                </details>
+            {% endfor %}
+
+        </div>
+    </section>
+
+</div>
+
+<dialog
+    id="electrical-video-dialog"
+    aria-labelledby="electrical-video-title"
+    data-embed-url="{{ video_embed_url }}"
+>
+
+    <div class="electrical-dialog-header">
+
+        <h2 id="electrical-video-title">
+            Serviços Elétricos
+        </h2>
+
+        <button
+            type="button"
+            data-close-video
+            aria-label="Fechar vídeo"
+        >
+            {% institutional_icon 'close' %}
+        </button>
+
+    </div>
+
+    {% if video_embed_url %}
+        <div class="electrical-video-frame"></div>
+    {% else %}
+        <p>
+            Nosso vídeo institucional estará disponível em breve.
+            Fale com a equipe para conhecer nossos serviços elétricos.
+        </p>
+
+        <a
+            class="rr-btn"
+            href="{% url 'institutional:contact' %}"
+        >
+            Solicitar Atendimento
+        </a>
+    {% endif %}
+
+</dialog>
+
+{% endblock %}
+
+{% block extra_js %}
+<script
+    defer
+    src="{% static 'institutional/js/servicos-eletricos.js' %}"
+></script>
+{% endblock %}

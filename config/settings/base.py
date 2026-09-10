@@ -106,6 +106,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Approved institutional YouTube URL. Empty keeps the production popup in a pending state.
+ELECTRICAL_SERVICES_VIDEO_URL = os.getenv("ELECTRICAL_SERVICES_VIDEO_URL", "")
+AIR_CONDITIONING_VIDEO_URL = os.getenv("AIR_CONDITIONING_VIDEO_URL", "")
+COMMERCIAL_REFRIGERATION_VIDEO_URL = os.getenv("COMMERCIAL_REFRIGERATION_VIDEO_URL", "")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

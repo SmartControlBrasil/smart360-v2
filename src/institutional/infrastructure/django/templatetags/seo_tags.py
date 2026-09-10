@@ -42,26 +42,37 @@ ORGANIZATION_ADDRESS = {
     "addressCountry": "BR",
 }
 
-CONTACT_PAGE_FAQS = [
-    (
-        "Quais serviços posso solicitar pelo formulário?",
-        "O formulário pode ser usado para assuntos relacionados a automação industrial, robótica, manutenção industrial e sistemas web, conforme as soluções apresentadas no site.",
-    ),
-    (
-        "Posso solicitar atendimento para manutenção e retrofit?",
-        "Sim. Você pode descrever necessidades de manutenção industrial, diagnóstico técnico, retrofit, comissionamento ou apoio em equipamentos e sistemas existentes.",
-    ),
-    (
-        "Posso falar sobre projetos de automação Mitsubishi Electric ou robótica Xyron?",
-        "Sim. O formulário pode ser usado para contato comercial ou técnico sobre soluções de automação Mitsubishi Electric e robótica Xyron apresentadas pela Smart Control Brasil.",
-    ),
-    (
-        "Quais informações ajudam na análise de uma solicitação técnica?",
-        "Descreva o tipo de equipamento ou projeto, a necessidade principal, sintomas observados em casos de manutenção, localização da aplicação e documentos ou fotos que possam ser descritos na mensagem.",
-    ),
-]
-
 ROUTE_METADATA = {
+    "servicos_eletricos": {
+        "title": "Serviços Elétricos em São Paulo | Smart Control Brasil",
+        "description": "Serviços elétricos residenciais, comerciais e industriais em São Paulo. Instalações, manutenção, quadros, projetos e soluções com suporte de engenharia.",
+        "social_image": "institutional/imgs/images/painel-eletrico.webp",
+        "social_image_width": 590,
+        "social_image_height": 408,
+        "social_image_alt": "Quadro elétrico com circuitos e dispositivos de proteção",
+    },
+    "ar_condicionado": {
+        "title": "Ar-Condicionado em São Paulo | Instalação e Manutenção | Smart Control Brasil",
+        "description": (
+            "Instalação, manutenção e higienização de ar-condicionado em São Paulo. "
+            "Atendimento residencial e comercial com suporte técnico da Smart Control Brasil."
+        ),
+        "social_image": "institutional/imgs/images/refrigeration-system.webp",
+        "social_image_width": 590,
+        "social_image_height": 408,
+        "social_image_alt": "Sistema de climatização em ambiente comercial",
+    },
+    "refrigeracao_comercial": {
+        "title": "Refrigeração Comercial e Câmaras Frigoríficas em São Paulo | Smart Control Brasil",
+        "description": (
+            "Soluções em refrigeração comercial e câmaras frigoríficas em São Paulo. "
+            "Venda, instalação, manutenção e infraestrutura técnica para empresas."
+        ),
+        "social_image": "institutional/imgs/images/refrigeration-system.webp",
+        "social_image_width": 590,
+        "social_image_height": 408,
+        "social_image_alt": "Sistema de refrigeração comercial instalado profissionalmente",
+    },
     "home": {
         "title": "Smart Control Brasil | Automação Industrial, Robótica e Sistemas",
         "description": (
@@ -379,6 +390,9 @@ def _breadcrumb_items(context):
         return [home, (pillar["breadcrumb_label"], canonical_url(context))]
 
     solution_names = {
+        "servicos_eletricos": "Serviços Elétricos",
+        "ar_condicionado": "Ar-Condicionado",
+        "refrigeracao_comercial": "Refrigeração Comercial",
         "xyron": "Xyron Robotics",
         "mitsubishi_automacao_industrial": "Mitsubishi Automação Industrial",
         "manutencao_industrial_campo": "Manutenção Industrial",
@@ -723,6 +737,42 @@ def _contact_page_schema(context):
 
 def _service_schema(context):
     route_name = _route_name(context)
+    if route_name == "servicos_eletricos":
+        return {
+            "@type": "Service", "name": "Serviços Elétricos",
+            "description": _route_metadata(context)["description"],
+            "url": canonical_url(context),
+            "provider": {"@type": "Organization", "name": SOCIAL_SITE_NAME, "url": settings.PUBLIC_SITE_URL},
+            "serviceType": ["Instalações elétricas", "Manutenção elétrica", "Projetos elétricos", "Quadros e proteção"],
+        }
+    if route_name == "ar_condicionado":
+        return {
+            "@type": "Service",
+            "name": "Ar-Condicionado",
+            "description": _route_metadata(context)["description"],
+            "url": canonical_url(context),
+            "provider": {"@type": "Organization", "name": SOCIAL_SITE_NAME, "url": settings.PUBLIC_SITE_URL},
+            "serviceType": [
+                "Instalação de ar-condicionado",
+                "Manutenção de ar-condicionado",
+                "Higienização de ar-condicionado",
+                "Climatização",
+            ],
+        }
+    if route_name == "refrigeracao_comercial":
+        return {
+            "@type": "Service",
+            "name": "Refrigeração Comercial",
+            "description": _route_metadata(context)["description"],
+            "url": canonical_url(context),
+            "provider": {"@type": "Organization", "name": SOCIAL_SITE_NAME, "url": settings.PUBLIC_SITE_URL},
+            "serviceType": [
+                "Câmaras frigoríficas",
+                "Instalação de refrigeração comercial",
+                "Manutenção de refrigeração comercial",
+                "Infraestrutura elétrica para refrigeração",
+            ],
+        }
     pillar = _pillar(context)
     if pillar:
         return {
@@ -1099,8 +1149,15 @@ def _faq_page_schema(context):
                 "Entre em contato com a Smart Control Brasil para avaliar o ambiente, o objetivo da operação e a solução Xyron mais adequada.",
             ),
         ]
-    elif route_name == "contact":
-        faqs = CONTACT_PAGE_FAQS
+    elif route_name == "servicos_eletricos":
+        from src.institutional.presentation.electrical_services import FAQS
+        faqs = FAQS
+    elif route_name == "ar_condicionado":
+        from src.institutional.presentation.air_conditioning import FAQS
+        faqs = FAQS
+    elif route_name == "refrigeracao_comercial":
+        from src.institutional.presentation.commercial_refrigeration import FAQS
+        faqs = FAQS
     elif route_name == "services":
         faqs = [
             (
@@ -1269,7 +1326,9 @@ def _structured_data_graph(context):
             graph.append(faq_page)
 
     if _route_name(context) in {
-        "contact",
+        "servicos_eletricos",
+        "ar_condicionado",
+        "refrigeracao_comercial",
         "services",
         "xyron",
         "manutencao_industrial_campo",

@@ -37,6 +37,10 @@
             background-color: var(--rr-theme-primary2);
             color: var(--rr-common-white);
             padding: 14px 30px;
+
+            .site-icon {
+                filter: brightness(0) invert(1);
+            }
         }
         margin-bottom: 100px;
         @media #{$sm, $xs} {

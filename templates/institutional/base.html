@@ -282,8 +282,8 @@
     </div>
 
     <!-- Smooth Wrapper -->
-    <div id="smooth-wrapper">
-        <div id="smooth-content">
+    <div {% block smooth_wrapper_attributes %}id="smooth-wrapper"{% endblock %}>
+        <div {% block smooth_content_attributes %}id="smooth-content"{% endblock %}>
 
             <main>
                 {% block content %}{% endblock %}

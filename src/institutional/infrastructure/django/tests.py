@@ -336,7 +336,9 @@ class InstitutionalRoutesTests(TestCase):
             "Sobre",
             "Soluções",
             "Manutenção Industrial",
-            "Mitsubishi Automação",
+            "Engenharia e Serviços",
+            "Serviços Elétricos",
+            "Automação Industrial",
             "Sistemas e Websites",
             "Xyron Robótica",
             "Blog",
@@ -908,47 +910,19 @@ class TechnicalSeoTests(TestCase):
 
         for expected in (
             "Conte-nos sobre seu projeto",
-            "automação industrial",
-            "Mitsubishi Electric",
-            "robótica Xyron",
-            "manutenção industrial e retrofit",
-            "integração de dados",
-            "sistemas web em Python/Django",
             'href="tel:+551151968525"',
             "(11) 5196-8525",
             'href="mailto:comercial@smartcontrolbrasil.com.br"',
             "comercial@smartcontrolbrasil.com.br",
-            "R. Agnaldo Alves Silva - Jardim Maristela",
-            "Itapevi - SP, 06663-160",
             "Autorizo o uso dos dados informados",
+            "Enviar solicitação",
         ):
             with self.subTest(expected=expected):
                 self.assertIn(expected, html)
 
-        for expected_link in (
-            reverse("institutional:services"),
-            reverse("institutional:manutencao_industrial_campo"),
-            reverse("institutional:mitsubishi_automacao_industrial"),
-            reverse("institutional:xyron"),
-            reverse("institutional:sistemas_websites_python"),
-        ):
-            with self.subTest(expected_link=expected_link):
-                self.assertIn(f'href="{expected_link}"', html)
-
-        faq_questions = [
-            "Quais serviços posso solicitar pelo formulário?",
-            "Posso solicitar atendimento para manutenção e retrofit?",
-            "Posso falar sobre projetos de automação Mitsubishi Electric ou robótica Xyron?",
-            "Quais informações ajudam na análise de uma solicitação técnica?",
-        ]
-        for question in faq_questions:
-            with self.subTest(question=question):
-                self.assertIn(f"<h3>{question}</h3>", html)
-
         organizations = self.graph_items(response, "Organization")
         contact_pages = self.graph_items(response, "ContactPage")
         breadcrumbs = self.graph_items(response, "BreadcrumbList")
-        faq_pages = self.graph_items(response, "FAQPage")
 
         self.assertEqual(len(organizations), 1)
         organization = organizations[0]
@@ -979,12 +953,7 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(items[0]["item"], "https://www.smartcontrolbrasil.com.br/")
         self.assertEqual(items[1]["item"], canonical)
 
-        self.assertEqual(len(faq_pages), 1)
-        faq_entities = faq_pages[0]["mainEntity"]
-        self.assertEqual([item["name"] for item in faq_entities], faq_questions)
-        for item in faq_entities:
-            answer = item["acceptedAnswer"]["text"]
-            self.assertIn(answer, html)
+        self.assertEqual(self.graph_items(response, "FAQPage"), [])
 
         self.assertNotIn("GeoCoordinates", html)
         self.assertNotIn("openingHours", html)
@@ -3832,6 +3801,7 @@ class TechnicalSeoTests(TestCase):
 
         self.assertIn("https://www.smartcontrolbrasil.com.br/", urls)
         strategic_solution_urls = (
+            "https://www.smartcontrolbrasil.com.br/servicos-eletricos/",
             "https://www.smartcontrolbrasil.com.br/xyron/",
             "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
             "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
@@ -3914,7 +3884,7 @@ class TechnicalSeoTests(TestCase):
         for disabled_url in disabled_landing_urls:
             with self.subTest(disabled_url=disabled_url):
                 self.assertNotIn(disabled_url, urls)
-        self.assertEqual(len(urls), 22 + len(BLOG_POSTS) + len(AUTHORS))
+        self.assertEqual(len(urls), 23 + len(BLOG_POSTS) + len(AUTHORS))
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":

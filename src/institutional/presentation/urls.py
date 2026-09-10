@@ -7,6 +7,9 @@ from . import views
 app_name = "institutional"
 
 urlpatterns = [
+    path("servicos-eletricos/", views.servicos_eletricos, name="servicos_eletricos"),
+    path("ar-condicionado/", views.ar_condicionado, name="ar_condicionado"),
+    path("refrigeracao-comercial/", views.refrigeracao_comercial, name="refrigeracao_comercial"),
     path("robots.txt", views.robots_txt, name="robots_txt"),
     path("", views.home, name="home"),
     path("sobre/", views.legacy_about, name="legacy_about"),

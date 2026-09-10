@@ -1,0 +1,29 @@
+git diff --stat
+
+ config/settings/base.py                            |  3 +++
+ .../infrastructure/django/templatetags/seo_tags.py | 21 +++++++++++++++++
+ src/institutional/infrastructure/django/tests.py   |  7 ++++--
+ src/institutional/presentation/sitemaps.py         |  1 +
+ src/institutional/presentation/urls.py             |  1 +
+ src/institutional/presentation/views.py            | 26 ++++++++++++++++++++++
+ templates/institutional/base.html                  |  4 ++--
+ templates/institutional/partials/header.html       | 22 +++++++++---------
+ 8 files changed, 69 insertions(+), 16 deletions(-)
+
+git status --short
+
+ M config/settings/base.py
+ M src/institutional/infrastructure/django/templatetags/seo_tags.py
+ M src/institutional/infrastructure/django/tests.py
+ M src/institutional/presentation/sitemaps.py
+ M src/institutional/presentation/urls.py
+ M src/institutional/presentation/views.py
+ M templates/institutional/base.html
+ M templates/institutional/partials/header.html
+?? docs/servicos-eletricos/
+?? src/institutional/infrastructure/django/test_electrical_services.py
+?? src/institutional/presentation/electrical_services.py
+?? static/institutional/css/servicos-eletricos.css
+?? static/institutional/icons/electrical/
+?? static/institutional/js/servicos-eletricos.js
+?? templates/institutional/pages/servicos-eletricos.html

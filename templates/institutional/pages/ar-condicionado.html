@@ -1,0 +1,485 @@
+{% extends 'institutional/base.html' %}
+
+{% load static institutional_media %}
+
+{% block extra_head %}
+<link
+    rel="stylesheet"
+    href="{% static 'institutional/css/ar-condicionado.css' %}"
+>
+{% endblock %}
+
+{% block smooth_wrapper_attributes %}
+class="ac-scroll-wrapper"
+{% endblock %}
+
+{% block smooth_content_attributes %}
+class="ac-scroll-content"
+{% endblock %}
+
+{% block content %}
+
+<div class="ac-page">
+
+    <!-- Adapted from smart360v2_baixado/index-3.html: preserve section order and visual components. -->
+
+    <section class="banner2__area banner3__area hero-bg-dark p-relative overflow-hidden z-1">
+        <div class="container">
+
+            <nav aria-label="Breadcrumb" class="ac-breadcrumb">
+                <a href="{% url 'institutional:home' %}">Início</a>
+                <span aria-hidden="true"> / </span>
+                <span aria-current="page">Ar-Condicionado</span>
+            </nav>
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-7">
+                    <div class="banner3__content">
+
+                        <div class="banner-heading__wrapper">
+                            <p class="subtitle">ENGENHARIA E CLIMATIZAÇÃO</p>
+
+                            <h1 class="banner-heading__wrapper-title">
+                                Ar-Condicionado com Instalação e Manutenção Profissional
+                            </h1>
+
+                            <p class="banner-heading__wrapper-dec">
+                                Instalação, manutenção, higienização e soluções de climatização
+                                para residências, empresas, comércios e condomínios em São Paulo.
+                            </p>
+                        </div>
+
+                        <div class="ac-actions">
+                            <a
+                                class="rr-btn"
+                                href="{% url 'institutional:contact' %}"
+                                data-track-event="click_primary_cta"
+                                data-track-location="ac_hero"
+                                data-track-label="Solicitar Orçamento"
+                            >
+                                Solicitar Orçamento
+                                {% institutional_icon 'next' %}
+                            </a>
+
+                            <a
+                                class="rr-btn btn-transparent"
+                                href="{{ air_conditioning.WHATSAPP_URL }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Falar no WhatsApp
+                                {% institutional_icon 'whatsapp' %}
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="banner3__thumb">
+                        <img
+                            src="{% static air_conditioning.HERO_IMAGE %}"
+                            alt="Técnico realizando instalação profissional de ar-condicionado"
+                            width="590"
+                            height="408"
+                            fetchpriority="high"
+                        >
+
+                        <p class="ac-caption">
+                            Instalação · Manutenção · Higienização · Diagnóstico
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="rr__chatbot-area section-space heading-bg">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Soluções em Climatização
+            </h2>
+
+            <div class="row g-4 text-center">
+                {% for icon, title, text in air_conditioning.SOLUTIONS %}
+                    <div class="col-xl-3 col-md-6">
+                        <article class="rr__chatbot-item">
+
+                            <img
+                                class="ac-icon"
+                                src="{% static 'institutional/icons/air-conditioning/' %}{{ icon }}.svg"
+                                width="48"
+                                height="48"
+                                alt=""
+                                loading="lazy"
+                            >
+
+                            <div class="rr__chatbot-text">
+                                <h3>{{ title }}</h3>
+                                <p>{{ text }}</p>
+                            </div>
+
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+    <section class="rr__features__area heading-bg section-space-bottom">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-45">
+                Climatização com Critério Técnico
+            </h2>
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-4">
+                    {% for title, text in air_conditioning.FEATURES %}
+                        <article class="rr__features-box mb-30">
+                            <h3>{{ title }}</h3>
+                            <p>{{ text }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+
+                <div class="col-lg-7 offset-lg-1">
+                    <div class="rr__features-img position-relative">
+
+                        <!-- TODO: substituir pelo vídeo institucional de Ar-Condicionado -->
+
+                        {# Thumbnail: air_conditioning.VIDEO_THUMBNAIL. URL: AIR_CONDITIONING_VIDEO_URL. #}
+
+                        <img
+                            src="{% static air_conditioning.VIDEO_THUMBNAIL %}"
+                            alt="Equipamento de climatização em ambiente comercial"
+                            width="590"
+                            height="408"
+                            loading="lazy"
+                        >
+
+                        <div class="wrap">
+                            <button
+                                type="button"
+                                class="features__media-icon ac-play"
+                                data-ac-video
+                                aria-label="Abrir vídeo de Ar-Condicionado"
+                                aria-haspopup="dialog"
+                            >
+                                {% institutional_icon 'play' %}
+                            </button>
+                        </div>
+
+                    </div>
+
+                    {% if video_is_preview %}
+                        <p class="ac-caption">
+                            Prévia de desenvolvimento: vídeo do template, aguardando substituição.
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing__area section-space op-bg">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Principais Serviços de Ar-Condicionado
+            </h2>
+
+            <div class="row g-4">
+
+                {% for title, items, cta_label in air_conditioning.SERVICE_PLANS %}
+                    <div class="col-lg-4">
+                        <article class="pricing__item">
+
+                            <div class="pricing__header">
+                                <h3>{{ title }}</h3>
+                            </div>
+
+                            <div class="pricing__features text-start">
+                                <ul>
+                                    {% for item in items %}
+                                        <li>
+                                            {% institutional_icon 'check' %}
+                                            {{ item }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div class="pricing__btn">
+                                <a
+                                    class="rr-btn btn-transparent"
+                                    href="{% url 'institutional:contact' %}"
+                                    data-track-event="click_primary_cta"
+                                    data-track-location="ac_{{ title|slugify }}"
+                                    data-track-label="{{ cta_label }}"
+                                >
+                                    {{ cta_label }}
+                                </a>
+                            </div>
+
+                        </article>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="rr__explore-apps-area section-space heading-bg">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Serviços que Executamos
+            </h2>
+
+            <div class="row g-4 text-center">
+
+                {% for icon, title in air_conditioning.EXECUTION %}
+                    <div class="col-xl-3 col-md-6">
+
+                        <article class="rr__explore-apps-item">
+
+                            <img
+                                class="ac-icon"
+                                src="{% static 'institutional/icons/air-conditioning/' %}{{ icon }}.svg"
+                                width="48"
+                                height="48"
+                                alt=""
+                                loading="lazy"
+                            >
+
+                            <h3>{{ title }}</h3>
+
+                            <a href="{% url 'institutional:contact' %}">
+                                Solicitar atendimento
+                                {% institutional_icon 'next' %}
+                            </a>
+
+                        </article>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="things__area heading-bg section-space-bottom">
+        <div class="container">
+
+            <div class="ac-callout">
+
+                <div>
+                    <h2>Seu Ar-Condicionado Precisa de Atendimento?</h2>
+
+                    <p>
+                        Fale com a Smart Control Brasil para avaliar instalação, manutenção,
+                        higienização ou falhas no seu sistema de climatização.
+                    </p>
+                </div>
+
+                <div class="ac-actions ac-callout__actions">
+                    <a
+                        class="rr-btn"
+                        href="{% url 'institutional:contact' %}"
+                        data-track-event="click_primary_cta"
+                        data-track-location="ac_attendance"
+                        data-track-label="Solicitar Atendimento"
+                    >
+                        Solicitar Atendimento
+                        {% institutional_icon 'next' %}
+                    </a>
+
+                    <a
+                        class="rr-btn btn-transparent"
+                        href="{{ air_conditioning.WHATSAPP_URL }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Falar no WhatsApp
+                        {% institutional_icon 'whatsapp' %}
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="credible__area op-bg section-space">
+        <div class="container">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Por que escolher a Smart Control Brasil?
+            </h2>
+
+            <div class="row g-4">
+
+                {% for title, text in air_conditioning.CAPABILITIES %}
+                    <div class="col-md-6">
+
+                        <article class="ac-capability">
+
+                            <span class="ac-number" aria-hidden="true">
+                                0{{ forloop.counter }}
+                            </span>
+
+                            <h3>{{ title }}</h3>
+                            <p>{{ text }}</p>
+
+                        </article>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="rr__marketing-area heading-bg section-space">
+        <div class="container text-center">
+
+            <h2 class="section__title-wrapper-title-2">
+                Climatização, Engenharia e Serviços Integrados
+            </h2>
+
+            <p class="mt-25">
+                A Smart Control Brasil reúne climatização, elétrica, engenharia e automação
+                para oferecer soluções técnicas integradas em um único atendimento.
+            </p>
+
+        </div>
+    </section>
+
+    <section class="further-2__area heading-bg section-space-bottom">
+        <div class="container">
+
+            <div class="further-2__wrapper ac-integration">
+
+                <h2 class="section__title-wrapper-title-2">
+                    Da Climatização à Engenharia
+                </h2>
+
+                <p>
+                    Além de instalação e manutenção de ar-condicionado, a Smart Control Brasil
+                    integra
+                    <a href="{% url 'institutional:servicos_eletricos' %}">serviços elétricos</a>,
+                    <a href="{% url 'institutional:manutencao_industrial_campo' %}">manutenção industrial</a>
+                    e
+                    <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">automação industrial</a>
+                    para atender projetos com maior complexidade técnica.
+                </p>
+
+                <div class="ac-actions">
+
+                    <a
+                        class="rr-btn"
+                        href="{% url 'institutional:servicos_eletricos' %}"
+                    >
+                        Conhecer Serviços Elétricos
+                    </a>
+
+                    <a
+                        class="rr-btn btn-transparent"
+                        href="{% url 'institutional:manutencao_industrial_campo' %}"
+                    >
+                        Conhecer Manutenção Industrial
+                    </a>
+
+                    <a
+                        class="rr-btn btn-transparent"
+                        href="{% url 'institutional:mitsubishi_automacao_industrial' %}"
+                    >
+                        Conhecer Automação Industrial
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="rr__lates-blog-area heading-bg section-space-bottom">
+        <div class="container ac-faq">
+
+            <h2 class="section__title-wrapper-title-2 text-center mb-50">
+                Perguntas sobre Ar-Condicionado
+            </h2>
+
+            {% for question, answer in air_conditioning.FAQS %}
+                <details>
+
+                    <summary>
+                        <h3>{{ question }}</h3>
+                    </summary>
+
+                    <p>{{ answer }}</p>
+
+                </details>
+            {% endfor %}
+
+        </div>
+    </section>
+
+</div>
+
+<dialog
+    id="ac-video-dialog"
+    aria-labelledby="ac-video-title"
+    data-embed-url="{{ video_embed_url }}"
+>
+
+    <div class="ac-dialog-header">
+
+        <h2 id="ac-video-title">
+            Ar-Condicionado
+        </h2>
+
+        <button
+            type="button"
+            data-close-video
+            aria-label="Fechar vídeo"
+        >
+            {% institutional_icon 'close' %}
+        </button>
+
+    </div>
+
+    {% if video_embed_url %}
+        <div class="ac-video-frame"></div>
+    {% else %}
+        <p>
+            Nosso vídeo institucional estará disponível em breve.
+            Fale com a equipe para conhecer nossas soluções de climatização.
+        </p>
+
+        <a
+            class="rr-btn"
+            href="{% url 'institutional:contact' %}"
+        >
+            Solicitar Atendimento
+        </a>
+    {% endif %}
+
+</dialog>
+
+{% endblock %}
+
+{% block extra_js %}
+<script
+    defer
+    src="{% static 'institutional/js/ar-condicionado.js' %}"
+></script>
+{% endblock %}

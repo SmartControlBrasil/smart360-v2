@@ -47,7 +47,7 @@
 
 
                                         <!-- SOLUÇÕES -->
-                                        <li class="has-dropdown {% if current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'manutencao_industrial_campo' or current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
+                                        <li class="has-dropdown {% if current == 'servicos_eletricos' or current == 'ar_condicionado' or current == 'refrigeracao_comercial' or current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'manutencao_industrial_campo' or current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
 
                                             <a
                                                 href="{% url 'institutional:services' %}"
@@ -58,16 +58,19 @@
 
                                             <ul class="submenu">
 
-                                                <li class="{% if current == 'manutencao_industrial_campo' %}active{% endif %}">
-                                                    <a href="{% url 'institutional:manutencao_industrial_campo' %}">
-                                                        Manutenção Industrial
-                                                    </a>
-                                                </li>
-
-                                                <li class="{% if current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
-                                                    <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">
-                                                        Mitsubishi Automação
-                                                    </a>
+                                                <li class="has-dropdown {% if current == 'servicos_eletricos' or current == 'ar_condicionado' or current == 'refrigeracao_comercial' or current == 'manutencao_industrial_campo' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
+                                                    <a href="{% url 'institutional:services' %}" aria-haspopup="true">Engenharia e Serviços</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="{% url 'institutional:servicos_eletricos' %}">Serviços Elétricos</a></li>
+                                                        <li><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção Industrial</a></li>
+                                                        <li><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Mitsubishi Automação</a></li>
+                                                        <li class="{% if current == 'ar_condicionado' %}active{% endif %}">
+                                                            <a href="{% url 'institutional:ar_condicionado' %}">Ar-Condicionado</a>
+                                                        </li>
+                                                        <li class="{% if current == 'refrigeracao_comercial' %}active{% endif %}">
+                                                            <a href="{% url 'institutional:refrigeracao_comercial' %}">Refrigeração Comercial</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
 
                                                 <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}">
@@ -185,7 +188,7 @@
 
                                 <!-- GOOGLE -->
                                 <a
-                                    href="https://www.youtube.com/@smart-control-brasil"
+                                    href="https://www.youtube.com/@SmartControlBrasil"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Smart Control Brasil no YouTube"
