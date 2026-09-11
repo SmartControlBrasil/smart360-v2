@@ -1779,28 +1779,32 @@ class TechnicalSeoTests(TestCase):
         )
         self.assertEqual(products, [])
 
-    def test_xyron_robot_pages_include_product_schema_without_commercial_claims(self):
+    def test_xyron_robot_pages_do_not_emit_product_schema_without_eligible_commercial_data(self):
         for robot in XYRON_ROBOT_PAGES:
-            path = f"/xyron/{robot['slug']}/"
+            slug = robot["slug"]
+            path = f"/xyron/{slug}/"
             canonical = f"https://www.smartcontrolbrasil.com.br{path}"
             with self.subTest(path=path):
                 response = self.client.get(path)
                 products = self.graph_items(response, "Product")
+                breadcrumbs = self.graph_items(response, "BreadcrumbList")
+                faq_pages = self.graph_items(response, "FAQPage")
                 offers = self.graph_items(response, "Offer")
                 aggregate_offers = self.graph_items(response, "AggregateOffer")
                 reviews = self.graph_items(response, "Review")
                 aggregate_ratings = self.graph_items(response, "AggregateRating")
 
-                self.assertEqual(len(products), 1)
-                product = products[0]
-                self.assertEqual(product["name"], robot["name"])
-                self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-                self.assertEqual(product["description"], robot["description"])
-                self.assertEqual(product["url"], canonical)
-                self.assertEqual(product["image"], f"https://www.smartcontrolbrasil.com.br{static(robot['image'])}")
-                self.assertNotIn("offers", product)
-                self.assertNotIn("aggregateRating", product)
-                self.assertNotIn("review", product)
+                self.assertEqual(response.status_code, 200)
+                self.assertCanonical(response, canonical)
+                self.assertEqual(products, [])
+                self.assertEqual(len(breadcrumbs), 1)
+                self.assertEqual(
+                    [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+                    ["Início", "Xyron Robotics", robot["name"]],
+                )
+                self.assertEqual(breadcrumbs[0]["itemListElement"][-1]["item"], canonical)
+                self.assertEqual(len(faq_pages), 1)
+                self.assertGreaterEqual(len(faq_pages[0]["mainEntity"]), 1)
                 self.assertEqual(offers, [])
                 self.assertEqual(aggregate_offers, [])
                 self.assertEqual(reviews, [])
@@ -1971,15 +1975,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "CareBot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "CareBot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2085,15 +2081,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "Connect Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "Connect Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2197,15 +2185,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "Buddy Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "Buddy Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2310,15 +2290,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "HygiBot / Dune Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "HygiBot / Dune Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2416,15 +2388,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "Waiter Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "Waiter Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2524,15 +2488,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "Neo Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "Neo Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2634,15 +2590,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "MowerBot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "MowerBot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2739,15 +2687,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "Orbit Bot / Patrol Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "Orbit Bot / Patrol Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], meta_description)
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]
@@ -2821,15 +2761,7 @@ class TechnicalSeoTests(TestCase):
             [item["name"] for item in breadcrumbs[0]["itemListElement"]],
             ["Início", "Xyron Robotics", "LIRO / Little Bot"],
         )
-        self.assertEqual(len(products), 1)
-        product = products[0]
-        self.assertEqual(product["name"], "LIRO / Little Bot")
-        self.assertEqual(product["brand"], {"@type": "Brand", "name": "Xyron Robotics"})
-        self.assertEqual(product["description"], robot["description"])
-        self.assertEqual(product["url"], canonical)
-        self.assertNotIn("offers", product)
-        self.assertNotIn("aggregateRating", product)
-        self.assertNotIn("review", product)
+        self.assertEqual(products, [])
 
         self.assertEqual(len(faq_pages), 1)
         faq_entities = faq_pages[0]["mainEntity"]

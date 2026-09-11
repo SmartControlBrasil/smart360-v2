@@ -618,23 +618,6 @@ def _product_schema(context):
     return schema
 
 
-def _xyron_robot_product_schema(context):
-    robot = _robot(context)
-    if not robot:
-        return None
-
-    return {
-        "@type": "Product",
-        "name": robot.get("name", "Robô Xyron"),
-        "brand": {
-            "@type": "Brand",
-            "name": "Xyron Robotics",
-        },
-        "description": robot.get("description", DEFAULT_DESCRIPTION),
-        "url": canonical_url(context),
-        "image": _robot_image_url(context),
-    }
-
 
 def _xyron_robot_item_list_schema(context):
     if _route_name(context) != "xyron":
@@ -1353,9 +1336,7 @@ def _structured_data_graph(context):
     if product:
         graph.append(product)
 
-    robot_product = _xyron_robot_product_schema(context)
-    if robot_product:
-        graph.append(robot_product)
+    if _robot(context):
         faq_page = _faq_page_schema(context)
         if faq_page:
             graph.append(faq_page)
