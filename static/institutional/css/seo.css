@@ -227,6 +227,38 @@
   }
 }
 
+.home-services-carousel .testimonial__item {
+  padding-top: 48px;
+}
+
+.home-services-carousel .testimonial__item-service-title {
+  font-family: var(--rr-ff-heading);
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: var(--rr-fw-bold);
+  margin-bottom: 14px;
+}
+
+.home-services-carousel .testimonial__item-service-title a {
+  color: var(--rr-heading-primary);
+  text-decoration: none;
+}
+
+.home-services-carousel .testimonial__item-service-title a:hover,
+.home-services-carousel .testimonial__item-service-title a:focus {
+  color: var(--rr-heading-primary);
+  text-decoration: underline;
+}
+
+.home-services-carousel .testimonial__item-dec {
+  margin-bottom: 28px;
+}
+
+.home-services-carousel .testimonial__item-author {
+  border-top: 1px solid rgba(5, 5, 19, 0.1);
+  padding-top: 20px;
+}
+
 .author-about-block__content {
   margin-top: 20px;
 }

@@ -345,19 +345,16 @@
                 </div>
             </section>
         
-            <section class="testimonial__area section-space overflow-hidden pastel-blue-bg">
+            <section class="testimonial__area home-services-carousel section-space overflow-hidden pastel-blue-bg">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="section__title-wrapper hero text-center">
-                            <h2 class="section__title-wrapper-title _split_text">Diretrizes de Engenharia</h2>
+                            <h2 class="section__title-wrapper-title _split_text">Engenharia e Soluções Digitais</h2>
                         </div>
                         <div class="testimonial__review">
-                            <div class="icon">
-                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-1.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-1.png' %}" alt="">
-                            </div>
                             <div class="title-star-box">
                                 <div class="star-list">
-                                    <h4 class="title">4 pilares</h4>
+                                    <h4 class="title">Portfólio integrado</h4>
                                     <div class="star-icon">
                                         <ul>
                                             <li>{% institutional_icon "star" %}</li>
@@ -368,7 +365,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <p class="dec">Tecnologia desenvolvida para resultados reais</p>
+                                <p class="dec">Do chão de fábrica ao marketing digital</p>
                             </div>
                         </div>
                     </div>
@@ -376,75 +373,75 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="testimonial__item">
-                                    <div class="testimonial__item-logo">
-                                        <img {% image_dimensions 'institutional/imgs/icon/testimonial-card-icon-1.png' %} src="{% static 'institutional/imgs/icon/testimonial-card-icon-1.png' %}" alt="">
-                                    </div>
-                                    <p class="testimonial__item-dec">“Cada linha de código ou componente especificado responde diretamente a um indicador de performance e a uma meta real do cliente.”</p>
+                                    <h3 class="testimonial__item-service-title">
+                                        <a href="{% url 'institutional:servicos_eletricos' %}">Serviços Elétricos</a>
+                                    </h3>
+                                    <p class="testimonial__item-dec">
+                                        Projeto, adequação e manutenção de instalações elétricas para operação segura e conforme normas.
+                                    </p>
                                     <div class="testimonial__item-author">
-                                        <img {% image_dimensions 'institutional/imgs/icon/blog-man-icon-1.png' %} src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><span>Princípio 1</span></h5>
-                                            <span>Engenharia Consultiva</span>
+                                            <span>Engenharia de campo</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-1">
-                                    <div class="testimonial__item-logo">
-                                        <img {% image_dimensions 'institutional/imgs/icon/testimonial-card-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-card-icon-2.png' %}" alt="">
-                                    </div>
-                                    <p class="testimonial__item-dec">“O valor da tecnologia está na convergência entre a automação industrial clássica Mitsubishi e os novos ecossistemas digitais.”</p>
+                                    <h3 class="testimonial__item-service-title">
+                                        <a href="{% url 'institutional:ar_condicionado' %}">Ar-Condicionado</a>
+                                    </h3>
+                                    <p class="testimonial__item-dec">
+                                        Instalação, manutenção preventiva e corretiva e higienização para ambientes residenciais e comerciais.
+                                    </p>
                                     <div class="testimonial__item-author">
-                                        <img {% image_dimensions 'institutional/imgs/icon/blog-man-icon-1.png' %} src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><span>Princípio 2</span></h5>
-                                            <span>Integração Fluida</span>
+                                            <span>Climatização</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-2">
-                                    <div class="testimonial__item-logo">
-                                        <img {% image_dimensions 'institutional/imgs/icon/testimonial-card-icon-3.png' %} src="{% static 'institutional/imgs/icon/testimonial-card-icon-3.png' %}" alt="">
-                                    </div>
-                                    <p class="testimonial__item-dec">“A robótica de serviço Xyron combinada à Inteligência Artificial redefine a produtividade e eleva o patamar da marca.”</p>
+                                    <h3 class="testimonial__item-service-title">
+                                        <a href="{% url 'institutional:refrigeracao_comercial' %}">Refrigeração Comercial</a>
+                                    </h3>
+                                    <p class="testimonial__item-dec">
+                                        Equipamentos, sistemas frigoríficos e manutenção para operações que dependem de temperatura controlada.
+                                    </p>
                                     <div class="testimonial__item-author">
-                                        <img {% image_dimensions 'institutional/imgs/icon/blog-man-icon-1.png' %} src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><span>Princípio 3</span></h5>
-                                            <span>Inovação Prática</span>
+                                            <span>Refrigeração</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-3">
-                                    <div class="testimonial__item-logo">
-                                        <img {% image_dimensions 'institutional/imgs/icon/testimonial-card-icon-4.png' %} src="{% static 'institutional/imgs/icon/testimonial-card-icon-4.png' %}" alt="">
-                                    </div>
-                                    <p class="testimonial__item-dec">“Transformamos dados brutos de campo em ações táticas por meio de pontes estáveis de IoT e telemetria em Python.”</p>
+                                    <h3 class="testimonial__item-service-title">
+                                        <a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção Industrial em Campo</a>
+                                    </h3>
+                                    <p class="testimonial__item-dec">
+                                        Preventiva, corretiva e suporte em campo para reduzir paradas e preservar a confiabilidade dos ativos.
+                                    </p>
                                     <div class="testimonial__item-author">
-                                        <img {% image_dimensions 'institutional/imgs/icon/blog-man-icon-1.png' %} src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><span>Princípio 4</span></h5>
-                                            <span>Decisão por Dados</span>
+                                            <span>Operação industrial</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-4">
-                                    <div class="testimonial__item-logo">
-                                        <img {% image_dimensions 'institutional/imgs/icon/testimonial-card-icon-5.png' %} src="{% static 'institutional/imgs/icon/testimonial-card-icon-5.png' %}" alt="">
-                                    </div>
-                                    <p class="testimonial__item-dec">“Projetamos, programamos e testamos soluções calibradas para os desafios práticos da sua empresa, evitando implementações vazias.”</p>
+                                    <h3 class="testimonial__item-service-title">
+                                        <a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites Python</a>
+                                    </h3>
+                                    <p class="testimonial__item-dec">
+                                        Portais, integrações, telemetria e sistemas sob medida com Python e Django para dados e automação.
+                                    </p>
                                     <div class="testimonial__item-author">
-                                        <img {% image_dimensions 'institutional/imgs/icon/blog-man-icon-1.png' %} src="{% static 'institutional/imgs/icon/blog-man-icon-1.png' %}" alt="">
                                         <div class="testimonial__item-author-title">
-                                            <h5 class="title"><span>Smart Control Brasil</span></h5>
-                                            <span>Engenharia e Tecnologia</span>
+                                            <span>Soluções digitais</span>
                                         </div>
                                     </div>
                                 </div>
