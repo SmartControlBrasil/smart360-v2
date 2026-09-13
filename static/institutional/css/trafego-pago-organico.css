@@ -1,0 +1,79 @@
+/* Ajustes pontuais para ícones e legibilidade da página de tráfego pago e orgânico. */
+
+.traffic-paid-organic-page .banner6__title-wrapper-subtitle {
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.traffic-paid-organic-page .developed-7__item-content .dec {
+    min-height: 88px;
+}
+
+.traffic-paid-organic-page .choose-us__list-item ul li img {
+    width: 18px;
+    height: 18px;
+}
+
+.traffic-paid-organic-page .pricing-6-item .accordion-button {
+    text-transform: none;
+}
+
+.traffic-paid-organic-page .pricing-6-item h3 span {
+    margin-left: 8px;
+    font-size: 15px;
+}
+
+.traffic-paid-organic-page i[class^="cr6-icon-"],
+.traffic-paid-organic-page i[class*=" cr6-icon-"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    line-height: 1;
+}
+
+.traffic-paid-organic-page .cr6-icon-play::before {
+    content: "\25B6";
+    font-size: 12px;
+}
+
+.traffic-paid-organic-page .cr6-icon-star::before {
+    content: "\2605";
+    font-size: 14px;
+}
+
+.traffic-paid-organic-page .cr6-icon-angle-left::before {
+    content: "\2039";
+    font-size: 20px;
+}
+
+.traffic-paid-organic-page .cr6-icon-angle-right::before {
+    content: "\203A";
+    font-size: 20px;
+}
+
+.traffic-paid-organic-page .cr6-icon-arrow-right::before {
+    content: "\2192";
+    font-size: 14px;
+}
+
+.traffic-paid-organic-page .testimonial-6__item-title {
+    min-height: 62px;
+}
+
+.traffic-paid-organic-page .latest-trends-btn i {
+    margin-left: 7px;
+}
+
+.traffic-paid-organic-page .rr-btn:focus-visible,
+.traffic-paid-organic-page button:focus-visible {
+    outline: 3px solid var(--rr-theme-primary6, #6A5AF9);
+    outline-offset: 4px;
+}
+
+@media (max-width: 991px) {
+    .traffic-paid-organic-page .developed-7__item-content .dec,
+    .traffic-paid-organic-page .testimonial-6__item-title {
+        min-height: 0;
+    }
+}

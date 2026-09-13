@@ -20,14 +20,18 @@ from django.urls import reverse
 
 from src.commerce.models import Category
 from src.commerce.models import Product
+from src.commerce.seo import CANONICAL_PRODUCT_ROUTE_BY_SLUG
+from src.commerce.seo import NOINDEX_CATEGORY_SLUGS
 from src.institutional.presentation.authors import AUTHORS
 from src.institutional.presentation.authors import MARCELO_CUSTODIO
+from src.institutional.presentation import air_conditioning
 from src.institutional.presentation.blog_editorial import BLOG_POST_EDITORIAL
 from src.institutional.presentation.blog_posts import BLOG_POSTS
 from src.institutional.presentation.blog_posts import BLOG_POSTS_LIST
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGE_BY_KEY
 from src.institutional.presentation.xyron_robot_pages import XYRON_ROBOT_PAGES
 from src.institutional.presentation.xyron_pillar_pages import XYRON_PILLAR_PAGES
+from src.institutional.presentation.sitemaps import STATIC_PUBLIC_ROUTES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
 INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-gaevent1"
@@ -37,6 +41,8 @@ class InstitutionalRoutesTests(TestCase):
     routes = (
         "home",
         "sistemas_websites_python",
+        "seo_presenca_digital",
+        "trafego_pago_organico",
         "manutencao_industrial_campo",
         "xyron",
         "mitsubishi_automacao_industrial",
@@ -54,6 +60,23 @@ class InstitutionalRoutesTests(TestCase):
                 response = self.client.get(reverse(f"institutional:{route}"))
 
                 self.assertEqual(response.status_code, 200)
+
+    def test_air_conditioning_blog_cards_link_to_real_articles(self):
+        response = self.client.get(reverse("institutional:ar_condicionado"))
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn('<a href="/contato/">{{ post.title }}</a>', html)
+        for post in air_conditioning.BLOG_HIGHLIGHTS:
+            with self.subTest(slug=post["slug"]):
+                article_url = reverse("institutional:blog_detail", kwargs={"slug": post["slug"]})
+                self.assertContains(response, article_url)
+                self.assertContains(response, post["title"])
+                self.assertNotEqual(article_url, reverse("institutional:contact"))
+
+                article_response = self.client.get(article_url)
+                self.assertEqual(article_response.status_code, 200)
+                self.assertContains(article_response, post["title"])
 
     def test_home_uses_first_full_demo_template_and_static_assets(self):
         response = self.client.get(reverse("institutional:home"))
@@ -299,13 +322,14 @@ class InstitutionalRoutesTests(TestCase):
         legacy_details = self.client.get("/loja/detalhes/")
 
         self.assertEqual(shop.status_code, 200)
-        self.assertEqual(legacy_details.status_code, 200)
+        self.assertEqual(legacy_details.status_code, 301)
+        self.assertEqual(legacy_details["Location"], "/loja/")
 
-    def test_legacy_shop_details_does_not_render_known_demo_product_names(self):
-        response = self.client.get("/loja/detalhes/")
+    def test_legacy_shop_details_redirects_to_shop(self):
+        response = self.client.get("/loja/detalhes/?utm_source=legacy")
 
-        self.assertNotContains(response, "Opulent Citadel")
-        self.assertNotContains(response, "Trickster Toadstool")
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response["Location"], "/loja/?utm_source=legacy")
 
     def test_livia_widget_is_deferred(self):
         response = self.client.get(reverse("institutional:home"))
@@ -339,7 +363,10 @@ class InstitutionalRoutesTests(TestCase):
             "Engenharia e Serviços",
             "Serviços Elétricos",
             "Automação Industrial",
+            "Soluções Digitais",
             "Sistemas e Websites",
+            "SEO e Presença Digital",
+            "Tráfego Pago e Orgânico",
             "Xyron Robótica",
             "Blog",
             "Contato",
@@ -348,6 +375,26 @@ class InstitutionalRoutesTests(TestCase):
         for label in expected_labels:
             with self.subTest(label=label):
                 self.assertContains(response, label)
+
+    def test_mobile_menu_source_has_nested_submenu_structure(self):
+        response = self.client.get(reverse("institutional:home"))
+        html = response.content.decode()
+
+        self.assertIn('id="mobile-menu"', html)
+        self.assertIn('aria-label="Menu principal"', html)
+        self.assertIn('class="has-dropdown', html)
+        self.assertIn('class="submenu', html)
+        self.assertIn('class="submenu submenu--robots"', html)
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:servicos_eletricos"), html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+        self.assertIn(reverse("institutional:seo_presenca_digital"), html)
+        self.assertIn(reverse("institutional:trafego_pago_organico"), html)
+        self.assertIn(reverse("institutional:xyron"), html)
+        self.assertIn(reverse("institutional:xyron_littlebot"), html)
+        self.assertNotIn('aria-disabled="true"', html)
+        self.assertContains(response, "Soluções Digitais")
+        self.assertContains(response, "Engenharia e Serviços")
 
     def test_internal_pages_use_canonical_base(self):
         response = self.client.get(reverse("institutional:about"))
@@ -1364,6 +1411,18 @@ class TechnicalSeoTests(TestCase):
                 "Desenvolvimento de sistemas web, websites empresariais, plataformas, integrações "
                 "e soluções em Python e Django para digitalização de processos.",
             ),
+            (
+                "/seo-presenca-digital/",
+                "SEO e Presença Digital em São Paulo | Smart Control Brasil",
+                "Estratégias de SEO, presença digital e tráfego orgânico para aumentar a visibilidade "
+                "da sua empresa no Google e fortalecer sua presença online.",
+            ),
+            (
+                "/trafego-pago-organico/",
+                "Tráfego Pago e Orgânico em São Paulo | Smart Control Brasil",
+                "Estratégias de Google Ads, tráfego pago, SEO e crescimento orgânico para aumentar "
+                "visibilidade, gerar oportunidades e fortalecer sua presença digital.",
+            ),
         )
 
         for path, expected_title, expected_description in metadata_expectations:
@@ -1465,6 +1524,147 @@ class TechnicalSeoTests(TestCase):
         self.assertNotIn("areaServed", services[0])
         self.assertEqual(reviews, [])
         self.assertEqual(aggregate_ratings, [])
+
+    def test_seo_presenca_digital_landing_has_content_links_schemas_and_responsible_claims(self):
+        response = self.client.get("/seo-presenca-digital/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "SEO e Presença Digital em São Paulo | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Estratégias de SEO, presença digital e tráfego orgânico para aumentar a visibilidade "
+            "da sua empresa no Google e fortalecer sua presença online.",
+        )
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/seo-presenca-digital/")
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Sua Empresa Mais Visível no Google"],
+        )
+
+        for expected in (
+            "SEO técnico",
+            "SEO On-Page",
+            "SEO local",
+            "Google Search Console",
+            "Perfil da Empresa no Google",
+            "tráfego orgânico",
+            "Core Web Vitals",
+            "presença digital",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for forbidden in (
+            "garantimos primeira posição",
+            "primeira posição garantida",
+            "primeira página garantida",
+            "resultado garantido no Google",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html.lower())
+
+        self.assertNotIn('href="#"', html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+        self.assertIn(reverse("institutional:services"), html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(
+            reverse(
+                "institutional:blog_detail",
+                kwargs={"slug": "informacao-precisa-para-agir-melhor"},
+            ),
+            html,
+        )
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        faq_pages = self.graph_items(response, "FAQPage")
+        services = self.graph_items(response, "Service")
+        reviews = self.graph_items(response, "Review")
+        aggregate_ratings = self.graph_items(response, "AggregateRating")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "SEO e Presença Digital"],
+        )
+        self.assertEqual(len(faq_pages), 1)
+        self.assertEqual(len(faq_pages[0]["mainEntity"]), 6)
+        self.assertEqual(
+            faq_pages[0]["mainEntity"][0]["name"],
+            "O que é SEO e como ele ajuda minha empresa?",
+        )
+        self.assertEqual(len(services), 1)
+        self.assertEqual(services[0]["name"], "SEO e Presença Digital para Empresas")
+        self.assertIn("SEO técnico", services[0]["serviceType"])
+        self.assertEqual(reviews, [])
+        self.assertEqual(aggregate_ratings, [])
+
+    def test_trafego_pago_organico_landing_has_content_links_schemas_and_responsible_claims(self):
+        response = self.client.get("/trafego-pago-organico/?utm_source=google&utm_campaign=x")
+        html = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTitle(response, "Tráfego Pago e Orgânico em São Paulo | Smart Control Brasil")
+        self.assertMetaDescription(
+            response,
+            "Estratégias de Google Ads, tráfego pago, SEO e crescimento orgânico para aumentar "
+            "visibilidade, gerar oportunidades e fortalecer sua presença digital.",
+        )
+        self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/trafego-pago-organico/")
+        self.assertNotContains(response, "utm_source")
+        self.assertNotContains(response, "utm_campaign")
+        self.assertNotContains(response, 'name="robots"')
+        self.assertEqual(
+            self.h1_texts(response),
+            ["Tráfego Pago e Orgânico para Gerar Oportunidades"],
+        )
+
+        for expected in (
+            "Google Ads",
+            "Campanhas de Pesquisa",
+            "Performance Max",
+            "Remarketing",
+            "Landing Pages",
+            "SEO Técnico",
+            "SEO Local",
+            "Presença Digital",
+            "GA4",
+            "GTM",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, html)
+
+        for forbidden in (
+            "resultado garantido",
+            "primeira posição garantida",
+            "seo é grátis",
+            "roas garantido",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, html.lower())
+
+        self.assertNotIn('href="#"', html)
+        self.assertIn(reverse("institutional:contact"), html)
+        self.assertIn(reverse("institutional:sistemas_websites_python"), html)
+        self.assertIn(reverse("institutional:seo_presenca_digital"), html)
+        self.assertIn("wa.me/551151968525", html)
+
+        breadcrumbs = self.graph_items(response, "BreadcrumbList")
+        services = self.graph_items(response, "Service")
+        faq_pages = self.graph_items(response, "FAQPage")
+
+        self.assertEqual(len(breadcrumbs), 1)
+        self.assertEqual(
+            [item["name"] for item in breadcrumbs[0]["itemListElement"]],
+            ["Início", "Tráfego Pago e Orgânico"],
+        )
+        self.assertEqual(len(services), 1)
+        self.assertEqual(services[0]["name"], "Tráfego Pago e Orgânico para Empresas")
+        self.assertIn("Gestão de Google Ads", services[0]["serviceType"])
+        self.assertEqual(faq_pages, [])
 
     def test_mitsubishi_landing_has_technical_content_links_schemas_and_clean_links(self):
         response = self.client.get("/mitsubishi-automacao-industrial/?utm_source=google&utm_campaign=x")
@@ -2845,6 +3045,10 @@ class TechnicalSeoTests(TestCase):
             "reducao-paradas-inesperadas-planejamento-tecnico": reverse("institutional:manutencao_industrial_campo"),
             "historico-indicadores-decisoes-consistentes": reverse("institutional:manutencao_industrial_campo"),
             "menos-retrabalho-rastreabilidade-retrofit": reverse("institutional:manutencao_industrial_campo"),
+            "infraestrutura-correta-ar-condicionado": reverse("institutional:ar_condicionado"),
+            "preventiva-corretiva-ar-condicionado": reverse("institutional:ar_condicionado"),
+            "eletrica-climatizacao-comercial": reverse("institutional:ar_condicionado"),
+            "vazamento-fluido-refrigerante": reverse("institutional:ar_condicionado"),
         }
         highlights = []
 
@@ -3734,10 +3938,14 @@ class TechnicalSeoTests(TestCase):
         self.assertIn("https://www.smartcontrolbrasil.com.br/", urls)
         strategic_solution_urls = (
             "https://www.smartcontrolbrasil.com.br/servicos-eletricos/",
+            "https://www.smartcontrolbrasil.com.br/ar-condicionado/",
+            "https://www.smartcontrolbrasil.com.br/refrigeracao-comercial/",
             "https://www.smartcontrolbrasil.com.br/xyron/",
             "https://www.smartcontrolbrasil.com.br/mitsubishi-automacao-industrial/",
             "https://www.smartcontrolbrasil.com.br/manutencao-industrial-campo/",
             "https://www.smartcontrolbrasil.com.br/sistemas-websites-python/",
+            "https://www.smartcontrolbrasil.com.br/seo-presenca-digital/",
+            "https://www.smartcontrolbrasil.com.br/trafego-pago-organico/",
         )
         for strategic_url in strategic_solution_urls:
             with self.subTest(strategic_url=strategic_url):
@@ -3750,6 +3958,15 @@ class TechnicalSeoTests(TestCase):
             "https://www.smartcontrolbrasil.com.br/blog/selecao-controladores-ativos-alta-severidade/",
             urls,
         )
+        air_conditioning_blog_urls = (
+            "https://www.smartcontrolbrasil.com.br/blog/infraestrutura-correta-ar-condicionado/",
+            "https://www.smartcontrolbrasil.com.br/blog/preventiva-corretiva-ar-condicionado/",
+            "https://www.smartcontrolbrasil.com.br/blog/eletrica-climatizacao-comercial/",
+            "https://www.smartcontrolbrasil.com.br/blog/vazamento-fluido-refrigerante/",
+        )
+        for blog_url in air_conditioning_blog_urls:
+            with self.subTest(blog_url=blog_url):
+                self.assertIn(blog_url, urls)
         self.assertEqual(len(urls), len(set(urls)))
         self.assertFalse(any("/admin/" in url for url in urls))
         self.assertFalse(any("/login/" in url for url in urls))
@@ -3785,6 +4002,7 @@ class TechnicalSeoTests(TestCase):
             "https://www.smartcontrolbrasil.com.br/blog/dados-operacionais-empresa-inteligente/",
             "https://www.smartcontrolbrasil.com.br/blog/pagina/2/",
             "https://www.smartcontrolbrasil.com.br/faq/",
+            "https://www.smartcontrolbrasil.com.br/loja/detalhes/",
         )
         for legacy_url in legacy_urls:
             with self.subTest(legacy_url=legacy_url):
@@ -3816,7 +4034,25 @@ class TechnicalSeoTests(TestCase):
         for disabled_url in disabled_landing_urls:
             with self.subTest(disabled_url=disabled_url):
                 self.assertNotIn(disabled_url, urls)
-        self.assertEqual(len(urls), 23 + len(BLOG_POSTS) + len(AUTHORS))
+        commerce_product_count = (
+            Product.objects.filter(active=True, category__active=True)
+            .exclude(slug__in=CANONICAL_PRODUCT_ROUTE_BY_SLUG)
+            .count()
+        )
+        commerce_category_count = (
+            Category.objects.filter(active=True)
+            .exclude(slug__in=NOINDEX_CATEGORY_SLUGS)
+            .count()
+        )
+        expected_count = (
+            len(STATIC_PUBLIC_ROUTES)
+            + len(BLOG_POSTS)
+            + len(AUTHORS)
+            + 1
+            + commerce_product_count
+            + commerce_category_count
+        )
+        self.assertEqual(len(urls), expected_count)
 
         for route_name in NOINDEX_ROUTE_NAMES:
             if route_name == "shop":
@@ -4579,6 +4815,8 @@ class PreloaderHotfixTests(TestCase):
         "xyron_littlebot",
         "manutencao_industrial_campo",
         "sistemas_websites_python",
+        "seo_presenca_digital",
+        "trafego_pago_organico",
         "robotica_educacional",
     )
 
@@ -4682,6 +4920,103 @@ try:
     from playwright.sync_api import sync_playwright
 except ImportError:  # pragma: no cover - optional dependency
     sync_playwright = None
+
+
+@override_settings(ALLOWED_HOSTS=["*"])
+class MobileMenuPlaywrightTests(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        if sync_playwright is None:
+            raise unittest.SkipTest("Playwright não instalado neste ambiente.")
+        super().setUpClass()
+        try:
+            with sync_playwright() as playwright_context:
+                browser = playwright_context.chromium.launch(headless=True)
+                browser.close()
+        except Exception:
+            raise unittest.SkipTest("Playwright browser não disponível neste ambiente.")
+
+    def test_mobile_offcanvas_parent_items_expand_without_navigation(self):
+        with sync_playwright() as playwright_context:
+            browser = playwright_context.chromium.launch(headless=True)
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.goto(f"{self.live_server_url}/", wait_until="networkidle")
+            page.click(".sidebar__toggle")
+            page.wait_for_selector(".offcanvas__area.info-open")
+            page.wait_for_selector(".mean-container .mean-nav")
+
+            solucoes_item = page.locator(".mean-container .mean-nav > ul > li").filter(
+                has=page.locator(":scope > a:not(.mean-expand)", has_text="Soluções")
+            )
+            solucoes_item.locator(":scope > a:not(.mean-expand)").click()
+            expect_expand = solucoes_item.locator(":scope > a.mean-expand")
+            expect_expand.wait_for(state="visible")
+            assert "mean-clicked" in (expect_expand.get_attribute("class") or "")
+
+            engenharia_item = page.locator(".mean-container .mean-nav li").filter(
+                has=page.locator(":scope > a:not(.mean-expand)", has_text="Engenharia e Serviços")
+            )
+            engenharia_item.locator(":scope > a:not(.mean-expand)").click()
+            assert page.url.rstrip("/") == self.live_server_url.rstrip("/")
+            assert "mean-clicked" in (
+                engenharia_item.locator(":scope > a.mean-expand").get_attribute("class") or ""
+            )
+
+            page.locator(
+                f".mean-container .mean-nav a[href='{self.live_server_url}{reverse('institutional:servicos_eletricos')}']"
+            ).click()
+            page.wait_for_url(f"**{reverse('institutional:servicos_eletricos')}")
+            browser.close()
+
+    def test_mobile_offcanvas_digital_and_xyron_parents_expand(self):
+        with sync_playwright() as playwright_context:
+            browser = playwright_context.chromium.launch(headless=True)
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.goto(f"{self.live_server_url}/", wait_until="networkidle")
+            page.click(".sidebar__toggle")
+            page.wait_for_selector(".offcanvas__area.info-open")
+            page.wait_for_selector(".mean-container .mean-nav")
+
+            solucoes_item = page.locator(".mean-container .mean-nav > ul > li").filter(
+                has=page.locator(":scope > a:not(.mean-expand)", has_text="Soluções")
+            )
+            solucoes_item.locator(":scope > a:not(.mean-expand)").click()
+
+            digital_item = page.locator(".mean-container .mean-nav li").filter(
+                has=page.locator(":scope > a:not(.mean-expand)", has_text="Soluções Digitais")
+            )
+            digital_item.locator(":scope > a:not(.mean-expand)").click()
+            assert "mean-clicked" in (
+                digital_item.locator(":scope > a.mean-expand").get_attribute("class") or ""
+            )
+
+            page.locator(
+                f".mean-container .mean-nav a[href='{self.live_server_url}{reverse('institutional:sistemas_websites_python')}']"
+            ).click()
+            page.wait_for_url(f"**{reverse('institutional:sistemas_websites_python')}")
+
+            page.goto(f"{self.live_server_url}/", wait_until="networkidle")
+            page.click(".sidebar__toggle")
+            page.wait_for_selector(".offcanvas__area.info-open")
+            solucoes_item = page.locator(".mean-container .mean-nav > ul > li").filter(
+                has=page.locator(":scope > a:not(.mean-expand)", has_text="Soluções")
+            )
+            solucoes_item.locator(":scope > a:not(.mean-expand)").click()
+
+            xyron_item = page.locator(".mean-container .mean-nav li").filter(
+                has=page.locator(":scope > a:not(.mean-expand)", has_text="Xyron Robótica")
+            )
+            xyron_item.locator(":scope > a:not(.mean-expand)").click()
+            assert page.url.rstrip("/") == self.live_server_url.rstrip("/")
+            assert "mean-clicked" in (
+                xyron_item.locator(":scope > a.mean-expand").get_attribute("class") or ""
+            )
+
+            page.locator(
+                f".mean-container .mean-nav a[href='{self.live_server_url}{reverse('institutional:xyron_littlebot')}']"
+            ).click()
+            page.wait_for_url(f"**{reverse('institutional:xyron_littlebot')}")
+            browser.close()
 
 
 @override_settings(ALLOWED_HOSTS=["*"])

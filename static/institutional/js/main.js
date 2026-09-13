@@ -1025,12 +1025,119 @@
 	Mobile Menu Js
 	========================================*/
   if ($("#mobile-menu").length && $.fn.meanmenu) {
-  $("#mobile-menu").meanmenu({
-    meanMenuContainer: ".mobile-menu",
-    meanScreenWidth: "991",
-    meanExpand: ['<img src="/static/institutional/icons/next.svg" alt="" aria-hidden="true" class="site-icon">'],
-  });
+    $("#mobile-menu").meanmenu({
+      meanMenuContainer: ".mobile-menu",
+      meanScreenWidth: "991",
+      meanExpand: ['<img src="/static/institutional/icons/next.svg" alt="" aria-hidden="true" class="site-icon">'],
+    });
   }
+
+  (function initMobileMeanmenuParentToggle() {
+    var MOBILE_MENU_MAX_WIDTH = 991;
+
+    function isMobileMenuViewport() {
+      return window.innerWidth <= MOBILE_MENU_MAX_WIDTH;
+    }
+
+    function getParentMenuLink($li) {
+      return $li.children("a").not(".mean-expand").first();
+    }
+
+    function syncParentAriaExpanded($li) {
+      var $expand = $li.children("a.mean-expand").first();
+      var $link = getParentMenuLink($li);
+
+      if (!$expand.length || !$link.length) {
+        return;
+      }
+
+      $link.attr({
+        "aria-haspopup": "true",
+        "aria-expanded": $expand.hasClass("mean-clicked") ? "true" : "false",
+      });
+    }
+
+    function syncAllParentAriaExpanded() {
+      $(".mean-container .mean-nav li").each(function () {
+        syncParentAriaExpanded($(this));
+      });
+    }
+
+    function toggleSubmenuFromParent($li) {
+      var $expand = $li.children("a.mean-expand").first();
+
+      if (!$expand.length || !$li.children("ul").first().length) {
+        return false;
+      }
+
+      $expand.trigger("click");
+      syncParentAriaExpanded($li);
+      return true;
+    }
+
+    $(document).on(
+      "click.mobileMeanmenuParent",
+      ".mean-container .mean-nav li > a:not(.mean-expand)",
+      function (event) {
+        if (!isMobileMenuViewport()) {
+          return;
+        }
+
+        var $link = $(this);
+        var $li = $link.parent("li");
+
+        if (!toggleSubmenuFromParent($li)) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    );
+
+    $(document).on(
+      "keydown.mobileMeanmenuParent",
+      ".mean-container .mean-nav li > a:not(.mean-expand)",
+      function (event) {
+        if (!isMobileMenuViewport()) {
+          return;
+        }
+
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        var $link = $(this);
+        var $li = $link.parent("li");
+
+        if (!toggleSubmenuFromParent($li)) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    );
+
+    $(document).on(
+      "click.mobileMeanmenuExpandSync",
+      ".mean-container .mean-nav li > a.mean-expand",
+      function () {
+        if (!isMobileMenuViewport()) {
+          return;
+        }
+
+        var $li = $(this).closest("li");
+        window.setTimeout(function () {
+          syncParentAriaExpanded($li);
+        }, 0);
+      }
+    );
+
+    $(".sidebar__toggle").on("click.mobileMeanmenuParent", function () {
+      window.setTimeout(syncAllParentAriaExpanded, 350);
+    });
+  })();
 
   /*======================================
 	Sidebar Toggle
@@ -1738,7 +1845,7 @@
     spaceBetween: 30,
     loop: true,
     centeredSlides: true,
-    freemode: true,
+    freeMode: true,
     speed:4000,
     allowTouchMove: false,
         autoplay:{

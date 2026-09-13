@@ -76,16 +76,25 @@
                     & > a,
                     & > span{
                         color: var(--rr-theme-primary2);
-                        
+
                         &.mean-expand.mean-clicked{
                             background: var(--rr-theme-primary2);
                             color: var(--rr-common-white);
                             border-color: transparent;
-                            & i{
+
+                            & i,
+                            & .site-icon{
                                 color: var(--rr-common-white);
                                 @include transform (rotate(90deg));
                             }
                         }
+                    }
+                }
+
+                &:has(> a.mean-expand){
+                    & > a:not(.mean-expand){
+                        padding-right: 52px;
+                        cursor: pointer;
                     }
                 }
                 &.mean-last{
@@ -94,10 +103,23 @@
                 }
                 & > a{
                     &.mean-expand{
-                        & i{
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        & i,
+                        & .site-icon{
                             display: inline-block;
                             @extend %rs-transition-3;
                             color: var(--rr-common-white);
+                            width: 18px;
+                            height: 18px;
+                            max-width: 18px;
+                            max-height: 18px;
+                            flex: 0 0 18px;
+                            object-fit: contain;
+                            filter: brightness(0) invert(1);
+                            pointer-events: none;
                         }
                     }
                     & > i{
@@ -113,7 +135,7 @@
                     text-decoration: none;
                     text-transform: capitalize;
                     width: 100%;
-                    padding: 10px 0;
+                    padding: 12px 0;
                     color: var(--rr-common-white);
                     border-top: 1px solid rgba(255, 255, 255, 0.079);
                     font-size: 16px;
@@ -129,28 +151,48 @@
                         text-align: center;
                         position: absolute;
                         right: 0;
-                        top: 1px;
+                        top: 50%;
                         z-index: 2;
                         font-size: 14px;
-                        margin-top: 5px;
+                        margin-top: 0;
                         padding: 0 !important;
                         border: 1px solid rgba(255, 255, 255, 0.079) !important;
-                        height: 30px;
-                        width: 30px;
+                        min-height: 44px;
+                        min-width: 44px;
+                        height: 44px;
+                        width: 44px;
                         color: var(--rr-text-body);
-                        line-height: var(--rr-lh-h3);
+                        line-height: 1;
                         font-weight: var(--rr-fw-regular);
                         border-radius: 3px;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+
+                        &:focus-visible{
+                            outline: 2px solid rgba(255, 255, 255, 0.85);
+                            outline-offset: 2px;
+                        }
+
                         &:hover{
                             background: var(--rr-theme-primary2);
                             color: var(--rr-common-white);
                             border-color: var(--rr-theme-primary2);
-                            & i{
+
+                            & i,
+                            & .site-icon{
                                 color: var(--rr-common-white);
                             }
                         }
                         &.mean-clicked{
                             color: var(--rr-common-white);
+                            background: var(--rr-theme-primary2);
+                            border-color: var(--rr-theme-primary2);
+
+                            & i,
+                            & .site-icon{
+                                transform: rotate(90deg);
+                            }
+
                             &:hover{
                                 background: var(--rr-theme-primary2);
                                 color: var(--rr-common-white);

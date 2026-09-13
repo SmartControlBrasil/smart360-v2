@@ -102,6 +102,16 @@ STATIC_PUBLIC_ROUTES = (
         "priority": 0.9,
     },
     {
+        "name": "institutional:seo_presenca_digital",
+        "changefreq": "weekly",
+        "priority": 0.9,
+    },
+    {
+        "name": "institutional:trafego_pago_organico",
+        "changefreq": "weekly",
+        "priority": 0.9,
+    },
+    {
         "name": "institutional:services",
         "changefreq": "weekly",
         "priority": 0.9,

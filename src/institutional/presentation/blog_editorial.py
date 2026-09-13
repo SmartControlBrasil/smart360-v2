@@ -75,6 +75,38 @@ BLOG_POST_EDITORIAL = {
         "last_edit_commit": "9a3ab61fe7cbf2d694a19404e22c89378ccf3648",
         "last_edit_evidence": "seo: strengthen xyron product pages and content clusters",
     },
+    "infraestrutura-correta-ar-condicionado": {
+        "author_slug": DEFAULT_AUTHOR_SLUG,
+        "date_published": "2026-09-13",
+        "date_modified": "2026-09-13",
+        "intro_commit": "pending-review",
+        "last_edit_commit": "pending-review",
+        "last_edit_evidence": "add air conditioning blog cluster article",
+    },
+    "preventiva-corretiva-ar-condicionado": {
+        "author_slug": DEFAULT_AUTHOR_SLUG,
+        "date_published": "2026-09-13",
+        "date_modified": "2026-09-13",
+        "intro_commit": "pending-review",
+        "last_edit_commit": "pending-review",
+        "last_edit_evidence": "add air conditioning blog cluster article",
+    },
+    "eletrica-climatizacao-comercial": {
+        "author_slug": DEFAULT_AUTHOR_SLUG,
+        "date_published": "2026-09-13",
+        "date_modified": "2026-09-13",
+        "intro_commit": "pending-review",
+        "last_edit_commit": "pending-review",
+        "last_edit_evidence": "add air conditioning blog cluster article",
+    },
+    "vazamento-fluido-refrigerante": {
+        "author_slug": DEFAULT_AUTHOR_SLUG,
+        "date_published": "2026-09-13",
+        "date_modified": "2026-09-13",
+        "intro_commit": "pending-review",
+        "last_edit_commit": "pending-review",
+        "last_edit_evidence": "add air conditioning blog cluster article",
+    },
 }
 
 

@@ -150,6 +150,28 @@ ROUTE_METADATA = {
             "e soluções em Python e Django para digitalização de processos."
         ),
     },
+    "seo_presenca_digital": {
+        "title": "SEO e Presença Digital em São Paulo | Smart Control Brasil",
+        "description": (
+            "Estratégias de SEO, presença digital e tráfego orgânico para aumentar a visibilidade "
+            "da sua empresa no Google e fortalecer sua presença online."
+        ),
+        "social_image": "institutional/imgs/images/hero-10-img-3.jpg",
+        "social_image_width": 380,
+        "social_image_height": 448,
+        "social_image_alt": "Estratégia de SEO e presença digital para empresas",
+    },
+    "trafego_pago_organico": {
+        "title": "Tráfego Pago e Orgânico em São Paulo | Smart Control Brasil",
+        "description": (
+            "Estratégias de Google Ads, tráfego pago, SEO e crescimento orgânico para aumentar "
+            "visibilidade, gerar oportunidades e fortalecer sua presença digital."
+        ),
+        "social_image": "institutional/imgs/images/banner-6-img-1.png",
+        "social_image_width": 1290,
+        "social_image_height": 670,
+        "social_image_alt": "Estratégia de tráfego pago e orgânico para aquisição digital",
+    },
     "manutencao_industrial_campo": {
         "title": "Manutenção Industrial e Assistência Técnica | Smart Control Brasil",
         "description": (
@@ -397,6 +419,8 @@ def _breadcrumb_items(context):
         "mitsubishi_automacao_industrial": "Mitsubishi Automação Industrial",
         "manutencao_industrial_campo": "Manutenção Industrial",
         "sistemas_websites_python": "Sistemas Web e Desenvolvimento Python",
+        "seo_presenca_digital": "SEO e Presença Digital",
+        "trafego_pago_organico": "Tráfego Pago e Orgânico",
     }
     if route_name in solution_names:
         return [home, (solution_names[route_name], canonical_url(context))]
@@ -819,6 +843,48 @@ def _service_schema(context):
             ],
         }
 
+    if route_name == "seo_presenca_digital":
+        return {
+            "@type": "Service",
+            "name": "SEO e Presença Digital para Empresas",
+            "description": _route_metadata(context).get("description", DEFAULT_DESCRIPTION),
+            "url": canonical_url(context),
+            "provider": {
+                "@type": "Organization",
+                "name": SOCIAL_SITE_NAME,
+                "url": settings.PUBLIC_SITE_URL,
+            },
+            "serviceType": [
+                "SEO técnico",
+                "SEO On-Page",
+                "SEO local",
+                "Conteúdo estratégico",
+                "Google Search Console",
+                "Otimização contínua de presença digital",
+            ],
+        }
+
+    if route_name == "trafego_pago_organico":
+        return {
+            "@type": "Service",
+            "name": "Tráfego Pago e Orgânico para Empresas",
+            "description": _route_metadata(context).get("description", DEFAULT_DESCRIPTION),
+            "url": canonical_url(context),
+            "provider": {
+                "@type": "Organization",
+                "name": SOCIAL_SITE_NAME,
+                "url": settings.PUBLIC_SITE_URL,
+            },
+            "serviceType": [
+                "Gestão de Google Ads",
+                "Campanhas de pesquisa",
+                "Segmentação e palavras-chave",
+                "Landing pages para conversão",
+                "SEO técnico e conteúdo",
+                "Mensuração com Google Analytics 4 e Google Tag Manager",
+            ],
+        }
+
     if route_name == "mitsubishi_automacao_industrial":
         return {
             "@type": "Service",
@@ -1179,6 +1245,33 @@ def _faq_page_schema(context):
                 "Sim. Podemos criar integrações por API com serviços externos, sistemas internos, ferramentas de comunicação, meios de pagamento e outras fontes de dados.",
             ),
         ]
+    elif route_name == "seo_presenca_digital":
+        faqs = [
+            (
+                "O que é SEO e como ele ajuda minha empresa?",
+                "SEO é um conjunto de estratégias técnicas e editoriais para melhorar a visibilidade da empresa em pesquisas relevantes. O objetivo é ampliar tráfego orgânico qualificado e fortalecer presença digital ao longo do tempo.",
+            ),
+            (
+                "Em quanto tempo o SEO costuma gerar resultado?",
+                "O SEO é um trabalho contínuo. O tempo varia conforme concorrência, maturidade do site e qualidade da estrutura existente. A evolução acontece com priorização técnica e acompanhamento recorrente.",
+            ),
+            (
+                "É possível garantir primeira posição no Google?",
+                "Não. Não existe garantia responsável de posição específica. O trabalho correto é estruturar técnica, conteúdo e autoridade para aumentar competitividade em buscas estratégicas.",
+            ),
+            (
+                "Vocês analisam Google Search Console e indexação?",
+                "Sim. Acompanhamos cobertura, páginas indexadas, consultas, cliques, CTR, posição média e alertas técnicos para orientar ajustes de SEO técnico e conteúdo.",
+            ),
+            (
+                "Qual a diferença entre tráfego orgânico e tráfego pago?",
+                "Tráfego orgânico vem do posicionamento natural em buscadores. Tráfego pago depende de mídia e investimento publicitário. As duas frentes podem coexistir, mas têm gestão e dinâmica diferentes.",
+            ),
+            (
+                "A Smart Control Brasil também desenvolve websites?",
+                "Sim. Desenvolvemos websites e sistemas com base técnica sólida para SEO, integrações e evolução contínua, conectando presença digital e estrutura tecnológica.",
+            ),
+        ]
     elif route_name == "mitsubishi_automacao_industrial":
         faqs = [
             (
@@ -1317,6 +1410,7 @@ def _structured_data_graph(context):
         "manutencao_industrial_campo",
         "mitsubishi_automacao_industrial",
         "sistemas_websites_python",
+        "seo_presenca_digital",
     }:
         faq_page = _faq_page_schema(context)
         if faq_page:

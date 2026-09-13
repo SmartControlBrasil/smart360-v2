@@ -27,6 +27,16 @@ urlpatterns = [
         name="sistemas_websites_python",
     ),
     path(
+        "seo-presenca-digital/",
+        views.seo_presenca_digital,
+        name="seo_presenca_digital",
+    ),
+    path(
+        "trafego-pago-organico/",
+        views.trafego_pago_organico,
+        name="trafego_pago_organico",
+    ),
+    path(
         "manutencao-industrial-campo/",
         views.manutencao_industrial_campo,
         name="manutencao_industrial_campo",

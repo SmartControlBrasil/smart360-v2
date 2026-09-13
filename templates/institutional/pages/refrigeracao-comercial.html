@@ -1,4 +1,4 @@
-{% extends 'institutional/base.html' %}
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
 
 {% load static institutional_media %}
 
@@ -18,42 +18,59 @@ class="cr-scroll-content"
 {% endblock %}
 
 {% block content %}
+<div class="cr8-page">
+    <section class="banner8__area p-relative overflow-hidden z-1">
+        <div class="banner8__shapes">
+            <div class="banner8__shapes-shape-1"></div>
+            <div class="banner8__shapes-shape-2"></div>
+            <div class="banner8__shapes-shape banner8__shapes-shape-3">
+                <img src="{% static 'institutional/imgs/images/banner-8-shape-1.png' %}" alt="" aria-hidden="true">
+            </div>
+            <div class="banner8__shapes-shape banner8__shapes-shape-4 leftRight">
+                <img src="{% static 'institutional/imgs/images/banner-8-shape-2.png' %}" alt="" aria-hidden="true">
+            </div>
+            <div class="banner8__shapes-shape banner8__shapes-shape-5 upDown-bottom">
+                <img src="{% static 'institutional/imgs/images/banner-8-shape-3.png' %}" alt="" aria-hidden="true">
+            </div>
 
-<div class="cr-page">
+            <div class="banner8__border__box banner8__border__box-1">
+                <div class="banner8__border__shape"></div>
+            </div>
+            <div class="banner8__border__box banner8__border__box-2">
+                <div class="banner8__border__shape banner8__border__shape-2"></div>
+            </div>
+            <div class="banner8__border__box banner8__border__box-3">
+                <div class="banner8__border__shape"></div>
+            </div>
+        </div>
 
-    <!-- Adapted from smart360v2_baixado/index-8.html structure via index-3 integration pattern. -->
-
-    <section class="banner2__area banner3__area hero-bg-dark p-relative overflow-hidden z-1">
         <div class="container">
-
-            <nav aria-label="Breadcrumb" class="cr-breadcrumb">
+            <nav aria-label="Breadcrumb" class="cr8-breadcrumb">
                 <a href="{% url 'institutional:home' %}">Início</a>
                 <span aria-hidden="true"> / </span>
                 <span aria-current="page">Refrigeração Comercial</span>
             </nav>
 
-            <div class="row align-items-center g-5">
+            <div class="row align-items-center">
+                <div class="col-xl-6">
+                    <div class="banner8__title-wrapper hero">
+                        <p class="cr8-subtitle">
+                            ENGENHARIA E REFRIGERAÇÃO
+                        </p>
 
-                <div class="col-lg-7">
-                    <div class="banner3__content">
+                        <h1 class="banner8__title-wrapper-title _split_text">
+                            Refrigeração Comercial com Instalação e Suporte Técnico
+                        </h1>
 
-                        <div class="banner-heading__wrapper">
-                            <p class="subtitle">ENGENHARIA E REFRIGERAÇÃO</p>
+                        <p class="banner8__title-wrapper-dec rr_title_anim">
+                            Soluções para câmaras frigoríficas, equipamentos de refrigeração comercial,
+                            instalação, manutenção e infraestrutura técnica para empresas e comércios.
+                        </p>
 
-                            <h1 class="banner-heading__wrapper-title">
-                                Refrigeração Comercial com Instalação e Suporte Técnico
-                            </h1>
-
-                            <p class="banner-heading__wrapper-dec">
-                                Soluções para câmaras frigoríficas, equipamentos de refrigeração comercial,
-                                instalação, manutenção e infraestrutura técnica para empresas e comércios.
-                            </p>
-                        </div>
-
-                        <div class="cr-actions">
+                        <div class="banner8__btn cr8-actions">
                             <a
-                                class="rr-btn"
                                 href="{% url 'institutional:contact' %}"
+                                class="rr-btn"
                                 data-track-event="click_primary_cta"
                                 data-track-location="cr_hero"
                                 data-track-label="Solicitar Orçamento"
@@ -63,8 +80,8 @@ class="cr-scroll-content"
                             </a>
 
                             <a
-                                class="rr-btn btn-transparent"
                                 href="{{ commercial_refrigeration.WHATSAPP_URL }}"
+                                class="rr-btn btn-transparent"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -72,574 +89,775 @@ class="cr-scroll-content"
                                 {% institutional_icon 'whatsapp' %}
                             </a>
                         </div>
-
                     </div>
                 </div>
 
-                <div class="col-lg-5">
-                    <div class="banner3__thumb">
-                        <img
-                            src="{% static commercial_refrigeration.HERO_IMAGE %}"
-                            alt="Câmara frigorífica e sistema de refrigeração comercial instalado profissionalmente"
-                            width="590"
-                            height="408"
-                            fetchpriority="high"
-                        >
-
-                        <p class="cr-caption">
-                            Câmaras · Instalação · Manutenção · Engenharia
-                        </p>
+                <div class="col-xl-6">
+                    <div class="banner8__thumb__wrapper">
+                        <div class="banner8__thumb img-custom-anim-left wow">
+                            <img
+                                src="{% static commercial_refrigeration.HERO_IMAGE %}"
+                                alt="Câmara frigorífica e sistema de refrigeração comercial instalado profissionalmente"
+                                width="636"
+                                height="710"
+                                fetchpriority="high"
+                            >
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section class="rr__chatbot-area section-space heading-bg">
+    <section class="services-8__area section-space-12 fade-wrapper">
         <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section__title-wrapper text-center hero mb-45">
+                        <h2 class="section__title-wrapper-title _split_text">
+                            Soluções em Refrigeração Comercial
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-            <h2 class="section__title-wrapper-title-2 text-center mb-50">
-                Soluções em Refrigeração Comercial
-            </h2>
-
-            <div class="row g-4 text-center">
+            <div class="row mb-minus-30">
                 {% for icon, title, text in commercial_refrigeration.SOLUTIONS %}
-                    <div class="col-xl-3 col-md-6">
-                        <article class="rr__chatbot-item">
-
-                            <img
-                                class="cr-icon"
-                                src="{% static 'institutional/icons/commercial-refrigeration/' %}{{ icon }}.svg"
-                                width="48"
-                                height="48"
-                                alt=""
-                                loading="lazy"
-                            >
-
-                            <div class="rr__chatbot-text">
-                                <h3>{{ title }}</h3>
-                                <p>{{ text }}</p>
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <article class="services-8__item mb-30 fade-top">
+                            <div class="services-8__icon">
+                                <span>
+                                    <img
+                                        src="{% static 'institutional/icons/commercial-refrigeration/' %}{{ icon }}.svg"
+                                        width="50"
+                                        height="50"
+                                        alt=""
+                                        loading="lazy"
+                                    >
+                                </span>
                             </div>
-
+                            <h3 class="services-8__content__title">
+                                {{ title }}
+                            </h3>
+                            <p class="cr8-service-text">
+                                {{ text }}
+                            </p>
                         </article>
                     </div>
                 {% endfor %}
-            </div>
 
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <article class="services-8__item mb-30 fade-top">
+                        <div class="services-8__icon">
+                            <span>
+                                <img
+                                    src="{% static 'institutional/icons/commercial-refrigeration/cold-room.svg' %}"
+                                    width="50"
+                                    height="50"
+                                    alt=""
+                                    loading="lazy"
+                                >
+                            </span>
+                        </div>
+                        <h3 class="services-8__content__title">
+                            Câmaras Frigoríficas
+                        </h3>
+                        <p class="cr8-service-text">
+                            Projetos para conservação e congelamento com unidade condensadora, evaporador,
+                            controles de temperatura e infraestrutura técnica.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <article class="services-8__item mb-30 fade-top">
+                        <div class="services-8__icon">
+                            <span>
+                                <img
+                                    src="{% static 'institutional/icons/commercial-refrigeration/compressor.svg' %}"
+                                    width="50"
+                                    height="50"
+                                    alt=""
+                                    loading="lazy"
+                                >
+                            </span>
+                        </div>
+                        <h3 class="services-8__content__title">
+                            Venda e Fornecimento
+                        </h3>
+                        <p class="cr8-service-text">
+                            Atuação com fornecimento, venda e especificação técnica de equipamentos para
+                            aplicações em comércios e operações alimentícias.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <article class="services-8__item mb-30 fade-top">
+                        <div class="services-8__icon">
+                            <span>
+                                <img
+                                    src="{% static 'institutional/icons/commercial-refrigeration/snowflake.svg' %}"
+                                    width="50"
+                                    height="50"
+                                    alt=""
+                                    loading="lazy"
+                                >
+                            </span>
+                        </div>
+                        <h3 class="services-8__content__title">
+                            Diagnóstico Especializado
+                        </h3>
+                        <p class="cr8-service-text">
+                            Avaliação de temperatura inadequada, formação de gelo, falhas de sensores,
+                            disjuntores, compressor e perda de desempenho.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <article class="services-8__item mb-30 fade-top">
+                        <div class="services-8__icon">
+                            <span>
+                                <img
+                                    src="{% static 'institutional/icons/commercial-refrigeration/tools.svg' %}"
+                                    width="50"
+                                    height="50"
+                                    alt=""
+                                    loading="lazy"
+                                >
+                            </span>
+                        </div>
+                        <h3 class="services-8__content__title">
+                            Integração com Engenharia
+                        </h3>
+                        <p class="cr8-service-text">
+                            Integração entre refrigeração, elétrica, comandos, proteção e automação
+                            para ambientes comerciais com maior exigência técnica.
+                        </p>
+                    </article>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="rr__features__area heading-bg section-space-bottom">
+    <section class="trailblazing-ai-8__area trailblazing-ai-8 section-space-top-5 section-space-bottom">
         <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="trailblazing-ai-8__content__left">
+                        <div class="section__title-wrapper hero mb-40 mb-sm-30 mb-xs-30">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Câmaras Frigoríficas para Aplicações Comerciais
+                            </h2>
+                            <p class="section__title-wrapper-dec mt-20 rr_title_anim">
+                                A Smart Control Brasil fornece soluções para conservação de produtos com
+                                controle de temperatura, com análise de capacidade, infraestrutura e
+                                implantação técnica.
+                            </p>
+                        </div>
 
-            <h2 class="section__title-wrapper-title-2 text-center mb-45">
-                Câmaras Frigoríficas para Aplicações Comerciais
-            </h2>
+                        <a
+                            href="{% url 'institutional:contact' %}"
+                            class="rr-btn"
+                            data-track-event="click_primary_cta"
+                            data-track-location="cr_cold_rooms"
+                            data-track-label="Solicitar Orçamento"
+                        >
+                            Solicitar Orçamento
+                            {% institutional_icon 'next' %}
+                        </a>
 
-            <div class="row align-items-center g-4">
-
-                <div class="col-lg-5">
-                    <p class="cr-lead">
-                        A Smart Control Brasil fornece soluções de refrigeração para conservação de
-                        alimentos, bebidas, insumos e produtos que exigem controle de temperatura.
-                    </p>
-
-                    <ul class="cr-checklist">
-                        {% for item in commercial_refrigeration.COLD_ROOM_POINTS %}
-                            <li>
-                                {% institutional_icon 'check' %}
-                                {{ item }}
-                            </li>
-                        {% endfor %}
-                    </ul>
+                        <div class="trailblazing-ai-8__thumb text-center img-custom-anim-left wow">
+                            <img
+                                src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
+                                alt="Equipamento de refrigeração comercial em operação"
+                                width="536"
+                                height="406"
+                                loading="lazy"
+                            >
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-lg-7">
-                    <div class="cr-feature-media">
+                <div class="col-lg-6">
+                    <div class="trailblazing-ai-8__content__right fade-wrapper">
+                        <article class="trailblazing-ai-8__item fade-top">
+                            <h3 class="trailblazing-ai-8__title">
+                                Venda e Instalação
+                            </h3>
+                            <p class="trailblazing-ai-8__dec">
+                                {{ commercial_refrigeration.SALE_INSTALLATION.1 }}
+                            </p>
+                        </article>
+
+                        <article class="trailblazing-ai-8__item fade-top">
+                            <h3 class="trailblazing-ai-8__title">
+                                Manutenção Preventiva e Corretiva
+                            </h3>
+                            <p class="trailblazing-ai-8__dec">
+                                Atuação com inspeção periódica, limpeza técnica, verificação de
+                                controladores, elétrica, drenagem e diagnóstico de falhas para corrigir a
+                                causa do problema.
+                            </p>
+                        </article>
+
+                        <article class="trailblazing-ai-8__item fade-top">
+                            <h3 class="trailblazing-ai-8__title">
+                                EOS / Frigelar conforme escopo
+                            </h3>
+                            <p class="trailblazing-ai-8__dec">
+                                A Smart Control Brasil pode avaliar soluções comerciais conforme escopo,
+                                disponibilidade e fornecedores aplicáveis ao projeto.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="generative-ai-8__area overflow-hidden generative-ai-8 fade-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="generative-ai-8__content">
+                        <div class="section__title-wrapper hero mb-50 mb-md-30 mb-sm-30 mb-xs-30">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Solução Técnica por Tipo de Operação
+                            </h2>
+                        </div>
+
+                        <div class="generative-ai-8__content__list fade-top">
+                            <div class="generative-ai-8__content__left">
+                                <div class="nav flex-column nav-pills" id="cr-v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <button
+                                        class="nav-link active"
+                                        id="cr-v-pills-home-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#cr-v-pills-home"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="cr-v-pills-home"
+                                        aria-selected="true"
+                                    >
+                                        <ul>
+                                            <li>
+                                                Conservação e Congelamento
+                                            </li>
+                                        </ul>
+                                    </button>
+
+                                    <button
+                                        class="nav-link"
+                                        id="cr-v-pills-profile-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#cr-v-pills-profile"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="cr-v-pills-profile"
+                                        aria-selected="false"
+                                    >
+                                        <ul>
+                                            <li>
+                                                Implantação e Instalação
+                                            </li>
+                                        </ul>
+                                    </button>
+
+                                    <button
+                                        class="nav-link"
+                                        id="cr-v-pills-messages-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#cr-v-pills-messages"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="cr-v-pills-messages"
+                                        aria-selected="false"
+                                    >
+                                        <ul>
+                                            <li>
+                                                Elétrica e Comandos
+                                            </li>
+                                        </ul>
+                                    </button>
+
+                                    <button
+                                        class="nav-link"
+                                        id="cr-v-pills-settings-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#cr-v-pills-settings"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="cr-v-pills-settings"
+                                        aria-selected="false"
+                                    >
+                                        <ul>
+                                            <li>
+                                                Operações Atendidas
+                                            </li>
+                                        </ul>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="generative-ai-8__content__right">
+                                <div class="tab-content" id="cr-v-pills-tabContent">
+                                    <div class="tab-pane fade show active" id="cr-v-pills-home" role="tabpanel" aria-labelledby="cr-v-pills-home-tab" tabindex="0">
+                                        <ul>
+                                            {% for item in commercial_refrigeration.COLD_ROOM_POINTS|slice:":6" %}
+                                                <li>
+                                                    <i class="cr8-check" aria-hidden="true"></i>
+                                                    {{ item }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="cr-v-pills-profile" role="tabpanel" aria-labelledby="cr-v-pills-profile-tab" tabindex="0">
+                                        <ul>
+                                            {% for item in commercial_refrigeration.COLD_ROOM_POINTS|slice:"4:10" %}
+                                                <li>
+                                                    <i class="cr8-check" aria-hidden="true"></i>
+                                                    {{ item }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="cr-v-pills-messages" role="tabpanel" aria-labelledby="cr-v-pills-messages-tab" tabindex="0">
+                                        <ul>
+                                            {% for item in commercial_refrigeration.ELECTRICAL_ITEMS|slice:":6" %}
+                                                <li>
+                                                    <i class="cr8-check" aria-hidden="true"></i>
+                                                    {{ item }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="cr-v-pills-settings" role="tabpanel" aria-labelledby="cr-v-pills-settings-tab" tabindex="0">
+                                        <ul>
+                                            {% for item in commercial_refrigeration.WHERE_WE_WORK|slice:":6" %}
+                                                <li>
+                                                    <i class="cr8-check" aria-hidden="true"></i>
+                                                    {{ item }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <a href="{% url 'institutional:contact' %}" class="rr-btn">
+                                    Solicitar Atendimento
+                                    {% institutional_icon 'next' %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-12">
+                    <div class="generative-ai-8__thumb p-relative pb-md-40 pb-sm-40 pb-xs-40">
                         <img
+                            class="image-1 upDown-top"
+                            src="{% static commercial_refrigeration.HERO_IMAGE %}"
+                            alt="Sistema de refrigeração comercial"
+                            width="369"
+                            height="455"
+                            loading="lazy"
+                        >
+                        <img
+                            class="image-2 leftRight"
                             src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
-                            alt="Equipamento de refrigeração comercial em operação"
-                            width="590"
-                            height="408"
+                            alt="Equipamento de refrigeração comercial"
+                            width="210"
+                            height="305"
+                            loading="lazy"
+                        >
+                        <img
+                            class="image-3 upDown-bottom"
+                            src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
+                            alt="Manutenção técnica em refrigeração comercial"
+                            width="188"
+                            height="272"
+                            loading="lazy"
+                        >
+                        <img
+                            class="image-4"
+                            src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
+                            alt="Instalação de sistema de refrigeração comercial"
+                            width="510"
+                            height="577"
                             loading="lazy"
                         >
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section class="things__area heading-bg section-space-bottom">
+    <section class="pricing-8__area pricing-8 section-space fade-wrapper">
         <div class="container">
-
-            <div class="cr-callout cr-callout--highlight">
-
-                <div>
-                    <h2>{{ commercial_refrigeration.SALE_INSTALLATION.0 }}</h2>
-                    <p>{{ commercial_refrigeration.SALE_INSTALLATION.1 }}</p>
+            <div class="row">
+                <div class="col-12">
+                    <div class="section__title-wrapper text-center hero mb-55">
+                        <h2 class="section__title-wrapper-title _split_text">
+                            Principais Serviços
+                        </h2>
+                        <p class="section__title-wrapper-dec mt-15 rr_title_anim">
+                            Escopos técnicos para fornecimento, implantação, manutenção e suporte em
+                            refrigeração comercial.
+                        </p>
+                    </div>
                 </div>
-
-                <a
-                    class="rr-btn"
-                    href="{% url 'institutional:contact' %}"
-                    data-track-event="click_primary_cta"
-                    data-track-location="cr_sale_installation"
-                    data-track-label="Solicitar Orçamento"
-                >
-                    Solicitar Orçamento
-                    {% institutional_icon 'next' %}
-                </a>
-
             </div>
 
-        </div>
-    </section>
-
-    <section class="pricing__area section-space op-bg">
-        <div class="container">
-
-            <h2 class="section__title-wrapper-title-2 text-center mb-50">
-                Principais Serviços
-            </h2>
-
-            <div class="row g-4">
-
+            <div class="row">
                 {% for title, items, cta_label in commercial_refrigeration.SERVICE_PLANS %}
-                    <div class="col-lg-4">
-                        <article class="pricing__item">
-
-                            <div class="pricing__header">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <article class="pricing-4__item fade-top mb-md-30 mb-sm-30 mb-xs-30">
+                            <div class="pricing-4__header">
                                 <h3>{{ title }}</h3>
                             </div>
-
-                            <div class="pricing__features text-start">
+                            <div class="pricing-4__tag">
+                                <h4>Escopo<span>Técnico</span></h4>
+                            </div>
+                            <div class="pricing-4__features text-start">
+                                <h3 class="pricing-8__features__title">
+                                    Atendimento conforme análise
+                                </h3>
                                 <ul>
-                                    {% for item in items %}
+                                    {% for item in items|slice:":6" %}
                                         <li>
-                                            {% institutional_icon 'check' %}
+                                            <i class="cr8-check" aria-hidden="true"></i>
                                             {{ item }}
                                         </li>
                                     {% endfor %}
                                 </ul>
                             </div>
-
-                            <div class="pricing__btn">
+                            <div class="pricing-4__btn">
                                 <a
-                                    class="rr-btn btn-transparent"
                                     href="{% url 'institutional:contact' %}"
+                                    class="rr-btn btn-transparent"
                                     data-track-event="click_primary_cta"
                                     data-track-location="cr_{{ title|slugify }}"
                                     data-track-label="{{ cta_label }}"
                                 >
                                     {{ cta_label }}
+                                    {% institutional_icon 'next' %}
                                 </a>
                             </div>
-
+                            <p class="pricing__dec">
+                                Projeto e proposta definidos conforme o escopo técnico.
+                            </p>
                         </article>
                     </div>
                 {% endfor %}
-
             </div>
         </div>
     </section>
 
-    <section class="rr__explore-apps-area section-space heading-bg">
+    <section class="faq-4__area faq-8 section-space-bottom ask-question-4 p-relative overflow-hidden">
         <div class="container">
-
-            <div class="row g-5">
-
-                <div class="col-lg-6">
-                    <h2 class="section__title-wrapper-title-2 mb-30">
-                        Onde Atuamos
-                    </h2>
-
-                    <ul class="cr-list-grid">
-                        {% for item in commercial_refrigeration.WHERE_WE_WORK %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="faq-4__thumb">
+                        <div class="section__title-wrapper mb-20 hero">
+                            <h2 class="section__title-wrapper-title-2 _split_text">
+                                Perguntas Sobre Refrigeração Comercial
+                            </h2>
+                            <p class="section__title-wrapper-dec mt-15 rr_title_anim pr-15">
+                                Dúvidas frequentes sobre fornecimento, instalação, manutenção, elétrica e
+                                integração técnica para sistemas de refrigeração comercial.
+                            </p>
+                        </div>
+                        <div class="faq-8__thumb-media img-custom-anim-left wow text-end mb-md-30 mb-sm-30 mb-xs-30 pr-60">
+                            <img
+                                src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
+                                alt="Equipe técnica atuando em refrigeração comercial"
+                                width="439"
+                                height="525"
+                                loading="lazy"
+                            >
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <h2 class="section__title-wrapper-title-2 mb-30">
-                        Equipamentos de Refrigeração Comercial
-                    </h2>
-
-                    <ul class="cr-list-grid">
-                        {% for item in commercial_refrigeration.EQUIPMENT %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <section class="rr__features__area heading-bg section-space-bottom">
-        <div class="container">
-
-            <div class="row g-4">
-
-                <div class="col-lg-6">
-                    <article class="cr-panel">
-                        <h2>Manutenção Preventiva</h2>
-
-                        <p>
-                            A manutenção preventiva ajuda a reduzir falhas inesperadas, perda de
-                            desempenho, consumo excessivo e paradas que podem comprometer produtos
-                            armazenados.
-                        </p>
-
-                        <ul class="cr-checklist">
-                            {% for item in commercial_refrigeration.PREVENTIVE_ITEMS %}
-                                <li>
-                                    {% institutional_icon 'check' %}
-                                    {{ item }}
-                                </li>
+                <div class="col-lg-7">
+                    <div class="ask-question-4__faq-4">
+                        <div class="accordion" id="accordionCommercialRefrigeration">
+                            {% for question, answer in commercial_refrigeration.FAQS %}
+                                <div class="accordion-item ask-question-4__faq-4-item faq-4__item wow fadeInLeft animated" data-wow-delay=".{{ forloop.counter }}s">
+                                    <h3 class="accordion-header" id="cr-heading-{{ forloop.counter }}">
+                                        <button
+                                            class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#cr-collapse-{{ forloop.counter }}"
+                                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                            aria-controls="cr-collapse-{{ forloop.counter }}"
+                                        >
+                                            {{ question }}
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="cr-collapse-{{ forloop.counter }}"
+                                        class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                        aria-labelledby="cr-heading-{{ forloop.counter }}"
+                                        data-bs-parent="#accordionCommercialRefrigeration"
+                                    >
+                                        <div class="accordion-body">
+                                            <p>{{ answer }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endfor %}
-                        </ul>
-                    </article>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-lg-6">
-                    <article class="cr-panel">
-                        <h2>Diagnóstico e Manutenção Corretiva</h2>
-
-                        <ul class="cr-checklist">
-                            {% for item in commercial_refrigeration.CORRECTIVE_ISSUES %}
-                                <li>
-                                    {% institutional_icon 'check' %}
-                                    {{ item }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-
-                        <p class="cr-note">
-                            {{ commercial_refrigeration.REFRIGERANT_NOTE }}
-                        </p>
-                    </article>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <section class="rr__features__area op-bg section-space">
+    <section class="team-8__area team-8 section-space-8 fade-wrapper">
         <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section__title-wrapper text-center mb-45 hero">
+                        <h2 class="section__title-wrapper-title _split_text">
+                            Frentes Técnicas da Refrigeração Comercial
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-            <div class="row align-items-center g-4">
-
-                <div class="col-lg-4">
-                    {% for title, text in commercial_refrigeration.DIFFERENTIALS|slice:":2" %}
-                        <article class="rr__features-box mb-30">
-                            <h3>{{ title }}</h3>
-                            <p>{{ text }}</p>
+            <div class="row">
+                {% for title, text in commercial_refrigeration.DIFFERENTIALS|slice:":3" %}
+                    <div class="col-xl-4 col-lg-6 col-md-6">
+                        <article class="team-8__wrapper fade-top">
+                            <div class="team-8__info mb-20 p-relative z-1">
+                                <h3 class="name">{{ title }}</h3>
+                                <span class="position">{{ text }}</span>
+                            </div>
+                            <div class="team-8__thumb">
+                                <img
+                                    src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
+                                    alt="{{ title }}"
+                                    width="416"
+                                    height="420"
+                                    loading="lazy"
+                                >
+                            </div>
+                            <div class="team-8__social">
+                                <a class="linkedin" href="{% url 'institutional:contact' %}" aria-label="Solicitar proposta">
+                                    <i class="cr8-arrow cr8-arrow--right" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-8__area testimonial-8 p-relative overflow-hidden section-space">
+        <div class="testimonial-8__bg testimonial-8__bg-1 p-absolute"></div>
+        <div class="testimonial-8__bg testimonial-8__bg-2 p-absolute"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section__title-wrapper text-center hero mb-50">
+                        <h2 class="section__title-wrapper-title _split_text">
+                            Diferenciais Smart Control Brasil
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper testimonial-8__slider">
+                <div class="swiper-wrapper">
+                    {% for title, text in commercial_refrigeration.DIFFERENTIALS %}
+                        <div class="swiper-slide">
+                            <article class="testimonial-8__wrapper">
+                                <div class="testimonial-8__content">
+                                    <p class="testimonial-8__content-dec">
+                                        {{ text }}
+                                    </p>
+                                    <div class="testimonial-8__author">
+                                        <div class="div">
+                                            <div class="testimonial-8__author__thumb">
+                                                <img
+                                                    src="{% static 'institutional/imgs/icon/testimonial-icon-8.png' %}"
+                                                    alt=""
+                                                    width="60"
+                                                    height="60"
+                                                    loading="lazy"
+                                                >
+                                                <span>Smart Control Brasil</span>
+                                            </div>
+                                            <div class="testimonial-8__author__contant">
+                                                <h3 class="name">{{ title }}</h3>
+                                                <span class="position">Refrigeração Comercial</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
                     {% endfor %}
                 </div>
+                <div class="swiper-pagination-8"></div>
+            </div>
+        </div>
+    </section>
 
-                <div class="col-lg-7 offset-lg-1">
-                    <div class="rr__features-img position-relative">
-
-                        <!-- TODO: substituir pelo vídeo institucional de Refrigeração Comercial -->
-
-                        {# Thumbnail: commercial_refrigeration.VIDEO_THUMBNAIL. URL: COMMERCIAL_REFRIGERATION_VIDEO_URL. #}
-
-                        <img
-                            src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
-                            alt="Manutenção técnica em sistema de refrigeração comercial"
-                            width="930"
-                            height="470"
-                            loading="lazy"
-                        >
-
-                        <div class="wrap">
-                            <button
-                                type="button"
-                                class="features__media-icon cr-play"
-                                data-cr-video
-                                aria-label="Abrir vídeo de Refrigeração Comercial"
-                                aria-haspopup="dialog"
-                            >
-                                {% institutional_icon 'play' %}
-                            </button>
+    <section class="blog-8__area blog-8 section-space-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="blog-8__top">
+                        <div class="section__title-wrapper mb-45 mb-xs-15 hero">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Aplicações e Equipamentos Atendidos
+                            </h2>
                         </div>
-
-                    </div>
-
-                    {% if video_is_preview %}
-                        <p class="cr-caption">
-                            Prévia de desenvolvimento: vídeo do template, aguardando substituição.
-                        </p>
-                    {% endif %}
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="rr__marketing-area heading-bg section-space">
-        <div class="container">
-
-            <div class="row g-5">
-
-                <div class="col-lg-6">
-                    <h2 class="section__title-wrapper-title-2 mb-25">
-                        Infraestrutura Elétrica para Refrigeração
-                    </h2>
-
-                    <p class="mb-25">
-                        <strong>Refrigeração + Elétrica:</strong>
-                        a Smart Control Brasil pode avaliar alimentação, proteções e comandos
-                        junto com o sistema frigorífico.
-                    </p>
-
-                    <ul class="cr-checklist">
-                        {% for item in commercial_refrigeration.ELECTRICAL_ITEMS %}
-                            <li>
-                                {% institutional_icon 'check' %}
-                                {{ item }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-
-                    <div class="cr-actions mt-30">
-                        <a
-                            class="rr-btn"
-                            href="{% url 'institutional:servicos_eletricos' %}"
-                        >
-                            Conhecer Serviços Elétricos
-                        </a>
+                        <div class="blog-8__button__wrapper mb-xs-30">
+                            <div class="blog-8__button blog-8__button__prev">
+                                <i class="cr8-arrow cr8-arrow--left" aria-hidden="true"></i>
+                            </div>
+                            <div class="blog-8__button blog-8__button__next">
+                                <i class="cr8-arrow cr8-arrow--right" aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6">
-                    <h2 class="section__title-wrapper-title-2 mb-25">
-                        Integração com Automação Industrial
-                    </h2>
-
-                    <p class="mb-25">
-                        Controladores, sensores, alarmes e monitoramento podem integrar sistemas
-                        de refrigeração a rotinas operacionais mais seguras e previsíveis.
-                    </p>
-
-                    <ul class="cr-checklist">
-                        {% for item in commercial_refrigeration.AUTOMATION_ITEMS %}
-                            <li>
-                                {% institutional_icon 'check' %}
-                                {{ item }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-
-                    <div class="cr-actions mt-30">
-                        <a
-                            class="rr-btn btn-transparent"
-                            href="{% url 'institutional:mitsubishi_automacao_industrial' %}"
-                        >
-                            Conhecer Automação Industrial
-                        </a>
-                    </div>
-                </div>
-
             </div>
 
-        </div>
-    </section>
-
-    <section class="things__area heading-bg section-space-bottom">
-        <div class="container">
-
-            <div class="cr-callout">
-
-                <div>
-                    <h2>Precisa de uma Solução em Refrigeração Comercial?</h2>
-
-                    <p>
-                        Fale com a Smart Control Brasil para avaliar sua necessidade, dimensionar
-                        a solução e preparar um orçamento técnico.
-                    </p>
-                </div>
-
-                <div class="cr-actions cr-callout__actions">
-                    <a
-                        class="rr-btn"
-                        href="{% url 'institutional:contact' %}"
-                        data-track-event="click_primary_cta"
-                        data-track-location="cr_quote"
-                        data-track-label="Solicitar Orçamento"
-                    >
-                        Solicitar Orçamento
-                        {% institutional_icon 'next' %}
-                    </a>
-
-                    <a
-                        class="rr-btn btn-transparent"
-                        href="{{ commercial_refrigeration.WHATSAPP_URL }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Falar no WhatsApp
-                        {% institutional_icon 'whatsapp' %}
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <section class="credible__area op-bg section-space">
-        <div class="container">
-
-            <h2 class="section__title-wrapper-title-2 text-center mb-50">
-                Por que escolher a Smart Control Brasil?
-            </h2>
-
-            <div class="row g-4">
-
-                {% for title, text in commercial_refrigeration.DIFFERENTIALS %}
-                    <div class="col-md-6">
-
-                        <article class="cr-capability">
-
-                            <span class="cr-number" aria-hidden="true">
-                                0{{ forloop.counter }}
-                            </span>
-
-                            <h3>{{ title }}</h3>
-                            <p>{{ text }}</p>
-
+            <div class="swiper blog-8__slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <article class="blog-8__item">
+                            <div class="blog-8__thumb">
+                                <img
+                                    src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
+                                    alt="Câmaras frigoríficas para operações comerciais"
+                                    width="416"
+                                    height="324"
+                                    loading="lazy"
+                                >
+                                <span>Câmaras Frigoríficas</span>
+                            </div>
+                            <div class="blog-8__content">
+                                <h3 class="blog-8__title">
+                                    Conservação e Congelamento com Critério Técnico
+                                </h3>
+                                <p class="blog-8__dec">
+                                    Soluções para ambientes que precisam de estabilidade de temperatura,
+                                    controle e confiabilidade operacional.
+                                </p>
+                                <div class="blog-8__author">
+                                    <div class="blog-8__author__thumb">
+                                        <img
+                                            src="{% static 'institutional/imgs/icon/testimonial-icon-9.png' %}"
+                                            alt=""
+                                            width="50"
+                                            height="50"
+                                            loading="lazy"
+                                        >
+                                    </div>
+                                    <div class="blog-8__author__text">
+                                        <h4 class="name">Mercados · Restaurantes · Padarias</h4>
+                                    </div>
+                                </div>
+                            </div>
                         </article>
-
                     </div>
-                {% endfor %}
 
-            </div>
-        </div>
-    </section>
+                    <div class="swiper-slide">
+                        <article class="blog-8__item">
+                            <div class="blog-8__thumb">
+                                <img
+                                    src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
+                                    alt="Manutenção de equipamentos de refrigeração comercial"
+                                    width="416"
+                                    height="324"
+                                    loading="lazy"
+                                >
+                                <span>Manutenção Técnica</span>
+                            </div>
+                            <div class="blog-8__content">
+                                <h3 class="blog-8__title">
+                                    Diagnóstico para Correção de Falhas Reais
+                                </h3>
+                                <p class="blog-8__dec">
+                                    Atendimento para falhas de compressor, ventilação, sensores, elétrica,
+                                    vazamentos e perda de desempenho.
+                                </p>
+                                <div class="blog-8__author">
+                                    <div class="blog-8__author__thumb">
+                                        <img
+                                            src="{% static 'institutional/imgs/icon/testimonial-icon-10.png' %}"
+                                            alt=""
+                                            width="50"
+                                            height="50"
+                                            loading="lazy"
+                                        >
+                                    </div>
+                                    <div class="blog-8__author__text">
+                                        <h4 class="name">Preventiva e Corretiva</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
 
-    <section class="further-2__area heading-bg section-space-bottom">
-        <div class="container">
-
-            <div class="further-2__wrapper cr-integration">
-
-                <h2 class="section__title-wrapper-title-2">
-                    Refrigeração, Engenharia e Serviços Integrados
-                </h2>
-
-                <p>
-                    Além de refrigeração comercial, a Smart Control Brasil integra
-                    <a href="{% url 'institutional:servicos_eletricos' %}">serviços elétricos</a>,
-                    <a href="{% url 'institutional:ar_condicionado' %}">ar-condicionado</a>,
-                    <a href="{% url 'institutional:manutencao_industrial_campo' %}">manutenção industrial</a>
-                    e
-                    <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">automação industrial</a>
-                    para atender projetos com maior complexidade técnica.
-                </p>
-
-                <p>
-                    Também precisa de climatização?
-                    Conheça nossas soluções em
-                    <a href="{% url 'institutional:ar_condicionado' %}">Ar-Condicionado</a>.
-                </p>
-
-                <div class="cr-actions">
-
-                    <a
-                        class="rr-btn"
-                        href="{% url 'institutional:ar_condicionado' %}"
-                    >
-                        Conhecer Ar-Condicionado
-                    </a>
-
-                    <a
-                        class="rr-btn btn-transparent"
-                        href="{% url 'institutional:manutencao_industrial_campo' %}"
-                    >
-                        Conhecer Manutenção Industrial
-                    </a>
-
+                    <div class="swiper-slide">
+                        <article class="blog-8__item">
+                            <div class="blog-8__thumb">
+                                <img
+                                    src="{% static commercial_refrigeration.HERO_IMAGE %}"
+                                    alt="Integração entre refrigeração e elétrica"
+                                    width="416"
+                                    height="324"
+                                    loading="lazy"
+                                >
+                                <span>Integração Técnica</span>
+                            </div>
+                            <div class="blog-8__content">
+                                <h3 class="blog-8__title">
+                                    Refrigeração + Elétrica + Automação
+                                </h3>
+                                <p class="blog-8__dec">
+                                    Integração com infraestrutura elétrica e automação industrial para
+                                    projetos mais robustos e previsíveis.
+                                </p>
+                                <div class="blog-8__author">
+                                    <div class="blog-8__author__thumb">
+                                        <img
+                                            src="{% static 'institutional/imgs/icon/testimonial-icon-8.png' %}"
+                                            alt=""
+                                            width="50"
+                                            height="50"
+                                            loading="lazy"
+                                        >
+                                    </div>
+                                    <div class="blog-8__author__text">
+                                        <h4 class="name">
+                                            <a href="{% url 'institutional:servicos_eletricos' %}">Serviços Elétricos</a> ·
+                                            <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Automação Industrial</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
-
             </div>
-
         </div>
     </section>
-
-    <section class="rr__lates-blog-area heading-bg section-space-bottom">
-        <div class="container cr-faq">
-
-            <h2 class="section__title-wrapper-title-2 text-center mb-50">
-                Perguntas sobre Refrigeração Comercial
-            </h2>
-
-            {% for question, answer in commercial_refrigeration.FAQS %}
-                <details>
-
-                    <summary>
-                        <h3>{{ question }}</h3>
-                    </summary>
-
-                    <p>{{ answer }}</p>
-
-                </details>
-            {% endfor %}
-
-        </div>
-    </section>
-
 </div>
-
-<dialog
-    id="cr-video-dialog"
-    aria-labelledby="cr-video-title"
-    data-embed-url="{{ video_embed_url }}"
->
-
-    <div class="cr-dialog-header">
-
-        <h2 id="cr-video-title">
-            Refrigeração Comercial
-        </h2>
-
-        <button
-            type="button"
-            data-close-video
-            aria-label="Fechar vídeo"
-        >
-            {% institutional_icon 'close' %}
-        </button>
-
-    </div>
-
-    {% if video_embed_url %}
-        <div class="cr-video-frame"></div>
-    {% else %}
-        <p>
-            Nosso vídeo institucional estará disponível em breve.
-            Fale com a equipe para conhecer nossas soluções de refrigeração comercial.
-        </p>
-
-        <a
-            class="rr-btn"
-            href="{% url 'institutional:contact' %}"
-        >
-            Solicitar Orçamento
-        </a>
-    {% endif %}
-
-</dialog>
-
 {% endblock %}
 
 {% block extra_js %}
-<script
-    defer
-    src="{% static 'institutional/js/refrigeracao-comercial.js' %}"
-></script>
 {% endblock %}

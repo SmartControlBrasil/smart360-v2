@@ -51,7 +51,7 @@
             }
         }
     }
-    &__media{
+    &__media{ overflow: visible;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -77,7 +77,7 @@
             }
         }
     }
-    &__thumb-2{
+    &__thumb-2{ overflow: visible;
         position: relative;
         &::before{
             background: var(--rr-common-white);
@@ -91,7 +91,7 @@
             z-index: 1;
         }
     }
-    &__thumb{
+    &__thumb{ overflow: visible;
         max-width: 370px;
         width: 100%;
         height: 389px;
@@ -379,6 +379,33 @@
         }
     }
 }
+
+/* Positioning for specific figcaptions */
+.about__media .img-1 .figure-contextual > figcaption {
+    left: calc(100% - 20px);
+    top: 0;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    max-width: 220px;
+}
+.about__media .img-2 .figure-contextual > figcaption {
+    left: calc(100% - 20px);
+    top: 0;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    max-width: 200px;
+}
+.about__thumb-2 .about__thumb .figure-contextual > figcaption {
+    left: calc(100% - 20px);
+    top: 0;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    max-width: 280px;
+}
+
 .choose-us {
     &__thumb-img {
         & img {

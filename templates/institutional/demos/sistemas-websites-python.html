@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+<div class="systems-python-page">
 <!-- Banner area start -->
             <section class="banner2__area hero-bg-dark p-relative overflow-hidden z-1">
                 <div class="banner2__shapes">
@@ -40,11 +41,11 @@
                                     <div class="star-list">
                                         <div class="star">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                             <p class="dec">Software desenvolvido para transformar processos reais.</p>
                                         </div>
@@ -69,7 +70,7 @@
                 </div>
             </section> 
         
-            <section class="blog__area section-space-bottom pastel-blue-bg">
+            <section class="blog__area section-space pastel-blue-bg">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-8">
@@ -90,20 +91,25 @@
                         <div class="brand__wrapper hero">
                             <h5 class="title _split_text">Tecnologias modernas para sistemas seguros, escaláveis e fáceis de evoluir.</h5>
                             <div class="brand__wrapper-thumb">
-                                <div class="brand__wrapper-thumb-icon">
-                                    <img {% image_dimensions 'institutional/imgs/icon/slider-icon-1.png' %} src="{% static 'institutional/imgs/icon/slider-icon-1.png' %}" alt="">
+                                <div class="brand__wrapper-thumb-icon systems-python-page__tech">
+                                    {% institutional_icon "programming" %}
+                                    <span>Python</span>
                                 </div>
-                                <div class="brand__wrapper-thumb-icon">
-                                    <img {% image_dimensions 'institutional/imgs/icon/slider-icon-2.png' %} src="{% static 'institutional/imgs/icon/slider-icon-2.png' %}" alt="">
+                                <div class="brand__wrapper-thumb-icon systems-python-page__tech">
+                                    {% institutional_icon "web" %}
+                                    <span>Django</span>
                                 </div>
-                                <div class="brand__wrapper-thumb-icon">
-                                    <img {% image_dimensions 'institutional/imgs/icon/slider-icon-3.png' %} src="{% static 'institutional/imgs/icon/slider-icon-3.png' %}" alt="">
+                                <div class="brand__wrapper-thumb-icon systems-python-page__tech">
+                                    {% institutional_icon "database" %}
+                                    <span>PostgreSQL</span>
                                 </div>
-                                <div class="brand__wrapper-thumb-icon">
-                                    <img {% image_dimensions 'institutional/imgs/icon/slider-icon-4.png' %} src="{% static 'institutional/imgs/icon/slider-icon-4.png' %}" alt="">
+                                <div class="brand__wrapper-thumb-icon systems-python-page__tech">
+                                    {% institutional_icon "settings" %}
+                                    <span>APIs</span>
                                 </div>
-                                <div class="brand__wrapper-thumb-icon">
-                                    <img {% image_dimensions 'institutional/imgs/icon/slider-icon-5.png' %} src="{% static 'institutional/imgs/icon/slider-icon-5.png' %}" alt="">
+                                <div class="brand__wrapper-thumb-icon systems-python-page__tech">
+                                    {% institutional_icon "brain" %}
+                                    <span>IA</span>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +254,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="rr-btn mt-30" href="{% url 'institutional:contact' %}">Apresente seu projeto <img {% image_dimensions 'institutional/imgs/icon/tab-icon-1.png' %} src="{% static 'institutional/imgs/icon/tab-icon-1.png' %}" alt="Ícone"></a>
+                            <a class="rr-btn mt-30" href="{% url 'institutional:contact' %}">Apresente seu projeto {% institutional_icon "next" %}</a>
                         </div>
                         <div class="col-lg-2">
                             <ul class="nav nav-tabs services-provided__tab" id="myTab" role="tablist">
@@ -522,7 +528,7 @@
                                 <div class="further__content-btn-wrap">
                                     <div class="button">
                                         <div class="icon">
-                                            <img {% image_dimensions 'institutional/imgs/icon/further-icon-1.png' %} src="{% static 'institutional/imgs/icon/further-icon-1.png' %}" alt="">
+                                            {% institutional_icon "monitor" class="site-icon--md" %}
                                         </div>
                                         <div class="text">
                                             <span>Acesse pelo</span>
@@ -531,11 +537,11 @@
                                     </div>
                                     <div class="button button-2">
                                         <div class="icon">
-                                            <img {% image_dimensions 'institutional/imgs/icon/further-icon-2.png' %} src="{% static 'institutional/imgs/icon/further-icon-2.png' %}" alt="">
+                                            {% institutional_icon "web" class="site-icon--md" %}
                                         </div>
                                         <div class="text">
-                                            <span>Acesse pelo</span>
-                                            <h6><a href="{% url 'institutional:contact' %}">Celular</a></h6>
+                                            <span>Responsivo em</span>
+                                            <h6><a href="{% url 'institutional:contact' %}">Qualquer tela</a></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -568,19 +574,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Cada solução é estruturada conforme o processo, os usuários, os dados e as integrações necessárias para a operação.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "settings" %}
                                             </div>
                                             <h3 class="title">Arquitetura sob medida <span>Processos e usuários</span></h3>
                                         </div>
@@ -593,19 +599,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Utilizamos Python e Django para desenvolver aplicações escaláveis, organizadas e preparadas para evolução contínua.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "programming" %}
                                             </div>
                                             <h3 class="title">Python e Django <span>Base técnica evolutiva</span></h3>
                                         </div>
@@ -618,19 +624,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Sistemas podem conectar formulários, bancos de dados, APIs e rotinas internas para reduzir tarefas manuais.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "growth" %}
                                             </div>
                                             <h3 class="title">Integração de processos <span>Fluxos conectados</span></h3>
                                         </div>
@@ -643,19 +649,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Estruturamos informações para facilitar consultas, indicadores, rastreabilidade e tomada de decisão.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "database" %}
                                             </div>
                                             <h3 class="title">Dados organizados <span>Indicadores e rastreabilidade</span></h3>
                                         </div>
@@ -668,19 +674,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Interfaces são desenvolvidas com foco em clareza, facilidade de uso e aderência à rotina operacional.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "user" %}
                                             </div>
                                             <h3 class="title">Experiência do usuário <span>Clareza na rotina</span></h3>
                                         </div>
@@ -693,19 +699,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">A arquitetura pode ser preparada para receber novos módulos, usuários, integrações e funcionalidades.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "tag" %}
                                             </div>
                                             <h3 class="title">Evolução contínua <span>Novos módulos e integrações</span></h3>
                                         </div>
@@ -718,19 +724,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Integramos sistemas, serviços externos e aplicações por meio de APIs e fluxos de dados controlados.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "web" %}
                                             </div>
                                             <h3 class="title">APIs e integrações <span>Dados controlados</span></h3>
                                         </div>
@@ -743,19 +749,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Processos repetitivos podem ser automatizados para reduzir retrabalho e melhorar produtividade.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "settings" %}
                                             </div>
                                             <h3 class="title">Automação digital <span>Menos retrabalho</span></h3>
                                         </div>
@@ -768,19 +774,19 @@
                                     <div class="testimonial-2__item-text">
                                         <div class="testimonial-2__item-icon" aria-hidden="true">
                                             <ul>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
-                                                <li>{% institutional_icon "star" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
+                                                <li>{% institutional_icon "star" class="site-icon--gold" %}</li>
                                             </ul>
                                         </div>
                                         <p class="testimonial-2__item-dec">Recursos de inteligência artificial podem ser incorporados quando agregam valor real ao processo e à experiência do usuário.</p>
                                     </div>
                                     <div class="testimonial-2__item-content">
                                         <div class="testimonial-2__item-author">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/testimonial-icon-2.png' %} src="{% static 'institutional/imgs/icon/testimonial-icon-2.png' %}" alt="">
+                                            <div class="icon testimonial-2__item-author-icon">
+                                                {% institutional_icon "brain" %}
                                             </div>
                                             <h3 class="title">IA aplicada <span>Valor real no processo</span></h3>
                                         </div>
@@ -934,4 +940,5 @@
                     </div>
                 </div>
             </section>
+</div>
 {% endblock %}

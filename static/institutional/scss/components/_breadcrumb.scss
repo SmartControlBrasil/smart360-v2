@@ -105,10 +105,19 @@
         &-shape-9{
           position: absolute;
           bottom: 0;
-          right: 311px;
+          right: 340px;
           z-index: 2;
+          img {
+            width: 240px;
+            max-width: 240px;
+            height: auto;
+          }
           @media #{$lg, $md} {
-            right: 152px;
+            right: 170px;
+            img {
+              width: 200px;
+              max-width: 200px;
+            }
           }
           @media #{$sm, $xs} {
             display: none;

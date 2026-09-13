@@ -1,0 +1,62 @@
+.seo-presenca-digital-page .banner10__title-wrapper-subtitle {
+    font-family: var(--rr-ff-body);
+    font-size: 14px;
+    font-weight: var(--rr-fw-sbold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.seo-presenca-digital-page .rr-btn .site-icon {
+    width: 16px;
+    height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    object-fit: contain;
+}
+
+.seo-presenca-digital-page .play-button .site-icon,
+.seo-presenca-digital-page .play-btn .site-icon {
+    width: 14px;
+    height: 14px;
+    max-width: 14px;
+    max-height: 14px;
+    margin-left: 2px;
+}
+
+.seo-presenca-digital-page .support-10-slide__item .arrow .site-icon {
+    width: 14px;
+    height: 14px;
+    max-width: 14px;
+    max-height: 14px;
+    filter: brightness(0) invert(1);
+    transform: rotate(-45deg);
+}
+
+.seo-presenca-digital-page .support-10-slide__item .arrow a:hover .site-icon {
+    transform: rotate(0deg);
+}
+
+.seo-presenca-digital-page .pricing-10__features .site-icon {
+    width: 14px;
+    height: 14px;
+    max-width: 14px;
+    max-height: 14px;
+    margin-right: 8px;
+    vertical-align: -0.12em;
+    filter: brightness(0) invert(1);
+}
+
+.seo-presenca-digital-page .site-icon--gold {
+    width: 14px;
+    height: 14px;
+    max-width: 14px;
+    max-height: 14px;
+    filter: invert(77%) sepia(61%) saturate(2466%) hue-rotate(360deg) brightness(101%) contrast(96%);
+}
+
+.seo-presenca-digital-page .testimonial-10__swiper-button-next .site-icon,
+.seo-presenca-digital-page .testimonial-10__swiper-button-prev .site-icon {
+    filter: brightness(0) invert(1);
+}

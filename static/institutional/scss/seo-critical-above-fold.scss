@@ -1,38 +1,47 @@
 // Institutional SVG/icon overrides required above the fold on HOME.
+@use 'utils' as *;
 // Keep in sync with static/institutional/scss/_seo.scss (subset only).
 
-.container-balao-robo {
+.figure-contextual {
 	position: relative;
 	display: inline-block;
 	margin-top: 50px;
 }
 
-.balao-fala-robo {
+.figure-contextual > figcaption {
 	position: absolute;
 	bottom: 105%;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: #007bff;
-	color: #ffffff;
-	padding: 12px;
-	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.20);
+	border-radius: 14px;
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+	z-index: 10;
 	width: 220px;
 	font-family: sans-serif;
 	font-size: 14px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-	z-index: 10;
+	padding: 12px;
 	text-align: center;
+}
 
-	&::after {
-		content: "";
-		position: absolute;
-		top: 100%;
-		left: 80%;
-		transform: translateX(-50%);
-		border-width: 11px;
-		border-style: solid;
-		border-color: #007bff transparent transparent transparent;
-	}
+/* Light variant */
+.figure-contextual--light-bg > figcaption {
+	background: $scb-figcaption-light-bg;
+	color: $scb-figcaption-light-text;
+}
+.figure-contextual--light-bg > figcaption::after {
+	border-color: $scb-figcaption-light-bg transparent transparent transparent;
+}
+
+/* Dark variant */
+.figure-contextual--dark-bg > figcaption {
+	background: $scb-figcaption-dark-bg;
+	color: $scb-figcaption-dark-text;
+}
+.figure-contextual--dark-bg > figcaption::after {
+	border-color: $scb-figcaption-dark-bg transparent transparent transparent;
 }
 
 #preloader .preloader-close {
@@ -253,7 +262,7 @@ button > .site-icon:not(:only-child):first-child {
 	overflow: hidden;
 }
 
-.banner1__thumb .container-balao-robo {
+.banner1__thumb .figure-contextual {
 	display: block;
 	width: 100%;
 	max-width: 360px;
@@ -262,7 +271,7 @@ button > .site-icon:not(:only-child):first-child {
 	aspect-ratio: 381 / 571;
 }
 
-.banner1__thumb .container-balao-robo > img[width][height] {
+.banner1__thumb .figure-contextual > img[width][height] {
 	display: block;
 	width: 100%;
 	height: auto;
@@ -303,7 +312,7 @@ button > .site-icon:not(:only-child):first-child {
 	}
 }
 
-.balao-fala-robo {
+.figure-contextual > figcaption {
 	min-height: 138px;
 	box-sizing: border-box;
 }

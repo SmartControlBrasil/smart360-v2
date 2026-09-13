@@ -1,0 +1,1092 @@
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load institutional_media %}
+{% load static %}
+
+{% block extra_head %}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/seo-presenca-digital.css' %}"
+    >
+{% endblock %}
+
+{% block content %}
+    <div class="seo-presenca-digital-page">
+        <section class="banner10__area p-relative overflow-hidden z-1">
+            <div class="banner10__shapes">
+                <div class="banner10__shapes-shape-1"></div>
+                <div class="banner10__shapes-shape-2"></div>
+                <div class="banner10__shapes-shape-3"></div>
+                <div class="banner10__shapes-shape-4"></div>
+                <div class="banner10__shapes-shape-5"></div>
+                <div class="banner10__shapes-shape-6"></div>
+                <div class="banner10__shapes-shape-7">
+                    <img {% image_dimensions 'institutional/imgs/shapes/banner-10-shape-1.png' %} src="{% static 'institutional/imgs/shapes/banner-10-shape-1.png' %}" alt="">
+                </div>
+            </div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <div class="banner10__title-wrapper text-center hero">
+                            <h6 class="banner10__title-wrapper-subtitle _split_text">
+                                SEO E PRESENÇA DIGITAL
+                            </h6>
+                            <h1 class="banner10__title-wrapper-title _split_text">
+                                Sua Empresa Mais Visível no Google
+                            </h1>
+                            <p class="banner10__title-wrapper-dec">
+                                Estratégias de SEO técnico, conteúdo e presença digital para aumentar sua visibilidade,
+                                atrair tráfego qualificado e fortalecer sua marca nos mecanismos de busca.
+                            </p>
+                            <a class="banner10__brn rr-btn" href="{% url 'institutional:contact' %}" data-track-event="click_primary_cta" data-track-location="seo_hero" data-track-label="Solicitar análise">
+                                Solicitar Análise
+                                <span>{% institutional_icon "next" %}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-10-slider__area pb-75 p-relative z-1">
+            <div class="container">
+                <div class="hero-slide">
+                    <div class="swiper hero-10-slide-active">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="hero-slider__item">
+                                    <div class="hero-slider__thumb">
+                                        <img {% image_dimensions 'institutional/imgs/images/hero-10-img-1.jpg' %} src="{% static 'institutional/imgs/images/hero-10-img-1.jpg' %}" alt="Análise de SEO técnico">
+                                        <div class="hero-slider__content">
+                                            <button class="play-button" type="button" aria-label="Ver foco da análise técnica">
+                                                {% institutional_icon "play" %}
+                                            </button>
+                                            <div class="author">
+                                                <h4 class="name"><a href="{% url 'institutional:contact' %}">SEO Técnico</a></h4>
+                                                <span class="desgn">Indexação e performance</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slider__item">
+                                    <div class="hero-slider__thumb">
+                                        <img {% image_dimensions 'institutional/imgs/images/hero-10-img-2.jpg' %} src="{% static 'institutional/imgs/images/hero-10-img-2.jpg' %}" alt="Planejamento de conteúdo para busca orgânica">
+                                        <div class="hero-slider__content">
+                                            <button class="play-button" type="button" aria-label="Ver foco do conteúdo estratégico">
+                                                {% institutional_icon "play" %}
+                                            </button>
+                                            <div class="author">
+                                                <h4 class="name"><a href="{% url 'institutional:contact' %}">Conteúdo Estratégico</a></h4>
+                                                <span class="desgn">Intenção de busca</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slider__item">
+                                    <div class="hero-slider__thumb">
+                                        <img {% image_dimensions 'institutional/imgs/images/hero-10-img-3.jpg' %} src="{% static 'institutional/imgs/images/hero-10-img-3.jpg' %}" alt="SEO local e presença no Google">
+                                        <div class="hero-slider__content">
+                                            <button class="play-button" type="button" aria-label="Ver foco do SEO local">
+                                                {% institutional_icon "play" %}
+                                            </button>
+                                            <div class="author">
+                                                <h4 class="name"><a href="{% url 'institutional:contact' %}">SEO Local</a></h4>
+                                                <span class="desgn">Perfil da Empresa no Google</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slider__item">
+                                    <div class="hero-slider__thumb">
+                                        <img {% image_dimensions 'institutional/imgs/images/hero-10-img-4.jpg' %} src="{% static 'institutional/imgs/images/hero-10-img-4.jpg' %}" alt="Monitoramento de desempenho orgânico">
+                                        <div class="hero-slider__content">
+                                            <button class="play-button" type="button" aria-label="Ver foco do monitoramento orgânico">
+                                                {% institutional_icon "play" %}
+                                            </button>
+                                            <div class="author">
+                                                <h4 class="name"><a href="{% url 'institutional:contact' %}">Monitoramento</a></h4>
+                                                <span class="desgn">Search Console e evolução</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slider__item">
+                                    <div class="hero-slider__thumb">
+                                        <img {% image_dimensions 'institutional/imgs/images/hero-10-img-5.jpg' %} src="{% static 'institutional/imgs/images/hero-10-img-5.jpg' %}" alt="Arquitetura de site para SEO">
+                                        <div class="hero-slider__content">
+                                            <button class="play-button" type="button" aria-label="Ver foco de arquitetura e links internos">
+                                                {% institutional_icon "play" %}
+                                            </button>
+                                            <div class="author">
+                                                <h4 class="name"><a href="{% url 'institutional:sistemas_websites_python' %}">Estrutura Digital</a></h4>
+                                                <span class="desgn">Arquitetura e links internos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-slider__item">
+                                    <div class="hero-slider__thumb">
+                                        <img {% image_dimensions 'institutional/imgs/images/hero-10-img-6.jpg' %} src="{% static 'institutional/imgs/images/hero-10-img-6.jpg' %}" alt="Análise contínua de presença digital">
+                                        <div class="hero-slider__content">
+                                            <button class="play-button" type="button" aria-label="Ver foco da otimização contínua">
+                                                {% institutional_icon "play" %}
+                                            </button>
+                                            <div class="author">
+                                                <h4 class="name"><a href="{% url 'institutional:contact' %}">Otimização Contínua</a></h4>
+                                                <span class="desgn">Melhoria sustentável</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-interdum">
+                        <button class="play-btn" type="button" aria-label="Conhecer estratégia SEO e presença digital">
+                            {% institutional_icon "play" %}
+                        </button>
+                        <h5 class="hero-titles">
+                            Quer aumentar suas chances de aparecer na primeira página do Google?
+                            Trabalhamos estrutura, conteúdo e autoridade para ampliar a competitividade da sua empresa
+                            nas buscas de forma sustentável.
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="rr-brand__area section-space-bottom">
+            <div class="container">
+                <h6 class="sub-titles text-center">Plataformas e frentes que apoiam uma estratégia de presença digital consistente.</h6>
+                <div dir="ltr" class="brands-wrapperr">
+                    <div class="swiper brands-10-active">
+                        <div class="swiper-wrapper rr-slide-transtion">
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-1.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-1.png' %}" alt="SEO técnico e arquitetura">
+                                </div>
+                            </div>
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-2.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-2.png' %}" alt="Google Search Console">
+                                </div>
+                            </div>
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-3.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-3.png' %}" alt="Conteúdo estratégico">
+                                </div>
+                            </div>
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-4.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-4.png' %}" alt="SEO local e presença">
+                                </div>
+                            </div>
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-5.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-5.png' %}" alt="Métricas e relatórios">
+                                </div>
+                            </div>
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-6.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-6.png' %}" alt="Core Web Vitals e desempenho">
+                                </div>
+                            </div>
+                            <div class="swiper-slide rr-brand-slide-element">
+                                <div class="brands-image">
+                                    <img {% image_dimensions 'institutional/imgs/brands/brands-10-img-7.png' %} src="{% static 'institutional/imgs/brands/brands-10-img-7.png' %}" alt="Evolução contínua de SEO">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="about__us section-space-bottom">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6">
+                        <div class="about__us-wrapper">
+                            <div class="section__title-wrapper mb-20 hero">
+                                <h2 class="section__title-wrapper-title _split_text text-about">
+                                    SEO Começa com uma Boa Estrutura Digital
+                                </h2>
+                            </div>
+                            <div class="about__us-content">
+                                <p>
+                                    SEO não é apenas ajuste pontual. É combinação entre base técnica, arquitetura da
+                                    informação, conteúdo orientado por intenção de busca e experiência do usuário.
+                                    Sites rápidos, organizados e preparados tecnicamente oferecem uma base mais sólida
+                                    para posicionamento orgânico e conversão.
+                                </p>
+                            </div>
+                            <div class="tag-coulds">
+                                <a href="{% url 'institutional:contact' %}">SEO técnico</a>
+                                <a href="{% url 'institutional:contact' %}">SEO local</a>
+                                <a href="{% url 'institutional:contact' %}">Google Search Console</a>
+                                <br>
+                                <a href="{% url 'institutional:contact' %}">Conteúdo estratégico</a>
+                                <a href="{% url 'institutional:contact' %}">Core Web Vitals</a>
+                                <a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="choose-us__media-wrapper">
+                            <div class="choose-us__thumb choose-us__thumb-1 choose-us__thumb-2">
+                                <div class="choose-us__thumb-img choose-us__thumb-img-1 return">
+                                    <img {% image_dimensions 'institutional/imgs/about/about-10-img-1.jpg' %} src="{% static 'institutional/imgs/about/about-10-img-1.jpg' %}" alt="Planejamento de presença digital e SEO">
+                                </div>
+                                <div class="choose-us__thumb-img-2">
+                                    <img {% image_dimensions 'institutional/imgs/images/choose-img-5.png' %} src="{% static 'institutional/imgs/images/choose-img-5.png' %}" alt="Análise de desempenho orgânico">
+                                </div>
+                                <div class="choose-us__thumb-img-3 choose-us__thumb-img-3-1">
+                                    <img {% image_dimensions 'institutional/imgs/images/choose-img-6.png' %} src="{% static 'institutional/imgs/images/choose-img-6.png' %}" alt="Acompanhamento de evolução contínua">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-10__area section-space soft-light-blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center mb-45 hero">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Serviços Essenciais de SEO e Presença Digital
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-minus-30">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-10__item mb-30">
+                            <div class="product-10__item-icon product-10__item-icon-1">
+                                <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-1.png' %} src="{% static 'institutional/imgs/icon/prdouct-10-icon-1.png' %}" alt="">
+                            </div>
+                            <h4 class="title"><a href="{% url 'institutional:contact' %}">SEO Técnico</a></h4>
+                            <p class="dec">
+                                Auditoria de indexação, estrutura, metadados, performance, sitemap, canonical, dados
+                                estruturados e fatores técnicos que impactam a presença no Google.
+                            </p>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar Análise {% institutional_icon "next" %}</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-10__item mb-30">
+                            <div class="product-10__item-icon product-10__item-icon-1">
+                                <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-2.png' %} src="{% static 'institutional/imgs/icon/prdouct-10-icon-2.png' %}" alt="">
+                            </div>
+                            <h4 class="title"><a href="{% url 'institutional:contact' %}">SEO On-Page</a></h4>
+                            <p class="dec">
+                                Otimização de títulos, headings, conteúdos, estrutura de páginas e links internos com
+                                foco em intenção de busca, relevância e clareza para usuário e buscador.
+                            </p>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar Análise {% institutional_icon "next" %}</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-10__item mb-30">
+                            <div class="product-10__item-icon product-10__item-icon-1">
+                                <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-3.png' %} src="{% static 'institutional/imgs/icon/prdouct-10-icon-3.png' %}" alt="">
+                            </div>
+                            <h4 class="title"><a href="{% url 'institutional:contact' %}">SEO Local</a></h4>
+                            <p class="dec">
+                                Estratégias para fortalecer a presença da empresa em pesquisas locais, com dados
+                                comerciais consistentes e otimização do Perfil da Empresa no Google.
+                            </p>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar Análise {% institutional_icon "next" %}</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-10__item mb-30">
+                            <div class="product-10__item-icon product-10__item-icon-1">
+                                <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-4.png' %} src="{% static 'institutional/imgs/icon/prdouct-10-icon-4.png' %}" alt="">
+                            </div>
+                            <h4 class="title"><a href="{% url 'institutional:contact' %}">Conteúdo Estratégico</a></h4>
+                            <p class="dec">
+                                Planejamento de conteúdos orientados por palavras-chave, autoridade temática e dúvidas
+                                reais do público para ampliar tráfego orgânico qualificado.
+                            </p>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar Análise {% institutional_icon "next" %}</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-10__item mb-30">
+                            <div class="product-10__item-icon product-10__item-icon-1">
+                                <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-5.png' %} src="{% static 'institutional/imgs/icon/prdouct-10-icon-5.png' %}" alt="">
+                            </div>
+                            <h4 class="title"><a href="{% url 'institutional:contact' %}">Presença Digital</a></h4>
+                            <p class="dec">
+                                Integração entre site, buscadores, conteúdo, canais digitais e experiência do usuário
+                                para construir posicionamento orgânico sólido e consistente.
+                            </p>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar Análise {% institutional_icon "next" %}</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="product-10__item mb-30">
+                            <div class="product-10__item-icon product-10__item-icon-1">
+                                <img {% image_dimensions 'institutional/imgs/icon/prdouct-10-icon-6.png' %} src="{% static 'institutional/imgs/icon/prdouct-10-icon-6.png' %}" alt="">
+                            </div>
+                            <h4 class="title"><a href="{% url 'institutional:contact' %}">Monitoramento e Evolução</a></h4>
+                            <p class="dec">
+                                Acompanhamento de impressões, cliques, CTR, consultas, posição média, páginas
+                                indexadas e Core Web Vitals para melhorar continuamente a estratégia.
+                            </p>
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Solicitar Análise {% institutional_icon "next" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="suppor-10__area section-space-top">
+            <div class="container">
+                <div class="row mb-minus-30">
+                    <div class="col-md-5">
+                        <div class="support-10__wrapper mb-30">
+                            <div class="support-10__item">
+                                <div class="support-10__thumb">
+                                    <img {% image_dimensions 'institutional/imgs/images/support-10-img-1.png' %} src="{% static 'institutional/imgs/images/support-10-img-1.png' %}" alt="Diagnóstico SEO e presença digital">
+                                    <div class="cost-wrap">
+                                        <span class="cost">Etapa 1</span>
+                                        <span class="maro">Diagnóstico SEO</span>
+                                    </div>
+                                </div>
+                                <div class="support-10__content">
+                                    <div class="Achieve-wrap">
+                                        <h3 class="title-text"><a href="{% url 'institutional:contact' %}">Mapeamento técnico e de conteúdo</a></h3>
+                                        <p>
+                                            Avaliamos indexação, estrutura, conteúdo, desempenho e consistência da
+                                            presença digital para identificar prioridades e oportunidades reais.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="support-10__wrapper mb-30">
+                            <div class="support-10__item support-10__item-wrap">
+                                <div class="support-10__content">
+                                    <div class="Achieve-wrap Achieve-wrap-textt">
+                                        <h3 class="title-text"><a href="{% url 'institutional:contact' %}">SEO e presença digital com visão de negócio</a></h3>
+                                        <p>
+                                            Definimos prioridades entre SEO técnico, SEO local, conteúdo e arquitetura
+                                            de navegação para aumentar a competitividade da empresa em buscas relevantes.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="support-10__thumb">
+                                    <img {% image_dimensions 'institutional/imgs/images/support-10-img-2.png' %} src="{% static 'institutional/imgs/images/support-10-img-2.png' %}" alt="Estratégia de posicionamento orgânico">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="support-10__wrapper mb-30">
+                            <div class="support-10__item support-10__item-wrapss">
+                                <div class="support-10__content">
+                                    <div class="Achieve-wrap Achieve-wrap-textt">
+                                        <h3 class="title-text"><a href="{% url 'institutional:contact' %}">Ferramentas e monitoramento contínuo</a></h3>
+                                        <p>
+                                            Acompanhamos dados de busca para orientar ajustes técnicos e editoriais
+                                            contínuos, sem promessas irreais e com foco em evolução sustentável.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="swiper support-slider-actives">
+                                    <div class="swiper-wrapper rr-slide-transtion">
+                                        <div class="swiper-slide rr-brand-slide-element">
+                                            <div class="support-10-slide__main-item">
+                                                <div class="support-10-slide__item">
+                                                    <div class="support-10-slide__thumb">
+                                                        <img {% image_dimensions 'institutional/imgs/images/support-10-flag-2.png' %} src="{% static 'institutional/imgs/images/support-10-flag-2.png' %}" alt="Google Search Console">
+                                                        <div class="support-10-slide__content">
+                                                            <h4 class="country-name">Search Console</h4>
+                                                            <span>Indexação e consultas</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="arrow">
+                                                        <a href="{% url 'institutional:contact' %}" aria-label="Solicitar análise Search Console">{% institutional_icon "next" %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide rr-brand-slide-element">
+                                            <div class="support-10-slide__main-item">
+                                                <div class="support-10-slide__item">
+                                                    <div class="support-10-slide__thumb">
+                                                        <img {% image_dimensions 'institutional/imgs/images/support-10-flag-1.png' %} src="{% static 'institutional/imgs/images/support-10-flag-1.png' %}" alt="Core Web Vitals">
+                                                        <div class="support-10-slide__content">
+                                                            <h4 class="country-name">Core Web Vitals</h4>
+                                                            <span>Performance e UX</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="arrow">
+                                                        <a href="{% url 'institutional:contact' %}" aria-label="Solicitar análise de performance">{% institutional_icon "next" %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide rr-brand-slide-element">
+                                            <div class="support-10-slide__main-item">
+                                                <div class="support-10-slide__item">
+                                                    <div class="support-10-slide__thumb">
+                                                        <img {% image_dimensions 'institutional/imgs/images/support-10-flag-3.png' %} src="{% static 'institutional/imgs/images/support-10-flag-3.png' %}" alt="SEO On-Page">
+                                                        <div class="support-10-slide__content">
+                                                            <h4 class="country-name">SEO On-Page</h4>
+                                                            <span>Títulos e intenção</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="arrow">
+                                                        <a href="{% url 'institutional:contact' %}" aria-label="Solicitar análise On-Page">{% institutional_icon "next" %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide rr-brand-slide-element">
+                                            <div class="support-10-slide__main-item">
+                                                <div class="support-10-slide__item">
+                                                    <div class="support-10-slide__thumb">
+                                                        <img {% image_dimensions 'institutional/imgs/images/support-10-flag-4.png' %} src="{% static 'institutional/imgs/images/support-10-flag-4.png' %}" alt="SEO Local">
+                                                        <div class="support-10-slide__content">
+                                                            <h4 class="country-name">SEO Local</h4>
+                                                            <span>Presença regional</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="arrow">
+                                                        <a href="{% url 'institutional:contact' %}" aria-label="Solicitar análise de SEO local">{% institutional_icon "next" %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide rr-brand-slide-element">
+                                            <div class="support-10-slide__main-item">
+                                                <div class="support-10-slide__item">
+                                                    <div class="support-10-slide__thumb">
+                                                        <img {% image_dimensions 'institutional/imgs/images/support-10-flag-5.png' %} src="{% static 'institutional/imgs/images/support-10-flag-5.png' %}" alt="Relatórios e evolução">
+                                                        <div class="support-10-slide__content">
+                                                            <h4 class="country-name">Relatórios</h4>
+                                                            <span>Evolução contínua</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="arrow">
+                                                        <a href="{% url 'institutional:contact' %}" aria-label="Solicitar relatórios e plano evolutivo">{% institutional_icon "next" %}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="support-10__wrapper mb-30">
+                            <div class="support-10__item support-10__item-connctt">
+                                <div class="support-10__thumb support-10__thumb-nurture">
+                                    <img {% image_dimensions 'institutional/imgs/images/support-10-img-3.png' %} src="{% static 'institutional/imgs/images/support-10-img-3.png' %}" alt="Integração entre site e presença digital">
+                                </div>
+                                <div class="support-10__content">
+                                    <div class="Achieve-wrap Achieve-wrap-martt">
+                                        <h3 class="title-text"><a href="{% url 'institutional:sistemas_websites_python' %}">SEO integrado a websites e sistemas</a></h3>
+                                        <p>
+                                            A presença no Google cresce melhor quando o site é tecnicamente preparado.
+                                            Veja como uma boa base digital acelera SEO e conversão.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-10__area section-space-top-14 ask-question-10 p-relative overflow-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center mb-45 hero">
+                            <h2 class="section__title-wrapper-title _split_text">Dúvidas Frequentes sobre SEO e Presença Digital</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="ask-question-10__faq-10">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item ask-question-10__faq-10-item faq-10__item wow fadeInLeft animated" data-wow-delay=".2s">
+                                    <h5 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            O que é SEO e como ele ajuda minha empresa?
+                                        </button>
+                                    </h5>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                SEO é um conjunto de estratégias técnicas e editoriais para melhorar a visibilidade da empresa em pesquisas relevantes. O objetivo é ampliar tráfego orgânico qualificado e fortalecer presença digital ao longo do tempo.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item ask-question-10__faq-10-item faq-10__item wow fadeInLeft animated" data-wow-delay=".3s">
+                                    <h5 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                            Em quanto tempo o SEO costuma gerar resultado?
+                                        </button>
+                                    </h5>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                O SEO é um trabalho contínuo. O tempo varia conforme concorrência, maturidade do site e qualidade da estrutura existente. Trabalhamos evolução progressiva com monitoramento e priorização técnica.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item ask-question-10__faq-10-item faq-10__item wow fadeInLeft animated" data-wow-delay=".4s">
+                                    <h5 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                            É possível garantir primeira posição no Google?
+                                        </button>
+                                    </h5>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Não existe garantia responsável de posição específica. O trabalho correto é estruturar técnica, conteúdo e autoridade para aumentar competitividade e ampliar as chances de boas posições para buscas estratégicas.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item ask-question-10__faq-10-item faq-10__item wow fadeInLeft animated" data-wow-delay=".5s">
+                                    <h5 class="accordion-header" id="headingFour">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                            Vocês analisam Google Search Console e indexação?
+                                        </button>
+                                    </h5>
+                                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Sim. Acompanhamos cobertura, páginas indexadas, consultas, cliques, CTR, posição média e alertas técnicos para orientar ajustes de SEO técnico e conteúdo.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item ask-question-10__faq-10-item faq-10__item wow fadeInLeft animated" data-wow-delay=".5s">
+                                    <h5 class="accordion-header" id="headingFive">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                            Qual a diferença entre tráfego orgânico e tráfego pago?
+                                        </button>
+                                    </h5>
+                                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Tráfego orgânico vem do posicionamento natural em buscadores. Tráfego pago depende de mídia e investimento publicitário. As duas frentes podem coexistir, mas têm dinâmica e gestão diferentes.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item ask-question-10__faq-10-item faq-10__item wow fadeInLeft animated" data-wow-delay=".5s">
+                                    <h5 class="accordion-header" id="headingSix">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                                            A Smart Control Brasil também desenvolve websites?
+                                        </button>
+                                    </h5>
+                                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Sim. Desenvolvemos websites e sistemas com base técnica sólida para SEO, integrações e evolução contínua. Você pode conhecer essa frente em Sistemas e Websites.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-10__area section-space fade-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center mb-25 hero">
+                            <h2 class="section__title-wrapper-title _split_text">Escopos de Atendimento em SEO e Presença Digital</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="pricing-10__tab mb-40">
+                            <ul class="nav nav-tabs justify-content-center" id="priceTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab" aria-controls="monthly" aria-selected="true">Escopo Inicial</button>
+                                </li>
+                                <li class="nav-item pricing-10__tab-item" role="presentation">
+                                    <button class="nav-link" id="yearly-tab" data-bs-toggle="tab" data-bs-target="#yearly" type="button" role="tab" aria-controls="yearly" aria-selected="false">Escopo Contínuo</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content wow fadeInUp" id="priceTabContent" data-wow-delay=".5s">
+                    <div class="tab-pane fade show active" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
+                        <div class="row mb-minus-30">
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="pricing-10__item fade-top mb-30">
+                                    <div class="pricing-10__header">
+                                        <h3>Diagnóstico SEO</h3>
+                                    </div>
+                                    <div class="pricing-10__tag">
+                                        <h4>Escopo Base</h4>
+                                        <p class="dec">Levantamento técnico e editorial para identificar prioridades e riscos.</p>
+                                    </div>
+                                    <div class="pricing-10__btn">
+                                        <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Solicitar Proposta</a>
+                                    </div>
+                                    <div class="pricing-10__features text-start">
+                                        <ul>
+                                            <li>{% institutional_icon "check" %} Auditoria de indexação e cobertura</li>
+                                            <li>{% institutional_icon "check" %} Revisão de metadados e headings</li>
+                                            <li>{% institutional_icon "check" %} Estrutura de URLs e links internos</li>
+                                            <li>{% institutional_icon "check" %} Diagnóstico de performance e Core Web Vitals</li>
+                                            <li>{% institutional_icon "check" %} Plano inicial de priorização</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="pricing-10__item fade-top mb-30">
+                                    <div class="pricing-10__header">
+                                        <h3>SEO e Presença Digital</h3>
+                                    </div>
+                                    <div class="pricing-10__tag">
+                                        <h4>Escopo Estratégico</h4>
+                                        <p class="dec">Implementação de melhorias com foco em visibilidade orgânica e presença digital.</p>
+                                    </div>
+                                    <div class="pricing-10__btn">
+                                        <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Solicitar Proposta</a>
+                                    </div>
+                                    <div class="pricing-10__features text-start">
+                                        <ul>
+                                            <li>{% institutional_icon "check" %} SEO On-Page e conteúdo orientado por busca</li>
+                                            <li>{% institutional_icon "check" %} SEO local e dados comerciais consistentes</li>
+                                            <li>{% institutional_icon "check" %} Ajustes técnicos de rastreabilidade e indexação</li>
+                                            <li>{% institutional_icon "check" %} Otimização de arquitetura de informação</li>
+                                            <li>{% institutional_icon "check" %} Relatórios de evolução orgânica</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="pricing-10__item fade-top mb-30">
+                                    <div class="pricing-10__header">
+                                        <h3>Estratégia Contínua</h3>
+                                    </div>
+                                    <div class="pricing-10__tag">
+                                        <h4>Evolução Sustentável</h4>
+                                        <p class="dec">Acompanhamento contínuo para ganho de competitividade nas buscas.</p>
+                                    </div>
+                                    <div class="pricing-10__btn">
+                                        <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Solicitar Proposta</a>
+                                    </div>
+                                    <div class="pricing-10__features text-start">
+                                        <ul>
+                                            <li>{% institutional_icon "check" %} Monitoramento de consultas e páginas-chave</li>
+                                            <li>{% institutional_icon "check" %} Evolução mensal de conteúdo e páginas</li>
+                                            <li>{% institutional_icon "check" %} Ajustes de autoridade e relevância</li>
+                                            <li>{% institutional_icon "check" %} Priorização por impacto e oportunidade</li>
+                                            <li>{% institutional_icon "check" %} Suporte consultivo para decisões digitais</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="yearly" role="tabpanel" aria-labelledby="yearly-tab">
+                        <div class="row mb-minus-30">
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="pricing-10__item fade-top mb-30">
+                                    <div class="pricing-10__header">
+                                        <h3>Diagnóstico + Roadmap</h3>
+                                    </div>
+                                    <div class="pricing-10__tag">
+                                        <h4>Base Técnica</h4>
+                                        <p class="dec">Auditoria inicial com plano estruturado para execução por etapas.</p>
+                                    </div>
+                                    <div class="pricing-10__btn">
+                                        <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Solicitar Proposta</a>
+                                    </div>
+                                    <div class="pricing-10__features text-start">
+                                        <ul>
+                                            <li>{% institutional_icon "check" %} Diagnóstico de status orgânico atual</li>
+                                            <li>{% institutional_icon "check" %} Mapeamento de páginas estratégicas</li>
+                                            <li>{% institutional_icon "check" %} Oportunidades de ganho técnico e editorial</li>
+                                            <li>{% institutional_icon "check" %} Cronograma de execução recomendado</li>
+                                            <li>{% institutional_icon "check" %} Direcionamento para equipe interna ou externa</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="pricing-10__item fade-top mb-30">
+                                    <div class="pricing-10__header">
+                                        <h3>Plano de Crescimento Orgânico</h3>
+                                    </div>
+                                    <div class="pricing-10__tag">
+                                        <h4>Presença Digital</h4>
+                                        <p class="dec">Integração contínua entre SEO técnico, conteúdo e presença local.</p>
+                                    </div>
+                                    <div class="pricing-10__btn">
+                                        <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Solicitar Proposta</a>
+                                    </div>
+                                    <div class="pricing-10__features text-start">
+                                        <ul>
+                                            <li>{% institutional_icon "check" %} Atualizações técnicas recorrentes</li>
+                                            <li>{% institutional_icon "check" %} Estratégia de conteúdo por intenção de busca</li>
+                                            <li>{% institutional_icon "check" %} Fortalecimento de presença no Google</li>
+                                            <li>{% institutional_icon "check" %} Relatórios com indicadores de evolução</li>
+                                            <li>{% institutional_icon "check" %} Revisões de arquitetura e links internos</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="pricing-10__item fade-top mb-30">
+                                    <div class="pricing-10__header">
+                                        <h3>Consultoria Contínua</h3>
+                                    </div>
+                                    <div class="pricing-10__tag">
+                                        <h4>Escala e Maturidade</h4>
+                                        <p class="dec">Apoio contínuo para consolidar autoridade e ampliar competitividade.</p>
+                                    </div>
+                                    <div class="pricing-10__btn">
+                                        <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent">Solicitar Proposta</a>
+                                    </div>
+                                    <div class="pricing-10__features text-start">
+                                        <ul>
+                                            <li>{% institutional_icon "check" %} Priorização de backlog técnico de SEO</li>
+                                            <li>{% institutional_icon "check" %} Avaliação de novos conteúdos e páginas</li>
+                                            <li>{% institutional_icon "check" %} Leitura de tendências e oportunidades</li>
+                                            <li>{% institutional_icon "check" %} Indicadores de tráfego orgânico qualificado</li>
+                                            <li>{% institutional_icon "check" %} Governança de evolução digital</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonial-10__area soft-light-blue">
+            <div class="container">
+                <div class="section__title-wrapper text-center mb-50 hero">
+                    <h2 class="section__title-wrapper-title _split_text">Princípios que Guiam Nossa Estratégia de SEO</h2>
+                </div>
+                <div class="swiper testimonial-10-active">
+                    <div class="swiper-wrapper mb-35">
+                        <div class="swiper-slide">
+                            <div class="testimonial-10__item">
+                                <div class="testimonial-10__thumb">
+                                    <img {% image_dimensions 'institutional/imgs/images/testi-9-img-1.png' %} src="{% static 'institutional/imgs/images/testi-9-img-1.png' %}" alt="Decisões baseadas em dados">
+                                    <div class="testimonial-10__wrap">
+                                        <div class="client-review">
+                                            <span>Dados + Estratégia {% institutional_icon "star" class="site-icon--gold" %}</span>
+                                            <p>Visão orientada por métricas reais de busca</p>
+                                        </div>
+                                        <div class="review-image">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-2.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-2.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-3.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-3.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-4.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-4.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-5.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-5.png' %}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-10__wrapper">
+                                    <div class="testimonial-10__icon">
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                    </div>
+                                    <div class="testimonial-10__content">
+                                        <p>
+                                            Decisões de SEO ficam mais assertivas quando combinamos dados de busca,
+                                            contexto de negócio e revisão técnica. O foco é gerar visibilidade
+                                            sustentável, não picos temporários.
+                                        </p>
+                                    </div>
+                                    <div class="testimonial-10__author-wrapper">
+                                        <div class="author__item">
+                                            <div class="author-img">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-author-1.png' %} src="{% static 'institutional/imgs/icon/testi-9-author-1.png' %}" alt="">
+                                            </div>
+                                            <div class="author-content">
+                                                <h5 class="author-name">Diagnóstico Técnico</h5>
+                                                <span class="author-desgn">Indexação e estrutura</span>
+                                            </div>
+                                        </div>
+                                        <div class="author-logo">
+                                            <a href="{% url 'institutional:contact' %}" aria-label="Solicitar diagnóstico técnico">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-logo.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-logo.png' %}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-10__item">
+                                <div class="testimonial-10__thumb">
+                                    <img {% image_dimensions 'institutional/imgs/images/testi-9-img-1.png' %} src="{% static 'institutional/imgs/images/testi-9-img-1.png' %}" alt="Conteúdo estratégico e intenção de busca">
+                                    <div class="testimonial-10__wrap">
+                                        <div class="client-review">
+                                            <span>Conteúdo + Busca {% institutional_icon "star" class="site-icon--gold" %}</span>
+                                            <p>Conteúdo guiado por intenção e autoridade temática</p>
+                                        </div>
+                                        <div class="review-image">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-2.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-2.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-3.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-3.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-4.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-4.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-5.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-5.png' %}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-10__wrapper">
+                                    <div class="testimonial-10__icon">
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                    </div>
+                                    <div class="testimonial-10__content">
+                                        <p>
+                                            A estrutura técnica abre caminho, mas é o conteúdo que responde às dúvidas do
+                                            público e aumenta relevância. Por isso SEO on-page e produção estratégica
+                                            caminham juntos.
+                                        </p>
+                                    </div>
+                                    <div class="testimonial-10__author-wrapper">
+                                        <div class="author__item">
+                                            <div class="author-img">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-author-1.png' %} src="{% static 'institutional/imgs/icon/testi-9-author-1.png' %}" alt="">
+                                            </div>
+                                            <div class="author-content">
+                                                <h5 class="author-name">Conteúdo Estratégico</h5>
+                                                <span class="author-desgn">Relevância para buscas</span>
+                                            </div>
+                                        </div>
+                                        <div class="author-logo">
+                                            <a href="{% url 'institutional:contact' %}" aria-label="Solicitar planejamento de conteúdo">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-logo.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-logo.png' %}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-10__item">
+                                <div class="testimonial-10__thumb">
+                                    <img {% image_dimensions 'institutional/imgs/images/testi-9-img-1.png' %} src="{% static 'institutional/imgs/images/testi-9-img-1.png' %}" alt="SEO local e presença regional">
+                                    <div class="testimonial-10__wrap">
+                                        <div class="client-review">
+                                            <span>SEO Local {% institutional_icon "star" class="site-icon--gold" %}</span>
+                                            <p>Presença consistente para pesquisas regionais</p>
+                                        </div>
+                                        <div class="review-image">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-2.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-2.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-3.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-3.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-4.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-4.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-5.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-5.png' %}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-10__wrapper">
+                                    <div class="testimonial-10__icon">
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                    </div>
+                                    <div class="testimonial-10__content">
+                                        <p>
+                                            Uma presença local bem organizada ajuda a empresa a ser encontrada com mais
+                                            contexto por quem já está próximo e pronto para entrar em contato.
+                                        </p>
+                                    </div>
+                                    <div class="testimonial-10__author-wrapper">
+                                        <div class="author__item">
+                                            <div class="author-img">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-author-1.png' %} src="{% static 'institutional/imgs/icon/testi-9-author-1.png' %}" alt="">
+                                            </div>
+                                            <div class="author-content">
+                                                <h5 class="author-name">Presença Local</h5>
+                                                <span class="author-desgn">Negócio e território</span>
+                                            </div>
+                                        </div>
+                                        <div class="author-logo">
+                                            <a href="{% url 'institutional:contact' %}" aria-label="Solicitar análise de presença local">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-logo.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-logo.png' %}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-10__item">
+                                <div class="testimonial-10__thumb">
+                                    <img {% image_dimensions 'institutional/imgs/images/testi-9-img-1.png' %} src="{% static 'institutional/imgs/images/testi-9-img-1.png' %}" alt="Evolução contínua de SEO">
+                                    <div class="testimonial-10__wrap">
+                                        <div class="client-review">
+                                            <span>Evolução Contínua {% institutional_icon "star" class="site-icon--gold" %}</span>
+                                            <p>Ajustes contínuos para ganho sustentável</p>
+                                        </div>
+                                        <div class="review-image">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-2.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-2.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-3.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-3.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-4.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-4.png' %}" alt="">
+                                            <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-5.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-5.png' %}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-10__wrapper">
+                                    <div class="testimonial-10__icon">
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                        <span>{% institutional_icon "star" class="site-icon--gold" %}</span>
+                                    </div>
+                                    <div class="testimonial-10__content">
+                                        <p>
+                                            SEO exige acompanhamento. Medimos, interpretamos e priorizamos melhorias em
+                                            ciclos contínuos para manter a estratégia viva diante das mudanças de busca
+                                            e concorrência.
+                                        </p>
+                                    </div>
+                                    <div class="testimonial-10__author-wrapper">
+                                        <div class="author__item">
+                                            <div class="author-img">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-author-1.png' %} src="{% static 'institutional/imgs/icon/testi-9-author-1.png' %}" alt="">
+                                            </div>
+                                            <div class="author-content">
+                                                <h5 class="author-name">Monitoramento</h5>
+                                                <span class="author-desgn">Dados e melhoria contínua</span>
+                                            </div>
+                                        </div>
+                                        <div class="author-logo">
+                                            <a href="{% url 'institutional:contact' %}" aria-label="Solicitar monitoramento de SEO">
+                                                <img {% image_dimensions 'institutional/imgs/icon/testi-9-img-logo.png' %} src="{% static 'institutional/imgs/icon/testi-9-img-logo.png' %}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-10__arrow">
+                    <div class="testimonial-10__swiper-button-next rr-btn">{% institutional_icon "next" class="site-icon--flip-x" %}</div>
+                    <div class="testimonial-10__swiper-button-prev rr-btn">{% institutional_icon "next" %}</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="latest-blog10__area section-space overflow-hidden">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center mb-45 hero">
+                            <h2 class="section__title-wrapper-title _split_text">Conteúdo Técnico para Evoluir SEO e Estratégia Digital</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-minus-30">
+                    <div class="col-xl-6">
+                        <div class="item mb-30">
+                            <div class="latest-blog10__thumb wow fadeInLeft animated" data-wow-delay=".2s">
+                                <img {% image_dimensions 'institutional/imgs/blog/blog-home-10-1.png' %} src="{% static 'institutional/imgs/blog/blog-home-10-1.png' %}" alt="Base técnica para transformar dados em decisão">
+                            </div>
+                            <div class="latest-blog10__content wow fadeInLeft animated" data-wow-delay=".3s">
+                                <div class="latest-blog10__content-meta mb-10">
+                                    <ul>
+                                        <li><span>Leitura recomendada</span></li>
+                                        <li><a href="{% url 'institutional:blog_detail' 'informacao-precisa-para-agir-melhor' %}">Dados e decisão</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="latest-blog10__content-title mb-25">
+                                    <a href="{% url 'institutional:blog_detail' 'informacao-precisa-para-agir-melhor' %}">
+                                        Dados industriais viram informação para decisão: base essencial para uma estratégia digital consistente.
+                                    </a>
+                                </h4>
+                                <a href="{% url 'institutional:blog_detail' 'informacao-precisa-para-agir-melhor' %}" class="rr-btn">Ler conteúdo completo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="latest-blog10__right-content mb-30 wow fadeInLeft animated" data-wow-delay=".4s">
+                            <div class="latest-blog10__right-content-img">
+                                <img {% image_dimensions 'institutional/imgs/blog/blog-home-10-2.png' %} src="{% static 'institutional/imgs/blog/blog-home-10-2.png' %}" alt="Integração entre sistemas e modernização operacional">
+                            </div>
+                            <div class="latest-blog10__right-content-text">
+                                <div class="latest-blog10__right-content-text-meta">
+                                    <ul>
+                                        <li><span>Integração digital</span></li>
+                                        <li><a href="{% url 'institutional:blog_detail' 'equipamentos-sistemas-para-evoluir' %}">Sistemas e evolução</a></li>
+                                    </ul>
+                                </div>
+                                <h3 class="latest-blog10__content-title mb-20">
+                                    <a href="{% url 'institutional:blog_detail' 'equipamentos-sistemas-para-evoluir' %}">
+                                        Equipamentos e sistemas podem evoluir juntos quando há estrutura digital bem definida.
+                                    </a>
+                                </h3>
+                                <a href="{% url 'institutional:blog_detail' 'equipamentos-sistemas-para-evoluir' %}" class="rr-btn">Ler conteúdo completo</a>
+                            </div>
+                        </div>
+                        <div class="latest-blog10__right-content mb-30 wow fadeInLeft animated" data-wow-delay=".5s">
+                            <div class="latest-blog10__right-content-img">
+                                <img {% image_dimensions 'institutional/imgs/blog/blog-home-10-3.png' %} src="{% static 'institutional/imgs/blog/blog-home-10-3.png' %}" alt="Websites e sistemas prontos para SEO">
+                            </div>
+                            <div class="latest-blog10__right-content-text">
+                                <div class="latest-blog10__right-content-text-meta">
+                                    <ul>
+                                        <li><span>Soluções Digitais</span></li>
+                                        <li><a href="{% url 'institutional:sistemas_websites_python' %}">Estrutura para SEO</a></li>
+                                    </ul>
+                                </div>
+                                <h3 class="latest-blog10__content-title mb-20">
+                                    <a href="{% url 'institutional:sistemas_websites_python' %}">
+                                        Conheça como sistemas e websites bem estruturados fortalecem SEO, presença digital e conversão.
+                                    </a>
+                                </h3>
+                                <a href="{% url 'institutional:sistemas_websites_python' %}" class="rr-btn">Conhecer Sistemas e Websites</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

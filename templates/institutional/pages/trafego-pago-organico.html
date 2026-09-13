@@ -1,0 +1,573 @@
+{% extends 'institutional/layouts/with_swiper_wow.html' %}
+{% load static institutional_media %}
+
+{% block vendor_css %}
+    {{ block.super }}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/vendor/magnific-popup.css' %}"
+    >
+{% endblock %}
+
+{% block extra_head %}
+    <link
+        rel="stylesheet"
+        href="{% static 'institutional/css/trafego-pago-organico.css' %}"
+    >
+{% endblock %}
+
+{% block vendor_js %}
+    {{ block.super }}
+    <script defer src="{% static 'institutional/js/vendor/magnific-popup.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="traffic-paid-organic-page">
+        <section class="banner6__area overflow-hidden p-relative z-1">
+            <div class="banner6__shapes">
+                <div class="banner6__shapes-shape-1">
+                    <img src="{% static 'institutional/imgs/shapes/banner-6-shape-1.png' %}" alt="" aria-hidden="true">
+                </div>
+                <div class="banner6__shapes-shape-2"></div>
+                <div class="banner6__shapes-shape-3">
+                    <img src="{% static 'institutional/imgs/shapes/banner-6-shape-2.png' %}" alt="" aria-hidden="true">
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <div class="banner6__title-wrapper text-center hero">
+                            <h6 class="banner6__title-wrapper-subtitle _split_text">
+                                TRÁFEGO E AQUISIÇÃO DIGITAL
+                            </h6>
+                            <h1 class="banner6__title-wrapper-title _split_text">
+                                Tráfego Pago e Orgânico para Gerar Oportunidades
+                            </h1>
+                            <p class="banner6__title-wrapper-dec rr_title_anim">
+                                Estratégias integradas de Google Ads, presença orgânica, conteúdo e análise de dados
+                                para aumentar visibilidade e atrair potenciais clientes.
+                            </p>
+                            <a
+                                class="rr-btn"
+                                href="{% url 'institutional:contact' %}"
+                                data-track-event="click_primary_cta"
+                                data-track-location="trafego_hero"
+                                data-track-label="Solicitar análise"
+                            >
+                                Solicitar Análise
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="banner6__thumb">
+                    <img
+                        src="{% static 'institutional/imgs/images/banner-6-img-1.png' %}"
+                        alt="Planejamento integrado de tráfego pago e orgânico"
+                        loading="eager"
+                        fetchpriority="high"
+                    >
+                    <a
+                        href="{{ traffic.HERO_VIDEO_URL }}"
+                        class="popup-video banner6__thumb-icon"
+                        data-effect="mfp-move-from-top vertical-middle"
+                        aria-label="Abrir vídeo da estratégia de tráfego"
+                    >
+                        {% institutional_icon "play" %}
+                        <div class="ripple"></div>
+                    </a>
+                    <div class="banner6__thumb-shapes">
+                        <div class="banner6__thumb-shapes-shape-1">
+                            <img src="{% static 'institutional/imgs/images/banner-6-thumb-shape-1.png' %}" alt="" aria-hidden="true">
+                        </div>
+                        <div class="banner6__thumb-shapes-shape-2">
+                            <img src="{% static 'institutional/imgs/images/banner-6-thumb-shape-2.png' %}" alt="" aria-hidden="true">
+                        </div>
+                        <div class="banner6__thumb-shapes-shape-3">
+                            <img src="{% static 'institutional/imgs/images/banner-6-thumb-shape-3.png' %}" alt="" aria-hidden="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="choose-us__area choose-us-2">
+            <div class="container">
+                <div class="row align-items-center row-reverse">
+                    <div class="col-lg-6">
+                        <div class="choose-us__media-wrapper">
+                            <div class="choose-us__thumb choose-us__thumb-1">
+                                <div class="choose-us__thumb-img return">
+                                    <img src="{% static 'institutional/imgs/images/choose-img-4.png' %}" alt="Equipe analisando dados de aquisição">
+                                </div>
+                                <div class="choose-us__thumb-img-2">
+                                    <img src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="Campanhas e segmentação">
+                                </div>
+                                <div class="choose-us__thumb-img-3">
+                                    <img src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="Crescimento orgânico e SEO">
+                                </div>
+                                <div class="choose-us__thumb-img-4">
+                                    <img src="{% static 'institutional/imgs/shapes/choose-shape-1.png' %}" alt="" aria-hidden="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="choose-us__content-wrap choose-us-2">
+                            <div class="section__title-wrapper hero">
+                                <h2 class="section__title-wrapper-title _split_text">
+                                    Tráfego + Dados + Conversão <br> + Estratégia
+                                </h2>
+                                <p class="section__title-wrapper-dec rr_title_anim mt-20">
+                                    Tráfego pago acelera a exposição. Tráfego orgânico fortalece presença contínua.
+                                    Quando mídia, SEO, conteúdo e páginas de conversão trabalham juntos, a aquisição
+                                    se torna mais consistente.
+                                </p>
+                                <div class="choose-us__list-item choose-us__list-item-2">
+                                    <ul>
+                                        {% for item in traffic.CHOOSE_POINTS_LEFT %}
+                                            <li class="rr_title_anim">
+                                                <img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="" aria-hidden="true">
+                                                {{ item }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <ul>
+                                        {% for item in traffic.CHOOSE_POINTS_RIGHT %}
+                                            <li class="rr_title_anim">
+                                                <img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="" aria-hidden="true">
+                                                {{ item }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <a class="rr-btn mt-40" href="{{ traffic.WHATSAPP_URL }}" target="_blank" rel="noopener noreferrer">
+                                    Falar com Especialista
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="developed-7__area section-space-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center hero mb-45">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Frentes Principais de <br> Tráfego Pago
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-minus-30">
+                    {% for title, description in traffic.PAID_ORGANIC_BLOCKS %}
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <article class="developed-7__item mb-30">
+                                <div class="developed-7__item-thumb">
+                                    <img
+                                        src="{% static 'institutional/imgs/images/developed-7-img-' %}{{ forloop.counter }}.png"
+                                        alt="{{ title }}"
+                                    >
+                                </div>
+                                <div class="developed-7__item-content">
+                                    <h3 class="title"><a href="{% url 'institutional:contact' %}">{{ title }}</a></h3>
+                                    <p class="dec">{{ description }}</p>
+                                    <a class="developed-7__item-content-btn" href="{% url 'institutional:contact' %}">
+                                        Solicitar Análise
+                                    </a>
+                                </div>
+                            </article>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-6__area section-space">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-7 col-md-6">
+                        <div class="pricing-6__text-wrapper">
+                            <div class="section__title-wrapper">
+                                <h2 class="section__title-wrapper-title _split_text pb-20">
+                                    Escopos de Atendimento para <br> Tráfego e Aquisição
+                                </h2>
+                                <p class="dec rr_title_anim">
+                                    Não trabalhamos com pacote genérico nem promessa de resultado garantido.
+                                    Definimos escopo conforme maturidade do negócio, objetivos, orçamento e nível de
+                                    integração entre mídia paga, SEO, conteúdo e conversão.
+                                </p>
+                                <a class="rr-btn mt-40" href="{% url 'institutional:contact' %}">
+                                    Solicitar Proposta
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-md-6">
+                        <div class="ask-question-4__faq-4">
+                            <div class="accordion" id="trafficScopeAccordion">
+                                {% for title, subtitle, description, cta_label in traffic.SCOPE_ITEMS %}
+                                    <div
+                                        class="accordion-item ask-question-4__faq-4-item faq-4__item pricing-6-item wow fadeInLeft animated"
+                                        data-wow-delay=".{{ forloop.counter|add:2 }}s"
+                                    >
+                                        <h5 class="accordion-header" id="scopeHeading{{ forloop.counter }}">
+                                            <button
+                                                class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#scopeCollapse{{ forloop.counter }}"
+                                                aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                                aria-controls="scopeCollapse{{ forloop.counter }}"
+                                            >
+                                                {{ title }}
+                                            </button>
+                                        </h5>
+                                        <div
+                                            id="scopeCollapse{{ forloop.counter }}"
+                                            class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                            aria-labelledby="scopeHeading{{ forloop.counter }}"
+                                            data-bs-parent="#trafficScopeAccordion"
+                                        >
+                                            <div class="accordion-body">
+                                                <div class="according-content">
+                                                    <p>{{ description }}</p>
+                                                    <div class="pricing-6 d-flex justify-content-between align-items-center mt-30">
+                                                        <h3>{{ subtitle }}<span>/Sob análise</span></h3>
+                                                        <div class="pricing-6-btn">
+                                                            <a class="rr-btn white-bg" href="{% url 'institutional:contact' %}">
+                                                                {{ cta_label }}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-tab-6 green-gray p-relative overflow-hidden section-space z-1">
+            <div class="project-tab-6__shapes">
+                <div class="project-tab-6__shapes-shape-1">
+                    <img src="{% static 'institutional/imgs/shapes/project-6-bg-shape-1.png' %}" alt="" aria-hidden="true">
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center hero mb-45">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Diferenças e Integração entre <br> Tráfego Pago e Orgânico
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="project-tab-6__nav-tabs">
+                            <nav class="nav" id="traffic-tabs" role="tablist">
+                                {% for tab_id, tab_label, _, _, _ in traffic.TAB_ITEMS %}
+                                    <button
+                                        class="nav-link {% if forloop.first %}active{% endif %}"
+                                        id="{{ tab_id }}-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#{{ tab_id }}"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="{{ tab_id }}"
+                                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                                    >
+                                        {{ tab_label }}
+                                    </button>
+                                    {% if not forloop.last %}<span class="brt"></span>{% endif %}
+                                {% endfor %}
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content mt-40 pastel-blue-bg" id="traffic-tabs-content">
+                            {% for tab_id, tab_label, tab_subtitle, tab_text, tab_cta in traffic.TAB_ITEMS %}
+                                <div
+                                    class="tab-pane fade {% if forloop.first %}active show{% endif %}"
+                                    id="{{ tab_id }}"
+                                    role="tabpanel"
+                                    aria-labelledby="{{ tab_id }}-tab"
+                                >
+                                    <div class="project-tab-6__wrapper mt-30">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="row project-tab-6__left-area">
+                                                    <div class="col-lg-6">
+                                                        {% for point_title, point_subtitle in traffic.TAB_MEDIA_POINTS %}
+                                                            <div class="project-tab-left {% if not forloop.last %}mb-10{% endif %}">
+                                                                <div class="d-flex align-items-end">
+                                                                    <div class="project-tab-left-img">
+                                                                        <img
+                                                                            src="{% static 'institutional/imgs/project/project-6-img-' %}{{ forloop.counter }}.png"
+                                                                            alt="{{ point_title }}"
+                                                                        >
+                                                                    </div>
+                                                                    <div class="project-tab-left-text">
+                                                                        <h6>{{ point_title }}</h6>
+                                                                        <span>{{ point_subtitle }}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="project-tab-left-text-icon">
+                                                                    <a
+                                                                        href="{{ traffic.HERO_VIDEO_URL }}"
+                                                                        class="popup-video zooming"
+                                                                        aria-label="Abrir vídeo sobre {{ point_title }}"
+                                                                    >
+                                                                        <i class="cr6-icon-play" aria-hidden="true"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="project-tab-right position-relative">
+                                                            <div class="project-tab-right-img">
+                                                                <img
+                                                                    src="{% static 'institutional/imgs/project/project-6-big.png' %}"
+                                                                    alt="Integração de mídia, SEO e conversão"
+                                                                >
+                                                            </div>
+                                                            <div class="project-tab-right-icon">
+                                                                <a
+                                                                    href="{{ traffic.HERO_VIDEO_URL }}"
+                                                                    class="popup-video project-tab-icon zooming"
+                                                                    aria-label="Abrir vídeo de integração digital"
+                                                                >
+                                                                    <i class="cr6-icon-play" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="section__title-wrapper tab-ml-50">
+                                                    <h2 class="section__title-wrapper-title _split_text pb-20">
+                                                        {{ tab_label }}
+                                                    </h2>
+                                                    <p class="mb-20"><strong>{{ tab_subtitle }}</strong></p>
+                                                    <p>{{ tab_text }}</p>
+                                                    <a
+                                                        class="rr-btn mt-40"
+                                                        href="{% if tab_id == 'trafego-organico' %}{% url 'institutional:seo_presenca_digital' %}{% elif tab_id == 'integracao' %}{% url 'institutional:sistemas_websites_python' %}{% else %}{% url 'institutional:contact' %}{% endif %}"
+                                                    >
+                                                        {{ tab_cta }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-7__area section-space">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper text-center hero mb-45">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Soluções de Tráfego Pago e Orgânico <br> para Aquisição Digital
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-minus-30">
+                    {% for title in traffic.SERVICE_CARDS %}
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 product-flex">
+                            <div class="product-7__item mb-30">
+                                <div class="product-7__item-thumb">
+                                    <img
+                                        src="{% static 'institutional/imgs/project/product-7-img-' %}{{ forloop.counter }}.png"
+                                        alt="{{ title }}"
+                                    >
+                                </div>
+                                <div class="product-7__item-content">
+                                    <h4 class="title"><a href="{% url 'institutional:contact' %}">{{ title }}</a></h4>
+                                    <a class="product-7__btn" href="{% url 'institutional:contact' %}">Solicitar análise</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="product-7__button">
+                    <a class="rr-btn" href="{% url 'institutional:contact' %}">Planejar Minha Campanha</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonial-6__area p-relative section-space-top section-space-bottom-2 overflow-hidden green-gray">
+            <div class="testimonial-6__shapes">
+                <div class="testimonial-6__shapes-shape-1">
+                    <img src="{% static 'institutional/imgs/shapes/testi-6-bg-shape-1.png' %}" alt="" aria-hidden="true">
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="section__title-wrapper hero text-center">
+                        <h2 class="section__title-wrapper-title _split_text">
+                            Abordagem da Smart Control Brasil para <br> Tráfego e Conversão
+                        </h2>
+                    </div>
+                    <div class="testimonial-6__review">
+                        <div class="icon">
+                            <img src="{% static 'institutional/imgs/icon/testi-6-man-icon-2.png' %}" alt="" aria-hidden="true">
+                            <img src="{% static 'institutional/imgs/icon/testi-6-man-icon-3.png' %}" alt="" aria-hidden="true">
+                            <img src="{% static 'institutional/imgs/icon/testi-6-man-icon-4.png' %}" alt="" aria-hidden="true">
+                            <img src="{% static 'institutional/imgs/icon/testi-6-man-icon-1.png' %}" alt="" aria-hidden="true">
+                        </div>
+                        <div class="title-star-box">
+                            <div class="star-list">
+                                <div class="star-icon">
+                                    <ul>
+                                        <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                        <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                        <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                        <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                        <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                    </ul>
+                                </div>
+                                <h4 class="title">Dados</h4>
+                            </div>
+                            <p class="dec">Métricas para orientar decisões de aquisição.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-6__carousel mt-55 swiper">
+                    <div class="swiper-wrapper testimonial-6__bottom">
+                        {% for title, text, subtitle in traffic.DIFFERENTIALS %}
+                            <div class="swiper-slide">
+                                <article class="testimonial-6__item">
+                                    <div class="testimonial-6__item-star-icon">
+                                        <ul>
+                                            <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                            <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                            <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                            <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                            <li><i class="cr6-icon-star" aria-hidden="true"></i></li>
+                                        </ul>
+                                    </div>
+                                    <h3 class="testimonial-6__item-title">{{ title }}</h3>
+                                    <p class="testimonial-6__item-dec">“{{ text }}”</p>
+                                    <div class="testimonial-6__item-author">
+                                        <img
+                                            src="{% static 'institutional/imgs/icon/testi-6-man-icon-' %}{{ forloop.counter }}.png"
+                                            alt=""
+                                            aria-hidden="true"
+                                        >
+                                        <div class="testimonial-6__item-author-title">
+                                            <h5 class="title"><a href="{% url 'institutional:contact' %}">{{ subtitle }}</a></h5>
+                                            <span>Tráfego Pago e Orgânico</span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="testimonial-6__slider-arrow">
+                        <button class="testimonial-6__slider-arrow-prev rr-btn" type="button" aria-label="Depoimento anterior">
+                            <i class="cr6-icon-angle-right" aria-hidden="true"></i>
+                        </button>
+                        <button class="testimonial-6__slider-arrow-next rr-btn" type="button" aria-label="Próximo depoimento">
+                            <i class="cr6-icon-angle-left" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="latest-trends-area section-space position-relative overflow-hidden z-index-1">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section__title-wrapper mb-45 text-center">
+                            <h2 class="section__title-wrapper-title _split_text">
+                                Conteúdos para Evoluir Estratégia de <br> Aquisição Digital
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="latest-trends__item swiper">
+                    <div class="swiper-wrapper">
+                        {% for tag, description, cta_label, route_name, route_kwargs in traffic.UPDATES_CARDS %}
+                            <div class="swiper-slide">
+                                <div class="latest-trends__item-wrapper d-flex align-items-center">
+                                    <div class="latest-trends__thumb">
+                                        <img
+                                            src="{% static 'institutional/imgs/blog/latest-trend-0' %}{{ forloop.counter }}.png"
+                                            alt="{{ tag }}"
+                                        >
+                                    </div>
+                                    <div class="latest-trends__text">
+                                        <span>{{ tag }}</span>
+                                        <h5>
+                                            <a href="{% url route_name %}">{{ description }}</a>
+                                        </h5>
+                                        <p>
+                                            Estratégia orientada por dados, conteúdo e conversão dentro da jornada
+                                            comercial.
+                                        </p>
+                                        <a href="{% url route_name %}" class="latest-trends-btn mt-20">
+                                            {{ cta_label }}
+                                            <i class="cr6-icon-arrow-right" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for tag, description, cta_label, route_name, route_kwargs in traffic.UPDATES_CARDS %}
+                            <div class="swiper-slide">
+                                <div class="latest-trends__item-wrapper d-flex align-items-center">
+                                    <div class="latest-trends__thumb">
+                                        <img
+                                            src="{% static 'institutional/imgs/blog/latest-trend-0' %}{{ forloop.counter }}.png"
+                                            alt="{{ tag }}"
+                                        >
+                                    </div>
+                                    <div class="latest-trends__text">
+                                        <span>{{ tag }}</span>
+                                        <h5>
+                                            <a href="{% url route_name %}">{{ description }}</a>
+                                        </h5>
+                                        <p>
+                                            Campanhas pagas e crescimento orgânico podem atuar em conjunto sem promessas
+                                            irreais de resultado garantido.
+                                        </p>
+                                        <a href="{% url route_name %}" class="latest-trends-btn mt-20">
+                                            {{ cta_label }}
+                                            <i class="cr6-icon-arrow-right" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="rr-scrollbar mt-60 wow fadeInUp swiper-scrollbar-horizontal" data-wow-delay=".3s">
+                        <div class="swiper-scrollbar-drag"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -78,6 +78,26 @@ BLOG_SOLUTION_LINKS = {
         "label": "manutenção, retrofit e levantamento técnico",
         "summary": "Use documentação, rastreabilidade e diagnóstico para preparar intervenções e retrofit com menor risco.",
     },
+    "infraestrutura-correta-ar-condicionado": {
+        "url_name": "institutional:ar_condicionado",
+        "label": "instalação de ar-condicionado",
+        "summary": "Veja como a Smart Control Brasil organiza avaliação, instalação e manutenção de ar-condicionado.",
+    },
+    "preventiva-corretiva-ar-condicionado": {
+        "url_name": "institutional:ar_condicionado",
+        "label": "manutenção de ar-condicionado",
+        "summary": "Conecte preventiva, corretiva, higienização e diagnóstico dentro de uma rotina técnica de climatização.",
+    },
+    "eletrica-climatizacao-comercial": {
+        "url_name": "institutional:ar_condicionado",
+        "label": "serviços de climatização",
+        "summary": "Planeje climatização comercial com avaliação de infraestrutura, elétrica, acesso e manutenção.",
+    },
+    "vazamento-fluido-refrigerante": {
+        "url_name": "institutional:ar_condicionado",
+        "label": "diagnóstico e manutenção de ar-condicionado",
+        "summary": "Investigue falhas frigoríficas, elétricas e operacionais antes de definir a correção do ar-condicionado.",
+    },
 }
 
 
@@ -344,6 +364,20 @@ def smart_control_brasil(request):
 
 def sistemas_websites_python(request):
     return render(request, "institutional/demos/sistemas-websites-python.html")
+
+
+def seo_presenca_digital(request):
+    return render(request, "institutional/pages/seo-presenca-digital.html")
+
+
+def trafego_pago_organico(request):
+    from . import paid_organic_traffic as content
+
+    return render(
+        request,
+        "institutional/pages/trafego-pago-organico.html",
+        {"traffic": content},
+    )
 
 
 def servicos_eletricos(request):

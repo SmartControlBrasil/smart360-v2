@@ -1111,6 +1111,274 @@ BLOG_POSTS = {
         "highlight": "Retrofit industrial com menos retrabalho começa por levantamento técnico, backups identificáveis, documentação as-built e rastreabilidade das alterações.",
         "cta_text": "Solicitar levantamento técnico e retrofit",
     },
+    "infraestrutura-correta-ar-condicionado": {
+        "title": "Infraestrutura correta para ar-condicionado: por onde começar",
+        "seo_title": "Infraestrutura para Ar-Condicionado | Smart Control Brasil",
+        "category": "Instalação",
+        "image": "institutional/imgs/blog/infra-externa.webp",
+        "alt": "Infraestrutura externa preparada para instalação de ar-condicionado",
+        "meta_description": "Entenda o que avaliar antes da instalação de ar-condicionado: ambiente, BTUs, elétrica, drenagem, tubulação, condensadora e comissionamento.",
+        "intro": "A instalação de ar-condicionado começa antes de fixar evaporadora e condensadora. A infraestrutura define se o equipamento terá alimentação elétrica adequada, drenagem correta, tubulação bem isolada, acesso para manutenção e funcionamento estável no uso diário.",
+        "sections": [
+            {
+                "heading": "Comece pelo ambiente e pela carga térmica",
+                "paragraphs": [
+                    "O primeiro ponto é entender o ambiente que será climatizado. Área, incidência solar, pé-direito, quantidade de pessoas, equipamentos eletrônicos, aberturas, isolamento e rotina de uso influenciam a capacidade necessária. Escolher apenas pelo tamanho do cômodo pode levar a equipamento subdimensionado ou superdimensionado.",
+                    "A análise de BTUs não precisa virar uma conta misteriosa para o cliente, mas precisa ser respeitada. Um equipamento fraco trabalha no limite, demora para atingir conforto e tende a gerar queixas. Um equipamento excessivo pode ligar e desligar em ciclos curtos e não resolver bem a umidade. Por isso, a avaliação técnica deve vir antes da compra quando houver dúvida.",
+                ],
+            },
+            {
+                "heading": "Elétrica dedicada não é detalhe",
+                "paragraphs": [
+                    "Ar-condicionado exige alimentação compatível com a potência e com as recomendações do fabricante. Circuito dedicado, disjuntor adequado, bitola de cabos, proteção, aterramento e condição do quadro elétrico precisam ser verificados antes da instalação.",
+                    "Em imóveis antigos ou aplicações comerciais, essa etapa ganha importância porque o sistema de climatização pode dividir infraestrutura com iluminação, tomadas, motores, computadores e outros equipamentos. Quando a elétrica não é avaliada, a falha pode aparecer como desarme, aquecimento, mau contato, queda de tensão ou funcionamento instável. Quando necessário, a análise se conecta a <a href=\"/servicos-eletricos/\">serviços elétricos</a> antes da instalação do ar-condicionado.",
+                ],
+            },
+            {
+                "heading": "Drenagem precisa ter caminho real",
+                "paragraphs": [
+                    "Toda evaporadora gera água por condensação. Essa água precisa sair por gravidade ou por solução apropriada, com queda, diâmetro, vedação e ponto de descarte adequados. Dreno improvisado costuma resultar em gotejamento, retorno de água, odor, infiltração ou manutenção recorrente.",
+                    "Antes de instalar, é importante confirmar por onde a tubulação passará, onde haverá furação, se existe risco de interferir em estrutura, elétrica ou hidráulica e como será feito o acabamento. Esse planejamento evita retrabalho e reduz intervenções desnecessárias no imóvel.",
+                ],
+            },
+            {
+                "heading": "Tubulação frigorífica, isolamento e distância",
+                "paragraphs": [
+                    "A ligação entre evaporadora e condensadora depende de tubulação frigorífica compatível, isolamento térmico, proteção mecânica e percurso bem definido. Curvas excessivas, amassamentos, isolamento mal executado e trechos expostos podem prejudicar desempenho e conservação da instalação.",
+                    "Também é preciso observar limites e orientações do fabricante para distância, desnível, carga de fluido e procedimento de instalação. A decisão sobre o trajeto não deve considerar apenas o caminho mais curto, mas acesso, estética, proteção, manutenção futura e segurança.",
+                ],
+            },
+            {
+                "heading": "Posição da evaporadora e da condensadora",
+                "paragraphs": [
+                    "A evaporadora deve distribuir ar sem jogar fluxo direto de forma desconfortável sobre pessoas por longos períodos. Também precisa permitir retirada de filtros, limpeza e eventual manutenção. Cortinas, móveis, sancas, vigas e divisórias podem atrapalhar a distribuição.",
+                    "A condensadora precisa de ventilação, acesso e fixação segura. Instalar em local confinado, sem troca de ar, exposto a risco de queda ou sem acesso técnico complica a operação. Em condomínios e empresas, também é comum existir regra interna para fachada, ruído, drenagem e posicionamento.",
+                ],
+            },
+            {
+                "heading": "Vácuo, estanqueidade e comissionamento",
+                "paragraphs": [
+                    "Depois da montagem, a instalação deve ser validada. Teste de estanqueidade, vácuo, conferência elétrica, drenagem, partida e observação operacional fazem parte de um comissionamento responsável. Pular essa etapa aumenta o risco de vazamento, umidade no sistema, ruído, baixa eficiência ou retorno de atendimento.",
+                    "O cliente também deve receber orientação básica de uso: limpeza de filtros, temperatura adequada, modo de operação, sinais de alerta e quando chamar manutenção. Uma boa instalação termina com o equipamento funcionando e com o usuário sabendo preservar o sistema.",
+                ],
+            },
+            {
+                "heading": "Quando solicitar avaliação profissional",
+                "paragraphs": [
+                    "Procure avaliação profissional quando ainda não há equipamento comprado, quando o quadro elétrico é antigo, quando a condensadora ficará em fachada ou área técnica, quando há grande distância entre unidades, quando existe dúvida sobre drenagem ou quando o ambiente é comercial.",
+                    "A página de <a href=\"/ar-condicionado/\">instalação de ar-condicionado da Smart Control Brasil</a> reúne os serviços de avaliação, instalação, manutenção e higienização para organizar essa jornada sem transformar a escolha em improviso.",
+                ],
+            },
+        ],
+        "faq": [
+            {"question": "Posso comprar o equipamento antes da avaliação?", "answer": "Pode, mas a avaliação antes da compra reduz risco de capacidade inadequada, incompatibilidade elétrica, dificuldade de drenagem ou instalação em local ruim para manutenção."},
+            {"question": "Todo ar-condicionado precisa de circuito dedicado?", "answer": "A instalação deve seguir potência, tensão e recomendações do fabricante, com proteção adequada. Na prática, a avaliação elétrica é essencial para evitar sobrecarga e funcionamento instável."},
+            {"question": "O dreno pode sair em qualquer ponto?", "answer": "Não. O dreno precisa ter caminho adequado para escoamento, vedação e descarte, evitando retorno de água, infiltração e odor."},
+        ],
+        "highlight": "Uma instalação confiável nasce da avaliação do ambiente, elétrica, drenagem, tubulação, posicionamento e comissionamento do sistema.",
+        "cta_text": "Solicitar avaliação para instalação",
+    },
+    "preventiva-corretiva-ar-condicionado": {
+        "title": "Preventiva e corretiva: quando cada intervenção é necessária",
+        "seo_title": "Manutenção Preventiva e Corretiva de Ar-Condicionado",
+        "category": "Manutenção",
+        "image": "institutional/imgs/blog/reparo-condensadora.webp",
+        "alt": "Técnico avaliando condensadora de ar-condicionado em manutenção",
+        "meta_description": "Veja a diferença entre manutenção preventiva e corretiva de ar-condicionado, quando programar inspeções e quando chamar diagnóstico técnico.",
+        "intro": "Manutenção preventiva e corretiva não são nomes diferentes para o mesmo serviço. A preventiva busca conservar desempenho e reduzir falhas antes que o equipamento pare. A corretiva entra quando já existe sintoma, falha, ruído, vazamento, mau resfriamento ou parada.",
+        "sections": [
+            {
+                "heading": "O papel da manutenção preventiva",
+                "paragraphs": [
+                    "A preventiva organiza inspeções e cuidados antes do problema ficar evidente. Ela pode incluir limpeza de filtros, verificação de evaporadora e condensadora, avaliação de dreno, conferência elétrica, observação de ruídos, teste de operação e orientação de uso.",
+                    "O objetivo não é trocar peças sem necessidade. É acompanhar a condição do equipamento, preservar troca térmica, manter drenagem livre, identificar desgaste inicial e reduzir atendimentos emergenciais. Em ambientes de uso intenso, a preventiva também ajuda a planejar paradas em horários menos críticos.",
+                ],
+            },
+            {
+                "heading": "Quando a corretiva se torna necessária",
+                "paragraphs": [
+                    "A corretiva é indicada quando há falha percebida: equipamento não liga, não resfria, desarma, goteja, apresenta ruído incomum, vibração, odor persistente, gelo, vazamento aparente ou erro no painel. Nesses casos, o trabalho começa pelo diagnóstico.",
+                    "Trocar peça sem encontrar a causa pode gerar retorno do problema. Um desarme pode estar ligado a elétrica, placa, sensor, compressor, ventilação, sujeira, fluido ou instalação. A investigação precisa separar sintoma de origem provável antes da intervenção.",
+                ],
+            },
+            {
+                "heading": "Sinais de que a preventiva está atrasada",
+                "paragraphs": [
+                    "Perda gradual de rendimento, aumento de ruído, água na evaporadora, cheiro desagradável ao ligar, filtros muito sujos e condensadora obstruída indicam que o sistema precisa de atenção. Quanto mais tempo o equipamento opera nessas condições, maior a chance de desconforto e esforço desnecessário.",
+                    "A limpeza simples do filtro pelo usuário ajuda, mas não substitui avaliação técnica de componentes, dreno, serpentina, ventilação, conexões e funcionamento. A frequência depende de uso, ambiente, poeira, pessoas, animais, aplicação residencial ou comercial e exigências internas da empresa ou condomínio.",
+                ],
+            },
+            {
+                "heading": "Preventiva não elimina toda corretiva",
+                "paragraphs": [
+                    "Mesmo com manutenção preventiva, falhas podem acontecer. Componentes envelhecem, placas sofrem com variações, sensores falham, conexões podem apresentar mau contato e o ambiente pode mudar. A vantagem da preventiva é reduzir surpresa e melhorar a base de informação para diagnóstico.",
+                    "Quando existe histórico de visitas, sintomas e intervenções, a equipe técnica consegue comparar comportamento e priorizar causas prováveis. Isso é especialmente útil em empresas, condomínios e ambientes com vários equipamentos.",
+                ],
+            },
+            {
+                "heading": "Relação com higienização",
+                "paragraphs": [
+                    "Higienização e manutenção preventiva se encontram, mas não são exatamente a mesma coisa. A higienização foca limpeza técnica de filtros, evaporadora, serpentina, turbina, bandeja e dreno quando aplicável. A preventiva observa o conjunto operacional, incluindo funcionamento, elétrica, ruídos e sinais de falha.",
+                    "Quando há odor, acúmulo de sujeira ou uso intenso, a higienização tende a ser parte importante da conservação. Ela ajuda a manter passagem de ar e qualidade do ambiente, sempre sem prometer efeitos médicos ou resultados que dependam de outras condições do imóvel.",
+                ],
+            },
+            {
+                "heading": "Empresas e condomínios precisam de rotina",
+                "paragraphs": [
+                    "Em empresas e condomínios, a manutenção deve considerar criticidade dos ambientes, quantidade de equipamentos, acesso, horários de funcionamento e registro do que foi executado. Algumas situações exigem plano documentado e acompanhamento mais formal, especialmente quando há obrigações internas ou regulatórias.",
+                    "Quando o tema envolve PMOC ou exigências legais, a orientação deve ser baseada em avaliação profissional e nas regras aplicáveis ao tipo de edificação e sistema. Sem dados do local, o mais seguro é evitar conclusões prontas e organizar levantamento técnico.",
+                ],
+            },
+            {
+                "heading": "Como decidir a próxima intervenção",
+                "paragraphs": [
+                    "Se o equipamento funciona, mas perdeu desempenho, faz barulho ou não recebe limpeza há bastante tempo, a preventiva com inspeção é um bom ponto de partida. Se existe falha clara, erro, desarme ou vazamento, a corretiva com diagnóstico deve vir primeiro.",
+                    "A Smart Control Brasil atende <a href=\"/ar-condicionado/\">manutenção de ar-condicionado</a> com avaliação técnica para separar conservação, higienização e correção de falhas conforme o estado real do equipamento.",
+                ],
+            },
+        ],
+        "faq": [
+            {"question": "Manutenção preventiva evita todas as quebras?", "answer": "Não. Ela reduz riscos, melhora conservação e ajuda a identificar sinais iniciais, mas componentes ainda podem falhar por desgaste, elétrica, ambiente ou uso."},
+            {"question": "Corretiva sempre exige troca de peça?", "answer": "Não. A corretiva começa pelo diagnóstico. Às vezes a causa está em sujeira, dreno, conexão, configuração, instalação ou alimentação elétrica."},
+            {"question": "Quando empresas devem pensar em plano recorrente?", "answer": "Quando há vários equipamentos, uso intenso, ambientes críticos, dificuldade de parada ou necessidade de registros e previsibilidade operacional."},
+        ],
+        "highlight": "Preventiva conserva e antecipa riscos; corretiva investiga e corrige falhas já percebidas. As duas precisam de diagnóstico, não de improviso.",
+        "cta_text": "Solicitar manutenção de ar-condicionado",
+    },
+    "eletrica-climatizacao-comercial": {
+        "title": "Como integrar elétrica e climatização em aplicações comerciais",
+        "seo_title": "Elétrica e Climatização Comercial | Smart Control Brasil",
+        "category": "Climatização",
+        "image": "institutional/imgs/blog/eletrica-na-climatizacaowebp",
+        "alt": "Circuito elétrico dedicado para sistema de climatização comercial",
+        "meta_description": "Entenda por que projetos comerciais de climatização devem avaliar elétrica, quadro, proteção, carga, infraestrutura e manutenção desde o início.",
+        "intro": "Em aplicações comerciais, climatização e elétrica precisam ser tratadas como partes do mesmo sistema. O ar-condicionado depende de alimentação estável, proteção adequada, infraestrutura segura e planejamento para operação diária, manutenção e expansão.",
+        "sections": [
+            {
+                "heading": "Climatização acrescenta carga à operação",
+                "paragraphs": [
+                    "Lojas, escritórios, clínicas, restaurantes, salas técnicas e condomínios costumam ter iluminação, computadores, tomadas, equipamentos, motores e automação dividindo a mesma infraestrutura. Ao adicionar ou ampliar climatização, a carga elétrica precisa ser reavaliada.",
+                    "Não basta verificar se existe uma tomada próxima. É preciso observar tensão, potência, circuitos disponíveis, quadro, proteção, seletividade quando aplicável, aterramento, caminho de cabos e condição geral da instalação. Essa avaliação reduz risco de desarme, aquecimento, queda de tensão e paradas em horário de funcionamento.",
+                ],
+            },
+            {
+                "heading": "Circuitos dedicados e proteção",
+                "paragraphs": [
+                    "Equipamentos de ar-condicionado devem ser alimentados conforme especificação técnica e orientação do fabricante. Em muitos cenários, isso significa circuito dedicado, disjuntor adequado, cabos dimensionados, conexões firmes e identificação no quadro.",
+                    "A proteção não deve ser escolhida por tentativa. Disjuntor superdimensionado pode deixar de proteger como deveria; subdimensionado pode desarmar sem resolver a causa. O dimensionamento precisa considerar dados do equipamento, instalação existente e boas práticas elétricas.",
+                ],
+            },
+            {
+                "heading": "Quadro elétrico e infraestrutura existente",
+                "paragraphs": [
+                    "Antes da instalação, vale abrir a conversa sobre capacidade do quadro, organização dos circuitos, espaço disponível, aquecimento, estado de barramentos, identificação, aterramento e histórico de problemas. Em comércios antigos, adaptações sucessivas podem deixar a infraestrutura difícil de diagnosticar.",
+                    "Quando a climatização é planejada junto com <a href=\"/servicos-eletricos/\">serviços elétricos</a>, fica mais fácil definir o que precisa ser adequado antes de instalar equipamentos. Essa integração evita que o técnico de ar-condicionado descubra limitações somente no dia da execução.",
+                ],
+            },
+            {
+                "heading": "Condensadoras, acesso e segurança",
+                "paragraphs": [
+                    "A unidade externa precisa de local ventilado, fixação segura, acesso para manutenção e alimentação elétrica protegida. Em fachadas, coberturas, áreas técnicas ou corredores, o planejamento deve considerar circulação, chuva, sol, vibração, ruído e regras do empreendimento.",
+                    "Também é importante prever desligamento seguro para manutenção. A equipe técnica precisa conseguir isolar o equipamento, acessar conexões e realizar testes sem improviso. Isso reduz risco operacional e facilita futuras intervenções.",
+                ],
+            },
+            {
+                "heading": "Automação, controles e uso real",
+                "paragraphs": [
+                    "Ambientes comerciais podem exigir controle por horários, setpoints, sensores, múltiplas evaporadoras, comandos por controle central ou integração com rotinas internas. Mesmo quando a solução é simples, entender o uso real ajuda a evitar equipamento ligado em horário desnecessário ou operando contra portas abertas e alta carga térmica.",
+                    "Quando existem sistemas maiores, refrigeração, câmaras ou processos térmicos, a conversa pode se conectar a <a href=\"/refrigeracao-comercial/\">refrigeração comercial</a>. O objetivo é separar conforto térmico, conservação de produtos e requisitos operacionais, pois cada um tem critérios próprios.",
+                ],
+            },
+            {
+                "heading": "Manutenção precisa entrar no projeto",
+                "paragraphs": [
+                    "Uma instalação comercial deve prever manutenção desde o início. Filtros precisam ser acessíveis, condensadoras precisam de espaço, drenos precisam ser inspecionáveis e circuitos devem estar identificados. O melhor acabamento não compensa uma instalação impossível de manter.",
+                    "Empresas com operação contínua também precisam planejar janela de atendimento. Quando a manutenção só acontece depois da falha, a intervenção compete com clientes, colaboradores e rotina do negócio.",
+                ],
+            },
+            {
+                "heading": "Quando chamar uma equipe integrada",
+                "paragraphs": [
+                    "Vale envolver equipe integrada quando haverá vários equipamentos, troca de capacidade, alteração de quadro, infraestrutura nova, condensadoras em local de acesso difícil ou histórico de desarmes. Nesses casos, elétrica e climatização precisam ser avaliadas juntas.",
+                    "A Smart Control Brasil reúne <a href=\"/ar-condicionado/\">serviços de climatização</a> e suporte elétrico para organizar instalação, manutenção e adequações com menos conflito entre disciplinas técnicas.",
+                ],
+            },
+        ],
+        "faq": [
+            {"question": "Por que avaliar elétrica antes de instalar ar-condicionado comercial?", "answer": "Porque a climatização adiciona carga e exige proteção, cabos, tensão e circuito compatíveis. Sem avaliação, podem ocorrer desarmes, aquecimento e instabilidade."},
+            {"question": "A mesma equipe precisa fazer elétrica e ar-condicionado?", "answer": "Não necessariamente, mas as disciplinas precisam conversar. Quando há equipe integrada, o planejamento tende a reduzir retrabalho e conflitos na execução."},
+            {"question": "Climatização comercial é igual à residencial?", "answer": "Não. O uso costuma ser mais intenso, há mais pessoas, regras do imóvel, horários de operação e impacto maior quando ocorre parada."},
+        ],
+        "highlight": "Em aplicações comerciais, a climatização só funciona bem quando elétrica, carga, proteção, acesso e manutenção são planejados juntos.",
+        "cta_text": "Solicitar avaliação integrada",
+    },
+    "vazamento-fluido-refrigerante": {
+        "title": "Vazamento de fluido refrigerante: por que investigar a causa",
+        "seo_title": "Vazamento de Fluido Refrigerante em Ar-Condicionado",
+        "category": "Diagnóstico",
+        "image": "institutional/imgs/blog/vazameto-fluido.webp",
+        "alt": "Diagnóstico técnico de possível vazamento de fluido refrigerante",
+        "meta_description": "Saiba por que completar fluido refrigerante sem investigar vazamento não resolve o problema e quais sinais pedem diagnóstico técnico.",
+        "intro": "Quando um ar-condicionado perde rendimento, congela tubulação ou deixa de resfriar, muita gente pergunta se basta completar fluido refrigerante. A resposta técnica é: antes de completar, é preciso entender se há vazamento, onde ele está e por que aconteceu.",
+        "sections": [
+            {
+                "heading": "Fluido refrigerante não é consumível comum",
+                "paragraphs": [
+                    "Em um sistema íntegro, o fluido refrigerante circula em circuito fechado. Ele não deveria baixar como água de reservatório ou combustível. Quando falta fluido, existe motivo a investigar: vazamento em conexão, tubulação, serpentina, válvula, solda, dano mecânico ou falha ligada à instalação ou desgaste.",
+                    "Completar carga sem localizar a causa pode fazer o equipamento voltar por pouco tempo e apresentar o mesmo problema depois. Além de não resolver a origem, esse hábito dificulta diagnóstico e pode mascarar sintomas importantes.",
+                ],
+            },
+            {
+                "heading": "Sinais que podem indicar vazamento",
+                "paragraphs": [
+                    "Perda de capacidade de refrigeração, formação de gelo, evaporadora trabalhando sem gelar, tubulação com comportamento anormal, óleo em conexão, ruído diferente e ciclos longos podem aparecer em situações de baixa carga. Esses sinais não confirmam sozinhos vazamento, mas justificam avaliação.",
+                    "Também existem outras causas para mau rendimento: filtros e serpentinas sujos, ventilação prejudicada, sensores, ventiladores, instalação inadequada, ambiente com carga térmica acima do previsto ou falhas elétricas. Por isso, diagnóstico começa pelo conjunto, não por uma única hipótese.",
+                ],
+            },
+            {
+                "heading": "Investigar causa evita retorno do problema",
+                "paragraphs": [
+                    "O diagnóstico deve buscar evidências. Inspeção visual, histórico da instalação, verificação de conexões, testes compatíveis com o equipamento e análise operacional ajudam a separar vazamento real de outros defeitos. O procedimento adequado depende do tipo de sistema e das condições encontradas.",
+                    "Quando o vazamento está ligado a conexão mal executada, vibração, tubulação danificada ou corrosão, apenas repor fluido não altera a causa. A correção precisa tratar o ponto de falha e validar a estanqueidade antes de colocar o equipamento novamente em operação.",
+                ],
+            },
+            {
+                "heading": "Relação com instalação e manutenção",
+                "paragraphs": [
+                    "Vazamentos podem ter origem em instalação inadequada, dano posterior, envelhecimento ou manutenção insuficiente. Flanges, soldas, isolamento, fixação, passagem de tubulação e proteção mecânica influenciam a vida útil da infraestrutura frigorífica.",
+                    "Uma <a href=\"/blog/infraestrutura-correta-ar-condicionado/\">infraestrutura correta para ar-condicionado</a> reduz riscos desde o primeiro dia. Depois, a <a href=\"/blog/preventiva-corretiva-ar-condicionado/\">manutenção preventiva e corretiva</a> ajuda a observar sinais antes que a falha gere parada completa.",
+                ],
+            },
+            {
+                "heading": "Impactos no equipamento",
+                "paragraphs": [
+                    "Operar com carga inadequada pode prejudicar conforto, aumentar tempo de funcionamento e colocar componentes sob condição ruim de trabalho. Dependendo do caso, o compressor e outros componentes podem sofrer esforço adicional.",
+                    "Não é prudente prometer economia ou dano específico sem avaliar o sistema. O ponto seguro é que baixa carga e vazamento não devem ser normalizados. São sintomas que pedem investigação técnica para preservar funcionamento e reduzir retorno de atendimento.",
+                ],
+            },
+            {
+                "heading": "Cuidados ambientais e responsabilidade técnica",
+                "paragraphs": [
+                    "Fluidos refrigerantes exigem manuseio técnico e responsabilidade. Intervenções no circuito frigorífico devem ser feitas por profissional capacitado, com ferramentas adequadas e atenção às orientações do fabricante e às boas práticas aplicáveis.",
+                    "O cliente não deve tentar abrir conexões, liberar fluido ou improvisar reparo. Além de risco ao equipamento, há risco à segurança e ao ambiente. O caminho correto é isolar o sintoma, evitar uso quando houver comportamento anormal e chamar avaliação.",
+                ],
+            },
+            {
+                "heading": "Quando chamar diagnóstico",
+                "paragraphs": [
+                    "Chame diagnóstico quando o equipamento perdeu rendimento rapidamente, congela, apresenta óleo em conexões, recebeu carga recentemente e voltou a falhar, ou quando há histórico de instalação problemática. Também vale chamar quando a manutenção anterior apenas completou fluido sem explicar a causa.",
+                    "A Smart Control Brasil realiza <a href=\"/ar-condicionado/\">diagnóstico e manutenção de ar-condicionado</a> para investigar falhas frigoríficas, elétricas e operacionais antes de definir a correção mais adequada.",
+                ],
+            },
+        ],
+        "faq": [
+            {"question": "É normal o fluido refrigerante acabar?", "answer": "Não deve ser tratado como normal. O fluido circula em circuito fechado; perda de carga indica necessidade de investigar vazamento ou outra condição técnica."},
+            {"question": "Completar fluido resolve?", "answer": "Só completar pode aliviar o sintoma temporariamente, mas não resolve a causa se houver vazamento. O correto é diagnosticar e corrigir o ponto de falha."},
+            {"question": "Todo mau resfriamento é falta de fluido?", "answer": "Não. Sujeira, ventilação ruim, sensores, elétrica, instalação e carga térmica também podem causar baixo desempenho."},
+        ],
+        "highlight": "Baixa carga de fluido refrigerante é sintoma para investigar, não convite para completar sem descobrir a causa.",
+        "cta_text": "Solicitar diagnóstico de vazamento",
+    },
 }
 
 

@@ -75,7 +75,7 @@ def category_detail(request, slug):
 
 
 def legacy_shop_details(request):
-    return render(request, "institutional/pages/shop_details.html")
+    return _permanent_redirect_to_route(request, "commerce:shop")
 
 
 def _permanent_redirect_to_route(request, route_name):

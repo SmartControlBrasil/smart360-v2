@@ -47,7 +47,7 @@
 
 
                                         <!-- SOLUÇÕES -->
-                                        <li class="has-dropdown {% if current == 'servicos_eletricos' or current == 'ar_condicionado' or current == 'refrigeracao_comercial' or current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'manutencao_industrial_campo' or current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
+                                        <li class="has-dropdown {% if current == 'servicos_eletricos' or current == 'ar_condicionado' or current == 'refrigeracao_comercial' or current == 'home' or current == 'smart_control_brasil' or current == 'sistemas_websites_python' or current == 'seo_presenca_digital' or current == 'trafego_pago_organico' or current == 'manutencao_industrial_campo' or current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' or current == 'mitsubishi_automacao_industrial' %}active{% endif %}">
 
                                             <a
                                                 href="{% url 'institutional:services' %}"
@@ -73,10 +73,31 @@
                                                     </ul>
                                                 </li>
 
-                                                <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}">
-                                                    <a href="{% url 'institutional:sistemas_websites_python' %}">
-                                                        Sistemas e Websites
+                                                <li class="has-dropdown {% if current == 'sistemas_websites_python' or current == 'seo_presenca_digital' or current == 'trafego_pago_organico' %}active{% endif %}">
+                                                    <a
+                                                        role="button"
+                                                        tabindex="0"
+                                                        aria-haspopup="true"
+                                                    >
+                                                        Soluções Digitais
                                                     </a>
+                                                    <ul class="submenu">
+                                                        <li class="{% if current == 'sistemas_websites_python' %}active{% endif %}">
+                                                            <a href="{% url 'institutional:sistemas_websites_python' %}">
+                                                                Sistemas e Websites
+                                                            </a>
+                                                        </li>
+                                                        <li class="{% if current == 'seo_presenca_digital' %}active{% endif %}">
+                                                            <a href="{% url 'institutional:seo_presenca_digital' %}">
+                                                                SEO e Presença Digital
+                                                            </a>
+                                                        </li>
+                                                        <li class="{% if current == 'trafego_pago_organico' %}active{% endif %}">
+                                                            <a href="{% url 'institutional:trafego_pago_organico' %}">
+                                                                Tráfego Pago e Orgânico
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
 
                                                 <li class="has-dropdown {% if current == 'xyron' or current == 'xyron_littlebot' or current == 'xyron_hygibot_dune_bot' or current == 'xyron_orbit' or current == 'xyron_buddy_bot' or current == 'xyron_neo_bot' or current == 'xyron_waiter_bot' or current == 'xyron_carebot' or current == 'xyron_connect_bot' or current == 'xyron_mowerbot' %}active{% endif %}">
