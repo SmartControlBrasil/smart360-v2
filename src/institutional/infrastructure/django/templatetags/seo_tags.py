@@ -156,9 +156,9 @@ ROUTE_METADATA = {
             "Estratégias de SEO, presença digital e tráfego orgânico para aumentar a visibilidade "
             "da sua empresa no Google e fortalecer sua presença online."
         ),
-        "social_image": "institutional/imgs/images/hero-10-img-3.jpg",
-        "social_image_width": 380,
-        "social_image_height": 448,
+        "social_image": "institutional/imgs/images/seo-local.webp",
+        "social_image_width": 338,
+        "social_image_height": 460,
         "social_image_alt": "Estratégia de SEO e presença digital para empresas",
     },
     "trafego_pago_organico": {

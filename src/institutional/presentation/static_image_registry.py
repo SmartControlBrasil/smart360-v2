@@ -192,6 +192,7 @@ STATIC_IMAGE_DIMENSIONS = {
     "institutional/imgs/images/review-list-1.jpg": (451, 451),
     "institutional/imgs/images/review-list-2.jpg": (451, 450),
     "institutional/imgs/images/secure-refined-1.png": (135, 141),
+    "institutional/imgs/images/seo-local.webp": (338, 460),
     "institutional/imgs/images/shop-img-1.png": (410, 270),
     "institutional/imgs/images/sistema-adm.webp": (123, 200),
     "institutional/imgs/images/sistemas-web.webp": (183, 160),
