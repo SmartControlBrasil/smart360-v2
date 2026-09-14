@@ -18993,8 +18993,14 @@ body .ui-tooltip {
 .testimonial-7__slider-arrow .rr-btn::before {
   background: var(--rr-theme-primary7);
 }
+.testimonial-7__slider-arrow .rr-btn .site-icon {
+  filter: brightness(0) invert(1);
+}
 .testimonial-7__slider-arrow .rr-btn:hover {
   color: var(--rr-common-black);
+}
+.testimonial-7__slider-arrow .rr-btn:hover .site-icon {
+  filter: brightness(0);
 }
 @media (max-width: 575px) {
   .testimonial-7__slider-arrow {
@@ -19229,8 +19235,14 @@ body .ui-tooltip {
 .design-services-7__slider-arrow .rr-btn::before {
   background: var(--rr-theme-primary7);
 }
+.design-services-7__slider-arrow .rr-btn .site-icon {
+  filter: brightness(0) invert(1);
+}
 .design-services-7__slider-arrow .rr-btn:hover {
   color: var(--rr-common-black);
+}
+.design-services-7__slider-arrow .rr-btn:hover .site-icon {
+  filter: brightness(0);
 }
 @media (max-width: 575px) {
   .design-services-7__slider-arrow {

@@ -2,6 +2,14 @@
 {% load institutional_media %}
 {% load static %}
 
+{% block smooth_wrapper_attributes %}
+class="xyron-scroll-wrapper"
+{% endblock %}
+
+{% block smooth_content_attributes %}
+class="xyron-scroll-content"
+{% endblock %}
+
 {% block content %}
 <!-- Banner area start -->
              <section class="banner-7__area banner-7 home-7-bg-black overflow-hidden p-relative z-1">
@@ -256,7 +264,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="section__title-wrapper text-center hero mb-50">
-                                <h2 class="section__title-wrapper-title _split_text">Soluções por Intenção de Busca</h2>
+                                <h2 class="section__title-wrapper-title text-white _split_text">Soluções por Intenção de Busca</h2>
                                 <p class="section__title-wrapper-dec mt-15 rr_title_anim">
                                     Três páginas orientam a avaliação de robótica educacional, limpeza profissional e segurança patrimonial antes de avançar para produtos específicos da linha Xyron.
                                 </p>

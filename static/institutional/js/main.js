@@ -815,7 +815,7 @@
                     trigger: ".pin-area-2",
                     pin: ".pin-element_2",
                     start: "top top",
-                    end: "bottom botttom",
+                    end: "bottom bottom",
                     pinSpacing: false
                 }
             });
@@ -835,6 +835,33 @@
                     }
                 });
             });
+
+            var latesUpdateArea = document.querySelector(".lates-update__area");
+
+            if (latesUpdateArea) {
+                var latesUpdateImages = latesUpdateArea.querySelectorAll("img");
+
+                if (latesUpdateImages.length) {
+                    var loadedImages = 0;
+
+                    function refreshLatesUpdatePins() {
+                        loadedImages += 1;
+
+                        if (loadedImages >= latesUpdateImages.length) {
+                            ScrollTrigger.refresh();
+                        }
+                    }
+
+                    latesUpdateImages.forEach(function (img) {
+                        if (img.complete) {
+                            refreshLatesUpdatePins();
+                        } else {
+                            img.addEventListener("load", refreshLatesUpdatePins, { once: true });
+                            img.addEventListener("error", refreshLatesUpdatePins, { once: true });
+                        }
+                    });
+                }
+            }
         }
     }
 

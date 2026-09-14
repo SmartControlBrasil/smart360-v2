@@ -990,8 +990,16 @@
                 background: var(--rr-theme-primary7);
             }
 
+            .site-icon {
+                filter: brightness(0) invert(1);
+            }
+
             &:hover {
                 color: var(--rr-common-black);
+
+                .site-icon {
+                    filter: brightness(0);
+                }
             }
         }
 
@@ -1251,8 +1259,16 @@
                 background: var(--rr-theme-primary7);
             }
 
+            .site-icon {
+                filter: brightness(0) invert(1);
+            }
+
             &:hover {
                 color: var(--rr-common-black);
+
+                .site-icon {
+                    filter: brightness(0);
+                }
             }
         }
 
