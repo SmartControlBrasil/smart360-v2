@@ -260,6 +260,16 @@ button > .site-icon:not(:only-child):first-child {
 	height: 100%;
 	pointer-events: none;
 	overflow: hidden;
+	z-index: 0;
+}
+
+.banner1__area > .container {
+	position: relative;
+	z-index: 1;
+}
+
+.banner1__area .banner-heading__wrapper.hero .banner-heading__wrapper-title {
+	color: #ffffff;
 }
 
 .banner1__thumb .figure-contextual {
