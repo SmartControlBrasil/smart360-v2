@@ -19,6 +19,7 @@ CHOOSE_POINTS_RIGHT = (
 
 PAID_ORGANIC_BLOCKS = (
     (
+        "institutional/imgs/images/google-ads.webp",
         "Google Ads",
         (
             "Planejamento e gestão de campanhas orientadas por objetivos, público, "
@@ -26,6 +27,7 @@ PAID_ORGANIC_BLOCKS = (
         ),
     ),
     (
+        "institutional/imgs/images/pesquisa-01.webp",
         "Pesquisa",
         (
             "Campanhas para alcançar usuários que já estão procurando pelos produtos "
@@ -33,6 +35,7 @@ PAID_ORGANIC_BLOCKS = (
         ),
     ),
     (
+        "institutional/imgs/images/performance-max.webp",
         "Performance Max",
         (
             "Uso estratégico quando o cenário, os objetivos e os ativos da campanha "
@@ -115,20 +118,32 @@ TAB_ITEMS = (
 )
 
 TAB_MEDIA_POINTS = (
-    ("Google Ads", "Campanhas de pesquisa"),
-    ("SEO", "Crescimento orgânico"),
-    ("Landing Pages", "Conversão orientada"),
+    (
+        "institutional/imgs/project/abs01.webp",
+        "Google Ads",
+        "Campanhas de pesquisa",
+    ),
+    (
+        "institutional/imgs/project/abs02.webp",
+        "SEO",
+        "Crescimento orgânico",
+    ),
+    (
+        "institutional/imgs/project/abs03.webp",
+        "Landing Pages",
+        "Conversão orientada",
+    ),
 )
 
 SERVICE_CARDS = (
-    "Google Ads",
-    "Campanhas de Pesquisa",
-    "Remarketing",
-    "Landing Pages",
-    "SEO Técnico",
-    "Conteúdo Estratégico",
-    "SEO Local",
-    "Presença Digital",
+    ("institutional/imgs/project/seo-analytic-solucoes-01.webp", "Google Ads"),
+    ("institutional/imgs/project/seo-analytic-solucoes-02.webp", "Campanhas de Pesquisa"),
+    ("institutional/imgs/project/seo-analytic-solucoes-03.webp", "Remarketing"),
+    ("institutional/imgs/project/seo-analytic-solucoes-04.webp", "Landing Pages"),
+    ("institutional/imgs/project/seo-analytic-solucoes-05.webp", "SEO Técnico"),
+    ("institutional/imgs/project/seo-analytic-solucoes-06.webp", "Conteúdo Estratégico"),
+    ("institutional/imgs/project/seo-analytic-solucoes-07.webp", "SEO Local"),
+    ("institutional/imgs/project/seo-analytic-solucoes-08.webp", "Presença Digital"),
 )
 
 DIFFERENTIALS = (
@@ -176,6 +191,7 @@ DIFFERENTIALS = (
 
 UPDATES_CARDS = (
     (
+        "institutional/imgs/images/seo-analytic-01.webp",
         "Tráfego Pago",
         (
             "Gestão de Google Ads orientada por estratégia, segmentação, palavra-chave "
@@ -186,6 +202,7 @@ UPDATES_CARDS = (
         {},
     ),
     (
+        "institutional/imgs/images/seo-analytic-02.webp",
         "SEO e Presença",
         (
             "Estrutura técnica, conteúdo e autoridade para ampliar crescimento orgânico "
@@ -196,6 +213,7 @@ UPDATES_CARDS = (
         {},
     ),
     (
+        "institutional/imgs/images/seo-analytic.webp",
         "Landing Pages",
         (
             "Campanha sem página preparada perde eficiência. Desenvolvemos páginas "

@@ -63,7 +63,7 @@
             <div class="container">
                 <div class="banner6__thumb">
                     <img
-                        src="{% static 'institutional/imgs/images/banner-6-img-1.png' %}"
+                        src="{% static 'institutional/imgs/images/traffic-ads.webp' %}"
                         alt="Planejamento integrado de tráfego pago e orgânico"
                         loading="eager"
                         fetchpriority="high"
@@ -99,14 +99,9 @@
                         <div class="choose-us__media-wrapper">
                             <div class="choose-us__thumb choose-us__thumb-1">
                                 <div class="choose-us__thumb-img return">
-                                    <img src="{% static 'institutional/imgs/images/choose-img-4.png' %}" alt="Equipe analisando dados de aquisição">
+                                    <img src="{% static 'institutional/imgs/images/trafegopago+dados.webp' %}" alt="Equipe analisando dados de aquisição">
                                 </div>
-                                <div class="choose-us__thumb-img-2">
-                                    <img src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="Campanhas e segmentação">
-                                </div>
-                                <div class="choose-us__thumb-img-3">
-                                    <img src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="Crescimento orgânico e SEO">
-                                </div>
+                                
                                 <div class="choose-us__thumb-img-4">
                                     <img src="{% static 'institutional/imgs/shapes/choose-shape-1.png' %}" alt="" aria-hidden="true">
                                 </div>
@@ -164,13 +159,16 @@
                     </div>
                 </div>
                 <div class="row mb-minus-30">
-                    {% for title, description in traffic.PAID_ORGANIC_BLOCKS %}
+                    {% for image, title, description in traffic.PAID_ORGANIC_BLOCKS %}
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <article class="developed-7__item mb-30">
                                 <div class="developed-7__item-thumb">
                                     <img
-                                        src="{% static 'institutional/imgs/images/developed-7-img-' %}{{ forloop.counter }}.png"
+                                        {% image_dimensions image %}
+                                        src="{% static image %}"
                                         alt="{{ title }}"
+                                        loading="lazy"
+                                        decoding="async"
                                     >
                                 </div>
                                 <div class="developed-7__item-content">
@@ -310,13 +308,16 @@
                                             <div class="col-lg-6">
                                                 <div class="row project-tab-6__left-area">
                                                     <div class="col-lg-6">
-                                                        {% for point_title, point_subtitle in traffic.TAB_MEDIA_POINTS %}
+                                                        {% for image, point_title, point_subtitle in traffic.TAB_MEDIA_POINTS %}
                                                             <div class="project-tab-left {% if not forloop.last %}mb-10{% endif %}">
                                                                 <div class="d-flex align-items-end">
                                                                     <div class="project-tab-left-img">
                                                                         <img
-                                                                            src="{% static 'institutional/imgs/project/project-6-img-' %}{{ forloop.counter }}.png"
+                                                                            {% image_dimensions image %}
+                                                                            src="{% static image %}"
                                                                             alt="{{ point_title }}"
+                                                                            loading="lazy"
+                                                                            decoding="async"
                                                                         >
                                                                     </div>
                                                                     <div class="project-tab-left-text">
@@ -394,13 +395,16 @@
                     </div>
                 </div>
                 <div class="row mb-minus-30">
-                    {% for title in traffic.SERVICE_CARDS %}
+                    {% for image, title in traffic.SERVICE_CARDS %}
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 product-flex">
                             <div class="product-7__item mb-30">
                                 <div class="product-7__item-thumb">
                                     <img
-                                        src="{% static 'institutional/imgs/project/product-7-img-' %}{{ forloop.counter }}.png"
+                                        {% image_dimensions image %}
+                                        src="{% static image %}"
                                         alt="{{ title }}"
+                                        loading="lazy"
+                                        decoding="async"
                                     >
                                 </div>
                                 <div class="product-7__item-content">
@@ -510,13 +514,16 @@
                 </div>
                 <div class="latest-trends__item swiper">
                     <div class="swiper-wrapper">
-                        {% for tag, description, cta_label, route_name, route_kwargs in traffic.UPDATES_CARDS %}
+                        {% for image, tag, description, cta_label, route_name, route_kwargs in traffic.UPDATES_CARDS %}
                             <div class="swiper-slide">
                                 <div class="latest-trends__item-wrapper d-flex align-items-center">
                                     <div class="latest-trends__thumb">
                                         <img
-                                            src="{% static 'institutional/imgs/blog/latest-trend-0' %}{{ forloop.counter }}.png"
+                                            {% image_dimensions image %}
+                                            src="{% static image %}"
                                             alt="{{ tag }}"
+                                            loading="lazy"
+                                            decoding="async"
                                         >
                                     </div>
                                     <div class="latest-trends__text">
@@ -536,13 +543,16 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        {% for tag, description, cta_label, route_name, route_kwargs in traffic.UPDATES_CARDS %}
+                        {% for image, tag, description, cta_label, route_name, route_kwargs in traffic.UPDATES_CARDS %}
                             <div class="swiper-slide">
                                 <div class="latest-trends__item-wrapper d-flex align-items-center">
                                     <div class="latest-trends__thumb">
                                         <img
-                                            src="{% static 'institutional/imgs/blog/latest-trend-0' %}{{ forloop.counter }}.png"
+                                            {% image_dimensions image %}
+                                            src="{% static image %}"
                                             alt="{{ tag }}"
+                                            loading="lazy"
+                                            decoding="async"
                                         >
                                     </div>
                                     <div class="latest-trends__text">
