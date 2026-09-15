@@ -2,316 +2,325 @@
 {% load institutional_media %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'institutional/css/about.css' %}?v=20260915-about1">
+{% endblock %}
+
 {% block content %}
 <!-- breadcrumb area start -->
-             <section class="breadcrumb__before p-relative">
-                <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
-                    <div class="breadcrumb__shapes">
-                        <div class="breadcrumb__shapes-shape-1"></div>
-                        <div class="breadcrumb__shapes-shape-2"></div>
-                        <div class="breadcrumb__shapes-shape-3"></div>
-                        <div class="breadcrumb__shapes-shape-4"></div>
-                        <div class="breadcrumb__shapes-shape-5 upDown">
-                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
+<section class="breadcrumb__before p-relative">
+    <div class="breadcrumb__area overflow-hidden position-relative" data-background="{% static 'institutional/imgs/shapes/breadcrumb-shape.png' %}">
+        <div class="breadcrumb__shapes">
+            <div class="breadcrumb__shapes-shape-1"></div>
+            <div class="breadcrumb__shapes-shape-2"></div>
+            <div class="breadcrumb__shapes-shape-3"></div>
+            <div class="breadcrumb__shapes-shape-4"></div>
+            <div class="breadcrumb__shapes-shape-5 upDown">
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-1.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-1.png' %}" alt="">
+            </div>
+            <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
+            </div>
+            <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
+            </div>
+            <div class="breadcrumb__shapes-shape-8 leftRight">
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
+            </div>
+            <div class="breadcrumb__shapes-shape-9">
+                <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12">
+                    <div class="breadcrumb__content">
+                        <div class="breadcrumb__title-wrapper">
+                            <h1 class="breadcrumb__title">Engenharia e Tecnologia com Operação Digital</h1>
                         </div>
-                        <div class="breadcrumb__shapes-shape-6 line-to-bottom-360">
-                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-2.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-2.png' %}" alt="">
-                        </div>
-                        <div class="breadcrumb__shapes-shape-7 line-to-bottom-360-l">
-                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-3.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-3.png' %}" alt="">
-                        </div>
-                        <div class="breadcrumb__shapes-shape-8 leftRight">
-                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-4.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-4.png' %}" alt="">
-                        </div>
-                        <div class="breadcrumb__shapes-shape-9">
-                            <img {% image_dimensions 'institutional/imgs/shapes/breadcrumb-shape-5.png' %} src="{% static 'institutional/imgs/shapes/breadcrumb-shape-5.png' %}" alt="">
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col-12">
-                                <div class="breadcrumb__content">
-                                    <div class="breadcrumb__title-wrapper">
-                                        <h1 class="breadcrumb__title">Smart Control Brasil — Automação, Robótica e Sistemas</h1>
-                                    </div>
-                                    <div class="breadcrumb__menu">
-                                        <nav aria-label="Breadcrumb">
-                                            <ul>
-                                                <li><span><a href="{% url 'institutional:home' %}"> <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
-                                                <li class="active"><span> Sobre</span></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="breadcrumb__menu">
+                            <nav aria-label="Breadcrumb">
+                                <ul>
+                                    <li><span><a href="{% url 'institutional:home' %}"> <img {% image_dimensions 'institutional/imgs/icon/home-icon.png' %} src="{% static 'institutional/imgs/icon/home-icon.png' %}" alt="">Início</a></span></li>
+                                    <li class="active"><span>Sobre</span></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
-             </section>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <section class="about__area section-space-top section-space-bottom-2">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="section__title-wrapper hero">
-                                <h2 class="section__title-wrapper-title _split_text">Automação, Robótica e <br> Tecnologia Aplicada</h2>
-                                <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil integra engenharia, automação industrial, robótica, manutenção <br> e sistemas sob medida para empresas que precisam modernizar processos e <br> transformar tecnologia em resultado prático.</p>
-                                <p class="section__title-wrapper-dec rr_title_anim pt-25">Do campo ao software, conectamos equipamentos, dados, controle e suporte técnico <br> para transformar necessidades operacionais em soluções sustentáveis.</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:services' %}">Conheça Nossa Atuação {% institutional_icon "next" %}</a>
-                            </div>
+<section class="about__area section-space-top section-space-bottom-2">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section__title-wrapper hero">
+                    <p class="section__subtitle">Smart Control Brasil</p>
+                    <h2 class="section__title-wrapper-title _split_text">Engenharia e tecnologia com operação digital</h2>
+                    <p class="section__title-wrapper-dec rr_title_anim mt-20">
+                        A Smart Control Brasil é uma empresa de engenharia e tecnologia com atendimento comercial e consultivo online. Desenvolvemos projetos, integramos tecnologias e conectamos empresas a soluções em automação industrial, robótica, inteligência artificial, sistemas digitais e serviços técnicos.
+                    </p>
+                    <p class="section__title-wrapper-dec rr_title_anim pt-25">
+                        Quando o projeto exige atuação presencial, realizamos visitas técnicas, instalações, manutenção, integração, start-up e comissionamento conforme o escopo e a região atendida.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mt-40">
+                        <a class="rr-btn" href="{% url 'institutional:services' %}">Conheça nossas soluções {% institutional_icon "next" %}</a>
+                        <a class="rr-btn btn-transparent" href="{% url 'institutional:contact' %}">Fale com um engenheiro {% institutional_icon "next" %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about__img-wrapper">
+                    <div class="about__media">
+                        <div class="img-1 return">
+                            <img src="{% static 'institutional/imgs/about/painel-eletronico.webp' %}" alt="Painel elétrico e automação industrial" width="210" height="220" loading="lazy" decoding="async">
                         </div>
-                        <div class="col-lg-6">
-                            <div class="about__img-wrapper">
-                                <div class="about__media">
-                                    <div class="img-1 return">
-                                        <img src="{% static 'institutional/imgs/about/intelitencia-artificial-placa-eletronica.webp' %}" alt="Tecnologia aplicada à automação industrial" width="210" height="220" loading="lazy" decoding="async">
-                                    </div>
-                                    <div class="img-2 return">
-                                        <img src="{% static 'institutional/imgs/about/aperto-de-mao-homem-robo.webp' %}" alt="Integração entre engenharia e tecnologia" width="210" height="149" loading="lazy" decoding="async">
-                                    </div>
-                                </div>
-                                <div class="about__thumb-2">
-                                    <div class="about__thumb return">
-                                        <img src="{% static 'institutional/imgs/about/mulher-inteligencia-artificial.webp' %}" alt="Inteligência artificial aplicada a sistemas" width="370" height="389" loading="lazy" decoding="async">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="img-2 return">
+                            <img src="{% static 'institutional/imgs/about/robot-connect-bot-ajudando-na-recepcao.webp' %}" alt="Robô Xyron em aplicação de atendimento" width="210" height="149" loading="lazy" decoding="async">
                         </div>
-                        <div class="about__searching-box">
-                            <div class="text">
-                                <img {% image_dimensions 'institutional/imgs/icon/about-icon-1.png' %} src="{% static 'institutional/imgs/icon/about-icon-1.png' %}" alt="Equipamentos, softwares, robótica e automação com visão de engenharia.">
-                                <p>Equipamentos, softwares, robótica e automação com visão de engenharia.</p>
-                            </div>
-                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Fale Sobre sua Solução {% institutional_icon "next" %}</a>
+                    </div>
+                    <div class="about__thumb-2">
+                        <div class="about__thumb return">
+                            <img src="{% static 'institutional/imgs/about/estrutura-digital.webp' %}" alt="Integração entre engenharia, software e operação digital" width="520" height="620" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
-            </section>
-        
-            <section class="choose-us__area section-space-bottom">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="choose-us__media-wrapper">
-                                <div class="choose-us__thumb">
-                                    <div class="choose-us__thumb-img return">
-                                        <img src="{% static 'institutional/imgs/images/braco-robotico.webp' %}" alt="Braço robótico em aplicação industrial" width="440" height="570" loading="lazy" decoding="async">
-                                    </div>
-                                    <div class="choose-us__thumb-img-2">
-                                        <img {% image_dimensions 'institutional/imgs/images/choose-img-2.png' %} src="{% static 'institutional/imgs/images/choose-img-2.png' %}" alt="">
-                                    </div>
-                                    <div class="choose-us__thumb-img-3">
-                                        <img {% image_dimensions 'institutional/imgs/images/choose-img-3.png' %} src="{% static 'institutional/imgs/images/choose-img-3.png' %}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="choose-us__content-wrap">
-                                <div class="section__title-wrapper hero">
-                                    <h2 class="section__title-wrapper-title _split_text">Tecnologia com Base <br> Real de Engenharia</h2>
-                                    <p class="section__title-wrapper-dec rr_title_anim mt-20">A Smart Control Brasil combina experiência técnica, integração de sistemas, <br> robótica aplicada e assistência em campo para entregar tecnologia coerente <br> com a realidade de cada operação.</p>
-                                    <div class="choose-us__list-item">
-                                        <ul>
-                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Automação Mitsubishi Electric</a></li>
-                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:xyron' %}">Robótica e inovação Xyron</a></li>
-                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas, IoT e dados</a></li>
-                                        </ul>
-                                    </div>
-                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:contact' %}">Fale com Nossa Equipe {% institutional_icon "next" %}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <!--further-2-->
-            <section class="further-2__area overflow-hidden z-1 p-relative">
-                <div class="further-2__wrapper heading-bg section-space-2 p-relative overflow-hidden">
-                    <div class="further-2__shapes">
-                        <div class="further-2__shapes-shape-1"></div>
-                        <div class="further-2__shapes-shape-2"></div>
-                        <div class="further-2__shapes-shape-3"></div>
-                        <div class="further-2__shapes-shape-4"></div>
-                        <div class="further-2__shapes-shape-5">
-                            <img {% image_dimensions 'institutional/imgs/shapes/further-2-shape-1.png' %} src="{% static 'institutional/imgs/shapes/further-2-shape-1.png' %}" alt="">
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="further-2__content">
-                                    <div class="section__title-wrapper hero">
-                                        <h2 class="section__title-wrapper-title-2 _split_text mt-10">Automação, Robótica e Sistemas <br> para Empresas que Querem Crescer</h2>
-                                        <p class="section__title-wrapper-dec-2 rr_title_anim mt-10">Aproximamos empresas das soluções certas em automação, robótica, manutenção, <br> sensores, softwares, dados e integração entre campo e gestão.</p>
-                                    </div>
-                                    <div class="further-2__content-btn-wrap">
-                                        <div class="button">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/further-icon-1.png' %} src="{% static 'institutional/imgs/icon/further-icon-1.png' %}" alt="">
-                                            </div>
-                                            <div class="text">
-                                                <span>Conheça nossas</span>
-                                                <h6><a href="{% url 'institutional:services' %}">Soluções</a></h6>
-                                            </div>
-                                        </div>
-                                        <div class="button button-2">
-                                            <div class="icon">
-                                                <img {% image_dimensions 'institutional/imgs/icon/further-icon-2.png' %} src="{% static 'institutional/imgs/icon/further-icon-2.png' %}" alt="">
-                                            </div>
-                                            <div class="text">
-                                                <span>Fale com nossa</span>
-                                                <h6><a href="{% url 'institutional:contact' %}">Equipe</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="further-2__thumb leftRight">
-                                    <img src="{% static 'institutional/imgs/images/braco-robotico-branco.webp' %}" alt="Robótica aplicada à automação industrial" width="436" height="505" loading="lazy" decoding="async">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<section class="choose-us__area section-space-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper text-center hero mb-50">
+                    <h2 class="section__title-wrapper-title _split_text">Como a Smart Control Brasil funciona</h2>
                 </div>
-                
-            </section>
+            </div>
+        </div>
+        <div class="row mb-minus-30">
+            <div class="col-xl-3 col-lg-6 col-sm-6">
+                <article class="services-8__item mb-30 fade-top h-100">
+                    <div class="services-8__icon">
+                        <span>
+                            <img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" width="50" height="50" alt="" loading="lazy">
+                        </span>
+                    </div>
+                    <h3 class="services-8__content__title">Atendimento Digital</h3>
+                    <p class="cr8-service-text">
+                        Reuniões, levantamento inicial, propostas, documentação e acompanhamento podem ser realizados online.
+                    </p>
+                </article>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-sm-6">
+                <article class="services-8__item mb-30 fade-top h-100">
+                    <div class="services-8__icon">
+                        <span>
+                            <img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" width="50" height="50" alt="" loading="lazy">
+                        </span>
+                    </div>
+                    <h3 class="services-8__content__title">Engenharia Consultiva</h3>
+                    <p class="cr8-service-text">
+                        Antes de recomendar equipamentos ou serviços, avaliamos a necessidade técnica, o processo e a aplicação.
+                    </p>
+                </article>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-sm-6">
+                <article class="services-8__item mb-30 fade-top h-100">
+                    <div class="services-8__icon">
+                        <span>
+                            <img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" width="50" height="50" alt="" loading="lazy">
+                        </span>
+                    </div>
+                    <h3 class="services-8__content__title">Execução em Campo</h3>
+                    <p class="cr8-service-text">
+                        Quando necessário, os projetos podem envolver levantamento presencial, instalação, manutenção, integração, start-up e comissionamento.
+                    </p>
+                </article>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-sm-6">
+                <article class="services-8__item mb-30 fade-top h-100">
+                    <div class="services-8__icon">
+                        <span>
+                            <img src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" width="50" height="50" alt="" loading="lazy">
+                        </span>
+                    </div>
+                    <h3 class="services-8__content__title">Suporte Contínuo</h3>
+                    <p class="cr8-service-text">
+                        O acompanhamento pode continuar após a implantação, com suporte técnico remoto ou presencial conforme o projeto.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <!--marketing-team start-->
-            <section class="rr__marketing-4__area section-space fade-wrapper">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section__title-wrapper text-center hero">
-                                <h2 class="section__title-wrapper-title-2 _split_text">Inteligência Artificial a Serviço da <span>Engenharia</span></h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row marketing justify-content-center align-items-center text-center"> 
-                        <div class="rr__marketing-4-item fade-top  mt-35 mr-35">
-                            <a href="{% url 'institutional:services' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-1.png' %} src="{% static 'institutional/imgs/images/marketing-icon-1.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:mitsubishi_automacao_industrial' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-2.png' %} src="{% static 'institutional/imgs/images/marketing-icon-2.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top rr__marketing-4-padding mt-35 mr-35">
-                            <a href="{% url 'institutional:xyron' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-3.png' %} src="{% static 'institutional/imgs/images/marketing-icon-3.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:manutencao_industrial_campo' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-4.png' %} src="{% static 'institutional/imgs/images/marketing-icon-4.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top rr__marketing-4-item-2 mt-35">
-                            <a href="{% url 'institutional:sistemas_websites_python' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-5.png' %} src="{% static 'institutional/imgs/images/marketing-icon-5.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:blog' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-6.png' %} src="{% static 'institutional/imgs/images/marketing-icon-6.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:contact' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-7.png' %} src="{% static 'institutional/imgs/images/marketing-icon-7.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:services' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-8.png' %} src="{% static 'institutional/imgs/images/marketing-icon-8.png' %}" alt=""></a>
-                        </div> 
-                        <div class="rr__marketing-4-item fade-top mt-35 mr-35">
-                            <a href="{% url 'institutional:xyron' %}"><img {% image_dimensions 'institutional/imgs/images/marketing-icon-9.png' %} src="{% static 'institutional/imgs/images/marketing-icon-9.png' %}" alt=""></a>
-                        </div> 
-                    </div>
+<section class="about__area section-space-bottom-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__title-wrapper hero mb-50">
+                    <h2 class="section__title-wrapper-title _split_text">Do software ao campo</h2>
+                    <p class="section__title-wrapper-dec rr_title_anim mt-20">
+                        A Smart Control Brasil conecta diferentes camadas de tecnologia para desenvolver soluções adequadas à necessidade de cada projeto.
+                    </p>
                 </div>
-            </section>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="choose-us__content-wrap h-100">
+                    <h3 class="services-8__content__title mb-20">Automação Industrial</h3>
+                    <div class="choose-us__list-item">
+                        <ul>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">CLPs, IHMs, inversores de frequência e servoacionamentos</li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Redes industriais e integração de máquinas e processos</li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Soluções Mitsubishi Electric quando aplicável ao projeto</li>
+                        </ul>
+                    </div>
+                    <a class="rr-btn btn-transparent mt-30" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Automação industrial {% institutional_icon "next" %}</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-us__content-wrap h-100">
+                    <h3 class="services-8__content__title mb-20">Robótica Xyron</h3>
+                    <p class="section__title-wrapper-dec">
+                        Robôs para aplicações educacionais, atendimento, limpeza, segurança, serviço e outras aplicações corporativas.
+                    </p>
+                    <a class="rr-btn btn-transparent mt-30" href="{% url 'institutional:xyron' %}">Linha Xyron Robotics {% institutional_icon "next" %}</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-us__content-wrap h-100">
+                    <h3 class="services-8__content__title mb-20">Sistemas, Inteligência Artificial e IoT</h3>
+                    <div class="choose-us__list-item">
+                        <ul>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Sistemas web, Python/Django, integrações e APIs</li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Inteligência artificial, dashboards e IoT</li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Automação de processos digitais</li>
+                        </ul>
+                    </div>
+                    <a class="rr-btn btn-transparent mt-30" href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e websites {% institutional_icon "next" %}</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-us__content-wrap h-100">
+                    <h3 class="services-8__content__title mb-20">Engenharia e Serviços Técnicos</h3>
+                    <div class="choose-us__list-item">
+                        <ul>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:servicos_eletricos' %}">Serviços elétricos</a></li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção industrial</a></li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:ar_condicionado' %}">Ar-condicionado</a></li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:refrigeracao_comercial' %}">Refrigeração comercial</a></li>
+                            <li><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Projetos e integrações técnicas</li>
+                        </ul>
+                    </div>
+                    <a class="rr-btn btn-transparent mt-30" href="{% url 'institutional:services' %}">Ver serviços {% institutional_icon "next" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <section class="about__area section-space-top section-space-bottom-2">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-4 mb-30 mb-md-0">
-                            {% include "institutional/partials/author_portrait.html" with author=technical_author modifier="about" lazy=True %}
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="section__title-wrapper hero">
-                                <h2 class="section__title-wrapper-title _split_text">Responsabilidade Técnica e Editorial</h2>
-                                <p class="section__title-wrapper-dec rr_title_anim mt-20"><a href="{% url 'institutional:author_detail' slug=technical_author.slug %}">{{ technical_author.name }}</a> · {{ technical_author.job_title }} · {{ technical_author.post_graduation }}.</p>
-                                <p class="section__title-wrapper-dec rr_title_anim pt-25">{{ technical_author.short_bio }}</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:author_detail' slug=technical_author.slug %}">Conheça o autor {% institutional_icon "next" %}</a>
-                            </div>
+<section class="choose-us__area section-space-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="choose-us__media-wrapper">
+                    <div class="choose-us__thumb">
+                        <div class="choose-us__thumb-img return">
+                            <img src="{% static 'institutional/imgs/images/choose-ia.webp' %}" alt="Engenharia aplicada com sistemas digitais e inteligência artificial" width="440" height="570" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-us__content-wrap">
+                    <div class="section__title-wrapper hero">
+                        <h2 class="section__title-wrapper-title _split_text">Nossa operação</h2>
+                        <p class="section__title-wrapper-dec rr_title_anim mt-20">
+                            A Smart Control Brasil possui uma operação administrativa, comercial e de engenharia estruturada digitalmente.
+                        </p>
+                        <p class="section__title-wrapper-dec rr_title_anim pt-25">
+                            Não mantemos loja, showroom ou escritório aberto para atendimento ao público. Reuniões, consultas e levantamentos iniciais podem ser realizados online.
+                        </p>
+                        <p class="section__title-wrapper-dec rr_title_anim pt-25">
+                            Para projetos que exigem atuação em campo, visitas técnicas e serviços presenciais são programados conforme a necessidade, o escopo contratado e a região atendida.
+                        </p>
+                        <p class="section__title-wrapper-dec rr_title_anim pt-25">
+                            Esse modelo permite integrar engenharia, fornecedores, parceiros e tecnologias de diferentes áreas sem limitar o atendimento a um endereço físico.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <section class="blog__area section-space pastel-blue-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="space-between__wrapper hero mb-60">
-                                <h2 class="space-between__wrapper-title _split_text">Mais Inovação. <br> Mais Produtividade.</h2>
-                                <a class="rr-btn" href="{% url 'institutional:services' %}">Conheça as Soluções {% institutional_icon "next" %}</a>
-                            </div>
+<section class="about__area section-space-top section-space-bottom-2">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 mb-30 mb-md-0">
+                {% include "institutional/partials/author_portrait.html" with author=technical_author modifier="about" lazy=True %}
+            </div>
+            <div class="col-lg-9">
+                <div class="section__title-wrapper hero">
+                    <h2 class="section__title-wrapper-title _split_text">Engenharia por trás da Smart Control Brasil</h2>
+                    <p class="section__title-wrapper-dec rr_title_anim mt-20">
+                        <a href="{% url 'institutional:author_detail' slug=technical_author.slug %}">{{ technical_author.name }}</a><br>
+                        {{ technical_author.job_title }}
+                    </p>
+                    <p class="section__title-wrapper-dec rr_title_anim pt-25">
+                        {{ technical_author.post_graduation }}. {{ technical_author.short_bio }}
+                    </p>
+                    <p class="section__title-wrapper-dec rr_title_anim pt-25">
+                        A atuação conecta engenharia, automação, manutenção, desenvolvimento de software, inteligência artificial e tecnologia aplicada — do diagnóstico técnico à integração entre campo, equipamentos e sistemas digitais.
+                    </p>
+                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:author_detail' slug=technical_author.slug %}">Conheça o perfil técnico {% institutional_icon "next" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="further-2__area overflow-hidden z-1 p-relative">
+    <div class="further-2__wrapper heading-bg section-space-2 p-relative overflow-hidden">
+        <div class="further-2__shapes">
+            <div class="further-2__shapes-shape-1"></div>
+            <div class="further-2__shapes-shape-2"></div>
+            <div class="further-2__shapes-shape-3"></div>
+            <div class="further-2__shapes-shape-4"></div>
+            <div class="further-2__shapes-shape-5">
+                <img {% image_dimensions 'institutional/imgs/shapes/further-2-shape-1.png' %} src="{% static 'institutional/imgs/shapes/further-2-shape-1.png' %}" alt="">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="further-2__content">
+                        <div class="section__title-wrapper hero">
+                            <h2 class="section__title-wrapper-title-2 _split_text mt-10">Tem um projeto ou uma necessidade técnica?</h2>
+                            <p class="section__title-wrapper-dec-2 rr_title_anim mt-10">
+                                Conte para a Smart Control Brasil o que precisa ser desenvolvido, integrado, instalado ou melhorado. Avaliaremos a aplicação e indicaremos o próximo passo.
+                            </p>
                         </div>
-                    </div>
-                    <div class="row mb-minus-30">
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="blog__right-border">
-                                <div class="blog__item mb-30">
-                                    <div class="blog__item-details">
-                                        <div class="blog__item-details-cta">
-                                            <div class="text">
-                                                <h6 class="title"><a href="{% url 'institutional:author_detail' slug='marcelo-custodio' %}">Marcelo Custodio</a></h6>
-                                                <span class="position">Engenheiro de Controle e Automação</span>
-                                            </div>
-                                        </div>
-                                        <div class="date">{% institutional_icon "calendar" %} Soluções Tecnológicas · <time datetime="2026-08-01">01/08/2026</time></div>
-                                    </div>
-                                    <div class="blog__item-thumb-2">
-                                        <div class="blog__item-thumb return">
-                                            <img {% image_dimensions 'institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp' %} src="{% static 'institutional/imgs/blog/equipamentos-e-sistemas-para-evoluir.webpblog-img-1.webp' %}" alt="Equipamentos e sistemas industriais para modernização tecnológica" loading="lazy" decoding="async">
-                                        </div>
-                                    </div>
-                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='equipamentos-sistemas-para-evoluir' %}">Equipamentos e Sistemas <br> para Evoluir</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="blog__right-border">
-                                <div class="blog__item mb-30">
-                                    <div class="blog__item-details">
-                                        <div class="blog__item-details-cta">
-                                            <div class="text">
-                                                <h6 class="title"><a href="{% url 'institutional:author_detail' slug='marcelo-custodio' %}">Marcelo Custodio</a></h6>
-                                                <span class="position">Engenheiro de Controle e Automação</span>
-                                            </div>
-                                        </div>
-                                        <div class="date">{% institutional_icon "calendar" %} Robótica Aplicada · <time datetime="2026-08-01">01/08/2026</time></div>
-                                    </div>
-                                    <div class="blog__item-thumb-2">
-                                        <div class="blog__item-thumb return">
-                                            <img {% image_dimensions 'institutional/imgs/blog/inovacao-que-aparece.webp' %} src="{% static 'institutional/imgs/blog/inovacao-que-aparece.webp' %}" alt="Robótica aplicada gerando valor operacional" loading="lazy" decoding="async">
-                                        </div>
-                                    </div>
-                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='inovacao-que-aparece-e-gera-valor' %}">Inovação que Aparece <br> e Gera Valor</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="blog__item mb-30">
-                                <div class="blog__item-details">
-                                    <div class="blog__item-details-cta">
-                                        <div class="text">
-                                            <h6 class="title"><a href="{% url 'institutional:author_detail' slug='marcelo-custodio' %}">Marcelo Custodio</a></h6>
-                                            <span class="position">Engenheiro de Controle e Automação</span>
-                                        </div>
-                                    </div>
-                                    <div class="date">{% institutional_icon "calendar" %} Integração Inteligente · <time datetime="2026-08-01">01/08/2026</time></div>
-                                </div>
-                                <div class="blog__item-thumb-2">
-                                    <div class="blog__item-thumb return">
-                                        <img {% image_dimensions 'institutional/imgs/blog/informacao-precisa.webp' %} src="{% static 'institutional/imgs/blog/informacao-precisa.webp' %}" alt="Dados industriais integrados para decisões operacionais" loading="lazy" decoding="async">
-                                    </div>
-                                </div>
-                                <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='informacao-precisa-para-agir-melhor' %}">Informação Mais Precisa <br> para Agir Melhor</a></h4>
-                            </div>
+                        <div class="d-flex flex-wrap gap-3 mt-40">
+                            <a class="rr-btn" href="{% url 'institutional:contact' %}">Falar com a Smart Control Brasil {% institutional_icon "next" %}</a>
+                            <a class="rr-btn btn-transparent" href="{% url 'institutional:services' %}">Conhecer nossas soluções {% institutional_icon "next" %}</a>
                         </div>
                     </div>
                 </div>
-            </section>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="further-2__thumb leftRight">
+                        <img src="{% static 'institutional/imgs/about/painel-eletronico.webp' %}" alt="Painel elétrico e integração técnica" width="436" height="505" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

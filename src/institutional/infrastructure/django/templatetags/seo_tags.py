@@ -102,11 +102,16 @@ ROUTE_METADATA = {
         ),
     },
     "about": {
-        "title": "Empresa de Automação, Robótica e Sistemas | Smart Control Brasil",
+        "title": "Smart Control Brasil | Engenharia, Automação, Robótica e Tecnologia",
         "description": (
-            "Conheça a Smart Control Brasil, empresa especializada em automação industrial, "
-            "robótica, engenharia, manutenção técnica e desenvolvimento de sistemas."
+            "Conheça a Smart Control Brasil, empresa de engenharia e tecnologia com operação "
+            "digital, especializada em automação industrial, robótica, inteligência artificial, "
+            "sistemas e serviços técnicos."
         ),
+        "social_image": "institutional/imgs/about/estrutura-digital.webp",
+        "social_image_width": 520,
+        "social_image_height": 620,
+        "social_image_alt": "Engenharia e tecnologia com operação digital",
     },
     "author_detail": {
         "title": "Marcelo Custodio | Engenheiro de Controle e Automação",

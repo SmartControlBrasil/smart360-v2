@@ -1012,16 +1012,20 @@ class TechnicalSeoTests(TestCase):
         response = self.client.get("/empresa/?utm_source=google")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTitle(response, "Empresa de Automação, Robótica e Sistemas | Smart Control Brasil")
+        self.assertTitle(
+            response,
+            "Smart Control Brasil | Engenharia, Automação, Robótica e Tecnologia",
+        )
         self.assertMetaDescription(
             response,
-            "Conheça a Smart Control Brasil, empresa especializada em automação industrial, "
-            "robótica, engenharia, manutenção técnica e desenvolvimento de sistemas.",
+            "Conheça a Smart Control Brasil, empresa de engenharia e tecnologia com operação "
+            "digital, especializada em automação industrial, robótica, inteligência artificial, "
+            "sistemas e serviços técnicos.",
         )
         self.assertCanonical(response, "https://www.smartcontrolbrasil.com.br/empresa/")
         self.assertEqual(
             self.h1_texts(response),
-            ["Smart Control Brasil — Automação, Robótica e Sistemas"],
+            ["Engenharia e Tecnologia com Operação Digital"],
         )
         self.assertNotContains(response, 'name="robots"')
 
@@ -1034,17 +1038,24 @@ class TechnicalSeoTests(TestCase):
                 self.assertNotIn(forbidden, html)
         self.assertNotIn(reverse("institutional:blog_details"), html)
         self.assertNotIn("/equipe/", html)
+        self.assertNotIn("Mais Inovação.", html)
+        self.assertNotIn("Equipamentos e Sistemas para Evoluir", html)
+        self.assertNotIn("Inovação que Aparece", html)
+        self.assertNotIn("Informação Mais Precisa", html)
+        self.assertIn("Como a Smart Control Brasil funciona", html)
+        self.assertIn("Do software ao campo", html)
+        self.assertIn("Nossa operação", html)
+        self.assertIn("Engenharia por trás da Smart Control Brasil", html)
+        self.assertIn("Tem um projeto ou uma necessidade técnica?", html)
         self.assertIn(reverse("institutional:services"), html)
         self.assertIn(reverse("institutional:xyron"), html)
         self.assertIn(reverse("institutional:mitsubishi_automacao_industrial"), html)
         self.assertIn(reverse("institutional:manutencao_industrial_campo"), html)
         self.assertIn(reverse("institutional:sistemas_websites_python"), html)
-        self.assertIn(reverse("institutional:blog"), html)
+        self.assertIn(reverse("institutional:servicos_eletricos"), html)
+        self.assertIn(reverse("institutional:ar_condicionado"), html)
+        self.assertIn(reverse("institutional:refrigeracao_comercial"), html)
         self.assertIn(reverse("institutional:contact"), html)
-        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "equipamentos-sistemas-para-evoluir"}), html)
-        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "inovacao-que-aparece-e-gera-valor"}), html)
-        self.assertIn(reverse("institutional:blog_detail", kwargs={"slug": "informacao-precisa-para-agir-melhor"}), html)
-        self.assertIn("Responsabilidade Técnica e Editorial", html)
         self.assertIn(reverse("institutional:author_detail", kwargs={"slug": MARCELO_CUSTODIO.slug}), html)
 
     def test_about_page_includes_breadcrumb_and_about_page_json_ld(self):
@@ -4746,7 +4757,7 @@ class AuthorPortraitTests(TestCase):
         response = self.client.get("/empresa/")
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
-        self.assertIn("Responsabilidade Técnica e Editorial", html)
+        self.assertIn("Engenharia por trás da Smart Control Brasil", html)
         self.assertIn(self.AUTHOR_IMAGE_STATIC, html)
         self.assertIn(MARCELO_CUSTODIO.image_alt, html)
 

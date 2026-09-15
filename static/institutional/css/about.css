@@ -1,0 +1,22 @@
+.further-2__wrapper.heading-bg .rr-btn.btn-transparent {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: transparent;
+    text-decoration: none;
+}
+
+.further-2__wrapper.heading-bg .rr-btn.btn-transparent .site-icon {
+    filter: brightness(0) invert(1);
+}
+
+.further-2__wrapper.heading-bg .rr-btn.btn-transparent:hover,
+.further-2__wrapper.heading-bg .rr-btn.btn-transparent:focus {
+    color: var(--rr-heading-primary);
+    background: var(--rr-theme-primary);
+    border-color: var(--rr-theme-primary);
+}
+
+.further-2__wrapper.heading-bg .rr-btn.btn-transparent:hover .site-icon,
+.further-2__wrapper.heading-bg .rr-btn.btn-transparent:focus .site-icon {
+    filter: brightness(0);
+}
