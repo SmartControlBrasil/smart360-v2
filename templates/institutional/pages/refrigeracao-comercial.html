@@ -128,7 +128,11 @@ class="cr-scroll-content"
                             <div class="services-8__icon">
                                 <span>
                                     <img
+                                        {% if icon == 'cold-room' %}
+                                        src="{% static 'institutional/imgs/blog/congelados.webp' %}"
+                                        {% else %}
                                         src="{% static 'institutional/icons/commercial-refrigeration/' %}{{ icon }}.svg"
+                                        {% endif %}
                                         width="50"
                                         height="50"
                                         alt=""
@@ -145,29 +149,6 @@ class="cr-scroll-content"
                         </article>
                     </div>
                 {% endfor %}
-
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <article class="services-8__item mb-30 fade-top">
-                        <div class="services-8__icon">
-                            <span>
-                                <img
-                                    src="{% static 'institutional/icons/commercial-refrigeration/cold-room.svg' %}"
-                                    width="50"
-                                    height="50"
-                                    alt=""
-                                    loading="lazy"
-                                >
-                            </span>
-                        </div>
-                        <h3 class="services-8__content__title">
-                            Câmaras Frigoríficas
-                        </h3>
-                        <p class="cr8-service-text">
-                            Projetos para conservação e congelamento com unidade condensadora, evaporador,
-                            controles de temperatura e infraestrutura técnica.
-                        </p>
-                    </article>
-                </div>
 
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <article class="services-8__item mb-30 fade-top">

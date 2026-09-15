@@ -16,9 +16,9 @@ TEAM_IMAGES = (
     "institutional/imgs/team/painel-eletronico-camaras-frigorificas.webp",
 )
 BLOG_IMAGES = (
-    "institutional/imgs/blog/blog-img-23.jpg",
-    "institutional/imgs/blog/blog-img-24.jpg",
-    "institutional/imgs/blog/blog-img-25.jpg",
+    "institutional/imgs/blog/congelados.webp",
+    "institutional/imgs/blog/diagnostico.webp",
+    "institutional/imgs/blog/comando-automacao.webp",
 )
 DEVELOPMENT_VIDEO_URL = "https://www.youtube.com/watch?v=DZLlw5BNQ3g"
 
