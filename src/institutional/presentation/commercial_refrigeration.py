@@ -1,9 +1,25 @@
 """Content and replaceable local media for Refrigeração Comercial."""
 
-# TODO: substituir por refrigeracao-comercial-hero.webp quando o asset estiver disponível.
-HERO_IMAGE = "institutional/imgs/images/refrigeration-system.webp"
-COLD_ROOM_IMAGE = "institutional/imgs/images/equipamento-refrigerado.webp"
+HERO_IMAGE = "institutional/imgs/images/camara-fria-congelado.webp"
+COLD_ROOM_IMAGE = "institutional/imgs/images/camara-fria-cervejeira.webp"
 VIDEO_THUMBNAIL = "institutional/imgs/images/reparo-sistema-refrigeracao.webp"
+GENERATIVE_IMAGES = (
+    "institutional/imgs/images/recarga-fluido-refrigerente.webp",
+    "institutional/imgs/images/condensadora-chiller.webp",
+    "institutional/imgs/images/condensadora-vrf.webp",
+    "institutional/imgs/images/generative-ai-8-04.png",
+)
+FAQ_IMAGE = "institutional/imgs/images/condensadora-multi-split.webp"
+TEAM_IMAGES = (
+    "institutional/imgs/team/quadro-eletrico-camaras-frigorificas.webp",
+    "institutional/imgs/team/infra-camaras-frigorificas.webp",
+    "institutional/imgs/team/painel-eletronico-camaras-frigorificas.webp",
+)
+BLOG_IMAGES = (
+    "institutional/imgs/blog/blog-img-23.jpg",
+    "institutional/imgs/blog/blog-img-24.jpg",
+    "institutional/imgs/blog/blog-img-25.jpg",
+)
 DEVELOPMENT_VIDEO_URL = "https://www.youtube.com/watch?v=DZLlw5BNQ3g"
 
 WHATSAPP_URL = (

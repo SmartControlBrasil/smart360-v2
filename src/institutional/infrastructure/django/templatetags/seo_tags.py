@@ -68,10 +68,10 @@ ROUTE_METADATA = {
             "Soluções em refrigeração comercial e câmaras frigoríficas em São Paulo. "
             "Venda, instalação, manutenção e infraestrutura técnica para empresas."
         ),
-        "social_image": "institutional/imgs/images/refrigeration-system.webp",
-        "social_image_width": 590,
-        "social_image_height": 408,
-        "social_image_alt": "Sistema de refrigeração comercial instalado profissionalmente",
+        "social_image": "institutional/imgs/images/camara-fria-congelado.webp",
+        "social_image_width": 450,
+        "social_image_height": 293,
+        "social_image_alt": "Câmara fria e congelado para refrigeração comercial",
     },
     "home": {
         "title": "Smart Control Brasil | Automação Industrial, Robótica e Sistemas",
