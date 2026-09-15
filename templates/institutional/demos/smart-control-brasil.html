@@ -94,7 +94,7 @@
                                 <h2 class="section__title-wrapper-title _split_text">Tecnologia Inteligente e Confiabilidade <br> para o seu Negócio</h2>
                                 <p class="section__title-wrapper-dec rr_title_anim mt-20">Transformamos sua operação com soluções sob medida. Unimos a máxima eficiência <br> da Automação Industrial Mitsubishi à inovação tecnológica da linha Xyron.</p>
                                 <p class="section__title-wrapper-dec rr_title_anim pt-25">Modernizamos indústrias, comércios, escolas e condomínios com engenharia <br> consultiva, tecnologia aplicada e soluções de alto impacto.</p>
-                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça a Smart Control Brasil {% institutional_icon "next" %}</a>
+                                <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}" target="_blank" rel="noopener">Conheça a Smart Control Brasil {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -137,6 +137,8 @@
                             <a
                                 class="rr-btn"
                                 href="{% url 'institutional:contact' %}"
+                                target="_blank"
+                                rel="noopener"
                                 data-track-event="click_primary_cta"
                                 data-track-location="home_about"
                                 data-track-label="Fale conosco">Fale Conosco {% institutional_icon "next" %}</a>
@@ -172,10 +174,10 @@
                                         <ul>
                                             <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Automação Industrial Mitsubishi</li>
                                             <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt="">Inovação e Tecnologia Xyron</li>
-                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção industrial em campo</a></li>
+                                            <li class="rr_title_anim"><img {% image_dimensions 'institutional/imgs/icon/choose-icon-1.png' %} src="{% static 'institutional/imgs/icon/choose-icon-1.png' %}" alt=""><a href="{% url 'institutional:manutencao_industrial_campo' %}" target="_blank" rel="noopener">Manutenção industrial em campo</a></li>
                                         </ul>
                                     </div>
-                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}">Conheça Nossa Engenharia {% institutional_icon "next" %}</a>
+                                    <a class="rr-btn btn-transparent mt-40" href="{% url 'institutional:about' %}" target="_blank" rel="noopener">Conheça Nossa Engenharia {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +203,7 @@
                                     <div class="service__item-content">
                                         <h3 class="title">Automação Industrial Mitsubishi</h3>
                                         <p class="dec">Controle avançado de processos, sistemas supervisórios inteligentes e redes industriais de alta disponibilidade.</p>
-                                        <a class="rr-btn btn-white" href="{% url 'institutional:mitsubishi_automacao_industrial' %}">Soluções Mitsubishi {% institutional_icon "next" %}</a>
+                                        <a class="rr-btn btn-white" href="{% url 'institutional:mitsubishi_automacao_industrial' %}" target="_blank" rel="noopener">Soluções Mitsubishi {% institutional_icon "next" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -216,8 +218,8 @@
                                     <div class="service__item-content">
                                         <h3 class="title">Robótica de Serviço e IA Xyron</h3>
                                         <p class="dec">Robôs móveis autônomos para recepção, segurança patrimonial, educação e limpeza profissional.</p>
-                                        <a class="rr-btn btn-white" href="{% url 'institutional:xyron' %}">Robótica Xyron {% institutional_icon "next" %}</a>
-                                        <a class="rr-btn btn-white ms-3" href="{% url 'institutional:robos_seguranca_patrimonial' %}">Segurança patrimonial {% institutional_icon "next" %}</a>
+                                        <a class="rr-btn btn-white" href="{% url 'institutional:xyron' %}" target="_blank" rel="noopener">Robótica Xyron {% institutional_icon "next" %}</a>
+                                        <a class="rr-btn btn-white ms-3" href="{% url 'institutional:robos_seguranca_patrimonial' %}" target="_blank" rel="noopener">Segurança patrimonial {% institutional_icon "next" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +234,7 @@
                                     <div class="service__item-content">
                                         <h3 class="title">Sites, Sistemas e Soluções Digitais</h3>
                                         <p class="dec">Websites empresariais, portais, integrações e aplicações sob medida em Python e Django para automatizar processos e centralizar dados.</p>
-                                        <a class="rr-btn btn-white" href="{% url 'institutional:sistemas_websites_python' %}">Sistemas Python {% institutional_icon "next" %}</a>
+                                        <a class="rr-btn btn-white" href="{% url 'institutional:sistemas_websites_python' %}" target="_blank" rel="noopener">Sistemas Python {% institutional_icon "next" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +271,7 @@
                                 </ul>
                             </div>
                             <div class="card_bottom card_bottom-1">
-                                <a class="meeting" href="{% url 'institutional:contact' %}">Agendar Consultoria</a>
+                                <a class="meeting" href="{% url 'institutional:contact' %}" target="_blank" rel="noopener">Agendar Consultoria</a>
                             </div>
                         </div>
                         <div class="pricing_card extra_border_card">
@@ -291,7 +293,7 @@
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais {% institutional_icon "next" %}</a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex" target="_blank" rel="noopener">Saiba Mais {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +316,7 @@
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-white pricing-card-button d-flex">Saiba Mais {% institutional_icon "next" %}</a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-white pricing-card-button d-flex" target="_blank" rel="noopener">Saiba Mais {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +339,7 @@
                             </div>
                             <div class="card_bottom">
                                 <div class="pricing-btn">
-                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex">Saiba Mais {% institutional_icon "next" %}</a>
+                                    <a href="{% url 'institutional:contact' %}" class="rr-btn btn-transparent pricing-card-button d-flex" target="_blank" rel="noopener">Saiba Mais {% institutional_icon "next" %}</a>
                                 </div>
                             </div>
                         </div>
@@ -374,7 +376,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item">
                                     <h3 class="testimonial__item-service-title">
-                                        <a href="{% url 'institutional:servicos_eletricos' %}">Serviços Elétricos</a>
+                                        <a href="{% url 'institutional:servicos_eletricos' %}" target="_blank" rel="noopener">Serviços Elétricos</a>
                                     </h3>
                                     <p class="testimonial__item-dec">
                                         Projeto, adequação e manutenção de instalações elétricas para operação segura e conforme normas.
@@ -389,7 +391,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-1">
                                     <h3 class="testimonial__item-service-title">
-                                        <a href="{% url 'institutional:ar_condicionado' %}">Ar-Condicionado</a>
+                                        <a href="{% url 'institutional:ar_condicionado' %}" target="_blank" rel="noopener">Ar-Condicionado</a>
                                     </h3>
                                     <p class="testimonial__item-dec">
                                         Instalação, manutenção preventiva e corretiva e higienização para ambientes residenciais e comerciais.
@@ -404,7 +406,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-2">
                                     <h3 class="testimonial__item-service-title">
-                                        <a href="{% url 'institutional:refrigeracao_comercial' %}">Refrigeração Comercial</a>
+                                        <a href="{% url 'institutional:refrigeracao_comercial' %}" target="_blank" rel="noopener">Refrigeração Comercial</a>
                                     </h3>
                                     <p class="testimonial__item-dec">
                                         Equipamentos, sistemas frigoríficos e manutenção para operações que dependem de temperatura controlada.
@@ -419,7 +421,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-3">
                                     <h3 class="testimonial__item-service-title">
-                                        <a href="{% url 'institutional:manutencao_industrial_campo' %}">Manutenção Industrial em Campo</a>
+                                        <a href="{% url 'institutional:manutencao_industrial_campo' %}" target="_blank" rel="noopener">Manutenção Industrial em Campo</a>
                                     </h3>
                                     <p class="testimonial__item-dec">
                                         Preventiva, corretiva e suporte em campo para reduzir paradas e preservar a confiabilidade dos ativos.
@@ -434,7 +436,7 @@
                             <div class="swiper-slide">
                                 <div class="testimonial__item testimonial__item-4">
                                     <h3 class="testimonial__item-service-title">
-                                        <a href="{% url 'institutional:sistemas_websites_python' %}">Sistemas e Websites Python</a>
+                                        <a href="{% url 'institutional:sistemas_websites_python' %}" target="_blank" rel="noopener">Sistemas e Websites Python</a>
                                     </h3>
                                     <p class="testimonial__item-dec">
                                         Portais, integrações, telemetria e sistemas sob medida com Python e Django para dados e automação.
@@ -540,7 +542,7 @@
                         <div class="col-12">
                             <div class="space-between__wrapper hero mb-60">
                                 <h2 class="space-between__wrapper-title _split_text">Artigos Técnicos e Engenharia <br> de Aplicação Sem Filtros</h2>
-                                <a class="rr-btn" href="{% url 'institutional:blog' %}">Acessar Artigos {% institutional_icon "next" %}</a>
+                                <a class="rr-btn" href="{% url 'institutional:blog' %}" target="_blank" rel="noopener">Acessar Artigos {% institutional_icon "next" %}</a>
                             </div>
                         </div>
                     </div>
@@ -562,7 +564,7 @@
                                             <img src="{% static 'institutional/imgs/blog/controladores-ativos-para-ambientes-de-alta-severidade.webp' %}" alt="Controladores industriais em ambiente severo" width="380" height="260" loading="lazy" decoding="async">
                                         </div>
                                     </div>
-                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='selecao-controladores-ativos-alta-severidade' %}">Seleção de Controladores e Ativos <br> para Ambientes de Alta Severidade</a></h4>
+                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='selecao-controladores-ativos-alta-severidade' %}" target="_blank" rel="noopener">Seleção de Controladores e Ativos <br> para Ambientes de Alta Severidade</a></h4>
                                 </div>
                             </div>
                         </div>
@@ -583,7 +585,7 @@
                                             <img {% image_dimensions 'institutional/imgs/blog/convergencia-entre-robotica-ia-e-firmwares.webp' %} src="{% static 'institutional/imgs/blog/convergencia-entre-robotica-ia-e-firmwares.webp' %}" alt="Robótica e inteligência artificial aplicada">
                                         </div>
                                     </div>
-                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='convergencia-robotica-ia-firmwares-dedicados' %}">A Convergência entre Robótica, <br> IA e Firmwares Dedicados</a></h4>
+                                    <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='convergencia-robotica-ia-firmwares-dedicados' %}" target="_blank" rel="noopener">A Convergência entre Robótica, <br> IA e Firmwares Dedicados</a></h4>
                                 </div>
                             </div>
                         </div>
@@ -603,7 +605,7 @@
                                         <img {% image_dimensions 'institutional/imgs/blog/automatizando-processos.webp' %} src="{% static 'institutional/imgs/blog/automatizando-processos.webp' %}" alt="Automação de processos industriais">
                                     </div>      
                                 </div>
-                                <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='eliminar-gargalos-autonomia-previsibilidade' %}">Como Eliminar Gargalos com <br> Autonomia e Previsibilidade</a></h4>
+                                <h4 class="blog__item-title"><a href="{% url 'institutional:blog_detail' slug='eliminar-gargalos-autonomia-previsibilidade' %}" target="_blank" rel="noopener">Como Eliminar Gargalos com <br> Autonomia e Previsibilidade</a></h4>
                             </div>
                         </div>
                     </div>
