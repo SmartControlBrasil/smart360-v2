@@ -51,7 +51,7 @@ class="cr-scroll-content"
                 <span aria-current="page">Refrigeração Comercial</span>
             </nav>
 
-            <div class="row align-items-center">
+            <div class="row align-items-start">
                 <div class="col-xl-6">
                     <div class="banner8__title-wrapper hero">
                         <p class="cr8-subtitle">
@@ -97,9 +97,9 @@ class="cr-scroll-content"
                         <div class="banner8__thumb img-custom-anim-left wow">
                             <img
                                 src="{% static commercial_refrigeration.HERO_IMAGE %}"
-                                alt="Câmara frigorífica e sistema de refrigeração comercial instalado profissionalmente"
-                                width="636"
-                                height="710"
+                                alt="Câmara fria e congelado para refrigeração comercial"
+                                width="450"
+                                height="293"
                                 fetchpriority="high"
                             >
                         </div>
@@ -271,9 +271,9 @@ class="cr-scroll-content"
                         <div class="trailblazing-ai-8__thumb text-center img-custom-anim-left wow">
                             <img
                                 src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
-                                alt="Equipamento de refrigeração comercial em operação"
-                                width="536"
-                                height="406"
+                                alt="Câmara fria cervejeira para refrigeração comercial"
+                                width="450"
+                                height="450"
                                 loading="lazy"
                             >
                         </div>
@@ -461,34 +461,34 @@ class="cr-scroll-content"
                     <div class="generative-ai-8__thumb p-relative pb-md-40 pb-sm-40 pb-xs-40">
                         <img
                             class="image-1 upDown-top"
-                            src="{% static commercial_refrigeration.HERO_IMAGE %}"
-                            alt="Sistema de refrigeração comercial"
-                            width="369"
-                            height="455"
+                            src="{% static commercial_refrigeration.GENERATIVE_IMAGES.0 %}"
+                            alt=""
+                            width="330"
+                            height="250"
                             loading="lazy"
                         >
                         <img
                             class="image-2 leftRight"
-                            src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
-                            alt="Equipamento de refrigeração comercial"
-                            width="210"
-                            height="305"
+                            src="{% static commercial_refrigeration.GENERATIVE_IMAGES.1 %}"
+                            alt=""
+                            width="294"
+                            height="300"
                             loading="lazy"
                         >
                         <img
                             class="image-3 upDown-bottom"
-                            src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
-                            alt="Manutenção técnica em refrigeração comercial"
-                            width="188"
-                            height="272"
+                            src="{% static commercial_refrigeration.GENERATIVE_IMAGES.2 %}"
+                            alt=""
+                            width="286"
+                            height="178"
                             loading="lazy"
                         >
                         <img
                             class="image-4"
-                            src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
-                            alt="Instalação de sistema de refrigeração comercial"
-                            width="510"
-                            height="577"
+                            src="{% static commercial_refrigeration.GENERATIVE_IMAGES.3 %}"
+                            alt=""
+                            width="620"
+                            height="554"
                             loading="lazy"
                         >
                     </div>
@@ -574,10 +574,10 @@ class="cr-scroll-content"
                         </div>
                         <div class="faq-8__thumb-media img-custom-anim-left wow text-end mb-md-30 mb-sm-30 mb-xs-30 pr-60">
                             <img
-                                src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
-                                alt="Equipe técnica atuando em refrigeração comercial"
-                                width="439"
-                                height="525"
+                                src="{% static commercial_refrigeration.FAQ_IMAGE %}"
+                                alt=""
+                                width="229"
+                                height="297"
                                 loading="lazy"
                             >
                         </div>
@@ -642,10 +642,20 @@ class="cr-scroll-content"
                             </div>
                             <div class="team-8__thumb">
                                 <img
-                                    src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
+                                    {% if forloop.first %}
+                                    src="{% static commercial_refrigeration.TEAM_IMAGES.0 %}"
+                                    width="300"
+                                    height="380"
+                                    {% elif forloop.counter == 2 %}
+                                    src="{% static commercial_refrigeration.TEAM_IMAGES.1 %}"
+                                    width="329"
+                                    height="380"
+                                    {% else %}
+                                    src="{% static commercial_refrigeration.TEAM_IMAGES.2 %}"
+                                    width="300"
+                                    height="380"
+                                    {% endif %}
                                     alt="{{ title }}"
-                                    width="416"
-                                    height="420"
                                     loading="lazy"
                                 >
                             </div>
@@ -740,10 +750,10 @@ class="cr-scroll-content"
                         <article class="blog-8__item">
                             <div class="blog-8__thumb">
                                 <img
-                                    src="{% static commercial_refrigeration.COLD_ROOM_IMAGE %}"
+                                    src="{% static commercial_refrigeration.BLOG_IMAGES.0 %}"
                                     alt="Câmaras frigoríficas para operações comerciais"
-                                    width="416"
-                                    height="324"
+                                    width="390"
+                                    height="240"
                                     loading="lazy"
                                 >
                                 <span>Câmaras Frigoríficas</span>
@@ -778,10 +788,10 @@ class="cr-scroll-content"
                         <article class="blog-8__item">
                             <div class="blog-8__thumb">
                                 <img
-                                    src="{% static commercial_refrigeration.VIDEO_THUMBNAIL %}"
+                                    src="{% static commercial_refrigeration.BLOG_IMAGES.1 %}"
                                     alt="Manutenção de equipamentos de refrigeração comercial"
-                                    width="416"
-                                    height="324"
+                                    width="390"
+                                    height="240"
                                     loading="lazy"
                                 >
                                 <span>Manutenção Técnica</span>
@@ -816,10 +826,10 @@ class="cr-scroll-content"
                         <article class="blog-8__item">
                             <div class="blog-8__thumb">
                                 <img
-                                    src="{% static commercial_refrigeration.HERO_IMAGE %}"
+                                    src="{% static commercial_refrigeration.BLOG_IMAGES.2 %}"
                                     alt="Integração entre refrigeração e elétrica"
-                                    width="416"
-                                    height="324"
+                                    width="390"
+                                    height="240"
                                     loading="lazy"
                                 >
                                 <span>Integração Técnica</span>
