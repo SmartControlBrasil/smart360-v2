@@ -628,13 +628,16 @@ class ConversionTrackingTests(TestCase):
     def test_tracking_script_pushes_expected_events_without_pii(self):
         main_js = Path("static/institutional/js/main.js").read_text()
 
-        for event_name in (
+        expected_click_events = (
             "click_whatsapp",
             "click_phone",
             "click_email",
-        ):
+        )
+
+        for event_name in expected_click_events:
             with self.subTest(event_name=event_name):
                 self.assertIn(event_name, main_js)
+                self.assertEqual(main_js.count("pushTrackingEvent('" + event_name + "')"), 1)
 
         response = self.client.get(reverse("institutional:home"))
         html = response.content.decode()
@@ -648,6 +651,9 @@ class ConversionTrackingTests(TestCase):
         self.assertNotIn("telefone:", main_js)
         self.assertNotIn("email:", main_js)
         self.assertNotIn("mensagem:", main_js)
+        self.assertNotIn("551151968525", main_js)
+        self.assertNotIn("comercial@", main_js)
+        self.assertNotIn("?text=", main_js)
 
     def test_push_tracking_event_enqueues_gtag_event_without_duplicating_dispatch(self):
         main_js = Path("static/institutional/js/main.js").read_text()
@@ -655,6 +661,9 @@ class ConversionTrackingTests(TestCase):
         self.assertIn("window.dataLayer.push(trackingPayload)", main_js)
         self.assertIn("window.gtag('event', eventName, gtagParams)", main_js)
         self.assertEqual(main_js.count("window.gtag('event', eventName, gtagParams)"), 1)
+        self.assertEqual(main_js.count("eventName === 'generate_lead'"), 1)
+        self.assertEqual(main_js.count("AW-18312173157/9nrbCN-F2-wcEOWs9ptE"), 1)
+        self.assertEqual(main_js.count("window.gtag('event', 'conversion'"), 1)
         self.assertIn("gtagParams.cta_location = trackingPayload.cta_location", main_js)
         self.assertIn("gtagParams.cta_label = trackingPayload.cta_label", main_js)
         self.assertIn("page_path: trackingPayload.page_path", main_js)
@@ -666,6 +675,7 @@ class ConversionTrackingTests(TestCase):
         ):
             with self.subTest(event_name=event_name):
                 self.assertIn(event_name, main_js)
+                self.assertEqual(main_js.count("pushTrackingEvent('" + event_name + "')"), 1)
 
         self.assertIn("[data-track-event]", main_js)
         self.assertIn("element.data('track-event')", main_js)
@@ -677,8 +687,15 @@ class ConversionTrackingTests(TestCase):
         self.assertIn("scheduleHomeMobileGoogleTagAfterLcp", html)
         self.assertIn("largest-contentful-paint", html)
         self.assertIn("smart360GoogleTagLoadCount", html)
+        self.assertEqual(html.count("gtag('js', new Date())"), 1)
+        self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
+        self.assertEqual(html.count("gtag('config', 'AW-18312173157')"), 1)
         self.assertNotIn(
             '<script async src="https://www.googletagmanager.com/gtag/js?id=G-9XGJDZ0N87"></script>',
+            html,
+        )
+        self.assertNotIn(
+            '<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18312173157"></script>',
             html,
         )
 
@@ -686,7 +703,8 @@ class ConversionTrackingTests(TestCase):
         html = self.client.get(reverse("institutional:about")).content.decode()
 
         self.assertIn("window.loadGoogleTagOnce();", html)
-        self.assertIn("gtag('config', 'G-9XGJDZ0N87')", html)
+        self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
+        self.assertEqual(html.count("gtag('config', 'AW-18312173157')"), 1)
 
 
 @override_settings(ALLOWED_HOSTS=["testserver", "smartcontrolbrasil.com.br"])
@@ -772,7 +790,10 @@ class TechnicalSeoTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("googletagmanager.com/gtag/js?id=", html)
         self.assertEqual(html.count("G-9XGJDZ0N87"), 2)
+        self.assertEqual(html.count("gtag('js', new Date())"), 1)
         self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
+        self.assertEqual(html.count("gtag('config', 'AW-18312173157')"), 1)
+        self.assertNotIn("googletagmanager.com/gtag/js?id=AW-18312173157", html)
         self.assertIn("loadGoogleTagOnce", html)
         self.assertIn("scheduleHomeMobileGoogleTagAfterLcp", html)
         self.assertNotIn("G-X9BGRJ75B7", html)
@@ -5268,7 +5289,8 @@ class FrontendPerformanceTests(TestCase):
         self.assertIn("googletagmanager.com/gtag/js?id=", html)
         self.assertIn("G-9XGJDZ0N87", html)
         self.assertIn("loadGoogleTagOnce", html)
-        self.assertIn("gtag('config', 'G-9XGJDZ0N87')", html)
+        self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
+        self.assertEqual(html.count("gtag('config', 'AW-18312173157')"), 1)
         self.assertIn('id="livia-config"', html)
         self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
         self.assertIn('data-tenant="smart-control-brasil"', html)
