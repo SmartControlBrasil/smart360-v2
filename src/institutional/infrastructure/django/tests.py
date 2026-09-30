@@ -866,7 +866,10 @@ class TechnicalSeoTests(TestCase):
 
     def test_home_includes_open_graph_and_twitter_card_metadata(self):
         response = self.client.get("/")
-        image_url = "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/images/banner-6-img-1.png"
+        image_url = (
+            "https://www.smartcontrolbrasil.com.br/static/institutional/imgs/social/"
+            "smart-control-brasil-og.png"
+        )
 
         self.assertMetaProperty(response, "og:title", "Smart Control Brasil | Automação Industrial, Robótica e Sistemas")
         self.assertMetaProperty(
@@ -878,12 +881,13 @@ class TechnicalSeoTests(TestCase):
         self.assertMetaProperty(response, "og:url", "https://www.smartcontrolbrasil.com.br/")
         self.assertMetaProperty(response, "og:type", "website")
         self.assertMetaProperty(response, "og:image", image_url)
-        self.assertMetaProperty(response, "og:image:width", "1290")
-        self.assertMetaProperty(response, "og:image:height", "670")
+        self.assertMetaProperty(response, "og:image:width", "1200")
+        self.assertMetaProperty(response, "og:image:height", "630")
+        self.assertMetaProperty(response, "og:image:type", "image/png")
         self.assertMetaProperty(
             response,
             "og:image:alt",
-            "Robótica, automação e sistemas inteligentes da Smart Control Brasil",
+            "Smart Control Brasil — automação industrial, robótica e sistemas digitais",
         )
         self.assertMetaProperty(response, "og:site_name", "Smart Control Brasil")
         self.assertMetaProperty(response, "og:locale", "pt_BR")
@@ -899,7 +903,7 @@ class TechnicalSeoTests(TestCase):
         self.assertMetaName(
             response,
             "twitter:image:alt",
-            "Robótica, automação e sistemas inteligentes da Smart Control Brasil",
+            "Smart Control Brasil — automação industrial, robótica e sistemas digitais",
         )
         self.assertNotIn('content="/static/', response.content.decode())
 

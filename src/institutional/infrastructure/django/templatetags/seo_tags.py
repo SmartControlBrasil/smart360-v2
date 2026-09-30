@@ -28,6 +28,13 @@ DEFAULT_SOCIAL_IMAGE = "institutional/imgs/images/banner-6-img-1.png"
 DEFAULT_SOCIAL_IMAGE_WIDTH = 1290
 DEFAULT_SOCIAL_IMAGE_HEIGHT = 670
 DEFAULT_SOCIAL_IMAGE_ALT = "Robótica, automação e sistemas inteligentes da Smart Control Brasil"
+HOME_SOCIAL_IMAGE = "institutional/imgs/social/smart-control-brasil-og.png"
+HOME_SOCIAL_IMAGE_WIDTH = 1200
+HOME_SOCIAL_IMAGE_HEIGHT = 630
+HOME_SOCIAL_IMAGE_ALT = (
+    "Smart Control Brasil — automação industrial, robótica e sistemas digitais"
+)
+HOME_SOCIAL_IMAGE_TYPE = "image/png"
 ORGANIZATION_LOGO = "institutional/imgs/images/header/logo-cores-03.webp"
 SOCIAL_SITE_NAME = "Smart Control Brasil"
 ORGANIZATION_EMAIL = "comercial@smartcontrolbrasil.com.br"
@@ -79,6 +86,11 @@ ROUTE_METADATA = {
             "Soluções em automação industrial, robótica, manutenção técnica, "
             "integração de sistemas e desenvolvimento de software para empresas e indústrias."
         ),
+        "social_image": HOME_SOCIAL_IMAGE,
+        "social_image_width": HOME_SOCIAL_IMAGE_WIDTH,
+        "social_image_height": HOME_SOCIAL_IMAGE_HEIGHT,
+        "social_image_alt": HOME_SOCIAL_IMAGE_ALT,
+        "social_image_type": HOME_SOCIAL_IMAGE_TYPE,
     },
     "services": {
         "title": "Serviços de Automação Industrial, Robótica e Software | Smart Control Brasil",
@@ -1546,6 +1558,13 @@ def social_image_alt(context):
     if pillar:
         return pillar["hero_image"]["alt"]
     return _route_metadata(context).get("social_image_alt", DEFAULT_SOCIAL_IMAGE_ALT)
+
+
+@register.simple_tag(takes_context=True)
+def social_image_type(context):
+    if _post(context) or _product(context) or _robot(context) or _pillar(context):
+        return ""
+    return _route_metadata(context).get("social_image_type", "")
 
 
 @register.simple_tag(takes_context=True)

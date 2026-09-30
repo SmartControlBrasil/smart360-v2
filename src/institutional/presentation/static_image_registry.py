@@ -174,6 +174,7 @@ STATIC_IMAGE_DIMENSIONS = {
     "institutional/imgs/images/faq-projeto-eletronico.webp": (276, 519),
     "institutional/imgs/images/faq-softwares.webp": (316, 266),
     "institutional/imgs/images/header/logo-cores-03.webp": (192, 80),
+    "institutional/imgs/social/smart-control-brasil-og.png": (1200, 630),
     "institutional/imgs/images/ia-aplicada.webp": (1070, 680),
     "institutional/imgs/images/liro-inovacao-que-ensina.webp": (350, 420),
     "institutional/imgs/images/livia-atendendo.webp": (198, 150),
