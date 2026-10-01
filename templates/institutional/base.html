@@ -306,13 +306,11 @@
 
     <!-- Main JS -->
     <script defer src="{% static 'institutional/js/main.js' %}?v=20260901-gaevent1"></script>
-    <span
-        id="livia-config"
-        hidden
-        data-widget-src="https://livia.smartcontrolbrasil.com.br/widget.js?v=20260830-chat1"
+    <script
+        src="https://agents.smartcontrolbrasil.com.br/widget.js"
         data-tenant="smart-control-brasil"
-        data-api-url="https://livia.smartcontrolbrasil.com.br/api/chat/">
-    </span>
+        data-api-url="https://agents.smartcontrolbrasil.com.br/api/chat/"
+        defer></script>
 
     {% block extra_js %}{% endblock %}
 

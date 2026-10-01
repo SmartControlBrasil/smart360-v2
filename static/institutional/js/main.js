@@ -2471,42 +2471,4 @@
     });
 
 
-    var liviaWidgetLoaded = false;
-
-    function initLiviaWidget() {
-        if (liviaWidgetLoaded) {
-            return;
-        }
-
-        var config = document.getElementById("livia-config");
-        if (!config) {
-            return;
-        }
-
-        var widgetSrc = config.getAttribute("data-widget-src");
-        if (!widgetSrc) {
-            return;
-        }
-
-        liviaWidgetLoaded = true;
-
-        var script = document.createElement("script");
-        script.src = widgetSrc;
-        script.defer = true;
-        script.setAttribute("data-tenant", config.getAttribute("data-tenant") || "");
-        script.setAttribute("data-api-url", config.getAttribute("data-api-url") || "");
-        document.body.appendChild(script);
-    }
-
-    function scheduleLiviaWidget() {
-        if (typeof requestIdleCallback === "function") {
-            requestIdleCallback(initLiviaWidget, { timeout: 4000 });
-            return;
-        }
-
-        window.setTimeout(initLiviaWidget, 500);
-    }
-
-    window.addEventListener("load", scheduleLiviaWidget);
-
 })(jQuery);

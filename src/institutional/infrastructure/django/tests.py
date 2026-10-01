@@ -35,6 +35,22 @@ from src.institutional.presentation.sitemaps import STATIC_PUBLIC_ROUTES
 from src.institutional.infrastructure.django.templatetags.seo_tags import NOINDEX_ROUTE_NAMES
 
 INSTITUTIONAL_MAIN_JS_CACHE_BUST = "20260901-gaevent1"
+AGENT_PLATFORM_LIVIA_WIDGET_SRC = "https://agents.smartcontrolbrasil.com.br/widget.js"
+AGENT_PLATFORM_LIVIA_API_URL = "https://agents.smartcontrolbrasil.com.br/api/chat/"
+AGENT_PLATFORM_LIVIA_TENANT = "smart-control-brasil"
+LEGACY_LIVIA_HOST = "livia.smartcontrolbrasil.com.br"
+
+
+def assert_agent_platform_livia_widget(test_case, html):
+    test_case.assertIn(AGENT_PLATFORM_LIVIA_WIDGET_SRC, html)
+    test_case.assertIn(f'data-tenant="{AGENT_PLATFORM_LIVIA_TENANT}"', html)
+    test_case.assertIn(f'data-api-url="{AGENT_PLATFORM_LIVIA_API_URL}"', html)
+    test_case.assertNotIn(LEGACY_LIVIA_HOST, html)
+    widget_script_matches = re.findall(
+        r'<script[^>]+src="https://agents\.smartcontrolbrasil\.com\.br/widget\.js"',
+        html,
+    )
+    test_case.assertEqual(len(widget_script_matches), 1)
 
 
 class InstitutionalRoutesTests(TestCase):
@@ -331,18 +347,12 @@ class InstitutionalRoutesTests(TestCase):
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response["Location"], "/loja/?utm_source=legacy")
 
-    def test_livia_widget_is_deferred(self):
+    def test_livia_widget_uses_agent_platform_snippet(self):
         response = self.client.get(reverse("institutional:home"))
         html = response.content.decode("utf-8")
 
-        self.assertIn('id="livia-config"', html)
-        self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
-        self.assertIn('data-tenant="smart-control-brasil"', html)
-        self.assertIn('data-api-url="https://livia.smartcontrolbrasil.com.br/api/chat/"', html)
-        self.assertNotRegex(
-            html,
-            r'<script[^>]+src="https://livia\.smartcontrolbrasil\.com\.br/widget\.js',
-        )
+        assert_agent_platform_livia_widget(self, html)
+        self.assertNotIn('id="livia-config"', html)
 
     def test_lazy_images_use_async_decoding(self):
         response = self.client.get(reverse("institutional:home"))
@@ -5183,7 +5193,8 @@ class PreloaderHotfixPlaywrightTests(StaticLiveServerTestCase):
             page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
             page.wait_for_timeout(500)
             self.assertEqual(page.locator("#scroll-percentage").count(), 1)
-            self.assertIn("livia.smartcontrolbrasil.com.br/widget.js", page.content())
+            self.assertIn("agents.smartcontrolbrasil.com.br/widget.js", page.content())
+            self.assertNotIn("livia.smartcontrolbrasil.com.br/widget.js", page.content())
 
             manutencao = browser.new_page(viewport={"width": 1440, "height": 900})
             manutencao.goto(
@@ -5295,9 +5306,7 @@ class FrontendPerformanceTests(TestCase):
         self.assertIn("loadGoogleTagOnce", html)
         self.assertEqual(html.count("gtag('config', 'G-9XGJDZ0N87')"), 1)
         self.assertEqual(html.count("gtag('config', 'AW-18312173157')"), 1)
-        self.assertIn('id="livia-config"', html)
-        self.assertIn("https://livia.smartcontrolbrasil.com.br/widget.js", html)
-        self.assertIn('data-tenant="smart-control-brasil"', html)
+        assert_agent_platform_livia_widget(self, html)
 
     def test_main_js_keeps_defer_and_vendor_order_before_main(self):
         response = self.client.get(reverse("institutional:home"))

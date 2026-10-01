@@ -5,6 +5,7 @@ from django.test import SimpleTestCase, override_settings
 from django.urls import reverse
 
 from src.institutional.presentation.air_conditioning import DEVELOPMENT_VIDEO_URL, FAQS
+from src.institutional.infrastructure.django.tests import assert_agent_platform_livia_widget
 
 
 class AirConditioningTests(SimpleTestCase):
@@ -40,7 +41,7 @@ class AirConditioningTests(SimpleTestCase):
             "mitsubishi_automacao_industrial",
         ):
             self.assertIn(reverse("institutional:" + name), html)
-        self.assertContains(response, 'id="livia-config"', count=1)
+        assert_agent_platform_livia_widget(self, html)
         self.assertNotContains(response, "plugins/ScrollSmoother.js")
         self.assertNotContains(response, "id=\"smooth-wrapper\"")
 
