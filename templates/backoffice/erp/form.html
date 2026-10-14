@@ -17,8 +17,10 @@
                     {% backoffice_form_fields form %}
                 {% endblock form_fields %}
                 <div class="erp-form-actions mt-4 d-flex flex-wrap gap-2">
-                    <button type="submit" class="btn btn-primary">{{ submit_label|default:"Salvar" }}</button>
-                    <button type="button" class="btn btn-light" onclick="history.back()">{{ cancel_label|default:"Cancelar" }}</button>
+                    <button type="submit" class="btn btn-primary px-4">{{ submit_label|default:"Salvar" }}</button>
+                    {% if not hide_cancel %}
+                        <button type="button" class="btn btn-light" onclick="history.back()">{{ cancel_label|default:"Cancelar" }}</button>
+                    {% endif %}
                     {% block form_extra_actions %}{% endblock form_extra_actions %}
                 </div>
             </form>

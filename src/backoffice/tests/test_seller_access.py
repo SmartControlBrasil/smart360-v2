@@ -95,6 +95,42 @@ class SellerAccessTests(TestCase):
         client.force_login(self.user)
         self.assertEqual(client.post(reverse("backoffice:password_change"), {}).status_code, 403)
 
+    def test_password_change_uses_backoffice_layout_and_portuguese_labels(self):
+        self.temporary()
+        response = self.client.get(reverse("backoffice:password_change"))
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode()
+        self.assertIn("backoffice/hando/css/app.min.css", html)
+        self.assertIn('name="viewport" content="width=device-width', html)
+        self.assertContains(response, "Defina sua senha pessoal")
+        self.assertContains(response, "Senha atual")
+        self.assertContains(response, "Nova senha")
+        self.assertContains(response, "Confirmar nova senha")
+        self.assertContains(response, "Salvar senha")
+        self.assertNotContains(response, "Old password")
+        self.assertNotContains(response, "New password confirmation")
+        self.assertNotContains(response, ">Cancelar</button>")
+
+    def test_password_change_validation_messages_in_portuguese(self):
+        self.temporary()
+        response = self.client.post(
+            reverse("backoffice:password_change"),
+            {"old_password": "wrong", "new_password1": "Personal-Strong-9482!", "new_password2": "Personal-Strong-9482!"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "A senha atual está incorreta")
+        response = self.client.post(
+            reverse("backoffice:password_change"),
+            {"old_password": "Temporary-Test-985!", "new_password1": "123", "new_password2": "123"},
+        )
+        self.assertEqual(response.status_code, 200)
+        content = response.content.decode()
+        self.assertTrue(
+            any(token in content for token in ("curta", "comum", "numérica", "similar", "caracteres")),
+            msg="Esperava mensagem de validação de senha em português",
+        )
+        self.assertNotContains(response, ">Cancelar</button>")
+
 
 class LocalPreparationTests(TestCase):
     def run_prepare(self, path):
