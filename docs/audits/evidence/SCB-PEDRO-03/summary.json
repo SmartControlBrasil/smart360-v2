@@ -1,0 +1,27 @@
+{
+  "task": "SCB-PEDRO-03",
+  "recorded_at_utc": "2026-10-14T18:53:15.632588+00:00",
+  "environment": "synthetic disposable PostgreSQL; not production",
+  "postgres_version": "PostgreSQL 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit",
+  "server_version": "16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)",
+  "listen_addresses": "",
+  "python": "3.12.3",
+  "django": "6.0.7",
+  "psycopg": "3.3.4",
+  "suite_tests": 264,
+  "suite_seconds": 90.963,
+  "suite_result": "OK",
+  "runner_exit_code": 0,
+  "runner_cluster_stopped": true,
+  "synthetic_database_counts": {
+    "django_migrations": 34,
+    "auth_user": 0,
+    "customers_customer": 0,
+    "auth_group": 5
+  },
+  "production_access": "not identified/authorized; no production connection attempted",
+  "production_version": null,
+  "production_migrations": null,
+  "production_pedro_exists": null,
+  "decision": "GO homologation PostgreSQL 16.15; NO-GO production activation"
+}

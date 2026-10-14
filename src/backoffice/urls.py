@@ -4,11 +4,13 @@ from src.sales_intelligence import api_views as sales_intelligence_api_views
 from src.sales_intelligence import backoffice_views as sales_intelligence_views
 
 from . import views
+from .credentials import SellerPasswordChangeView
 
 
 app_name = "backoffice"
 
 urlpatterns = [
+    path("alterar-senha/", SellerPasswordChangeView.as_view(), name="password_change"),
     path("", views.dashboard, name="dashboard"),
     path("produtos/", views.product_list, name="product_list"),
     path("produtos/novo/", views.product_create, name="product_create"),

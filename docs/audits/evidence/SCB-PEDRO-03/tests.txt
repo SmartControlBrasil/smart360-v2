@@ -1,0 +1,7 @@
+SCB-PEDRO-03: synthetic isolated PostgreSQL suite
+Creating test database for alias 'default'...
+......................................Found 264 test(s).
+System check identified no issues (0 silenced).
+Ran 264 tests in 90.963s
+OK
+Destroying test database for alias 'default'...

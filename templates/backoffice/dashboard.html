@@ -39,6 +39,7 @@
         {% endfor %}
     </div>
 
+    {% if can_view_audit %}
     <div class="row mt-2">
         <div class="col-xl-6">
             <div class="card">
@@ -98,5 +99,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock page_content %}

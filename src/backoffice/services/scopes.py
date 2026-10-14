@@ -163,3 +163,27 @@ def user_can_manage_customers(user):
 
 def user_is_salesperson_role(user):
     return BackofficeRole.SALESPERSON.value in user_role_codes(user)
+
+
+def salesperson_can_write_customer(user, customer=None):
+    """Legacy customer writes synchronize SMART_CONTROL: never mutate another unit."""
+    if getattr(user, "is_superuser", False) or not user_is_salesperson_role(user):
+        return True
+    from src.backoffice.models import DEFAULT_BUSINESS_UNIT_CODE
+
+    seller = salesperson_for_user(user)
+    if seller is None or not seller.active:
+        return False
+    memberships = active_business_unit_memberships(user).filter(
+        business_unit__code=DEFAULT_BUSINESS_UNIT_CODE, scope=AccessScope.OWN,
+    )
+    if not memberships.exists():
+        return False
+    if customer is None:
+        return True
+    # Shared master data has no per-unit write isolation yet. Keep it read-only.
+    return (customer.business_relationships.count() == 1
+            and customer.business_relationships.filter(
+                business_unit__code=DEFAULT_BUSINESS_UNIT_CODE,
+                assigned_salesperson=seller,
+            ).exists())

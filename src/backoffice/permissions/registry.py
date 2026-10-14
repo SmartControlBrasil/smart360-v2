@@ -71,7 +71,7 @@ class RoleDefinition:
 
 
 REAL_PERMISSION_MAP = {
-    BackofficePermission.DASHBOARD_VIEW: DjangoPermissionRef("backoffice", "view_auditlog"),
+    BackofficePermission.DASHBOARD_VIEW: DjangoPermissionRef("backoffice", "view_dashboard"),
     BackofficePermission.CUSTOMERS_VIEW: DjangoPermissionRef("customers", "view_customer"),
     BackofficePermission.CUSTOMERS_CREATE: DjangoPermissionRef("customers", "add_customer"),
     BackofficePermission.CUSTOMERS_UPDATE: DjangoPermissionRef("customers", "change_customer"),
@@ -173,8 +173,6 @@ ROLE_DEFINITIONS = {
             BackofficePermission.COMMERCE_PRODUCTS_VIEW,
             BackofficePermission.COMMERCE_CATEGORIES_VIEW,
             BackofficePermission.COMMERCE_BRANDS_VIEW,
-            BackofficePermission.SALES_INTELLIGENCE_VIEW,
-            BackofficePermission.SALES_INTELLIGENCE_MANAGE,
         ),
     ),
     BackofficeRole.CATALOG_MANAGER: RoleDefinition(

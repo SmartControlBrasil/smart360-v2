@@ -20,8 +20,9 @@ from src.backoffice.models import Department
 from src.backoffice.models import Team
 from src.backoffice.permissions.registry import BackofficePermission
 from src.backoffice.permissions.services import user_has_backoffice_permission
+from src.backoffice.services.scopes import salesperson_can_write_customer
+from src.backoffice.services.scopes import active_business_unit_memberships
 from src.backoffice.services.scopes import apply_customer_scope
-from src.backoffice.services.scopes import has_active_business_unit_memberships
 from src.backoffice.services.scopes import user_can_manage_customers
 from src.backoffice.services.scopes import user_can_manage_salespeople
 from src.backoffice.services.scopes import user_is_salesperson_role
@@ -93,15 +94,20 @@ def dashboard(request):
         {"label": "Categorias", "value": Category.objects.count(), "icon": "grid", "color": "secondary"},
         {"label": "Marcas", "value": Brand.objects.count(), "icon": "tag", "color": "primary"},
     ]
-    recent_logins = AuditLog.objects.filter(
+    if not user_has_backoffice_permission(request.user, BackofficePermission.SALESPEOPLE_VIEW):
+        cards = [card for card in cards if card["label"] != "Vendedores ativos"]
+    can_view_audit = user_has_backoffice_permission(request.user, BackofficePermission.AUDIT_VIEW)
+    logs = AuditLog.objects.all() if can_view_audit else AuditLog.objects.none()
+    recent_logins = logs.filter(
         action__in=[AuditLog.Action.LOGIN_SUCCESS, AuditLog.Action.LOGIN_FAILED, AuditLog.Action.LOGOUT],
     )[:6]
-    recent_activities = AuditLog.objects.all()[:8]
+    recent_activities = logs[:8]
     return render(
         request,
         "backoffice/dashboard.html",
         {
             "cards": cards,
+            "can_view_audit": can_view_audit,
             "recent_logins": recent_logins,
             "recent_activities": recent_activities,
         },
@@ -137,6 +143,10 @@ def customer_list(request):
     if business_unit_id:
         customers = customers.filter(business_relationships__business_unit_id=business_unit_id).distinct()
     active_business_units = BusinessUnit.objects.filter(is_active=True).order_by("name")
+    salespeople = Salesperson.objects.order_by("name")
+    if user_is_salesperson_role(request.user) and not request.user.is_superuser:
+        active_business_units = active_business_units.filter(pk__in=active_business_unit_memberships(request.user).values("business_unit_id"))
+        salespeople = salespeople.filter(user=request.user)
     show_business_unit_filter = active_business_units.count() > 1 or bool(business_unit_id)
     return render(
         request,
@@ -147,7 +157,7 @@ def customer_list(request):
             "status": status,
             "customer_type": customer_type,
             "salesperson_id": salesperson_id,
-            "salespeople": Salesperson.objects.order_by("name"),
+            "salespeople": salespeople,
             "business_units": active_business_units,
             "business_unit_id": business_unit_id,
             "show_business_unit_filter": show_business_unit_filter,
@@ -165,6 +175,8 @@ def customer_detail(request, pk):
         pk=pk,
     )
     history = AuditLog.objects.filter(module="customers", object_type="Customer", object_id=str(customer.pk))[:20]
+    if not user_has_backoffice_permission(request.user, BackofficePermission.AUDIT_VIEW):
+        history = AuditLog.objects.none()
     relationships = visible_customer_relationships_for_user(customer=customer, user=request.user)
     transfer_history = CustomerAssignmentTransfer.objects.select_related(
         "relationship",
@@ -182,7 +194,7 @@ def customer_detail(request, pk):
             "relationships": relationships,
             "transfer_history": transfer_history,
             "can_transfer_assignment": user_has_backoffice_permission(request.user, BackofficePermission.CUSTOMERS_TRANSFER_ASSIGNMENT),
-            "can_manage": user_can_manage_customers(request.user),
+            "can_manage": user_can_manage_customers(request.user) and salesperson_can_write_customer(request.user, customer),
         },
     )
 
@@ -228,7 +240,7 @@ def customer_relationship_transfer(request, pk, relationship_pk):
 
 @backoffice_permission_required(BackofficePermission.CUSTOMERS_CREATE)
 def customer_create(request):
-    if user_is_salesperson_role(request.user) and not has_active_business_unit_memberships(request.user):
+    if not salesperson_can_write_customer(request.user):
         return render(request, "backoffice/403.html", status=403)
     form = CustomerForm(
         request.POST or None,
@@ -244,6 +256,8 @@ def customer_create(request):
 @backoffice_permission_required(BackofficePermission.CUSTOMERS_UPDATE)
 def customer_update(request, pk):
     customer = get_object_or_404(apply_customer_scope(Customer.objects.all(), request.user), pk=pk)
+    if not salesperson_can_write_customer(request.user, customer):
+        return render(request, "backoffice/403.html", status=403)
     form = CustomerForm(
         request.POST or None,
         instance=customer,

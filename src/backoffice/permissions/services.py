@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import Permission
 
+from src.backoffice.permissions.registry import BackofficeRole
 from src.backoffice.permissions.registry import BackofficePermission
 from src.backoffice.permissions.registry import REAL_PERMISSION_MAP
 from src.backoffice.permissions.registry import ROLE_DEFINITIONS
@@ -54,7 +55,7 @@ def sync_backoffice_rbac(stdout=None):
         missing = []
         for permission in role.permissions:
             refs = permission_refs(permission)
-            if refs and not django_permissions_for(permission):
+            if len(django_permissions_for(permission)) != len(refs):
                 missing.append(permission.value)
         result["missing_permissions"].extend(missing)
 
@@ -86,7 +87,11 @@ def user_has_backoffice_permission(user, permission):
         return False
     if user.is_superuser:
         return True
+    permission = BackofficePermission(permission)
+    if permission in (BackofficePermission.SALES_INTELLIGENCE_VIEW, BackofficePermission.SALES_INTELLIGENCE_MANAGE):
+        if user.groups.filter(name=BackofficeRole.SALESPERSON.value).exists():
+            return False
     django_permissions = django_permissions_for(permission)
-    if not django_permissions:
+    if len(django_permissions) != len(permission_refs(permission)) or not django_permissions:
         return False
     return all(user.has_perm(f"{perm.content_type.app_label}.{perm.codename}") for perm in django_permissions)

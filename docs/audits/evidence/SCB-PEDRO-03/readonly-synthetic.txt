@@ -1,0 +1,87 @@
+BEGIN
+SET
+SET
+ database_name |            server_version             | read_only
+---------------+---------------------------------------+-----------
+ scb_pedro03   | 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1) | on
+(1 row)
+
+     rolname      | rolsuper | rolcreatedb | rolcreaterole | rolcanlogin
+------------------+----------+-------------+---------------+-------------
+ scb_homologation | t        | t           | t             | t
+(1 row)
+
+        app         |                              name                               |            applied
+--------------------+-----------------------------------------------------------------+-------------------------------
+ admin              | 0001_initial                                                    | 2026-10-14 15:50:46.770422-03
+ admin              | 0002_logentry_remove_auto_add                                   | 2026-10-14 15:50:46.774391-03
+ admin              | 0003_logentry_add_action_flag_choices                           | 2026-10-14 15:50:46.778012-03
+ auth               | 0001_initial                                                    | 2026-10-14 15:50:46.759492-03
+ auth               | 0002_alter_permission_name_max_length                           | 2026-10-14 15:50:46.789415-03
+ auth               | 0003_alter_user_email_max_length                                | 2026-10-14 15:50:46.793133-03
+ auth               | 0004_alter_user_username_opts                                   | 2026-10-14 15:50:46.797312-03
+ auth               | 0005_alter_user_last_login_null                                 | 2026-10-14 15:50:46.801033-03
+ auth               | 0006_require_contenttypes_0002                                  | 2026-10-14 15:50:46.801498-03
+ auth               | 0007_alter_validators_add_error_messages                        | 2026-10-14 15:50:46.804603-03
+ auth               | 0008_alter_user_username_max_length                             | 2026-10-14 15:50:46.809752-03
+ auth               | 0009_alter_user_last_name_max_length                            | 2026-10-14 15:50:46.813297-03
+ auth               | 0010_alter_group_name_max_length                                | 2026-10-14 15:50:46.818617-03
+ auth               | 0011_update_proxy_permissions                                   | 2026-10-14 15:50:46.82336-03
+ auth               | 0012_alter_user_first_name_max_length                           | 2026-10-14 15:50:46.827523-03
+ backoffice         | 0001_initial                                                    | 2026-10-14 15:50:46.842802-03
+ backoffice         | 0002_businessunit_businessunitmembership                        | 2026-10-14 15:50:46.871185-03
+ backoffice         | 0003_department_businessunitmembership_department_team_and_more | 2026-10-14 15:50:46.915273-03
+ backoffice         | 0004_alter_auditlog_options_temporarycredential                 | 2026-10-14 15:50:46.929447-03
+ commerce           | 0001_initial                                                    | 2026-10-14 15:50:46.952212-03
+ commerce           | 0002_alter_brand_logo_alter_productimage_image                  | 2026-10-14 15:50:46.956274-03
+ contenttypes       | 0001_initial                                                    | 2026-10-14 15:50:46.714767-03
+ contenttypes       | 0002_remove_content_type_name                                   | 2026-10-14 15:50:46.78559-03
+ customers          | 0001_initial                                                    | 2026-10-14 15:50:46.988881-03
+ customers          | 0002_customerbusinessrelationship                               | 2026-10-14 15:50:47.027169-03
+ customers          | 0003_customerassignmenttransfer                                 | 2026-10-14 15:50:47.047496-03
+ customers          | 0004_customer_normalized_match_fields                           | 2026-10-14 15:50:47.079953-03
+ customers          | 0005_backfill_customer_normalized_match_fields                  | 2026-10-14 15:50:47.092567-03
+ sales_intelligence | 0001_initial                                                    | 2026-10-14 15:50:47.220183-03
+ sales_intelligence | 0002_searchresult_name_phone_key_and_more                       | 2026-10-14 15:50:47.276717-03
+ sales_intelligence | 0003_campaignprospect                                           | 2026-10-14 15:50:47.304081-03
+ sales_intelligence | 0004_searchresult_created_at_index                              | 2026-10-14 15:50:47.316115-03
+ salespeople        | 0001_initial                                                    | 2026-10-14 15:50:46.97002-03
+ sessions           | 0001_initial                                                    | 2026-10-14 15:50:47.322585-03
+(34 rows)
+
+        role        | member_count |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  permissions
+--------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ CATALOG_MANAGER    |            0 | {backoffice.view_dashboard,commerce.add_brand,commerce.add_category,commerce.add_product,commerce.add_productimage,commerce.change_brand,commerce.change_category,commerce.change_product,commerce.change_productimage,commerce.delete_productimage,commerce.view_brand,commerce.view_category,commerce.view_product,commerce.view_productimage}
+ COMMERCIAL_MANAGER |            0 | {backoffice.view_auditlog,backoffice.view_businessunit,backoffice.view_businessunitmembership,backoffice.view_dashboard,backoffice.view_department,backoffice.view_team,commerce.change_product,commerce.view_brand,commerce.view_category,commerce.view_product,customers.add_customer,customers.change_customer,customers.transfer_customerassignment,customers.view_customer,sales_intelligence.add_campaignprospect,sales_intelligence.add_prospectingcampaign,sales_intelligence.add_searchresult,sales_intelligence.add_searchrun,sales_intelligence.change_campaignprospect,sales_intelligence.change_prospectingcampaign,sales_intelligence.change_searchresult,sales_intelligence.change_searchrun,sales_intelligence.view_campaignprospect,sales_intelligence.view_marketsegment,sales_intelligence.view_prospectingcampaign,sales_intelligence.view_searchresult,sales_intelligence.view_searchrun,salespeople.add_salesperson,salespeople.change_salesperson,salespeople.view_salesperson}
+ SALESPERSON        |            0 | {backoffice.view_dashboard,commerce.view_brand,commerce.view_category,commerce.view_product,customers.add_customer,customers.change_customer,customers.view_customer}
+ SYSTEM_ADMIN       |            0 | {backoffice.add_businessunit,backoffice.add_businessunitmembership,backoffice.add_department,backoffice.add_team,backoffice.change_businessunit,backoffice.change_businessunitmembership,backoffice.change_department,backoffice.change_team,backoffice.view_auditlog,backoffice.view_businessunit,backoffice.view_businessunitmembership,backoffice.view_dashboard,backoffice.view_department,backoffice.view_team,commerce.add_brand,commerce.add_category,commerce.add_product,commerce.add_productimage,commerce.change_brand,commerce.change_category,commerce.change_product,commerce.change_productimage,commerce.delete_productimage,commerce.view_brand,commerce.view_category,commerce.view_product,commerce.view_productimage,customers.add_customer,customers.change_customer,customers.transfer_customerassignment,customers.view_customer,sales_intelligence.add_campaignprospect,sales_intelligence.add_prospectingcampaign,sales_intelligence.add_searchresult,sales_intelligence.add_searchrun,sales_intelligence.change_campaignprospect,sales_intelligence.change_prospectingcampaign,sales_intelligence.change_searchresult,sales_intelligence.change_searchrun,sales_intelligence.view_campaignprospect,sales_intelligence.view_marketsegment,sales_intelligence.view_prospectingcampaign,sales_intelligence.view_searchresult,sales_intelligence.view_searchrun,salespeople.add_salesperson,salespeople.change_salesperson,salespeople.view_salesperson}
+ VIEWER             |            0 | {backoffice.view_dashboard,commerce.view_brand,commerce.view_category,commerce.view_product,customers.view_customer,salespeople.view_salesperson}
+(5 rows)
+
+ affected_accounts | privileged_accounts | accounts_with_direct_grants
+-------------------+---------------------+-----------------------------
+                 0 |                   0 |                           0
+(1 row)
+
+ candidate_id | is_active | is_staff | is_superuser | groups | direct_permissions
+--------------+-----------+----------+--------------+--------+--------------------
+(0 rows)
+
+ seller_id | candidate_user_id | active
+-----------+-------------------+--------
+(0 rows)
+
+ candidate_id | business_unit | unit_active | scope | membership_active | department_id | team_id
+--------------+---------------+-------------+-------+-------------------+---------------+---------
+(0 rows)
+
+     code      | is_active
+---------------+-----------
+ SMART_CONTROL | t
+(1 row)
+
+ scope | salesperson_memberships
+-------+-------------------------
+(0 rows)
+
+ROLLBACK

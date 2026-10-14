@@ -184,6 +184,7 @@ class AuditLog(models.Model):
 
     class Meta:
         ordering = ["-timestamp", "-id"]
+        permissions = [("view_dashboard", "Pode acessar o painel comercial")]
         verbose_name = "registro de auditoria"
         verbose_name_plural = "registros de auditoria"
 
@@ -197,3 +198,9 @@ class AuditLog(models.Model):
 
     def delete(self, *args, **kwargs):
         raise ValueError("Registros de auditoria não podem ser excluídos pela aplicação.")
+
+
+class TemporaryCredential(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    expires_at = models.DateTimeField()
+    must_change = models.BooleanField(default=True)

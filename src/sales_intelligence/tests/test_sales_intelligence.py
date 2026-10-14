@@ -216,8 +216,8 @@ class SalesIntelligencePermissionTests(SalesIntelligenceTestCase):
 
         self.assertTrue(manager.has_perm("sales_intelligence.view_prospectingcampaign"))
         self.assertTrue(manager.has_perm("sales_intelligence.change_searchresult"))
-        self.assertTrue(seller.has_perm("sales_intelligence.view_searchrun"))
-        self.assertTrue(seller.has_perm("sales_intelligence.add_searchresult"))
+        self.assertFalse(seller.has_perm("sales_intelligence.view_searchrun"))
+        self.assertFalse(seller.has_perm("sales_intelligence.add_searchresult"))
 
     def test_backoffice_permission_registry_exposes_sales_intelligence(self):
         manager = self.user("registry-manager", BackofficeRole.COMMERCIAL_MANAGER)
@@ -496,13 +496,13 @@ class SalesIntelligenceApiTests(SalesIntelligenceTestCase):
         self.assertEqual(result.raw_data, raw_data)
         self.assertIsNone(result.customer)
 
-    def test_salesperson_role_is_authorized(self):
+    def test_salesperson_role_is_blocked_until_prospecting_is_scoped(self):
         self.login("api-seller", BackofficeRole.SALESPERSON)
         campaign = self.campaign()
 
         response = self.post_json("backoffice:sales_intelligence_search_run_create", {"campaign_id": campaign.pk, "query": "hospital"})
 
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 403)
 
     def test_user_without_role_is_blocked(self):
         self.login("api-user-without-role", role=None)
@@ -1223,14 +1223,14 @@ class SalesIntelligenceBackofficeOperationalTests(SalesIntelligenceTestCase):
         self.assertNotContains(response, "Finalizar</button>", html=False)
         self.assertNotContains(response, "Cancelar</button>", html=False)
 
-    def test_salesperson_can_use_operational_pages(self):
+    def test_salesperson_cannot_use_unscoped_operational_pages(self):
         self.login("run-salesperson", BackofficeRole.SALESPERSON)
         campaign = self.campaign()
         list_response = self.client.get(reverse("backoffice:sales_intelligence_campaign_list"))
         create_response = self.client.post(reverse("backoffice:sales_intelligence_search_run_create_form", args=[campaign.pk]), self.search_run_payload(query="clinica"))
-        self.assertEqual(list_response.status_code, 200)
-        self.assertEqual(create_response.status_code, 302)
-        self.assertTrue(SearchRun.objects.filter(query="clinica", created_by__username="run-salesperson").exists())
+        self.assertEqual(list_response.status_code, 403)
+        self.assertEqual(create_response.status_code, 403)
+        self.assertFalse(SearchRun.objects.filter(query="clinica", created_by__username="run-salesperson").exists())
 
     def test_commercial_manager_can_use_operational_pages(self):
         self.login("run-manager", BackofficeRole.COMMERCIAL_MANAGER)

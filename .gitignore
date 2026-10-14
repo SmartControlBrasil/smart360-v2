@@ -53,3 +53,6 @@ hando/
 
 # Arquivos de backup/local
 smart-v2.zip
+
+# Credenciais de provisionamento (sempre fora do checkout)
+*.credential
