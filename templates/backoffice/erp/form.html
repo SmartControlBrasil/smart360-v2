@@ -9,7 +9,7 @@
         <h4 class="fs-18 fw-semibold m-0">{{ page_title }}</h4>
         {% block form_header_actions %}{% endblock form_header_actions %}
     </div>
-    <div class="card">
+    <div class="card{% if password_change_layout %} password-change-card{% endif %}">
         <div class="card-body">
             <form method="post" class="erp-form" novalidate {% if form_enctype %}enctype="{{ form_enctype }}"{% elif form.is_multipart %}enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}

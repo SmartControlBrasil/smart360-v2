@@ -18,6 +18,8 @@ def _apply_hando_classes(form):
             css_class = "form-control"
         if css_class not in existing.split():
             widget.attrs["class"] = f"{existing} {css_class}".strip()
+        if field.errors:
+            widget.attrs["class"] = f"{widget.attrs.get('class', '')} is-invalid".strip()
 
 
 @register.inclusion_tag("backoffice/erp/partials/form_fields.html")

@@ -6,6 +6,7 @@ from pathlib import Path
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.contrib.messages import get_messages
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import TestCase, override_settings, Client
@@ -63,6 +64,23 @@ class SellerAccessTests(TestCase):
         self.assertEqual(self.client.get("/admin/").status_code, 302)
         self.assertEqual(self.client.get(reverse("backoffice:sales_intelligence_search_run_detail", args=[999])).status_code, 403)
 
+    def test_password_change_full_flow_reaches_dashboard(self):
+        self.temporary()
+        response = self.client.post(
+            reverse("backoffice:password_change"),
+            {
+                "old_password": "Temporary-Test-985!",
+                "new_password1": "Personal-Strong-9482!",
+                "new_password2": "Personal-Strong-9482!",
+            },
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request["PATH_INFO"], reverse("backoffice:dashboard"))
+        self.assertFalse(TemporaryCredential.objects.get(user=self.user).must_change)
+        flash = [str(message) for message in get_messages(response.wsgi_request)]
+        self.assertTrue(any("Senha atualizada com sucesso" in item for item in flash))
+
     def test_temporary_password_requires_change_even_for_api(self):
         self.temporary()
         for url in [reverse("backoffice:dashboard"), reverse("backoffice:sales_intelligence_search_run_detail", args=[999]), "/admin/"]:
@@ -102,7 +120,9 @@ class SellerAccessTests(TestCase):
         html = response.content.decode()
         self.assertIn("backoffice/hando/css/app.min.css", html)
         self.assertIn('name="viewport" content="width=device-width', html)
+        self.assertContains(response, "password-change.css")
         self.assertContains(response, "Defina sua senha pessoal")
+        self.assertContains(response, "senha temporária")
         self.assertContains(response, "Senha atual")
         self.assertContains(response, "Nova senha")
         self.assertContains(response, "Confirmar nova senha")
@@ -119,6 +139,7 @@ class SellerAccessTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "A senha atual está incorreta")
+        self.assertContains(response, "Não foi possível salvar a senha")
         response = self.client.post(
             reverse("backoffice:password_change"),
             {"old_password": "Temporary-Test-985!", "new_password1": "123", "new_password2": "123"},
